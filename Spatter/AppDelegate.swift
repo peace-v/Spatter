@@ -41,6 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        print("the redirect uri is \(url)")
+        return true
+    }
 }
 
