@@ -1,8 +1,8 @@
 //
-//  BuildingsCollectionViewController.swift
+//  BaseCollectionViewController.swift
 //  Spatter
 //
-//  Created by Molay on 15/12/9.
+//  Created by Molay on 15/12/13.
 //  Copyright © 2015年 yuying. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class BuildingsCollectionViewController: BaseCollectionViewController {
+class BaseCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +43,13 @@ class BuildingsCollectionViewController: BaseCollectionViewController {
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return 300
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -90,5 +90,11 @@ class BuildingsCollectionViewController: BaseCollectionViewController {
     
     }
     */
-
+    
+    //MARK: FLowLayout Delegate
+    func collectionView(collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+            return CGSizeMake(self.view.bounds.width , self.view.bounds.width / 1.5)
+    }
 }

@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class FoodCollectionViewController: UICollectionViewController {
+class FoodCollectionViewController: BaseCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -1,16 +1,16 @@
 //
-//  BuildingsCollectionViewController.swift
-//  Spatter
+//  LikedPhotosCollectionViewController.swift
+//  
 //
-//  Created by Molay on 15/12/9.
-//  Copyright © 2015年 yuying. All rights reserved.
+//  Created by Molay on 15/12/13.
+//
 //
 
 import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class BuildingsCollectionViewController: BaseCollectionViewController {
+class LikedPhotosCollectionViewController: BaseCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
