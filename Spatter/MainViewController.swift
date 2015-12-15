@@ -23,7 +23,7 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate {
         foodCollectionViewController.title = "Food"
         let natureCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("nature") as! NatureCollectionViewController
         natureCollectionViewController.title = "Nature"
-        let peopleCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("pseople") as! PeopleCollectionViewController
+        let peopleCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("people") as! PeopleCollectionViewController
         peopleCollectionViewController.title = "People"
         let technologyCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("technology") as! TechnologyCollectionViewController
         technologyCollectionViewController.title = "Technology"
@@ -34,8 +34,11 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate {
         let pagingMenuController = self.childViewControllers.first as! PagingMenuController
         
         let options = PagingMenuOptions()
-        options.menuHeight = 60
+        options.menuHeight = 44
         options.menuDisplayMode = .Infinite(widthMode: .Flexible)
+        options.defaultPage = 0
+        options.scrollEnabled = true
+        options.menuItemMode = .Underline(height: 3, color: UIColor.orangeColor(), horizontalPadding: 0, verticalPadding: 0)
         pagingMenuController.setup(viewControllers: viewControllers, options: options)
     }
     
