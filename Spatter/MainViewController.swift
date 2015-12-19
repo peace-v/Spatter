@@ -15,21 +15,21 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let dailyCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("daily") as! DailyCollectionViewController
-        dailyCollectionViewController.title = "Daily"
-        let buildingsCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("buildings") as! BuildingsCollectionViewController
-        buildingsCollectionViewController.title = "Buildings"
-        let foodCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("food") as! FoodCollectionViewController
-        foodCollectionViewController.title = "Food"
-        let natureCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("nature") as! NatureCollectionViewController
-        natureCollectionViewController.title = "Nature"
-        let peopleCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("people") as! PeopleCollectionViewController
-        peopleCollectionViewController.title = "People"
-        let technologyCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("technology") as! TechnologyCollectionViewController
-        technologyCollectionViewController.title = "Technology"
-        let objectsCollectionViewController = self.storyboard?.instantiateViewControllerWithIdentifier("objects") as! ObjectsCollectionViewController
-        objectsCollectionViewController.title = "Objects"
-        let viewControllers = [dailyCollectionViewController, buildingsCollectionViewController, foodCollectionViewController, natureCollectionViewController, peopleCollectionViewController, technologyCollectionViewController, objectsCollectionViewController]
+        let dailyTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("daily") as! DailyTableViewController
+        dailyTableViewController.title = "Daily"
+        let buildingsTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("buildings") as! BuildingsTableViewController
+        buildingsTableViewController.title = "Buildings"
+        let foodTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("food") as! FoodTableViewController
+        foodTableViewController.title = "Food"
+        let natureTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("nature") as! NatureTableViewController
+        natureTableViewController.title = "Nature"
+        let peopleTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("people") as! PeopleTableViewController
+        peopleTableViewController.title = "People"
+        let technologyTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("technology") as! TechnologyTableViewController
+        technologyTableViewController.title = "Technology"
+        let objectsTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("objects") as! ObjectsTableViewController
+        objectsTableViewController.title = "Objects"
+        let viewControllers = [dailyTableViewController,buildingsTableViewController,foodTableViewController,natureTableViewController,peopleTableViewController,technologyTableViewController,objectsTableViewController]
         
         let pagingMenuController = self.childViewControllers.first as! PagingMenuController
         

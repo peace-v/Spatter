@@ -8,19 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		045AFACD271346AE2D9BD2B3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66F11AFCE85C47BAC9028933 /* Pods.framework */; };
-		6042458D1C1D4F0700E79919 /* PostPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042458B1C1D4F0700E79919 /* PostPhotosCollectionViewController.swift */; };
-		6042458E1C1D4F0700E79919 /* LikedPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042458C1C1D4F0700E79919 /* LikedPhotosCollectionViewController.swift */; };
-		604245921C1D4F7500E79919 /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245911C1D4F7500E79919 /* BaseCollectionViewController.swift */; };
+		604245971C252EAC00E79919 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245961C252EAC00E79919 /* SearchTableViewController.swift */; };
+		604245991C2530BF00E79919 /* DailyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245981C2530BF00E79919 /* DailyTableViewController.swift */; };
+		6042459B1C2530D500E79919 /* BuildingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042459A1C2530D500E79919 /* BuildingsTableViewController.swift */; };
+		6042459D1C2530DF00E79919 /* FoodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042459C1C2530DF00E79919 /* FoodTableViewController.swift */; };
+		6042459F1C2530E600E79919 /* NatureTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042459E1C2530E600E79919 /* NatureTableViewController.swift */; };
+		604245A11C2530EF00E79919 /* PeopleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245A01C2530EF00E79919 /* PeopleTableViewController.swift */; };
+		604245A31C2530FE00E79919 /* TechnologyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245A21C2530FE00E79919 /* TechnologyTableViewController.swift */; };
+		604245A51C25310500E79919 /* ObjectsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245A41C25310500E79919 /* ObjectsTableViewController.swift */; };
+		604245A71C2532BF00E79919 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245A61C2532BF00E79919 /* BaseTableViewController.swift */; };
 		604B2F811C173225005EB9D0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F801C173225005EB9D0 /* MainViewController.swift */; };
-		604B2F891C173624005EB9D0 /* DailyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F881C173624005EB9D0 /* DailyCollectionViewController.swift */; };
-		604B2F8B1C173638005EB9D0 /* BuildingsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F8A1C173638005EB9D0 /* BuildingsCollectionViewController.swift */; };
-		604B2F8D1C173644005EB9D0 /* FoodCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F8C1C173644005EB9D0 /* FoodCollectionViewController.swift */; };
-		604B2F8F1C173651005EB9D0 /* NatureCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F8E1C173651005EB9D0 /* NatureCollectionViewController.swift */; };
-		604B2F911C173660005EB9D0 /* PeopleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F901C173660005EB9D0 /* PeopleCollectionViewController.swift */; };
-		604B2F931C173675005EB9D0 /* TechnologyCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F921C173675005EB9D0 /* TechnologyCollectionViewController.swift */; };
-		604B2F951C173680005EB9D0 /* ObjectsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F941C173680005EB9D0 /* ObjectsCollectionViewController.swift */; };
 		604B2F971C1737B6005EB9D0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F961C1737B6005EB9D0 /* DetailViewController.swift */; };
-		604B2F991C173957005EB9D0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F981C173957005EB9D0 /* SearchViewController.swift */; };
 		604B2F9D1C173ACE005EB9D0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F9C1C173ACE005EB9D0 /* ProfileViewController.swift */; };
 		60C558731C12E16600956D19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C558721C12E16600956D19 /* AppDelegate.swift */; };
 		60C558781C12E16600956D19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60C558761C12E16600956D19 /* Main.storyboard */; };
@@ -49,19 +47,17 @@
 
 /* Begin PBXFileReference section */
 		5A8DDFFF0F0D0174B6819301 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		6042458B1C1D4F0700E79919 /* PostPhotosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostPhotosCollectionViewController.swift; sourceTree = "<group>"; };
-		6042458C1C1D4F0700E79919 /* LikedPhotosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikedPhotosCollectionViewController.swift; sourceTree = "<group>"; };
-		604245911C1D4F7500E79919 /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
+		604245961C252EAC00E79919 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		604245981C2530BF00E79919 /* DailyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTableViewController.swift; sourceTree = "<group>"; };
+		6042459A1C2530D500E79919 /* BuildingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildingsTableViewController.swift; sourceTree = "<group>"; };
+		6042459C1C2530DF00E79919 /* FoodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodTableViewController.swift; sourceTree = "<group>"; };
+		6042459E1C2530E600E79919 /* NatureTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NatureTableViewController.swift; sourceTree = "<group>"; };
+		604245A01C2530EF00E79919 /* PeopleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleTableViewController.swift; sourceTree = "<group>"; };
+		604245A21C2530FE00E79919 /* TechnologyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TechnologyTableViewController.swift; sourceTree = "<group>"; };
+		604245A41C25310500E79919 /* ObjectsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsTableViewController.swift; sourceTree = "<group>"; };
+		604245A61C2532BF00E79919 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		604B2F801C173225005EB9D0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		604B2F881C173624005EB9D0 /* DailyCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyCollectionViewController.swift; sourceTree = "<group>"; };
-		604B2F8A1C173638005EB9D0 /* BuildingsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildingsCollectionViewController.swift; sourceTree = "<group>"; };
-		604B2F8C1C173644005EB9D0 /* FoodCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodCollectionViewController.swift; sourceTree = "<group>"; };
-		604B2F8E1C173651005EB9D0 /* NatureCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NatureCollectionViewController.swift; sourceTree = "<group>"; };
-		604B2F901C173660005EB9D0 /* PeopleCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleCollectionViewController.swift; sourceTree = "<group>"; };
-		604B2F921C173675005EB9D0 /* TechnologyCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TechnologyCollectionViewController.swift; sourceTree = "<group>"; };
-		604B2F941C173680005EB9D0 /* ObjectsCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsCollectionViewController.swift; sourceTree = "<group>"; };
 		604B2F961C1737B6005EB9D0 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		604B2F981C173957005EB9D0 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		604B2F9C1C173ACE005EB9D0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		604B2FA01C187C60005EB9D0 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		60C5586F1C12E16600956D19 /* Spatter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spatter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,7 +125,7 @@
 			children = (
 				60C558721C12E16600956D19 /* AppDelegate.swift */,
 				604B2FA01C187C60005EB9D0 /* Header.h */,
-				604245911C1D4F7500E79919 /* BaseCollectionViewController.swift */,
+				604245A61C2532BF00E79919 /* BaseTableViewController.swift */,
 				60C5587E1C12E16600956D19 /* Info.plist */,
 			);
 			name = Others;
@@ -150,13 +146,13 @@
 			isa = PBXGroup;
 			children = (
 				604B2F801C173225005EB9D0 /* MainViewController.swift */,
-				604B2F881C173624005EB9D0 /* DailyCollectionViewController.swift */,
-				604B2F8A1C173638005EB9D0 /* BuildingsCollectionViewController.swift */,
-				604B2F8C1C173644005EB9D0 /* FoodCollectionViewController.swift */,
-				604B2F8E1C173651005EB9D0 /* NatureCollectionViewController.swift */,
-				604B2F901C173660005EB9D0 /* PeopleCollectionViewController.swift */,
-				604B2F921C173675005EB9D0 /* TechnologyCollectionViewController.swift */,
-				604B2F941C173680005EB9D0 /* ObjectsCollectionViewController.swift */,
+				604245981C2530BF00E79919 /* DailyTableViewController.swift */,
+				6042459A1C2530D500E79919 /* BuildingsTableViewController.swift */,
+				6042459C1C2530DF00E79919 /* FoodTableViewController.swift */,
+				6042459E1C2530E600E79919 /* NatureTableViewController.swift */,
+				604245A01C2530EF00E79919 /* PeopleTableViewController.swift */,
+				604245A21C2530FE00E79919 /* TechnologyTableViewController.swift */,
+				604245A41C25310500E79919 /* ObjectsTableViewController.swift */,
 			);
 			name = MainView;
 			sourceTree = "<group>";
@@ -172,7 +168,7 @@
 		604B2F851C1733C7005EB9D0 /* SearchView */ = {
 			isa = PBXGroup;
 			children = (
-				604B2F981C173957005EB9D0 /* SearchViewController.swift */,
+				604245961C252EAC00E79919 /* SearchTableViewController.swift */,
 			);
 			name = SearchView;
 			sourceTree = "<group>";
@@ -181,8 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				604B2F9C1C173ACE005EB9D0 /* ProfileViewController.swift */,
-				6042458B1C1D4F0700E79919 /* PostPhotosCollectionViewController.swift */,
-				6042458C1C1D4F0700E79919 /* LikedPhotosCollectionViewController.swift */,
 			);
 			name = ProfileView;
 			sourceTree = "<group>";
@@ -428,21 +422,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				604B2F891C173624005EB9D0 /* DailyCollectionViewController.swift in Sources */,
-				604B2F991C173957005EB9D0 /* SearchViewController.swift in Sources */,
-				604B2F8D1C173644005EB9D0 /* FoodCollectionViewController.swift in Sources */,
-				604B2F931C173675005EB9D0 /* TechnologyCollectionViewController.swift in Sources */,
-				6042458D1C1D4F0700E79919 /* PostPhotosCollectionViewController.swift in Sources */,
+				6042459F1C2530E600E79919 /* NatureTableViewController.swift in Sources */,
+				604245A31C2530FE00E79919 /* TechnologyTableViewController.swift in Sources */,
+				604245A71C2532BF00E79919 /* BaseTableViewController.swift in Sources */,
+				604245991C2530BF00E79919 /* DailyTableViewController.swift in Sources */,
+				604245A11C2530EF00E79919 /* PeopleTableViewController.swift in Sources */,
 				604B2F811C173225005EB9D0 /* MainViewController.swift in Sources */,
-				604B2F911C173660005EB9D0 /* PeopleCollectionViewController.swift in Sources */,
-				604B2F8F1C173651005EB9D0 /* NatureCollectionViewController.swift in Sources */,
-				604B2F8B1C173638005EB9D0 /* BuildingsCollectionViewController.swift in Sources */,
-				604245921C1D4F7500E79919 /* BaseCollectionViewController.swift in Sources */,
+				604245971C252EAC00E79919 /* SearchTableViewController.swift in Sources */,
+				6042459D1C2530DF00E79919 /* FoodTableViewController.swift in Sources */,
+				6042459B1C2530D500E79919 /* BuildingsTableViewController.swift in Sources */,
 				604B2F971C1737B6005EB9D0 /* DetailViewController.swift in Sources */,
 				604B2F9D1C173ACE005EB9D0 /* ProfileViewController.swift in Sources */,
-				604B2F951C173680005EB9D0 /* ObjectsCollectionViewController.swift in Sources */,
+				604245A51C25310500E79919 /* ObjectsTableViewController.swift in Sources */,
 				60C558731C12E16600956D19 /* AppDelegate.swift in Sources */,
-				6042458E1C1D4F0700E79919 /* LikedPhotosCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
