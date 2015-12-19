@@ -10,7 +10,8 @@ import UIKit
 import SafariServices
 import PagingMenuController
 
-class MainViewController: UIViewController, SFSafariViewControllerDelegate {
+class MainViewController: UIViewController, SFSafariViewControllerDelegate, PagingMenuControllerDelegate {
+    var viewControllers:[UIViewController] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,8 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate {
         technologyTableViewController.title = "Technology"
         let objectsTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("objects") as! ObjectsTableViewController
         objectsTableViewController.title = "Objects"
-        let viewControllers = [dailyTableViewController,buildingsTableViewController,foodTableViewController,natureTableViewController,peopleTableViewController,technologyTableViewController,objectsTableViewController]
+//        let viewControllers = [dailyTableViewController,buildingsTableViewController,foodTableViewController,natureTableViewController,peopleTableViewController,technologyTableViewController,objectsTableViewController]
+        viewControllers = [dailyTableViewController,buildingsTableViewController,foodTableViewController,natureTableViewController,peopleTableViewController,technologyTableViewController,objectsTableViewController]
         
         let pagingMenuController = self.childViewControllers.first as! PagingMenuController
         
@@ -40,6 +42,8 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate {
         options.scrollEnabled = true
         options.menuItemMode = .Underline(height: 3, color: UIColor.orangeColor(), horizontalPadding: 0, verticalPadding: 0)
         pagingMenuController.setup(viewControllers: viewControllers, options: options)
+        
+        pagingMenuController.delegate = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,5 +66,22 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate {
     @available(iOS 9.0, *)
     func safariViewControllerDidFinish(controller: SFSafariViewController) {
         controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    //MARK: PagingMenuControllerDelegate
+    func willMoveToMenuPage(page: Int) {
+        
+    }
+    
+    func didMoveToMenuPage(page: Int) {
+        let totalViewControllers = viewControllers.count - 1
+        for num in 0...totalViewControllers {
+            let currentViewController: UITableViewController = viewControllers[num] as! UITableViewController
+            if num == page {
+                currentViewController.tableView.scrollsToTop = true
+            }else {
+                currentViewController.tableView.scrollsToTop = false
+            }
+        }
     }
 }
