@@ -17,6 +17,8 @@
 		604245A31C2530FE00E79919 /* TechnologyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245A21C2530FE00E79919 /* TechnologyTableViewController.swift */; };
 		604245A51C25310500E79919 /* ObjectsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245A41C25310500E79919 /* ObjectsTableViewController.swift */; };
 		604245A71C2532BF00E79919 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245A61C2532BF00E79919 /* BaseTableViewController.swift */; };
+		604245AC1C265AB900E79919 /* PanoramaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245AB1C265AB900E79919 /* PanoramaView.swift */; };
+		604245AE1C265AC200E79919 /* PanoramaIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245AD1C265AC200E79919 /* PanoramaIndicator.swift */; };
 		604B2F811C173225005EB9D0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F801C173225005EB9D0 /* MainViewController.swift */; };
 		604B2F971C1737B6005EB9D0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F961C1737B6005EB9D0 /* DetailViewController.swift */; };
 		604B2F9D1C173ACE005EB9D0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F9C1C173ACE005EB9D0 /* ProfileViewController.swift */; };
@@ -56,10 +58,11 @@
 		604245A21C2530FE00E79919 /* TechnologyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TechnologyTableViewController.swift; sourceTree = "<group>"; };
 		604245A41C25310500E79919 /* ObjectsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsTableViewController.swift; sourceTree = "<group>"; };
 		604245A61C2532BF00E79919 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		604245AB1C265AB900E79919 /* PanoramaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanoramaView.swift; sourceTree = "<group>"; };
+		604245AD1C265AC200E79919 /* PanoramaIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PanoramaIndicator.swift; sourceTree = "<group>"; };
 		604B2F801C173225005EB9D0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		604B2F961C1737B6005EB9D0 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		604B2F9C1C173ACE005EB9D0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		604B2FA01C187C60005EB9D0 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		60C5586F1C12E16600956D19 /* Spatter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spatter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60C558721C12E16600956D19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		60C558771C12E16600956D19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -124,11 +127,27 @@
 			isa = PBXGroup;
 			children = (
 				60C558721C12E16600956D19 /* AppDelegate.swift */,
-				604B2FA01C187C60005EB9D0 /* Header.h */,
 				604245A61C2532BF00E79919 /* BaseTableViewController.swift */,
 				60C5587E1C12E16600956D19 /* Info.plist */,
 			);
 			name = Others;
+			sourceTree = "<group>";
+		};
+		604245A91C265A4C00E79919 /* 3rd lib */ = {
+			isa = PBXGroup;
+			children = (
+				604245AA1C265A8D00E79919 /* Panoramic View */,
+			);
+			name = "3rd lib";
+			sourceTree = "<group>";
+		};
+		604245AA1C265A8D00E79919 /* Panoramic View */ = {
+			isa = PBXGroup;
+			children = (
+				604245AB1C265AB900E79919 /* PanoramaView.swift */,
+				604245AD1C265AC200E79919 /* PanoramaIndicator.swift */,
+			);
+			name = "Panoramic View";
 			sourceTree = "<group>";
 		};
 		604B2F821C173395005EB9D0 /* ViewController */ = {
@@ -208,6 +227,7 @@
 			children = (
 				604B2F821C173395005EB9D0 /* ViewController */,
 				6042458F1C1D4F2D00E79919 /* View */,
+				604245A91C265A4C00E79919 /* 3rd lib */,
 				604245901C1D4F3F00E79919 /* Others */,
 			);
 			path = Spatter;
@@ -435,6 +455,8 @@
 				604B2F9D1C173ACE005EB9D0 /* ProfileViewController.swift in Sources */,
 				604245A51C25310500E79919 /* ObjectsTableViewController.swift in Sources */,
 				60C558731C12E16600956D19 /* AppDelegate.swift in Sources */,
+				604245AE1C265AC200E79919 /* PanoramaIndicator.swift in Sources */,
+				604245AC1C265AB900E79919 /* PanoramaView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,6 +602,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuying.Spatter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Debug;
 		};
@@ -593,6 +616,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuying.Spatter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};

@@ -134,34 +134,82 @@
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQI-xH-tq4">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="vGG-Lq-dT6"/>
+                                </constraints>
                                 <items>
-                                    <barButtonItem title="Back" id="S0p-9c-XmP"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="ea6-wa-PJp"/>
-                                    <barButtonItem title="Save" id="Yuc-mA-Qhf"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="NY0-oc-Jy3"/>
-                                    <barButtonItem title="Like" id="73W-PV-4OF"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="G41-tg-J5t"/>
-                                    <barButtonItem title="Share" id="002-B9-VJc"/>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="oe6-zM-P5d"/>
-                                    <barButtonItem title="Info" id="8gy-CE-ktF"/>
+                                    <barButtonItem title="Back" id="S0p-9c-XmP">
+                                        <connections>
+                                            <action selector="back:" destination="T1L-Hg-DO5" id="Tn3-Vr-hjX"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ODy-WT-jr8"/>
+                                    <barButtonItem title="Save" id="Yuc-mA-Qhf">
+                                        <connections>
+                                            <action selector="saveToAlbum:" destination="T1L-Hg-DO5" id="4lh-ax-tmD"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ZUL-WD-YOJ"/>
+                                    <barButtonItem title="Like" id="73W-PV-4OF">
+                                        <connections>
+                                            <action selector="likePhoto:" destination="T1L-Hg-DO5" id="7bo-Dy-acq"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="z5u-zK-pK5"/>
+                                    <barButtonItem title="Share" id="002-B9-VJc">
+                                        <connections>
+                                            <action selector="sharePhoto:" destination="T1L-Hg-DO5" id="wwF-IH-hmM"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="SLd-G9-6vQ"/>
+                                    <barButtonItem title="Info" id="8gy-CE-ktF">
+                                        <connections>
+                                            <action selector="showPhotoInfo:" destination="T1L-Hg-DO5" id="y6m-m6-2mZ"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="756" width="400" height="44"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="vGG-Lq-dT6"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="vGG-Lq-dT6"/>
+                                    </mask>
                                 </variation>
                             </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="MCP-nm-Mqj" firstAttribute="top" secondItem="TQI-xH-tq4" secondAttribute="bottom" id="BNU-fq-ctr"/>
+                            <constraint firstItem="TQI-xH-tq4" firstAttribute="leading" secondItem="YMR-7B-3OT" secondAttribute="leading" id="l6c-uc-xTP"/>
+                            <constraint firstAttribute="trailing" secondItem="TQI-xH-tq4" secondAttribute="trailing" id="xOp-H9-x10"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="TQI-xH-tq4"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="l6c-uc-xTP"/>
+                                <exclude reference="xOp-H9-x10"/>
+                                <exclude reference="BNU-fq-ctr"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="TQI-xH-tq4"/>
                             </mask>
+                            <mask key="constraints">
+                                <include reference="l6c-uc-xTP"/>
+                                <include reference="xOp-H9-x10"/>
+                                <include reference="BNU-fq-ctr"/>
+                            </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="toolbar" destination="TQI-xH-tq4" id="95B-zw-pNh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hKP-VD-ekh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
