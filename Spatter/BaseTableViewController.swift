@@ -80,6 +80,9 @@ class BaseTableViewController: UITableViewController {
 			cell.layoutMargins = UIEdgeInsetsZero
 		}
 	}
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    }
 
 	/*
 	 // Override to support conditional editing of the table view.

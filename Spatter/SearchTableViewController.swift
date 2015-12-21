@@ -10,6 +10,10 @@ import UIKit
 
 class SearchTableViewController: UITableViewController {
 
+    @IBAction func back(sender: AnyObject) {
+        self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

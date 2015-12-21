@@ -84,4 +84,5 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
             }
         }
     }
+    
 }

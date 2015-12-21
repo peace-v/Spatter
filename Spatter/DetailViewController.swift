@@ -9,45 +9,48 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    
-    @IBOutlet weak var toolbar: UIToolbar!
-    
-    @IBAction func back(sender: AnyObject) {
+
+	@IBOutlet weak var viewForMotionImage: UIView!
+	@IBOutlet weak var toolbar: UIToolbar!
+
+	@IBAction func back(sender: AnyObject) {
+		self.navigationController!.popViewControllerAnimated(true)
+	}
+	@IBAction func saveToAlbum(sender: AnyObject) {
+	}
+	@IBAction func likePhoto(sender: AnyObject) {
+	}
+	@IBAction func sharePhoto(sender: AnyObject) {
+	}
+	@IBAction func showPhotoInfo(sender: AnyObject) {
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		// Do any additional setup after loading the view.
+		// self.navigationController!.navigationBarHidden = true
+
+//		let motionView = PanoramaView(frame: self.viewForMotionImage.bounds)
+//		motionView.setImage(UIImage(named: "space")!)
+//		self.viewForMotionImage.addSubview(motionView)
         
-    }
-    @IBAction func saveToAlbum(sender: AnyObject) {
-    }
-    @IBAction func likePhoto(sender: AnyObject) {
-    }
-    @IBAction func sharePhoto(sender: AnyObject) {
-    }
-    @IBAction func showPhotoInfo(sender: AnyObject) {
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	}
 
-        // Do any additional setup after loading the view.
-//        let motionView = PanoramaView(frame: self.view.bounds)
-        let motionView = PanoramaView(frame: CGRectMake(0,0,self.view.bounds.width,self.view.bounds.height - 44))
-        motionView.setImage(UIImage(named: "space")!)
-        self.view.addSubview(motionView)
-    }
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
-    /*
-    // MARK: - Navigation
+	/*
+	 // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+	 // In a storyboard-based application, you will often want to do a little preparation before navigation
+	 override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	 // Get the new view controller using segue.destinationViewController.
+	 // Pass the selected object to the new view controller.
+	 }
+	 */
 
 }
