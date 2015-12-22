@@ -22,6 +22,9 @@
 		604B2F811C173225005EB9D0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F801C173225005EB9D0 /* MainViewController.swift */; };
 		604B2F971C1737B6005EB9D0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F961C1737B6005EB9D0 /* DetailViewController.swift */; };
 		604B2F9D1C173ACE005EB9D0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F9C1C173ACE005EB9D0 /* ProfileViewController.swift */; };
+		607FC4E41C2911B50046CEF3 /* RWDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 607FC4DF1C2911B50046CEF3 /* RWDropdownMenu.m */; };
+		607FC4E51C2911B50046CEF3 /* RWDropdownMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 607FC4E11C2911B50046CEF3 /* RWDropdownMenuCell.m */; };
+		607FC4E61C2911B50046CEF3 /* RWDropdownMenuTransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607FC4E31C2911B50046CEF3 /* RWDropdownMenuTransitionController.m */; };
 		60C558731C12E16600956D19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C558721C12E16600956D19 /* AppDelegate.swift */; };
 		60C558781C12E16600956D19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 60C558761C12E16600956D19 /* Main.storyboard */; };
 		60C5587A1C12E16600956D19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 60C558791C12E16600956D19 /* Assets.xcassets */; };
@@ -63,6 +66,13 @@
 		604B2F801C173225005EB9D0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		604B2F961C1737B6005EB9D0 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		604B2F9C1C173ACE005EB9D0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		607FC4C71C28FB130046CEF3 /* Spatter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spatter-Bridging-Header.h"; sourceTree = "<group>"; };
+		607FC4DE1C2911B50046CEF3 /* RWDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWDropdownMenu.h; sourceTree = "<group>"; };
+		607FC4DF1C2911B50046CEF3 /* RWDropdownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWDropdownMenu.m; sourceTree = "<group>"; };
+		607FC4E01C2911B50046CEF3 /* RWDropdownMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWDropdownMenuCell.h; sourceTree = "<group>"; };
+		607FC4E11C2911B50046CEF3 /* RWDropdownMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWDropdownMenuCell.m; sourceTree = "<group>"; };
+		607FC4E21C2911B50046CEF3 /* RWDropdownMenuTransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWDropdownMenuTransitionController.h; sourceTree = "<group>"; };
+		607FC4E31C2911B50046CEF3 /* RWDropdownMenuTransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWDropdownMenuTransitionController.m; sourceTree = "<group>"; };
 		60C5586F1C12E16600956D19 /* Spatter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spatter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60C558721C12E16600956D19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		60C558771C12E16600956D19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -128,6 +138,7 @@
 			children = (
 				60C558721C12E16600956D19 /* AppDelegate.swift */,
 				604245A61C2532BF00E79919 /* BaseTableViewController.swift */,
+				607FC4C71C28FB130046CEF3 /* Spatter-Bridging-Header.h */,
 				60C5587E1C12E16600956D19 /* Info.plist */,
 			);
 			name = Others;
@@ -136,6 +147,7 @@
 		604245A91C265A4C00E79919 /* 3rd lib */ = {
 			isa = PBXGroup;
 			children = (
+				607FC4DD1C2911B50046CEF3 /* RWDropdownMenu */,
 				604245AA1C265A8D00E79919 /* Panoramic View */,
 			);
 			name = "3rd lib";
@@ -198,6 +210,19 @@
 				604B2F9C1C173ACE005EB9D0 /* ProfileViewController.swift */,
 			);
 			name = ProfileView;
+			sourceTree = "<group>";
+		};
+		607FC4DD1C2911B50046CEF3 /* RWDropdownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				607FC4DE1C2911B50046CEF3 /* RWDropdownMenu.h */,
+				607FC4DF1C2911B50046CEF3 /* RWDropdownMenu.m */,
+				607FC4E01C2911B50046CEF3 /* RWDropdownMenuCell.h */,
+				607FC4E11C2911B50046CEF3 /* RWDropdownMenuCell.m */,
+				607FC4E21C2911B50046CEF3 /* RWDropdownMenuTransitionController.h */,
+				607FC4E31C2911B50046CEF3 /* RWDropdownMenuTransitionController.m */,
+			);
+			path = RWDropdownMenu;
 			sourceTree = "<group>";
 		};
 		60C558661C12E16600956D19 = {
@@ -325,7 +350,7 @@
 		60C558671C12E16600956D19 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = yuying;
 				TargetAttributes = {
@@ -448,12 +473,15 @@
 				604245991C2530BF00E79919 /* DailyTableViewController.swift in Sources */,
 				604245A11C2530EF00E79919 /* PeopleTableViewController.swift in Sources */,
 				604B2F811C173225005EB9D0 /* MainViewController.swift in Sources */,
+				607FC4E41C2911B50046CEF3 /* RWDropdownMenu.m in Sources */,
 				604245971C252EAC00E79919 /* SearchTableViewController.swift in Sources */,
 				6042459D1C2530DF00E79919 /* FoodTableViewController.swift in Sources */,
 				6042459B1C2530D500E79919 /* BuildingsTableViewController.swift in Sources */,
 				604B2F971C1737B6005EB9D0 /* DetailViewController.swift in Sources */,
+				607FC4E61C2911B50046CEF3 /* RWDropdownMenuTransitionController.m in Sources */,
 				604B2F9D1C173ACE005EB9D0 /* ProfileViewController.swift in Sources */,
 				604245A51C25310500E79919 /* ObjectsTableViewController.swift in Sources */,
+				607FC4E51C2911B50046CEF3 /* RWDropdownMenuCell.m in Sources */,
 				60C558731C12E16600956D19 /* AppDelegate.swift in Sources */,
 				604245AE1C265AC200E79919 /* PanoramaIndicator.swift in Sources */,
 				604245AC1C265AB900E79919 /* PanoramaView.swift in Sources */,
@@ -597,12 +625,14 @@
 			baseConfigurationReference = B3C9E241AEAF2040A1BC18A0 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Spatter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuying.Spatter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Spatter/Spatter-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -611,12 +641,13 @@
 			baseConfigurationReference = 5A8DDFFF0F0D0174B6819301 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Spatter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuying.Spatter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Spatter/Spatter-Bridging-Header.h";
 			};
 			name = Release;
 		};

@@ -56,7 +56,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Spatter" id="THx-k9-Zsb">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" id="3cZ-io-nt1"/>
+                        <barButtonItem key="leftBarButtonItem" title="Menu" id="3cZ-io-nt1">
+                            <connections>
+                                <action selector="showMenu:" destination="ZFC-je-hZD" id="lnO-1i-9ha"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Search" id="dmZ-uN-Hs0">
                             <connections>
                                 <segue destination="3YQ-9k-pHy" kind="presentation" identifier="searchPhoto" id="O7b-Em-lqF"/>
@@ -151,125 +155,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBL-mp-745" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1785" y="404.25"/>
-        </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="ZFb-de-Tra">
-            <objects>
-                <viewController storyboardIdentifier="DetailViewController" id="T1L-Hg-DO5" customClass="DetailViewController" customModule="Spatter" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y44-cS-leb"/>
-                        <viewControllerLayoutGuide type="bottom" id="MCP-nm-Mqj"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="YMR-7B-3OT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQI-xH-tq4">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="vGG-Lq-dT6"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem title="Back" id="S0p-9c-XmP">
-                                        <connections>
-                                            <action selector="back:" destination="T1L-Hg-DO5" id="Tn3-Vr-hjX"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ODy-WT-jr8"/>
-                                    <barButtonItem title="Save" id="Yuc-mA-Qhf">
-                                        <connections>
-                                            <action selector="saveToAlbum:" destination="T1L-Hg-DO5" id="4lh-ax-tmD"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ZUL-WD-YOJ"/>
-                                    <barButtonItem title="Like" id="73W-PV-4OF">
-                                        <connections>
-                                            <action selector="likePhoto:" destination="T1L-Hg-DO5" id="7bo-Dy-acq"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="z5u-zK-pK5"/>
-                                    <barButtonItem title="Share" id="002-B9-VJc">
-                                        <connections>
-                                            <action selector="sharePhoto:" destination="T1L-Hg-DO5" id="wwF-IH-hmM"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="SLd-G9-6vQ"/>
-                                    <barButtonItem title="Info" id="8gy-CE-ktF">
-                                        <connections>
-                                            <action selector="showPhotoInfo:" destination="T1L-Hg-DO5" id="y6m-m6-2mZ"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="vGG-Lq-dT6"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="vGG-Lq-dT6"/>
-                                    </mask>
-                                </variation>
-                            </toolbar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooM-Mb-RDm">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="MCP-nm-Mqj" firstAttribute="top" secondItem="TQI-xH-tq4" secondAttribute="bottom" id="BNU-fq-ctr"/>
-                            <constraint firstItem="TQI-xH-tq4" firstAttribute="leading" secondItem="YMR-7B-3OT" secondAttribute="leading" id="l6c-uc-xTP"/>
-                            <constraint firstItem="ooM-Mb-RDm" firstAttribute="leading" secondItem="YMR-7B-3OT" secondAttribute="leading" id="lRf-cc-wKc"/>
-                            <constraint firstAttribute="trailing" secondItem="ooM-Mb-RDm" secondAttribute="trailing" id="prN-MV-9bh"/>
-                            <constraint firstItem="TQI-xH-tq4" firstAttribute="top" secondItem="ooM-Mb-RDm" secondAttribute="bottom" constant="44" id="tLu-Wh-9E0">
-                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                            </constraint>
-                            <constraint firstItem="ooM-Mb-RDm" firstAttribute="top" secondItem="y44-cS-leb" secondAttribute="bottom" constant="20" id="v3P-Wl-pZO">
-                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                            </constraint>
-                            <constraint firstAttribute="trailing" secondItem="TQI-xH-tq4" secondAttribute="trailing" id="xOp-H9-x10"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="TQI-xH-tq4"/>
-                                <exclude reference="ooM-Mb-RDm"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="lRf-cc-wKc"/>
-                                <exclude reference="prN-MV-9bh"/>
-                                <exclude reference="v3P-Wl-pZO"/>
-                                <exclude reference="l6c-uc-xTP"/>
-                                <exclude reference="tLu-Wh-9E0"/>
-                                <exclude reference="xOp-H9-x10"/>
-                                <exclude reference="BNU-fq-ctr"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="TQI-xH-tq4"/>
-                                <include reference="ooM-Mb-RDm"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="lRf-cc-wKc"/>
-                                <include reference="prN-MV-9bh"/>
-                                <include reference="v3P-Wl-pZO"/>
-                                <include reference="l6c-uc-xTP"/>
-                                <include reference="tLu-Wh-9E0"/>
-                                <include reference="xOp-H9-x10"/>
-                                <include reference="BNU-fq-ctr"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <navigationItem key="navigationItem" id="jID-Lf-PTi"/>
-                    <connections>
-                        <outlet property="toolbar" destination="TQI-xH-tq4" id="95B-zw-pNh"/>
-                        <outlet property="viewForMotionImage" destination="ooM-Mb-RDm" id="nMV-YJ-UvJ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hKP-VD-ekh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2490" y="1130.25"/>
         </scene>
         <!--Profile-->
         <scene sceneID="M60-4w-7Kd">
@@ -406,9 +291,6 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="T1L-Hg-DO5" kind="show" identifier="showDailyPhoto" id="lwz-Ya-kDZ"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -470,9 +352,6 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="T1L-Hg-DO5" kind="show" identifier="showBuildingsPhoto" id="KcH-LJ-0dG"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -534,9 +413,6 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="T1L-Hg-DO5" kind="show" identifier="showFoodPhoto" id="rJG-xT-HxM"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -598,9 +474,6 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="T1L-Hg-DO5" kind="show" identifier="showNaturePhoto" id="2k1-1c-X5I"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -662,9 +535,6 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="T1L-Hg-DO5" kind="show" identifier="showPeoplePhoto" action="showDetailViewController:sender:" id="0nK-Ya-hpx"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -726,9 +596,6 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="T1L-Hg-DO5" kind="show" identifier="showTechnologyPhoto" id="VRh-m4-fxl"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -790,9 +657,6 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="T1L-Hg-DO5" kind="show" identifier="showObjectsPhoto" id="8RZ-69-mwJ"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -823,8 +687,96 @@
             </objects>
             <point key="canvasLocation" x="2532" y="404.25"/>
         </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="TlV-5Y-JyF">
+            <objects>
+                <viewController storyboardIdentifier="detail" id="il9-u6-8ur" customClass="DetailViewController" customModule="Spatter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IvB-sX-ZN3"/>
+                        <viewControllerLayoutGuide type="bottom" id="nHf-L0-hqA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BIe-Cg-x3e">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sh-8z-r1H">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="lA8-zG-Rj9"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Back" id="yFv-Wg-4d4">
+                                        <connections>
+                                            <action selector="back:" destination="il9-u6-8ur" id="Ihs-sG-7Xe"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="IOw-JI-5Qo"/>
+                                    <barButtonItem title="Save" id="fde-RS-KXM">
+                                        <connections>
+                                            <action selector="saveToAlbum:" destination="il9-u6-8ur" id="lyz-9m-yVp"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="hrr-ug-gcc"/>
+                                    <barButtonItem title="Like" id="POr-Ij-IZx">
+                                        <connections>
+                                            <action selector="likePhoto:" destination="il9-u6-8ur" id="Fnd-31-e3w"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="kMm-Mg-Bju"/>
+                                    <barButtonItem title="Share" id="XgL-FP-ADc">
+                                        <connections>
+                                            <action selector="sharePhoto:" destination="il9-u6-8ur" id="bbZ-4i-HsG"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="qZq-yA-Sa4"/>
+                                    <barButtonItem title="Info" id="0my-TT-CkC">
+                                        <connections>
+                                            <action selector="showPhotoInfo:" destination="il9-u6-8ur" id="BIb-Ci-2uw"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="lA8-zG-Rj9"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="lA8-zG-Rj9"/>
+                                    </mask>
+                                </variation>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nHf-L0-hqA" firstAttribute="top" secondItem="1sh-8z-r1H" secondAttribute="bottom" id="5en-jK-oxn"/>
+                            <constraint firstAttribute="trailing" secondItem="1sh-8z-r1H" secondAttribute="trailing" id="Ub4-c9-6pK"/>
+                            <constraint firstItem="1sh-8z-r1H" firstAttribute="leading" secondItem="BIe-Cg-x3e" secondAttribute="leading" id="ZLe-qe-1rr"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="1sh-8z-r1H"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="Ub4-c9-6pK"/>
+                                <exclude reference="ZLe-qe-1rr"/>
+                                <exclude reference="5en-jK-oxn"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="1sh-8z-r1H"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="Ub4-c9-6pK"/>
+                                <include reference="ZLe-qe-1rr"/>
+                                <include reference="5en-jK-oxn"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lxA-CN-PvY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2518.5" y="1097.25"/>
+        </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="8RZ-69-mwJ"/>
-    </inferredMetricsTieBreakers>
 </document>

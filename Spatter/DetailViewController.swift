@@ -10,11 +10,10 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-	@IBOutlet weak var viewForMotionImage: UIView!
 	@IBOutlet weak var toolbar: UIToolbar!
 
 	@IBAction func back(sender: AnyObject) {
-		self.navigationController!.popViewControllerAnimated(true)
+		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	@IBAction func saveToAlbum(sender: AnyObject) {
 	}
@@ -31,9 +30,9 @@ class DetailViewController: UIViewController {
 		// Do any additional setup after loading the view.
 		// self.navigationController!.navigationBarHidden = true
 
-//		let motionView = PanoramaView(frame: self.viewForMotionImage.bounds)
-//		motionView.setImage(UIImage(named: "space")!)
-//		self.viewForMotionImage.addSubview(motionView)
+		let motionView = PanoramaView(frame: self.view.bounds)
+		motionView.setImage(UIImage(named: "space")!)
+		self.view.addSubview(motionView)
         
 	}
 
