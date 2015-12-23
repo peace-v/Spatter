@@ -9,13 +9,13 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
-	@IBOutlet weak var toolbar: UIToolbar!
+	let image = UIImage(named: "space")
 
 	@IBAction func back(sender: AnyObject) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	@IBAction func saveToAlbum(sender: AnyObject) {
+		UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
 	}
 	@IBAction func likePhoto(sender: AnyObject) {
 	}
@@ -33,7 +33,6 @@ class DetailViewController: UIViewController {
 		let motionView = PanoramaView(frame: self.view.bounds)
 		motionView.setImage(UIImage(named: "space")!)
 		self.view.addSubview(motionView)
-        
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -51,5 +50,4 @@ class DetailViewController: UIViewController {
 	 // Pass the selected object to the new view controller.
 	 }
 	 */
-
 }

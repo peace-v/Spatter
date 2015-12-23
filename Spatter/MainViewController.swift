@@ -9,20 +9,16 @@
 import UIKit
 import SafariServices
 import PagingMenuController
+import MessageUI
 
-class MainViewController: UIViewController, SFSafariViewControllerDelegate, PagingMenuControllerDelegate {
+let APPVERSION = "1.0"
+
+class MainViewController: UIViewController, SFSafariViewControllerDelegate, PagingMenuControllerDelegate, MFMailComposeViewControllerDelegate {
 
 	var viewControllers: [UIViewController] = []
 	var isLogin: Bool = false
-	var menuItemsAlreadyLogin: [RWDropdownMenuItem] = [
-		RWDropdownMenuItem(text: "Profile", image: nil, action: nil),
-		RWDropdownMenuItem(text: "Logout", image: nil, action: nil),
-		RWDropdownMenuItem(text: "Feedback", image: nil, action: nil)
-	]
-	var menuItemsWithoutLogin: [RWDropdownMenuItem] = [
-		RWDropdownMenuItem(text: "Login", image: nil, action: nil),
-		RWDropdownMenuItem(text: "Feedback", image: nil, action: nil)
-	]
+	var menuItemsAlreadyLogin: [RWDropdownMenuItem] = []
+	var menuItemsWithoutLogin: [RWDropdownMenuItem] = []
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -57,6 +53,20 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 		pagingMenuController.setup(viewControllers: viewControllers, options: options)
 
 		pagingMenuController.delegate = self
+
+        // init menuItem
+        menuItemsAlreadyLogin = [
+        RWDropdownMenuItem(text: "Profile", image: nil, action: nil),
+        RWDropdownMenuItem(text: "Logout", image: nil, action: nil),
+        RWDropdownMenuItem(text: "Feedback", image: nil, action:{
+        self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
+        })]
+        
+        menuItemsWithoutLogin = [
+        RWDropdownMenuItem(text: "Login", image: nil, action: nil),
+        RWDropdownMenuItem(text: "Feedback", image: nil, action: {
+        self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
+        })]
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -66,10 +76,10 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 
 	@IBAction func showMenu(sender: AnyObject) {
 		if (isLogin) {
-            RWDropdownMenu.presentFromViewController(self, withItems: menuItemsAlreadyLogin, align: .Right, style: .Translucent, navBarImage: nil, completion: nil)
-        }else {
-            RWDropdownMenu.presentFromViewController(self, withItems: menuItemsWithoutLogin, align: .Right, style: .Translucent, navBarImage: nil, completion: nil)
-        }
+			RWDropdownMenu.presentFromViewController(self, withItems: menuItemsAlreadyLogin, align: .Center, style: .Translucent, navBarImage: nil, completion: nil)
+		} else {
+			RWDropdownMenu.presentFromViewController(self, withItems: menuItemsWithoutLogin, align: .Center, style: .Translucent, navBarImage: nil, completion: nil)
+		}
 	}
 
 	@IBAction func openSafari(sender: AnyObject) {
@@ -106,4 +116,27 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 		}
 	}
 
+	//MARK: MFMailComposeViewControllerDelegate
+	func sendFeedback(subject: String, recipients: [String], appVersion: String) {
+		if (MFMailComposeViewController.canSendMail()) {
+			let picker = MFMailComposeViewController()
+			picker.mailComposeDelegate = self
+			picker.setSubject(subject)
+			picker.setToRecipients(recipients)
+			let iOSVersion = UIDevice.currentDevice().systemVersion
+			let deviceModal = UIDevice.currentDevice().model
+			let body = "App version: \(appVersion)\niOS version: \(iOSVersion)\nDevice modal: \(deviceModal)\n"
+			picker.setMessageBody(body, isHTML: false)
+			self.presentViewController(picker, animated: true, completion: nil)
+		} else {
+			let alert = UIAlertController(title: "Cannot sent email", message: "Please check the system email setting", preferredStyle: .Alert)
+			let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+			alert.addAction(ok)
+			self.presentViewController(alert, animated: true, completion: nil)
+		}
+	}
+
+	func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+		self.dismissViewControllerAnimated(true, completion: nil)
+	}
 }
