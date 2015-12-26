@@ -69,6 +69,11 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
         })]
 	}
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController!.navigationBarHidden = false
+    }
+    
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.

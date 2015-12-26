@@ -291,6 +291,9 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="il9-u6-8ur" kind="show" identifier="showDailyPhoto" id="pYJ-nL-Hcr"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -352,6 +355,9 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="il9-u6-8ur" kind="show" identifier="showBuildingsPhoto" id="8Od-p8-aYD"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -413,6 +419,9 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="il9-u6-8ur" kind="show" identifier="showFoodPhoto" id="IML-xX-pjm"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -474,6 +483,9 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="il9-u6-8ur" kind="show" identifier="showNaturePhoto" id="0K2-MQ-O0G"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -535,6 +547,9 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="il9-u6-8ur" kind="show" identifier="showPeoplePhoto" id="ql3-1Q-0ap"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -596,6 +611,9 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="il9-u6-8ur" kind="show" identifier="showTechnologyPhoto" id="vcL-2f-PJO"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -657,6 +675,9 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="il9-u6-8ur" kind="show" identifier="showObjectsPhoto" id="aLc-l6-Eoq"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -773,10 +794,17 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="infoButton" destination="0my-TT-CkC" id="8FU-2X-oDy"/>
+                        <outlet property="toolbar" destination="1sh-8z-r1H" id="ldg-n1-Ihb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lxA-CN-PvY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2509" y="995"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="aLc-l6-Eoq"/>
+    </inferredMetricsTieBreakers>
 </document>

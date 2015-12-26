@@ -10,9 +10,9 @@ import UIKit
 
 class DailyTableViewController: BaseTableViewController {
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("detail"), animated: true, completion: nil)
-    }
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("detail"), animated: true, completion: nil)
+//    }
 
 //    override func viewDidLoad() {
 //        super.viewDidLoad()

@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import CoreMotion
 
 class DetailViewController: UIViewController {
 	let image = UIImage(named: "space")
+	var imagePanViewController = SCImagePanViewController()
+
+	@IBOutlet weak var toolbar: UIToolbar!
+	@IBOutlet weak var infoButton: UIBarButtonItem!
 
 	@IBAction func back(sender: AnyObject) {
-		self.dismissViewControllerAnimated(true, completion: nil)
+//		self.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController!.popViewControllerAnimated(true)
 	}
 	@IBAction func saveToAlbum(sender: AnyObject) {
 		UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
@@ -28,11 +34,32 @@ class DetailViewController: UIViewController {
 		super.viewDidLoad()
 
 		// Do any additional setup after loading the view.
-		// self.navigationController!.navigationBarHidden = true
+        
+        self.navigationController!.navigationBarHidden = true
+        
+        // transparent toolbar
+		self.toolbar.setBackgroundImage(UIImage(),
+			forToolbarPosition: UIBarPosition.Any,
+			barMetrics: UIBarMetrics.Default)
+		self.toolbar.setShadowImage(UIImage(),
+			forToolbarPosition: UIBarPosition.Any)
 
-		let motionView = PanoramaView(frame: self.view.bounds)
-		motionView.setImage(UIImage(named: "space")!)
-		self.view.addSubview(motionView)
+		let motionManager = CMMotionManager()
+		imagePanViewController = SCImagePanViewController(motionManager: motionManager)
+		imagePanViewController.willMoveToParentViewController(self)
+
+		self.addChildViewController(imagePanViewController)
+		self.view.addSubview(imagePanViewController.view)
+
+		imagePanViewController.view.frame = self.view.bounds
+		//        imagePanViewController.view.frame = CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height - 44.0)
+		imagePanViewController.view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+
+		imagePanViewController.didMoveToParentViewController(self)
+		imagePanViewController.configureWithImage(UIImage(named: "space")!)
+
+		// init poplabel
+
 	}
 
 	override func didReceiveMemoryWarning() {
