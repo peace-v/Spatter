@@ -20,6 +20,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		
 		// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 		// self.navigationItem.rightBarButtonItem = self.editButtonItem()
+		
 		self.tableView.separatorStyle = .None
 		
 		self.refreshControl = UIRefreshControl()
@@ -33,8 +34,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		tableView.tableHeaderView = searchController.searchBar
 		searchController.searchBar.delegate = self
 		searchController.searchBar.searchBarStyle = .Minimal
-		searchController.searchBar.showsCancelButton = true
-		searchController.searchBar.showsScopeBar = true
+        // searchController.searchBar.showsScopeBar = true
 		searchController.searchBar.scopeButtonTitles = ["All", "Buildings", "Food", "Nature", "People", "Tech", "Objects"]
 		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10.0)], forState: .Normal)
 		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10.0)], forState: .Selected)
@@ -44,11 +44,11 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController!.navigationBarHidden = true
-    }
+	
+//    override func viewWillAppear(animated: Bool) {
+	// super.viewWillAppear(true)
+	// self.navigationController!.navigationBarHidden = true
+	// }
 	
 	// MARK: - Table view data source
 	
@@ -116,17 +116,22 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	 // Pass the selected object to the new view controller.
 	 }
 	 */
-    
+	
+	@IBAction func back(sender: AnyObject) {
+		searchController.resignFirstResponder()
+		self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
 	// MARK: UISearchController
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
 		let scope = searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex]
 		
 	}
 	
-	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-		searchController.resignFirstResponder()
-		self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
-	}
+//	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+	// searchController.resignFirstResponder()
+	// self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+	// }
 	
 	func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
 		
@@ -135,4 +140,5 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 		
 	}
+	
 }

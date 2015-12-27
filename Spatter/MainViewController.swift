@@ -14,7 +14,7 @@ import MessageUI
 let APPVERSION = "1.0"
 
 class MainViewController: UIViewController, SFSafariViewControllerDelegate, PagingMenuControllerDelegate, MFMailComposeViewControllerDelegate {
-
+    
 	var viewControllers: [UIViewController] = []
 	var isLogin: Bool = false
 	var menuItemsAlreadyLogin: [RWDropdownMenuItem] = []
@@ -48,20 +48,27 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 		options.menuDisplayMode = .Infinite(widthMode: .Flexible)
 		options.defaultPage = 0
 		options.scrollEnabled = true
-		options.menuItemMode = .Underline(height: 3, color: UIColor.orangeColor(), horizontalPadding: 0, verticalPadding: 0)
+		options.menuItemMode = .Underline(height: 3, color: UIColor.orangeColor(), horizontalPadding: 0, verticalPadding: 5)
 		pagingMenuController.setup(viewControllers: viewControllers, options: options)
 
 		pagingMenuController.delegate = self
 
 		// init menuItem
 		menuItemsAlreadyLogin = [
-			RWDropdownMenuItem(text: "Profile", image: nil, action: nil),
+            RWDropdownMenuItem(text: "Profile", image: nil, action: {
+                self.navigationController!.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("profileNavController"), animated: true, completion: nil)
+            }),
 			RWDropdownMenuItem(text: "Logout", image: nil, action: nil),
 			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
 					self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
 				})]
 
 		menuItemsWithoutLogin = [
+            
+            // todo: used for testing
+            RWDropdownMenuItem(text: "Profile", image: nil, action: {
+                self.navigationController!.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("profileNavController"), animated: true, completion: nil)
+            }),
 			RWDropdownMenuItem(text: "Login", image: nil, action: {
 					self.openSafari()
 				}),
