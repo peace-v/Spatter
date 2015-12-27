@@ -39,7 +39,6 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 		technologyTableViewController.title = "Technology"
 		let objectsTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("objects") as! ObjectsTableViewController
 		objectsTableViewController.title = "Objects"
-		//        let viewControllers = [dailyTableViewController,buildingsTableViewController,foodTableViewController,natureTableViewController,peopleTableViewController,technologyTableViewController,objectsTableViewController]
 		viewControllers = [dailyTableViewController, buildingsTableViewController, foodTableViewController, natureTableViewController, peopleTableViewController, technologyTableViewController, objectsTableViewController]
 
 		let pagingMenuController = self.childViewControllers.first as! PagingMenuController
@@ -54,26 +53,28 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 
 		pagingMenuController.delegate = self
 
-        // init menuItem
-        menuItemsAlreadyLogin = [
-        RWDropdownMenuItem(text: "Profile", image: nil, action: nil),
-        RWDropdownMenuItem(text: "Logout", image: nil, action: nil),
-        RWDropdownMenuItem(text: "Feedback", image: nil, action:{
-        self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
-        })]
-        
-        menuItemsWithoutLogin = [
-        RWDropdownMenuItem(text: "Login", image: nil, action: nil),
-        RWDropdownMenuItem(text: "Feedback", image: nil, action: {
-        self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
-        })]
+		// init menuItem
+		menuItemsAlreadyLogin = [
+			RWDropdownMenuItem(text: "Profile", image: nil, action: nil),
+			RWDropdownMenuItem(text: "Logout", image: nil, action: nil),
+			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
+					self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
+				})]
+
+		menuItemsWithoutLogin = [
+			RWDropdownMenuItem(text: "Login", image: nil, action: {
+					self.openSafari()
+				}),
+			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
+					self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
+				})]
 	}
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        self.navigationController!.navigationBarHidden = false
-    }
-    
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(true)
+//		self.navigationController!.navigationBarHidden = false
+	}
+
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
@@ -87,7 +88,8 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 		}
 	}
 
-	@IBAction func openSafari(sender: AnyObject) {
+	// MARK: SFSafariViewControllerDelegate
+	func openSafari() {
 		if #available(iOS 9.0, *) {
 			let svc = SFSafariViewController(URL: NSURL(string: "https://unsplash.com/oauth/authorize?client_id=cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user")!)
 			svc.delegate = self
@@ -98,13 +100,12 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 		}
 	}
 
-	//MARK: SFSafariViewControllerDelegate
 	@available(iOS 9.0, *)
 	func safariViewControllerDidFinish(controller: SFSafariViewController) {
 		controller.dismissViewControllerAnimated(true, completion: nil)
 	}
 
-	//MARK: PagingMenuControllerDelegate
+	// MARK: PagingMenuControllerDelegate
 	func willMoveToMenuPage(page: Int) {
 
 	}
@@ -121,7 +122,7 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 		}
 	}
 
-	//MARK: MFMailComposeViewControllerDelegate
+	// MARK: MFMailComposeViewControllerDelegate
 	func sendFeedback(subject: String, recipients: [String], appVersion: String) {
 		if (MFMailComposeViewController.canSendMail()) {
 			let picker = MFMailComposeViewController()

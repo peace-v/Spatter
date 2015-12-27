@@ -137,6 +137,9 @@
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="il9-u6-8ur" kind="show" identifier="showSearchResults" id="8k4-mD-Uoy"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -144,13 +147,7 @@
                             <outlet property="delegate" destination="5DD-Wz-GvX" id="Egi-Mw-pRV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="LvB-Db-Zni">
-                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="o5V-T9-Zaq">
-                            <connections>
-                                <action selector="back:" destination="5DD-Wz-GvX" id="mtQ-yA-iQ3"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="LvB-Db-Zni"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBL-mp-745" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -717,6 +714,7 @@
                         <viewControllerLayoutGuide type="bottom" id="nHf-L0-hqA"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BIe-Cg-x3e">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1sh-8z-r1H">
@@ -778,9 +776,9 @@
                                 <exclude reference="1sh-8z-r1H"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="5en-jK-oxn"/>
                                 <exclude reference="Ub4-c9-6pK"/>
                                 <exclude reference="ZLe-qe-1rr"/>
-                                <exclude reference="5en-jK-oxn"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -788,9 +786,9 @@
                                 <include reference="1sh-8z-r1H"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="5en-jK-oxn"/>
                                 <include reference="Ub4-c9-6pK"/>
                                 <include reference="ZLe-qe-1rr"/>
-                                <include reference="5en-jK-oxn"/>
                             </mask>
                         </variation>
                     </view>
@@ -805,6 +803,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="aLc-l6-Eoq"/>
+        <segue reference="8k4-mD-Uoy"/>
     </inferredMetricsTieBreakers>
 </document>

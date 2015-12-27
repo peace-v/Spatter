@@ -20,16 +20,13 @@ class BaseTableViewController: UITableViewController {
 
 		// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 		// self.navigationItem.rightBarButtonItem = self.editButtonItem()
-
-		//        if (self.tableView.respondsToSelector("setCellLayoutMarginsFollowReadableWidth:")) {
-		//            if #available(iOS 9.0, *) {
-		//                self.tableView.cellLayoutMarginsFollowReadableWidth = false
-		//            } else {
-		//                // Fallback on earlier versions
-		//            }
-		//        }
         
         self.tableView.separatorStyle = .None
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.backgroundColor = UIColor.whiteColor()
+        self.refreshControl!.tintColor = UIColor.blackColor()
+        self.refreshControl!.addTarget(self, action: "loadTheImage", forControlEvents: .ValueChanged)
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -53,6 +50,7 @@ class BaseTableViewController: UITableViewController {
 		let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
 
 		// Configure the cell...
+        cell.backgroundColor = UIColor.whiteColor()
         let imageView = cell.contentView.subviews[0] as! UIImageView
         imageView.image = UIImage(named: "space")
         imageView.contentMode = .ScaleAspectFill
@@ -81,8 +79,8 @@ class BaseTableViewController: UITableViewController {
 		}
 	}
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    }
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//    }
 
 	/*
 	 // Override to support conditional editing of the table view.
@@ -128,4 +126,9 @@ class BaseTableViewController: UITableViewController {
 	 // Pass the selected object to the new view controller.
 	 }
 	 */
+    
+    // MARK: refreshController
+    func loadTheImage() {
+        
+    }
 }
