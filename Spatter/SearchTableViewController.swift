@@ -35,9 +35,9 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		searchController.searchBar.delegate = self
 		searchController.searchBar.searchBarStyle = .Minimal
         // searchController.searchBar.showsScopeBar = true
-		searchController.searchBar.scopeButtonTitles = ["All", "Buildings", "Food", "Nature", "People", "Tech", "Objects"]
-		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10.0)], forState: .Normal)
-		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10.0)], forState: .Selected)
+//		searchController.searchBar.scopeButtonTitles = ["All", "Buildings", "Food", "Nature", "People", "Tech", "Objects"]
+//		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10.0)], forState: .Normal)
+//		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10.0)], forState: .Selected)
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -124,7 +124,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	
 	// MARK: UISearchController
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
-		let scope = searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex]
+//		let scope = searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex]
 		
 	}
 	
@@ -133,9 +133,9 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	// self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
 	// }
 	
-	func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-		
-	}
+//	func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+//		
+//	}
 	
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 		

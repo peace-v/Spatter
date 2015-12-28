@@ -23,7 +23,10 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
-
+        
+        // todo: tesing
+        self.saveUserInfo()
+        
 		// init paging menu
 		let dailyTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("daily") as! DailyTableViewController
 		dailyTableViewController.title = "Daily"
@@ -152,4 +155,11 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 	func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
+    
+    // MARK: save userModel
+    func saveUserInfo() {
+        let avatarData = UIImageJPEGRepresentation(UIImage(named: "IMG_2184")!, 1.0)
+        let userInfoArray:[AnyObject] = ["haru",avatarData!]
+        NSKeyedArchiver.archiveRootObject(userInfoArray, toFile: UserModel.userModelFilePath)
+    }
 }

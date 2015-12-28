@@ -319,6 +319,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="avatar" destination="GfH-Aq-hps" id="TFe-jh-Qwg"/>
+                        <outlet property="username" destination="2cW-mk-cDB" id="eFq-qd-YVL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gCb-CG-7ne" userLabel="First Responder" sceneMemberID="firstResponder"/>

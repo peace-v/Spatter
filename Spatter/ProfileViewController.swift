@@ -12,14 +12,27 @@ import PagingMenuController
 class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 	
 	var viewControllers: [UIViewController] = []
+    var userInfoArray:[AnyObject] = []
 	
 	@IBOutlet weak var avatar: UIImageView!
-	
+    @IBOutlet weak var username: UILabel!
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view.
-		avatar.image = UIImage(named: "placeholder")
+		
+        self.decodeUserModel()
+        username.text = (userInfoArray[0] as! String)
+        
+		avatar.layer.masksToBounds = true
+        let avatarWidth = CGFloat(44.0)
+		avatar.layer.cornerRadius = avatarWidth / 2
+        if (userInfoArray.count > 1) {
+            avatar.image = UIImage(data: userInfoArray[1] as! NSData)
+        }else {
+            avatar.image = UIImage(named: "placeholder")
+        }
 		
 		let likedTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("liked") as! LikedTableViewController
 		likedTableViewController.title = "Like"
@@ -31,7 +44,7 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		
 		let options = PagingMenuOptions()
 		options.menuHeight = 44
-        options.menuDisplayMode = .SegmentedControl
+		options.menuDisplayMode = .SegmentedControl
 		options.defaultPage = 0
 		options.menuItemMode = .Underline(height: 3, color: UIColor.orangeColor(), horizontalPadding: 0, verticalPadding: 5)
 		pagingMenuController.setup(viewControllers: viewControllers, options: options)
@@ -74,4 +87,11 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 			}
 		}
 	}
+    
+    // decode the userModel
+    func decodeUserModel() {
+        if (userInfoArray.isEmpty) {
+            userInfoArray = NSKeyedUnarchiver.unarchiveObjectWithFile(UserModel.userModelFilePath) as! [AnyObject]
+        }
+    }
 }
