@@ -12,6 +12,8 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	
 	let searchController = UISearchController(searchResultsController: nil)
 	
+    @IBOutlet weak var backBtn: UIBarButtonItem!
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -27,6 +29,12 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		self.refreshControl!.backgroundColor = UIColor.whiteColor()
 		self.refreshControl!.tintColor = UIColor.blackColor()
 		self.refreshControl!.addTarget(self, action: "loadTheImage", forControlEvents: .ValueChanged)
+        
+        if #available(iOS 9.0, *) {
+            searchController.loadViewIfNeeded()
+        } else {
+            let _ = searchController.view
+        }
 		
 		searchController.searchResultsUpdater = self
 		searchController.dimsBackgroundDuringPresentation = false
@@ -38,6 +46,11 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 //		searchController.searchBar.scopeButtonTitles = ["All", "Buildings", "Food", "Nature", "People", "Tech", "Objects"]
 //		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10.0)], forState: .Normal)
 //		searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10.0)], forState: .Selected)
+        
+        // add screenEdgePanGesture
+        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: "screenEdgeSwiped:")
+        edgePan.edges = .Left
+        view.addGestureRecognizer(edgePan)
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -122,6 +135,13 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
+    func screenEdgeSwiped(recognizer:UIScreenEdgePanGestureRecognizer) {
+        if (recognizer.state == .Recognized) {
+            searchController.resignFirstResponder()
+            self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+    
 	// MARK: UISearchController
 	func updateSearchResultsForSearchController(searchController: UISearchController) {
 //		let scope = searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex]

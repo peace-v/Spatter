@@ -16,6 +16,7 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 	
 	@IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var username: UILabel!
+    @IBOutlet weak var backBtn: UIBarButtonItem!
     
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -50,6 +51,11 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		pagingMenuController.setup(viewControllers: viewControllers, options: options)
 		
 		pagingMenuController.delegate = self
+        
+        // add screenEdgePanGesture
+        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: "screenEdgeSwiped:")
+        edgePan.edges = .Left
+        view.addGestureRecognizer(edgePan)
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -61,6 +67,12 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
+    func screenEdgeSwiped(recognizer:UIScreenEdgePanGestureRecognizer) {
+        if (recognizer.state == .Recognized) {
+            self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+    
 	/*
 	 // MARK: - Navigation
 

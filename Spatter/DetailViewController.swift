@@ -66,6 +66,11 @@ class DetailViewController: UIViewController {
         infoBtnPopTipView.backgroundColor = UIColor.blackColor()
         infoBtnPopTipView.textColor = UIColor.whiteColor()
         infoBtnPopTipView.has3DStyle = false
+        
+        // add screenEdgePanGesture
+        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: "screenEdgeSwiped:")
+        edgePan.edges = .Left
+        view.addGestureRecognizer(edgePan)
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -102,6 +107,12 @@ class DetailViewController: UIViewController {
         }else {
             let murmur = Murmur(title: "Failed to save image, please try again.")
             Whistle(murmur)
+        }
+    }
+    
+    func screenEdgeSwiped(recognizer:UIScreenEdgePanGestureRecognizer) {
+        if (recognizer.state == .Recognized) {
+            self.navigationController!.popViewControllerAnimated(true)
         }
     }
 }

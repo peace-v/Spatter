@@ -154,6 +154,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="backBtn" destination="uzY-Kf-KDR" id="XUd-By-iUQ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBL-mp-745" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -319,6 +322,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="avatar" destination="GfH-Aq-hps" id="TFe-jh-Qwg"/>
+                        <outlet property="backBtn" destination="xNb-GI-i1P" id="wkc-ey-8JB"/>
                         <outlet property="username" destination="2cW-mk-cDB" id="eFq-qd-YVL"/>
                     </connections>
                 </viewController>
@@ -1047,6 +1051,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="VHM-ot-8Pp"/>
+        <segue reference="8k4-mD-Uoy"/>
     </inferredMetricsTieBreakers>
 </document>
