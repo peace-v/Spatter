@@ -14,6 +14,11 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	
     @IBOutlet weak var backBtn: UIBarButtonItem!
     
+    @IBAction func back(sender: AnyObject) {
+        searchController.resignFirstResponder()
+        self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -22,20 +27,15 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		
 		// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 		// self.navigationItem.rightBarButtonItem = self.editButtonItem()
-		
-		self.tableView.separatorStyle = .None
-		
-		self.refreshControl = UIRefreshControl()
-		self.refreshControl!.backgroundColor = UIColor.whiteColor()
-		self.refreshControl!.tintColor = UIColor.blackColor()
-		self.refreshControl!.addTarget(self, action: "loadTheImage", forControlEvents: .ValueChanged)
         
+        // clear searchController warning
         if #available(iOS 9.0, *) {
             searchController.loadViewIfNeeded()
         } else {
             let _ = searchController.view
         }
 		
+        // configure searchController
 		searchController.searchResultsUpdater = self
 		searchController.dimsBackgroundDuringPresentation = false
 		definesPresentationContext = true
@@ -129,11 +129,6 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	 // Pass the selected object to the new view controller.
 	 }
 	 */
-	
-	@IBAction func back(sender: AnyObject) {
-		searchController.resignFirstResponder()
-		self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
-	}
 	
     func screenEdgeSwiped(recognizer:UIScreenEdgePanGestureRecognizer) {
         if (recognizer.state == .Recognized) {

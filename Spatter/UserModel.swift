@@ -11,7 +11,6 @@ import UIKit
 class UserModel: NSObject, NSCoding {
     
     static let userModelFilePath = ((NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) [0]) as NSString).stringByAppendingPathComponent("user.data")
-//    static var user:NSMutableArray?
     
     var name: NSString!
     var avatar: NSData?

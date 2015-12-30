@@ -25,6 +25,7 @@ class DetailViewController: UIViewController {
         UIImageWriteToSavedPhotosAlbum(image!, self, "image:didFinishSavingWithError:contextInfo:", nil)
 	}
 	@IBAction func likePhoto(sender: AnyObject) {
+        
 	}
 	@IBAction func sharePhoto(sender: AnyObject) {
         let activityViewController = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
@@ -55,7 +56,6 @@ class DetailViewController: UIViewController {
 		self.view.addSubview(imagePanViewController.view)
 
 		imagePanViewController.view.frame = self.view.bounds
-		//        imagePanViewController.view.frame = CGRectMake(0, 0, self.view.bounds.width, self.view.bounds.height - 44.0)
 		imagePanViewController.view.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
 
 		imagePanViewController.didMoveToParentViewController(self)

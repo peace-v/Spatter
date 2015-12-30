@@ -12,29 +12,34 @@ import PagingMenuController
 class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 	
 	var viewControllers: [UIViewController] = []
-    var userInfoArray:[AnyObject] = []
+	var userInfoArray: [AnyObject] = []
 	
 	@IBOutlet weak var avatar: UIImageView!
-    @IBOutlet weak var username: UILabel!
-    @IBOutlet weak var backBtn: UIBarButtonItem!
-    
+	@IBOutlet weak var username: UILabel!
+	@IBOutlet weak var backBtn: UIBarButtonItem!
+	
+	@IBAction func back(sender: AnyObject) {
+		self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view.
 		
-        self.decodeUserModel()
-        username.text = (userInfoArray[0] as! String)
-        
-		avatar.layer.masksToBounds = true
-        let avatarWidth = CGFloat(44.0)
-		avatar.layer.cornerRadius = avatarWidth / 2
-        if (userInfoArray.count > 1) {
-            avatar.image = UIImage(data: userInfoArray[1] as! NSData)
-        }else {
-            avatar.image = UIImage(named: "placeholder")
-        }
+		self.decodeUserModel()
+		username.text = (userInfoArray[0] as! String)
 		
+		avatar.layer.masksToBounds = true
+		let avatarWidth = CGFloat(44.0)
+		avatar.layer.cornerRadius = avatarWidth / 2
+		if (userInfoArray.count > 1) {
+			avatar.image = UIImage(data: userInfoArray[1] as! NSData)
+		} else {
+			avatar.image = UIImage(named: "placeholder")
+		}
+		
+		// add pagingMenu
 		let likedTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("liked") as! LikedTableViewController
 		likedTableViewController.title = "Like"
 		let postTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("post") as! PostTableViewController
@@ -51,11 +56,11 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		pagingMenuController.setup(viewControllers: viewControllers, options: options)
 		
 		pagingMenuController.delegate = self
-        
-        // add screenEdgePanGesture
-        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: "screenEdgeSwiped:")
-        edgePan.edges = .Left
-        view.addGestureRecognizer(edgePan)
+		
+		// add screenEdgePanGesture
+		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: "screenEdgeSwiped:")
+		edgePan.edges = .Left
+		view.addGestureRecognizer(edgePan)
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -63,16 +68,12 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		// Dispose of any resources that can be recreated.
 	}
 	
-	@IBAction func back(sender: AnyObject) {
-		self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+	func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
+		if (recognizer.state == .Recognized) {
+			self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+		}
 	}
 	
-    func screenEdgeSwiped(recognizer:UIScreenEdgePanGestureRecognizer) {
-        if (recognizer.state == .Recognized) {
-            self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
-        }
-    }
-    
 	/*
 	 // MARK: - Navigation
 
@@ -99,11 +100,11 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 			}
 		}
 	}
-    
-    // decode the userModel
-    func decodeUserModel() {
-        if (userInfoArray.isEmpty) {
-            userInfoArray = NSKeyedUnarchiver.unarchiveObjectWithFile(UserModel.userModelFilePath) as! [AnyObject]
-        }
-    }
+	
+	// decode the userModel
+	func decodeUserModel() {
+		if (userInfoArray.isEmpty) {
+			userInfoArray = NSKeyedUnarchiver.unarchiveObjectWithFile(UserModel.userModelFilePath) as! [AnyObject]
+		}
+	}
 }

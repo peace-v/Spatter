@@ -1,87 +1,93 @@
 //
-//  BaseTableViewController.swift
-//  Spatter
+// BaseTableViewController.swift
+// Spatter
 //
-//  Created by Molay on 15/12/19.
-//  Copyright © 2015年 yuying. All rights reserved.
+// Created by Molay on 15/12/19.
+// Copyright © 2015年 yuying. All rights reserved.
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class BaseTableViewController: UITableViewController {
-
+	
 	let reuseIdentifier = "cell"
-
+//    var photosArray:[AnyObject] = []
+	var photosArray: [Dictionary<String, AnyObject>] = [Dictionary<String, AnyObject>]()
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		// Uncomment the following line to preserve selection between presentations
 		// self.clearsSelectionOnViewWillAppear = false
-
+		
 		// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
 		// self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
-        self.tableView.separatorStyle = .None
-        
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl!.backgroundColor = UIColor.whiteColor()
-        self.refreshControl!.tintColor = UIColor.blackColor()
-        self.refreshControl!.addTarget(self, action: "loadTheImage", forControlEvents: .ValueChanged)
+		
+		self.tableView.separatorStyle = .None
+		
+		self.refreshControl = UIRefreshControl()
+		self.refreshControl!.backgroundColor = UIColor.whiteColor()
+		self.refreshControl!.tintColor = UIColor.blackColor()
+		self.refreshControl!.addTarget(self, action: "getPhotos", forControlEvents: .ValueChanged)
+		
+		self.getPhotos()
 	}
-
+	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
-
+	
 	// MARK: - Table view data source
-
+	
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		// #warning Incomplete implementation, return the number of sections
 		return 1
 	}
-
+	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		// #warning Incomplete implementation, return the number of rows
 		return 300
 	}
-
+	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
-
+		
 		// Configure the cell...
-        cell.backgroundColor = UIColor.whiteColor()
+		cell.backgroundColor = UIColor.whiteColor()
         let imageView = cell.contentView.subviews[0] as! UIImageView
-        imageView.image = UIImage(named: "space")
-        imageView.contentMode = .ScaleAspectFill
-
+//		 imageView.image = UIImage(named: "space")
+		 imageView.contentMode = .ScaleAspectFill
+		
 		return cell
 	}
-
+	
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return tableView.bounds.width / 1.5
 	}
-
+	
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 		// Remove separator inset
 		if cell.respondsToSelector("setSeparatorInset:") {
 			cell.separatorInset = UIEdgeInsetsZero
 		}
-
+		
 		// Prevent the cell from inheriting the Table View's margin settings
 		if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
 			cell.preservesSuperviewLayoutMargins = false
 		}
-
+		
 		// Explictly set your cell's layout margins
 		if cell.respondsToSelector("setLayoutMargins:") {
 			cell.layoutMargins = UIEdgeInsetsZero
 		}
 	}
-    
+	
 //    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//    }
-
+	// }
+	
 	/*
 	 // Override to support conditional editing of the table view.
 	 override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -89,7 +95,7 @@ class BaseTableViewController: UITableViewController {
 	 return true
 	 }
 	 */
-
+	
 	/*
 	 // Override to support editing the table view.
 	 override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -101,14 +107,14 @@ class BaseTableViewController: UITableViewController {
 	 }
 	 }
 	 */
-
+	
 	/*
 	 // Override to support rearranging the table view.
 	 override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
 
 	 }
 	 */
-
+	
 	/*
 	 // Override to support conditional rearranging of the table view.
 	 override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -116,7 +122,7 @@ class BaseTableViewController: UITableViewController {
 	 return true
 	 }
 	 */
-
+	
 	/*
 	 // MARK: - Navigation
 
@@ -126,9 +132,29 @@ class BaseTableViewController: UITableViewController {
 	 // Pass the selected object to the new view controller.
 	 }
 	 */
-    
-    // MARK: refreshController
-    func loadTheImage() {
-        
-    }
+	
+	func getPhotos() {
+		Alamofire.request(.GET, "https://api.unsplash.com/photos", parameters: ["client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d", "page": "10", "per_page": "30"]).validate().responseJSON(completionHandler: {response in
+				switch response.result {
+				case .Success:
+					if let value = response.result.value {
+						let json = JSON(value)
+//                    print("JSON:\(json)")
+						for (_, subJson): (String, JSON) in json {
+							var photoDic: [String: String] = Dictionary()
+							photoDic["regular"] = subJson["urls"] ["regular"].string
+							photoDic["small"] = subJson["urls"] ["small"].string
+							photoDic["id"] = subJson["id"].string
+							photoDic["download"] = subJson["links"] ["download"].string
+							photoDic["username"] = subJson["user"] ["name"].string
+							self.photosArray.append(photoDic)
+						}
+						print(self.photosArray)
+					}
+				case .Failure(let error):
+					print(error)
+				}
+			})
+	}
+	
 }
