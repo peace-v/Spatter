@@ -10,6 +10,7 @@ import UIKit
 import SafariServices
 import PagingMenuController
 import MessageUI
+import AMScrollingNavbar
 
 let APPVERSION = "1.0"
 
@@ -90,6 +91,10 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(true)
+        
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            
+        }
 	}
 	
 	override func didReceiveMemoryWarning() {

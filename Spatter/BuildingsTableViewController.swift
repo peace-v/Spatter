@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class BuildingsTableViewController: BaseTableViewController {
 
@@ -91,5 +93,4 @@ class BuildingsTableViewController: BaseTableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }

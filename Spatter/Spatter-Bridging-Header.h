@@ -5,3 +5,4 @@
 #import "RWDropdownMenu.h"
 #import "CMPopTipView.h"
 #import "SCImagePanViewController.h"
+#import "UIImageView+WebCache.h"

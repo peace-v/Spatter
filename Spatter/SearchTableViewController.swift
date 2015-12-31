@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AMScrollingNavbar
 
 class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 	
@@ -52,16 +53,19 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
         edgePan.edges = .Left
         view.addGestureRecognizer(edgePan)
 	}
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(self.tableView, delay: 50.0)
+        }
+    }
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
-	
-//    override func viewWillAppear(animated: Bool) {
-	// super.viewWillAppear(true)
-	// self.navigationController!.navigationBarHidden = true
-	// }
 	
 	// MARK: - Table view data source
 	
@@ -155,5 +159,12 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 		
 	}
-	
+    
+    // MARK: scrollingNavBar
+    override func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.showNavbar(animated: true)
+        }
+        return true
+    }
 }

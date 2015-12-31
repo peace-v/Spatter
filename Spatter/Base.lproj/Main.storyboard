@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Scrolling Navigation Controller-->
         <scene sceneID="m4C-zE-bKf">
             <objects>
-                <navigationController id="hZV-Mg-YpT" sceneMemberID="viewController">
+                <navigationController id="hZV-Mg-YpT" customClass="ScrollingNavigationController" customModule="AMScrollingNavbar" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JIw-AZ-aw6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -72,10 +72,10 @@
             </objects>
             <point key="canvasLocation" x="345" y="404.25"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Scrolling Navigation Controller-->
         <scene sceneID="5Mc-UB-7EL">
             <objects>
-                <navigationController id="3YQ-9k-pHy" sceneMemberID="viewController">
+                <navigationController id="3YQ-9k-pHy" customClass="ScrollingNavigationController" customModule="AMScrollingNavbar" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PRR-Dd-CuU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -288,13 +288,13 @@
                                 <exclude reference="vpR-Bm-cTd"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="a1h-b9-y4g"/>
                                 <exclude reference="8Az-3l-vUg"/>
                                 <exclude reference="TWE-9i-sbR"/>
                                 <exclude reference="neP-Rv-xhv"/>
                                 <exclude reference="NQ2-Fp-ocQ"/>
                                 <exclude reference="Oj7-Kn-GCe"/>
                                 <exclude reference="YVv-OT-pkW"/>
-                                <exclude reference="a1h-b9-y4g"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -303,13 +303,13 @@
                                 <include reference="vpR-Bm-cTd"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="a1h-b9-y4g"/>
                                 <include reference="8Az-3l-vUg"/>
                                 <include reference="TWE-9i-sbR"/>
                                 <include reference="neP-Rv-xhv"/>
                                 <include reference="NQ2-Fp-ocQ"/>
                                 <include reference="Oj7-Kn-GCe"/>
                                 <include reference="YVv-OT-pkW"/>
-                                <include reference="a1h-b9-y4g"/>
                             </mask>
                         </variation>
                     </view>
@@ -339,6 +339,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hh2-Hp-HcQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mLv-ZN-aGC">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -932,12 +933,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="liked" id="K4Y-KK-Imm" customClass="LikedTableViewController" customModule="Spatter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="JL5-hB-Gnj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="PsI-Ky-Emw">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PsI-Ky-Emw" id="gc7-Dk-be8">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pIT-dx-PWu">
@@ -993,12 +997,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="post" id="Puu-im-uPI" customClass="PostTableViewController" customModule="Spatter" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="fPd-Hz-Thw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="tCm-D3-IWc">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tCm-D3-IWc" id="MtN-cI-bPr">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oPB-OB-YLk">
