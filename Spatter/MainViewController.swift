@@ -8,13 +8,12 @@
 
 import UIKit
 import SafariServices
-import PagingMenuController
 import MessageUI
 import AMScrollingNavbar
 
 let APPVERSION = "1.0"
 
-class MainViewController: UIViewController, SFSafariViewControllerDelegate, PagingMenuControllerDelegate, MFMailComposeViewControllerDelegate {
+class MainViewController: BaseTableViewController, SFSafariViewControllerDelegate, MFMailComposeViewControllerDelegate {
 	
 	var viewControllers: [UIViewController] = []
 	var isLogin: Bool = false
@@ -35,35 +34,6 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 		
 		// todo: tesing
 		self.saveUserInfo()
-		
-		// init paging menu
-		let dailyTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("daily") as! DailyTableViewController
-		dailyTableViewController.title = "Daily"
-		let buildingsTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("buildings") as! BuildingsTableViewController
-		buildingsTableViewController.title = "Buildings"
-		let foodTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("food") as! FoodTableViewController
-		foodTableViewController.title = "Food"
-		let natureTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("nature") as! NatureTableViewController
-		natureTableViewController.title = "Nature"
-		let peopleTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("people") as! PeopleTableViewController
-		peopleTableViewController.title = "People"
-		let technologyTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("technology") as! TechnologyTableViewController
-		technologyTableViewController.title = "Technology"
-		let objectsTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("objects") as! ObjectsTableViewController
-		objectsTableViewController.title = "Objects"
-		viewControllers = [dailyTableViewController, buildingsTableViewController, foodTableViewController, natureTableViewController, peopleTableViewController, technologyTableViewController, objectsTableViewController]
-		
-		let pagingMenuController = self.childViewControllers.first as! PagingMenuController
-		
-		let options = PagingMenuOptions()
-		options.menuHeight = 44
-		options.menuDisplayMode = .Infinite(widthMode: .Flexible)
-		options.defaultPage = 0
-		options.scrollEnabled = true
-		options.menuItemMode = .Underline(height: 3, color: UIColor.orangeColor(), horizontalPadding: 0, verticalPadding: 5)
-		pagingMenuController.setup(viewControllers: viewControllers, options: options)
-		
-		pagingMenuController.delegate = self
 		
 		// init menuItem
 		menuItemsAlreadyLogin = [
@@ -93,7 +63,7 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 		super.viewWillAppear(true)
         
         if let navigationController = self.navigationController as? ScrollingNavigationController {
-            
+            navigationController.followScrollView(self.tableView,delay: 50.0)
         }
 	}
 	
@@ -164,4 +134,12 @@ class MainViewController: UIViewController, SFSafariViewControllerDelegate, Pagi
 		let userInfoArray: [AnyObject] = ["haru", avatarData!]
 		NSKeyedArchiver.archiveRootObject(userInfoArray, toFile: UserModel.userModelFilePath)
 	}
+    
+    // MARK: scrollingNavBar
+    override func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.showNavbar(animated: true)
+        }
+        return true
+    }
 }

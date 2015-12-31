@@ -14,9 +14,8 @@ class BaseTableViewController: UITableViewController {
 	
 	let reuseIdentifier = "cell"
 	var photosArray: [Dictionary<String, String>] = [Dictionary<String, String>]()
+	var collcectionsArray: [Int] = []
 	var successfullyGetJsonData = false
-	
-//    let categoryID = ["Buildings":2,"Food":3,"Nature":4,"People":6,"Technology":7,"Objects":8]
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -32,9 +31,9 @@ class BaseTableViewController: UITableViewController {
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.backgroundColor = UIColor.whiteColor()
 		self.refreshControl!.tintColor = UIColor.blackColor()
-		self.refreshControl!.addTarget(self, action: "getPhotos", forControlEvents: .ValueChanged)
+		self.refreshControl!.addTarget(self, action: "getCollections", forControlEvents: .ValueChanged)
 		
-		self.getPhotos()
+		self.getCollections()
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -54,7 +53,7 @@ class BaseTableViewController: UITableViewController {
 		if self.successfullyGetJsonData {
 			return self.photosArray.count
 		}
-		return 300
+		return 1000
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -63,10 +62,9 @@ class BaseTableViewController: UITableViewController {
 		// Configure the cell...
 		cell.backgroundColor = UIColor.whiteColor()
 		let imageView = cell.contentView.subviews[0] as! UIImageView
-//		 imageView.image = UIImage(named: "space")
 		imageView.contentMode = .ScaleAspectFill
 		if self.successfullyGetJsonData {
-			imageView.sd_setImageWithURL(NSURL(string: self.photosArray[indexPath.row] ["small"]!))
+			imageView.sd_setImageWithURL(NSURL(string: self.photosArray[indexPath.row]["small"]!))
 		}
 		
 		return cell
@@ -141,49 +139,52 @@ class BaseTableViewController: UITableViewController {
 	 }
 	 */
 	
-//	func getPhotos() {
-	// let parameters = [
-	// "client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
-	// "page": "10",
-	// "per_page": "30"
-	// ]
-	// Alamofire.request(.GET, "https://api.unsplash.com/photos", parameters: parameters).validate().responseJSON(completionHandler: {response in
-	// switch response.result {
-	// case .Success:
-	// if let value = response.result.value {
-	// let json = JSON(value)
-	// //                    print("JSON:\(json)")
-	// for (_, subJson): (String, JSON) in json {
-	// var photoDic: [String: String] = Dictionary()
-	// photoDic["regular"] = subJson["urls"] ["regular"].string
-	// photoDic["small"] = subJson["urls"] ["small"].string
-	// photoDic["id"] = subJson["id"].string
-	// photoDic["download"] = subJson["links"] ["download"].string
-	// photoDic["username"] = subJson["user"] ["name"].string
-	// self.photosArray.append(photoDic)
-	// }
-	// //						print(self.photosArray)
-	// self.successfullyGetJsonData = true
-	// self.tableView.reloadData()
-	// }
-	// case .Failure(let error):
-	// print(error)
-	// }
-	// })
-	// }
-	
-	
-	func getPhotos() {
-        Alamofire.request(.GET, "https://api.unsplash.com/curated_batches", parameters:[
-             "client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
-             "page": "1",
-             "per_page": "10"
-             ]).validate().responseJSON(completionHandler: {response in
+	func getCollections() {
+		Alamofire.request(.GET, "https://api.unsplash.com/curated_batches", parameters: [
+				"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
+				"page": "1",
+				"per_page": "30"
+			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .Success:
 					if let value = response.result.value {
 						let json = JSON(value)
-						print("JSON:\(json)")
+//						print("JSON:\(json)")
+						for (_, subJson): (String, JSON) in json {
+							self.collcectionsArray.append(subJson["id"].intValue)
+						}
+//						print(self.collcectionsArray)
+						for index in 0...(self.collcectionsArray.count - 1) {
+							self.getPhotos(self.collcectionsArray[index])
+						}
+					}
+				case .Failure(let error):
+					print(error)
+				}
+			})
+	}
+	
+	func getPhotos(id: Int) {
+		Alamofire.request(.GET, "https://api.unsplash.com/curated_batches/\(id)/photos", parameters: [
+				"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d"
+			]).validate().responseJSON(completionHandler: {response in
+				switch response.result {
+				case .Success:
+					if let value = response.result.value {
+						let json = JSON(value)
+//						print("JSON:\(json)")
+                        for (_, subJson): (String, JSON) in json {
+                            var photoDic = Dictionary<String, String>()
+                            photoDic["regular"] = subJson["urls"]["regular"].stringValue
+                            photoDic["small"] = subJson["urls"]["small"].stringValue
+                            photoDic["id"] = subJson["id"].stringValue
+                            photoDic["download"] = subJson["links"]["download"].stringValue
+                            photoDic["name"] = subJson["user"]["name"].stringValue
+                            self.photosArray.append(photoDic)
+						 }
+//						 print(self.photosArray)
+                        self.successfullyGetJsonData = true
+                        self.tableView.reloadData()
 					}
 				case .Failure(let error):
 					print(error)

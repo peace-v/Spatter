@@ -9,13 +9,6 @@
 /* Begin PBXBuildFile section */
 		045AFACD271346AE2D9BD2B3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66F11AFCE85C47BAC9028933 /* Pods.framework */; };
 		604245971C252EAC00E79919 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245961C252EAC00E79919 /* SearchTableViewController.swift */; };
-		604245991C2530BF00E79919 /* DailyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245981C2530BF00E79919 /* DailyTableViewController.swift */; };
-		6042459B1C2530D500E79919 /* BuildingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042459A1C2530D500E79919 /* BuildingsTableViewController.swift */; };
-		6042459D1C2530DF00E79919 /* FoodTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042459C1C2530DF00E79919 /* FoodTableViewController.swift */; };
-		6042459F1C2530E600E79919 /* NatureTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042459E1C2530E600E79919 /* NatureTableViewController.swift */; };
-		604245A11C2530EF00E79919 /* PeopleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245A01C2530EF00E79919 /* PeopleTableViewController.swift */; };
-		604245A31C2530FE00E79919 /* TechnologyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245A21C2530FE00E79919 /* TechnologyTableViewController.swift */; };
-		604245A51C25310500E79919 /* ObjectsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245A41C25310500E79919 /* ObjectsTableViewController.swift */; };
 		604245A71C2532BF00E79919 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245A61C2532BF00E79919 /* BaseTableViewController.swift */; };
 		604B2F811C173225005EB9D0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F801C173225005EB9D0 /* MainViewController.swift */; };
 		604B2F971C1737B6005EB9D0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F961C1737B6005EB9D0 /* DetailViewController.swift */; };
@@ -73,13 +66,6 @@
 /* Begin PBXFileReference section */
 		5A8DDFFF0F0D0174B6819301 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		604245961C252EAC00E79919 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
-		604245981C2530BF00E79919 /* DailyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyTableViewController.swift; sourceTree = "<group>"; };
-		6042459A1C2530D500E79919 /* BuildingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildingsTableViewController.swift; sourceTree = "<group>"; };
-		6042459C1C2530DF00E79919 /* FoodTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodTableViewController.swift; sourceTree = "<group>"; };
-		6042459E1C2530E600E79919 /* NatureTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NatureTableViewController.swift; sourceTree = "<group>"; };
-		604245A01C2530EF00E79919 /* PeopleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeopleTableViewController.swift; sourceTree = "<group>"; };
-		604245A21C2530FE00E79919 /* TechnologyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TechnologyTableViewController.swift; sourceTree = "<group>"; };
-		604245A41C25310500E79919 /* ObjectsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectsTableViewController.swift; sourceTree = "<group>"; };
 		604245A61C2532BF00E79919 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		604B2F801C173225005EB9D0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		604B2F961C1737B6005EB9D0 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -197,8 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				60C558721C12E16600956D19 /* AppDelegate.swift */,
-				604245A61C2532BF00E79919 /* BaseTableViewController.swift */,
 				607FC4C71C28FB130046CEF3 /* Spatter-Bridging-Header.h */,
+				604245A61C2532BF00E79919 /* BaseTableViewController.swift */,
 				60C5587E1C12E16600956D19 /* Info.plist */,
 			);
 			name = Others;
@@ -230,13 +216,6 @@
 			isa = PBXGroup;
 			children = (
 				604B2F801C173225005EB9D0 /* MainViewController.swift */,
-				604245981C2530BF00E79919 /* DailyTableViewController.swift */,
-				6042459A1C2530D500E79919 /* BuildingsTableViewController.swift */,
-				6042459C1C2530DF00E79919 /* FoodTableViewController.swift */,
-				6042459E1C2530E600E79919 /* NatureTableViewController.swift */,
-				604245A01C2530EF00E79919 /* PeopleTableViewController.swift */,
-				604245A21C2530FE00E79919 /* TechnologyTableViewController.swift */,
-				604245A41C25310500E79919 /* ObjectsTableViewController.swift */,
 			);
 			name = MainView;
 			sourceTree = "<group>";
@@ -592,11 +571,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60F16D691C33ADBD006DDF59 /* UIImage+GIF.m in Sources */,
-				6042459F1C2530E600E79919 /* NatureTableViewController.swift in Sources */,
-				604245A31C2530FE00E79919 /* TechnologyTableViewController.swift in Sources */,
 				604245A71C2532BF00E79919 /* BaseTableViewController.swift in Sources */,
-				604245991C2530BF00E79919 /* DailyTableViewController.swift in Sources */,
-				604245A11C2530EF00E79919 /* PeopleTableViewController.swift in Sources */,
 				60F16D681C33ADBD006DDF59 /* UIButton+WebCache.m in Sources */,
 				604B2F811C173225005EB9D0 /* MainViewController.swift in Sources */,
 				60F16D6A1C33ADBD006DDF59 /* UIImage+MultiFormat.m in Sources */,
@@ -611,16 +586,13 @@
 				6072C2A11C30DD7800ECF780 /* UserModel.swift in Sources */,
 				607FC4F61C2A86030046CEF3 /* CMPopTipView.m in Sources */,
 				60F16D6C1C33ADBD006DDF59 /* UIImageView+HighlightedWebCache.m in Sources */,
-				6042459D1C2530DF00E79919 /* FoodTableViewController.swift in Sources */,
 				607FC4FE1C2E69EE0046CEF3 /* SCImagePanViewController.m in Sources */,
-				6042459B1C2530D500E79919 /* BuildingsTableViewController.swift in Sources */,
 				604B2F971C1737B6005EB9D0 /* DetailViewController.swift in Sources */,
 				60F16D6E1C33ADBD006DDF59 /* UIView+WebCacheOperation.m in Sources */,
 				60F16D621C33ADBD006DDF59 /* SDWebImageCompat.m in Sources */,
 				607FC4E61C2911B50046CEF3 /* RWDropdownMenuTransitionController.m in Sources */,
 				60F16D5F1C33ADBD006DDF59 /* MKAnnotationView+WebCache.m in Sources */,
 				604B2F9D1C173ACE005EB9D0 /* ProfileViewController.swift in Sources */,
-				604245A51C25310500E79919 /* ObjectsTableViewController.swift in Sources */,
 				60F16D671C33ADBD006DDF59 /* SDWebImagePrefetcher.m in Sources */,
 				607FC4E51C2911B50046CEF3 /* RWDropdownMenuCell.m in Sources */,
 				60F16D651C33ADBD006DDF59 /* SDWebImageDownloaderOperation.m in Sources */,
