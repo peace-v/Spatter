@@ -31,14 +31,14 @@ class BaseTableViewController: UITableViewController {
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.backgroundColor = UIColor.whiteColor()
 		self.refreshControl!.tintColor = UIColor.blackColor()
-		self.refreshControl!.addTarget(self, action: "getCollections", forControlEvents: .ValueChanged)
-		
-		self.getCollections()
+		self.refreshControl!.addTarget(self, action: "getCollections", forControlEvents: .ValueChanged)		
+//		self.getCollections()
 	}
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
+        SDImageCache.sharedImageCache().clearMemory()
 	}
 	
 	// MARK: - Table view data source
@@ -53,7 +53,7 @@ class BaseTableViewController: UITableViewController {
 		if self.successfullyGetJsonData {
 			return self.photosArray.count
 		}
-		return 1000
+		return 0
 	}
 	
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -63,6 +63,8 @@ class BaseTableViewController: UITableViewController {
 		cell.backgroundColor = UIColor.whiteColor()
 		let imageView = cell.contentView.subviews[0] as! UIImageView
 		imageView.contentMode = .ScaleAspectFill
+        imageView.setIndicatorStyle(.Gray)
+        imageView.setShowActivityIndicatorView(true)
 		if self.successfullyGetJsonData {
 			imageView.sd_setImageWithURL(NSURL(string: self.photosArray[indexPath.row]["small"]!))
 		}
@@ -147,6 +149,7 @@ class BaseTableViewController: UITableViewController {
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .Success:
+//                    print("response is \(response.response)")
 					if let value = response.result.value {
 						let json = JSON(value)
 //						print("JSON:\(json)")

@@ -41,6 +41,9 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 					self.navigationController!.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("profileNavController"), animated: true, completion: nil)
 				}),
 			RWDropdownMenuItem(text: "Logout", image: nil, action: nil),
+			RWDropdownMenuItem(text: "Clear Cache", image: nil, action: {
+					SDImageCache.sharedImageCache().clearDisk()
+				}),
 			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
 					self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
 				})]
@@ -54,22 +57,42 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			RWDropdownMenuItem(text: "Login", image: nil, action: {
 					self.openSafari()
 				}),
+			RWDropdownMenuItem(text: "Clear Cache", image: nil, action: {
+					SDImageCache.sharedImageCache().clearDisk()
+				}),
 			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
 					self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
 				})]
+		
+		// configure tableView
+		self.getCollections()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(true)
-        
-        if let navigationController = self.navigationController as? ScrollingNavigationController {
-            navigationController.followScrollView(self.tableView,delay: 50.0)
-        }
+		
+		if let navigationController = self.navigationController as? ScrollingNavigationController {
+			navigationController.followScrollView(self.tableView, delay: 50.0)
+		}
 	}
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
+	}
+	
+	// MARK: tableView delegate
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		// Get the new view controller using segue.destinationViewController.
+		// Pass the selected object to the new view controller.
+		if (segue.identifier == "showFeaturedPhoto") {
+			let detailViewController = segue.destinationViewController as! DetailViewController
+			let cell = sender as? UITableViewCell
+			let indexPath = self.tableView.indexPathForCell(cell!)
+			detailViewController.downloadURL = self.photosArray[indexPath!.row] ["regular"]!
+			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
+			detailViewController.imageID = self.photosArray[indexPath!.row] ["id"]!
+		}
 	}
 	
 	// MARK: SFSafariViewControllerDelegate
@@ -134,12 +157,12 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		let userInfoArray: [AnyObject] = ["haru", avatarData!]
 		NSKeyedArchiver.archiveRootObject(userInfoArray, toFile: UserModel.userModelFilePath)
 	}
-    
-    // MARK: scrollingNavBar
-    override func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
-        if let navigationController = self.navigationController as? ScrollingNavigationController {
-            navigationController.showNavbar(animated: true)
-        }
-        return true
-    }
+	
+	// MARK: scrollingNavBar
+	override func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+		if let navigationController = self.navigationController as? ScrollingNavigationController {
+			navigationController.showNavbar(animated: true)
+		}
+		return true
+	}
 }
