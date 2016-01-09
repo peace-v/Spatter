@@ -145,7 +145,7 @@ class BaseTableViewController: UITableViewController {
 		Alamofire.request(.GET, "https://api.unsplash.com/curated_batches", parameters: [
 				"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
 				"page": "1",
-				"per_page": "30"
+				"per_page": "10"
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .Success:

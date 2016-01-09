@@ -126,15 +126,17 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	 }
 	 */
 	
-	/*
-	 // MARK: - Navigation
-
-	 // In a storyboard-based application, you will often want to do a little preparation before navigation
-	 override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-	 // Get the new view controller using segue.destinationViewController.
-	 // Pass the selected object to the new view controller.
-	 }
-	 */
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if (segue.identifier == "showSearchResults") {
+            let detailViewController = segue.destinationViewController as! DetailViewController
+            let cell = sender as? UITableViewCell
+            let indexPath = self.tableView.indexPathForCell(cell!)
+            detailViewController.downloadURL = self.photosArray[indexPath!.row] ["regular"]!
+            detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
+        }
+    }
 	
 	func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .Recognized) {

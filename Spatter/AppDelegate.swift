@@ -13,7 +13,7 @@ import SwiftyJSON
 var code = ""
 var refreshToken = ""
 var accessToken = ""
-var isLogin = false
+var isLogin = true
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -51,38 +51,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
 //		print("the redirect uri is \(url)")
 		let urlString = url.absoluteString
-		let urlArray = urlString.componentsSeparatedByString("=")
-		code = urlArray[1]
+		if (urlString.containsString("code")) {
+			let urlArray = urlString.componentsSeparatedByString("=")
+			code = urlArray[1]
+			isLogin = true
+			
+			Alamofire.request(.POST, "https://unsplash.com/oauth/token", parameters: [
+					"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
+					"client_secret": "915698939466b067ec1655727d1af0ce40ba717258f366200473969033a2ab5f",
+					"redirect_uri": "spatter://com.yuying.spatter",
+					"code": code,
+					"grant_type": "authorization_code"
+				]).validate().responseJSON(completionHandler: {response in
+					switch response.result {
+					case .Success:
+						if let value = response.result.value {
+							let json = JSON(value)
+							// print("JSON: \(json)")
+//							for (_, _): (String, JSON) in json {
+//								refreshToken = json["refresh_token"].stringValue
+//								accessToken = json["access_token"].stringValue
+//							}
+                            refreshToken = json["refresh_token"].stringValue
+                            accessToken = json["access_token"].stringValue
+						}
+					case .Failure(let error):
+						print(error)
+					}
+				})
+		}
 		
 		let storyboard = UIStoryboard(name: "Main", bundle: nil)
 		let navController = storyboard.instantiateViewControllerWithIdentifier("navController")
 		self.window?.rootViewController = navController
 		self.window?.makeKeyAndVisible()
 		
-		Alamofire.request(.POST, "https://unsplash.com/oauth/token", parameters: [
-				"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
-				"client_secret": "915698939466b067ec1655727d1af0ce40ba717258f366200473969033a2ab5f",
-				"redirect_uri": "spatter://com.yuying.spatter",
-				"code": code,
-				"grant_type": "authorization_code"
-			]).validate().responseJSON(completionHandler: {response in
-				switch response.result {
-				case .Success:
-					if let value = response.result.value {
-						let json = JSON(value)
-//						print("JSON: \(json)")
-                        for (_,_):(String, JSON) in json {
-                            refreshToken = json["refresh_token"].stringValue
-                            accessToken = json["access_token"].stringValue
-                        }
-                        isLogin = true
-					}
-				case .Failure(let error):
-					print(error)
-				}
-			})
-			
-			return true
-		}
+		return true
 	}
-	
+}
+

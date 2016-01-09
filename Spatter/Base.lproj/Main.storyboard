@@ -221,7 +221,7 @@
                                             </mask>
                                         </variation>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cW-mk-cDB">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="user" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cW-mk-cDB">
                                         <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="ghJ-K6-Sti"/>
@@ -348,7 +348,7 @@
                     <connections>
                         <outlet property="avatar" destination="GfH-Aq-hps" id="TFe-jh-Qwg"/>
                         <outlet property="backBtn" destination="xNb-GI-i1P" id="wkc-ey-8JB"/>
-                        <outlet property="username" destination="2cW-mk-cDB" id="eFq-qd-YVL"/>
+                        <outlet property="userLabel" destination="2cW-mk-cDB" id="xHW-gM-9cW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gCb-CG-7ne" userLabel="First Responder" sceneMemberID="firstResponder"/>
