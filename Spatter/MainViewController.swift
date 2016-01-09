@@ -16,7 +16,6 @@ let APPVERSION = "1.0"
 class MainViewController: BaseTableViewController, SFSafariViewControllerDelegate, MFMailComposeViewControllerDelegate {
 	
 	var viewControllers: [UIViewController] = []
-	var isLogin: Bool = false
 	var menuItemsAlreadyLogin: [RWDropdownMenuItem] = []
 	var menuItemsWithoutLogin: [RWDropdownMenuItem] = []
 	
@@ -32,8 +31,8 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		
-		// todo: tesing
-		self.saveUserInfo()
+//		// todo: tesing
+//		self.saveUserInfo()
 		
 		// init menuItem
 		menuItemsAlreadyLogin = [
@@ -49,11 +48,6 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 				})]
 		
 		menuItemsWithoutLogin = [
-			
-			// todo: used for testing
-			RWDropdownMenuItem(text: "Profile", image: nil, action: {
-					self.navigationController!.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("profileNavController"), animated: true, completion: nil)
-				}),
 			RWDropdownMenuItem(text: "Login", image: nil, action: {
 					self.openSafari()
 				}),
@@ -91,19 +85,18 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			let indexPath = self.tableView.indexPathForCell(cell!)
 			detailViewController.downloadURL = self.photosArray[indexPath!.row] ["regular"]!
 			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
-			detailViewController.imageID = self.photosArray[indexPath!.row] ["id"]!
 		}
 	}
 	
 	// MARK: SFSafariViewControllerDelegate
 	func openSafari() {
 		if #available(iOS 9.0, *) {
-			let svc = SFSafariViewController(URL: NSURL(string: "https://unsplash.com/oauth/authorize?client_id=cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user")!)
+			let svc = SFSafariViewController(URL: NSURL(string: "https://unsplash.com/oauth/authorize?client_id=cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes")!)
 			svc.delegate = self
 			self.presentViewController(svc, animated: true, completion: nil)
 		} else {
 			// Fallback on earlier versions
-			UIApplication.sharedApplication().openURL(NSURL(string: "https://unsplash.com/oauth/authorize?client_id=cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user")!)
+			UIApplication.sharedApplication().openURL(NSURL(string: "https://unsplash.com/oauth/authorize?client_id=cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes")!)
 		}
 	}
 	
@@ -151,12 +144,12 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	// MARK: save userModel
-	func saveUserInfo() {
-		let avatarData = UIImageJPEGRepresentation(UIImage(named: "IMG_2184")!, 1.0)
-		let userInfoArray: [AnyObject] = ["haru", avatarData!]
-		NSKeyedArchiver.archiveRootObject(userInfoArray, toFile: UserModel.userModelFilePath)
-	}
+//	// MARK: save userModel
+//	func saveUserInfo() {
+//		let avatarData = UIImageJPEGRepresentation(UIImage(named: "IMG_2184")!, 1.0)
+//		let userInfoArray: [AnyObject] = ["haru", avatarData!]
+//		NSKeyedArchiver.archiveRootObject(userInfoArray, toFile: UserModel.userModelFilePath)
+//	}
 	
 	// MARK: scrollingNavBar
 	override func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {

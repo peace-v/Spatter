@@ -9,11 +9,9 @@
 import UIKit
 import CoreMotion
 import Whisper
-import Alamofire
 
 class DetailViewController: UIViewController {
 	var image = UIImage(named: "loading")
-	var imageID = ""
 	var downloadURL = ""
 	var creatorName = ""
 	var imagePanViewController = SCImagePanViewController()
