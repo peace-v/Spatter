@@ -94,24 +94,15 @@ class DetailViewController: UIViewController {
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(true)
-		self.navigationController!.navigationBarHidden = true
+        self.navigationController!.setNavigationBarHidden(true, animated: false)
+//		self.navigationController!.navigationBarHidden = true
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(true)
-		self.navigationController!.navigationBarHidden = false
+        self.navigationController!.setNavigationBarHidden(false, animated: false)
+//		self.navigationController!.navigationBarHidden = false
 	}
-	
-	
-	/*
-	 // MARK: - Navigation
-
-	 // In a storyboard-based application, you will often want to do a little preparation before navigation
-	 override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-	 // Get the new view controller using segue.destinationViewController.
-	 // Pass the selected object to the new view controller.
-	 }
-	 */
 	
 	// MARK: Whisper
 	func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafePointer<Void>) {

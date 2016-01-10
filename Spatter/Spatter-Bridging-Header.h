@@ -6,3 +6,4 @@
 #import "CMPopTipView.h"
 #import "SCImagePanViewController.h"
 #import "UIImageView+WebCache.h"
+#import "MJRefresh.h"

@@ -28,17 +28,25 @@ class BaseTableViewController: UITableViewController {
 		
 		self.tableView.separatorStyle = .None
 		
-		self.refreshControl = UIRefreshControl()
-		self.refreshControl!.backgroundColor = UIColor.whiteColor()
-		self.refreshControl!.tintColor = UIColor.blackColor()
-		self.refreshControl!.addTarget(self, action: "getCollections", forControlEvents: .ValueChanged)		
-//		self.getCollections()
+//		self.refreshControl = UIRefreshControl()
+		// self.refreshControl!.backgroundColor = UIColor.whiteColor()
+		// self.refreshControl!.tintColor = UIColor.blackColor()
+		// self.refreshControl!.addTarget(self, action: "getCollections", forControlEvents: .ValueChanged)
+		
+		let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: "getCollections")
+		header.lastUpdatedTimeLabel?.hidden = true
+		header.stateLabel?.hidden = true
+		self.tableView.mj_header = header
+        
+        let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "getCollections")
+        footer.stateLabel?.hidden = true
+        self.tableView.mj_footer = footer
 	}
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
-        SDImageCache.sharedImageCache().clearMemory()
+		SDImageCache.sharedImageCache().clearMemory()
 	}
 	
 	// MARK: - Table view data source
@@ -63,10 +71,10 @@ class BaseTableViewController: UITableViewController {
 		cell.backgroundColor = UIColor.whiteColor()
 		let imageView = cell.contentView.subviews[0] as! UIImageView
 		imageView.contentMode = .ScaleAspectFill
-        imageView.setIndicatorStyle(.Gray)
-        imageView.setShowActivityIndicatorView(true)
+		imageView.setIndicatorStyle(.Gray)
+		imageView.setShowActivityIndicatorView(true)
 		if self.successfullyGetJsonData {
-			imageView.sd_setImageWithURL(NSURL(string: self.photosArray[indexPath.row]["small"]!))
+			imageView.sd_setImageWithURL(NSURL(string: self.photosArray[indexPath.row] ["small"]!))
 		}
 		
 		return cell
@@ -92,54 +100,6 @@ class BaseTableViewController: UITableViewController {
 			cell.layoutMargins = UIEdgeInsetsZero
 		}
 	}
-	
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-	// }
-	
-	/*
-	 // Override to support conditional editing of the table view.
-	 override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-	 // Return false if you do not want the specified item to be editable.
-	 return true
-	 }
-	 */
-	
-	/*
-	 // Override to support editing the table view.
-	 override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-	 if editingStyle == .Delete {
-	 // Delete the row from the data source
-	 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-	 } else if editingStyle == .Insert {
-	 // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-	 }
-	 }
-	 */
-	
-	/*
-	 // Override to support rearranging the table view.
-	 override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-	 }
-	 */
-	
-	/*
-	 // Override to support conditional rearranging of the table view.
-	 override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-	 // Return false if you do not want the item to be re-orderable.
-	 return true
-	 }
-	 */
-	
-	/*
-	 // MARK: - Navigation
-
-	 // In a storyboard-based application, you will often want to do a little preparation before navigation
-	 override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-	 // Get the new view controller using segue.destinationViewController.
-	 // Pass the selected object to the new view controller.
-	 }
-	 */
 	
 	func getCollections() {
 		Alamofire.request(.GET, "https://api.unsplash.com/curated_batches", parameters: [
@@ -176,18 +136,18 @@ class BaseTableViewController: UITableViewController {
 					if let value = response.result.value {
 						let json = JSON(value)
 //						print("JSON:\(json)")
-                        for (_, subJson): (String, JSON) in json {
-                            var photoDic = Dictionary<String, String>()
-                            photoDic["regular"] = subJson["urls"]["regular"].stringValue
-                            photoDic["small"] = subJson["urls"]["small"].stringValue
-                            photoDic["id"] = subJson["id"].stringValue
-                            photoDic["download"] = subJson["links"]["download"].stringValue
-                            photoDic["name"] = subJson["user"]["name"].stringValue
-                            self.photosArray.append(photoDic)
-						 }
+						for (_, subJson): (String, JSON) in json {
+							var photoDic = Dictionary<String, String>()
+							photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+							photoDic["small"] = subJson["urls"] ["small"].stringValue
+							photoDic["id"] = subJson["id"].stringValue
+							photoDic["download"] = subJson["links"] ["download"].stringValue
+							photoDic["name"] = subJson["user"] ["name"].stringValue
+							self.photosArray.append(photoDic)
+						}
 //						 print(self.photosArray)
-                        self.successfullyGetJsonData = true
-                        self.tableView.reloadData()
+						self.successfullyGetJsonData = true
+						self.tableView.reloadData()
 					}
 				case .Failure(let error):
 					print(error)

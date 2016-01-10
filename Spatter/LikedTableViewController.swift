@@ -23,10 +23,10 @@ class LikedTableViewController: BaseTableViewController {
 		
 		self.tableView.separatorStyle = .None
 		
-		self.refreshControl = UIRefreshControl()
-		self.refreshControl!.backgroundColor = UIColor.whiteColor()
-		self.refreshControl!.tintColor = UIColor.blackColor()
-		self.refreshControl!.addTarget(self, action: "getCollections", forControlEvents: .ValueChanged)
+//		self.refreshControl = UIRefreshControl()
+//		self.refreshControl!.backgroundColor = UIColor.whiteColor()
+//		self.refreshControl!.tintColor = UIColor.blackColor()
+//		self.refreshControl!.addTarget(self, action: "getCollections", forControlEvents: .ValueChanged)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "getLikedPhotos:", name: "LoadLikedPhotos", object: nil)
 	}

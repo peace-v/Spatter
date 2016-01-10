@@ -108,21 +108,6 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		controller.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-//	// MARK: PagingMenuControllerDelegate
-//	func willMoveToMenuPage(page: Int) {}
-//	
-//	func didMoveToMenuPage(page: Int) {
-//		let totalViewControllers = viewControllers.count - 1
-//		for num in 0...totalViewControllers {
-//			let currentViewController: UITableViewController = viewControllers[num] as! UITableViewController
-//			if num == page {
-//				currentViewController.tableView.scrollsToTop = true
-//			} else {
-//				currentViewController.tableView.scrollsToTop = false
-//			}
-//		}
-//	}
-	
 	// MARK: MFMailComposeViewControllerDelegate
 	func sendFeedback(subject: String, recipients: [String], appVersion: String) {
 		if (MFMailComposeViewController.canSendMail()) {
