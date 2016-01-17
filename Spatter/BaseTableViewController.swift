@@ -16,6 +16,16 @@ class BaseTableViewController: UITableViewController {
 	var photosArray: [Dictionary<String, String>] = [Dictionary<String, String>]()
 	var collcectionsArray: [Int] = []
 	var successfullyGetJsonData = false
+	var totalItems = 0
+	var perItem = 10
+	var page = 1
+	var totalPages: Int {
+		get {
+			return Int(ceilf(Float(totalItems) / Float(perItem)))
+		}
+	}
+//	var header = MJRefreshNormalHeader()
+	var footer = MJRefreshAutoNormalFooter()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -28,19 +38,19 @@ class BaseTableViewController: UITableViewController {
 		
 		self.tableView.separatorStyle = .None
 		
-//		self.refreshControl = UIRefreshControl()
-		// self.refreshControl!.backgroundColor = UIColor.whiteColor()
-		// self.refreshControl!.tintColor = UIColor.blackColor()
-		// self.refreshControl!.addTarget(self, action: "getCollections", forControlEvents: .ValueChanged)
+		self.refreshControl = UIRefreshControl()
+		self.refreshControl!.backgroundColor = UIColor.whiteColor()
+		self.refreshControl!.tintColor = UIColor.blackColor()
+		self.refreshControl!.addTarget(self, action: "refreshData", forControlEvents: .ValueChanged)
 		
-		let header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: "getCollections")
-		header.lastUpdatedTimeLabel?.hidden = true
-		header.stateLabel?.hidden = true
-		self.tableView.mj_header = header
-        
-        let footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "getCollections")
-        footer.stateLabel?.hidden = true
-        self.tableView.mj_footer = footer
+//		header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: "getCollections")
+		// header.lastUpdatedTimeLabel?.hidden = true
+		// header.stateLabel?.hidden = true
+		// self.tableView.mj_header = header
+		
+		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "getCollections")
+		footer.refreshingTitleHidden = true
+		self.tableView.mj_footer = footer
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -102,29 +112,45 @@ class BaseTableViewController: UITableViewController {
 	}
 	
 	func getCollections() {
-		Alamofire.request(.GET, "https://api.unsplash.com/curated_batches", parameters: [
-				"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
-				"page": "1",
-				"per_page": "10"
-			]).validate().responseJSON(completionHandler: {response in
-				switch response.result {
-				case .Success:
-//                    print("response is \(response.response)")
-					if let value = response.result.value {
-						let json = JSON(value)
+		if (self.page <= self.totalPages || self.page == 1) {
+			Alamofire.request(.GET, "https://api.unsplash.com/curated_batches", parameters: [
+					"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
+					"page": self.page,
+					"per_page": self.perItem
+				]).validate().responseJSON(completionHandler: {response in
+					switch response.result {
+					case .Success:
+						self.refreshControl?.endRefreshing()
+//                    print("response is \(response.response?.allHeaderFields)")
+						if (self.page == 1) {
+							self.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+						}
+						self.page += 1
+						if let value = response.result.value {
+							let json = JSON(value)
 //						print("JSON:\(json)")
-						for (_, subJson): (String, JSON) in json {
-							self.collcectionsArray.append(subJson["id"].intValue)
+							for (_, subJson): (String, JSON) in json {
+								let collectionID = subJson["id"].intValue
+								if (!self.collcectionsArray.contains(collectionID)) {
+									self.collcectionsArray.append(collectionID)
+									self.getPhotos(collectionID)
+								}
+							}
+							print(self.collcectionsArray.count)
+							// for index in 0...(self.collcectionsArray.count - 1) {
+							// self.getPhotos(self.collcectionsArray[index])
+							// }
 						}
-//						print(self.collcectionsArray)
-						for index in 0...(self.collcectionsArray.count - 1) {
-							self.getPhotos(self.collcectionsArray[index])
-						}
+					case .Failure(let error):
+						print(error)
 					}
-				case .Failure(let error):
-					print(error)
-				}
-			})
+				})
+		} else {
+			footer.endRefreshingWithNoMoreData()
+		}
+		if (footer.isRefreshing()) {
+			footer.endRefreshing()
+		}
 	}
 	
 	func getPhotos(id: Int) {
@@ -145,7 +171,7 @@ class BaseTableViewController: UITableViewController {
 							photoDic["name"] = subJson["user"] ["name"].stringValue
 							self.photosArray.append(photoDic)
 						}
-//						 print(self.photosArray)
+						print(self.photosArray.count)
 						self.successfullyGetJsonData = true
 						self.tableView.reloadData()
 					}
@@ -154,4 +180,13 @@ class BaseTableViewController: UITableViewController {
 				}
 			})
 	}
+	
+	func refreshData() {
+		self.collcectionsArray = []
+		self.photosArray = []
+		self.page = 1
+		self.getCollections()
+//        self.refreshControl?.endRefreshing()
+	}
 }
+

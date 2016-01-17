@@ -13,7 +13,7 @@ import SwiftyJSON
 var code = ""
 var refreshToken = ""
 var accessToken = ""
-var isLogin = true
+var isLogin = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -68,12 +68,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 						if let value = response.result.value {
 							let json = JSON(value)
 							// print("JSON: \(json)")
-//							for (_, _): (String, JSON) in json {
-//								refreshToken = json["refresh_token"].stringValue
-//								accessToken = json["access_token"].stringValue
-//							}
-                            refreshToken = json["refresh_token"].stringValue
-                            accessToken = json["access_token"].stringValue
+							// for (_, _): (String, JSON) in json {
+							// refreshToken = json["refresh_token"].stringValue
+							// accessToken = json["access_token"].stringValue
+							// }
+							refreshToken = json["refresh_token"].stringValue
+							accessToken = json["access_token"].stringValue
 						}
 					case .Failure(let error):
 						print(error)

@@ -14,6 +14,15 @@ import SwiftyJSON
 class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 	
 	let searchController = UISearchController(searchResultsController: nil)
+//	var searchPage = 1
+	var photoID: [String] = []
+    var query = ""
+    var searchPerItem = 30
+    var serachTotalPages: Int {
+        get {
+            return Int(ceilf(Float(totalItems) / Float(searchPerItem)))
+        }
+    }
 	
 	@IBOutlet weak var backBtn: UIBarButtonItem!
 	
@@ -45,11 +54,28 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		tableView.tableHeaderView = searchController.searchBar
 		searchController.searchBar.delegate = self
 		searchController.searchBar.searchBarStyle = .Minimal
-        searchController.hidesNavigationBarDuringPresentation = false
+		searchController.hidesNavigationBarDuringPresentation = false
 		// searchController.searchBar.showsScopeBar = true
 		// searchController.searchBar.scopeButtonTitles = ["All", "Buildings", "Food", "Nature", "People", "Tech", "Objects"]
 		// searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10.0)], forState: .Normal)
 		// searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10.0)], forState: .Selected)
+        
+        self.tableView.separatorStyle = .None
+        
+        // configure refreshController
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.backgroundColor = UIColor.whiteColor()
+        self.refreshControl!.tintColor = UIColor.blackColor()
+        self.refreshControl!.addTarget(self, action: "refreshSearchData", forControlEvents: .ValueChanged)
+        
+//        header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: "getSearchResults")
+//        header.lastUpdatedTimeLabel?.hidden = true
+//        header.stateLabel?.hidden = true
+//        self.tableView.mj_header = header
+        
+        footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "getSearchResults")
+        footer.refreshingTitleHidden = true
+        self.tableView.mj_footer = footer
 		
 		// add screenEdgePanGesture
 		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: "screenEdgeSwiped:")
@@ -70,17 +96,17 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		// Dispose of any resources that can be recreated.
 	}
 	
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        if (segue.identifier == "showSearchResults") {
-            let detailViewController = segue.destinationViewController as! DetailViewController
-            let cell = sender as? UITableViewCell
-            let indexPath = self.tableView.indexPathForCell(cell!)
-            detailViewController.downloadURL = self.photosArray[indexPath!.row] ["regular"]!
-            detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
-        }
-    }
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		// Get the new view controller using segue.destinationViewController.
+		// Pass the selected object to the new view controller.
+		if (segue.identifier == "showSearchResults") {
+			let detailViewController = segue.destinationViewController as! DetailViewController
+			let cell = sender as? UITableViewCell
+			let indexPath = self.tableView.indexPathForCell(cell!)
+			detailViewController.downloadURL = self.photosArray[indexPath!.row] ["regular"]!
+			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
+		}
+	}
 	
 	func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .Recognized) {
@@ -108,7 +134,13 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		let whiteSpace = NSCharacterSet.whitespaceAndNewlineCharacterSet()
 		let searchTerm = searchController.searchBar.text?.stringByTrimmingCharactersInSet(whiteSpace)
 		if (!searchTerm!.isEmpty) {
-			self.getSearchResults(searchController.searchBar.text!.lowercaseString)
+            if (self.photosArray.count != 0) {
+                self.photosArray = []
+                self.photoID = []
+                self.page = 1
+            }
+            self.query = searchController.searchBar.text!.lowercaseString
+			self.getSearchResults()
 		} else {
 			print("Please enter the search term")
 		}
@@ -123,36 +155,67 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 	
 	// MARK: fetch search results
-	func getSearchResults(query: String) {
-		Alamofire.request(.GET, "https://api.unsplash.com/photos/search/", parameters: [
-				"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
-				"query": query,
-				"category": 0,
-				"page": 1,
-				"per_page": 30
-			]).validate().responseJSON(completionHandler: {response in
-				switch response.result {
-				case .Success:
-					if let value = response.result.value {
-						let json = JSON(value)
+	func getSearchResults() {
+		if (self.page <= self.totalPages || self.page == 1) {
+			Alamofire.request(.GET, "https://api.unsplash.com/photos/search/", parameters: [
+					"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
+					"query": self.query,
+					"category": 0,
+					"page": self.page,
+					"per_page": searchPerItem
+				]).validate().responseJSON(completionHandler: {response in
+					switch response.result {
+					case .Success:
+                        self.refreshControl?.endRefreshing()
+						if (self.page == 1) {
+							self.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+						}
+						self.page += 1
+						if let value = response.result.value {
+							let json = JSON(value)
 //						print("JSON:\(json)")
-                        for (_, subJson): (String, JSON) in json {
-						 var photoDic = Dictionary<String, String>()
-						 photoDic["regular"] = subJson["urls"]["regular"].stringValue
-						 photoDic["small"] = subJson["urls"]["small"].stringValue
-						 photoDic["id"] = subJson["id"].stringValue
-						 photoDic["download"] = subJson["links"]["download"].stringValue
-						 photoDic["name"] = subJson["user"]["name"].stringValue
-						 self.photosArray.append(photoDic)
-						 }
-						 //						 print(self.photosArray)
-						 self.successfullyGetJsonData = true
-						 self.tableView.reloadData()
+                            if (json.count == 0){                             
+                                self.page -= 1
+                                if (self.totalItems == 0) {
+                                    print("We couldn't find anything that matched that search.")
+                                }
+//                                else {
+//                                    self.footer.endRefreshingWithNoMoreData()
+//                                }
+                            }
+                            print("totalpage is \(self.totalPages)")
+							for (_, subJson): (String, JSON) in json {
+								var photoDic = Dictionary<String, String>()
+								photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+								photoDic["small"] = subJson["urls"] ["small"].stringValue
+								photoDic["id"] = subJson["id"].stringValue
+								photoDic["download"] = subJson["links"] ["download"].stringValue
+								photoDic["name"] = subJson["user"] ["name"].stringValue
+								if (!self.photoID.contains(subJson["id"].stringValue)) {
+									self.photoID.append(subJson["id"].stringValue)
+									self.photosArray.append(photoDic)
+								}
+							}
+							self.successfullyGetJsonData = true
+							self.tableView.reloadData()
+						}
+					case .Failure(let error):
+						print(error)
 					}
-				case .Failure(let error):
-					print(error)
-				}
-			})
+				})
+		} else {
+			footer.endRefreshingWithNoMoreData()
+		}
+        if (footer.isRefreshing()) {
+            footer.endRefreshing()
+        }
 	}
 	
+    func refreshSearchData() {
+        self.photosArray = []
+        self.photoID = []
+        self.page = 1
+        self.getSearchResults()
+//        self.refreshControl?.endRefreshing()
+    }
 }

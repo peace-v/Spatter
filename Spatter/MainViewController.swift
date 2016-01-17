@@ -21,9 +21,9 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	
 	@IBAction func showMenu(sender: AnyObject) {
 		if (isLogin) {
-			RWDropdownMenu.presentFromViewController(self, withItems: menuItemsAlreadyLogin, align: .Center, style: .Translucent, navBarImage: nil, completion: nil)
+			RWDropdownMenu.presentFromViewController(self, withItems: menuItemsAlreadyLogin, align: .Center, style: .White, navBarImage: nil, completion: nil)
 		} else {
-			RWDropdownMenu.presentFromViewController(self, withItems: menuItemsWithoutLogin, align: .Center, style: .Translucent, navBarImage: nil, completion: nil)
+			RWDropdownMenu.presentFromViewController(self, withItems: menuItemsWithoutLogin, align: .Center, style: .White, navBarImage: nil, completion: nil)
 		}
 	}
 	
@@ -32,17 +32,19 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		// Do any additional setup after loading the view, typically from a nib.
 		
 //		// todo: tesing
-//		self.saveUserInfo()
+		// self.saveUserInfo()
 		
+        self.tableView.separatorStyle = .None
+        
 		// init menuItem
 		menuItemsAlreadyLogin = [
 			RWDropdownMenuItem(text: "Profile", image: nil, action: {
 					self.navigationController!.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("profileNavController"), animated: true, completion: nil)
 				}),
-            RWDropdownMenuItem(text: "Logout", image: nil, action: {
-                isLogin = false
-                accessToken = ""
-            }),
+			RWDropdownMenuItem(text: "Logout", image: nil, action: {
+					isLogin = false
+					accessToken = ""
+				}),
 			RWDropdownMenuItem(text: "Clear Cache", image: nil, action: {
 					SDImageCache.sharedImageCache().clearDisk()
 				}),
@@ -62,7 +64,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 				})]
 		
 		// configure tableView
-		self.getCollections()
+//		 self.getCollections()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -133,11 +135,11 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	}
 	
 //	// MARK: save userModel
-//	func saveUserInfo() {
-//		let avatarData = UIImageJPEGRepresentation(UIImage(named: "IMG_2184")!, 1.0)
-//		let userInfoArray: [AnyObject] = ["haru", avatarData!]
-//		NSKeyedArchiver.archiveRootObject(userInfoArray, toFile: UserModel.userModelFilePath)
-//	}
+	// func saveUserInfo() {
+	// let avatarData = UIImageJPEGRepresentation(UIImage(named: "IMG_2184")!, 1.0)
+	// let userInfoArray: [AnyObject] = ["haru", avatarData!]
+	// NSKeyedArchiver.archiveRootObject(userInfoArray, toFile: UserModel.userModelFilePath)
+	// }
 	
 	// MARK: scrollingNavBar
 	override func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {

@@ -11,6 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class PostTableViewController: BaseTableViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,10 +23,20 @@ class PostTableViewController: BaseTableViewController {
         
         self.tableView.separatorStyle = .None
         
-//        self.refreshControl = UIRefreshControl()
-//        self.refreshControl!.backgroundColor = UIColor.whiteColor()
-//        self.refreshControl!.tintColor = UIColor.blackColor()
-//        self.refreshControl!.addTarget(self, action: "getCollections", forControlEvents: .ValueChanged)
+        // configure refreshController
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.backgroundColor = UIColor.whiteColor()
+        self.refreshControl!.tintColor = UIColor.blackColor()
+        self.refreshControl!.addTarget(self, action: "refreshPostData", forControlEvents: .ValueChanged)
+        
+//        header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: "getPostPhotos:")
+//        header.lastUpdatedTimeLabel?.hidden = true
+//        header.stateLabel?.hidden = true
+//        self.tableView.mj_header = header
+        
+        footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "showNoMoreInfo")
+        footer.refreshingTitleHidden = true
+        self.tableView.mj_footer = footer
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "getPostPhotos:", name: "LoadPostPhotos", object: nil)
     }
@@ -53,9 +64,18 @@ class PostTableViewController: BaseTableViewController {
             ]).validate().responseJSON(completionHandler: {response in
                 switch response.result {
                 case .Success:
+                    self.refreshControl?.endRefreshing()
                     if let value = response.result.value {
                         let json = JSON(value)
                         //						print("JSON:\(json)")
+                        if (json.count == 0){
+                            if (self.totalItems == 0) {
+                                print("You don't post photo yet.")
+                            }
+//                            else {
+//                                self.footer.endRefreshingWithNoMoreData()
+//                            }
+                        }
                         for (_, subJson): (String, JSON) in json {
                             var photoDic = Dictionary<String, String>()
                             photoDic["regular"] = subJson["urls"] ["regular"].stringValue
@@ -63,7 +83,7 @@ class PostTableViewController: BaseTableViewController {
                             photoDic["id"] = subJson["id"].stringValue
                             photoDic["download"] = subJson["links"] ["download"].stringValue
                             photoDic["name"] = subJson["user"] ["name"].stringValue
-                            self.photosArray.append(photoDic)
+                                self.photosArray.append(photoDic)
                         }
                         self.successfullyGetJsonData = true
                         self.tableView.reloadData()
@@ -72,5 +92,15 @@ class PostTableViewController: BaseTableViewController {
                     print(error)
                 }
             })
+    }
+    
+    func showNoMoreInfo() {
+        footer.endRefreshingWithNoMoreData()
+    }
+    
+    func refreshPostData() {
+        self.photosArray = []
+        NSNotificationCenter.defaultCenter().postNotificationName("LoadPostPhotos", object: nil)
+//        self.refreshControl?.endRefreshing()
     }
 }
