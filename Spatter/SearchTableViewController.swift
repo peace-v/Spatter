@@ -14,7 +14,6 @@ import SwiftyJSON
 class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 	
 	let searchController = UISearchController(searchResultsController: nil)
-//	var searchPage = 1
 	var photoID: [String] = []
     var query = ""
     var searchPerItem = 30
@@ -33,20 +32,17 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		// Uncomment the following line to preserve selection between presentations
-		// self.clearsSelectionOnViewWillAppear = false
-		
-		// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-		// self.navigationItem.rightBarButtonItem = self.editButtonItem()
-		
+        self.tableView.separatorStyle = .None
+        
 		// clear searchController warning
-		if #available(iOS 9.0, *) {
-			searchController.loadViewIfNeeded()
-		} else {
-			let _ = searchController.view
-		}
-		
+//		if #available(iOS 9.0, *) {
+//			searchController.loadViewIfNeeded()
+//		} else {
+//			let _ = searchController.view
+//		}
+        
+            searchController.loadViewIfNeeded()
+
 		// configure searchController
 		searchController.searchResultsUpdater = self
 		searchController.dimsBackgroundDuringPresentation = false
@@ -55,23 +51,12 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		searchController.searchBar.delegate = self
 		searchController.searchBar.searchBarStyle = .Minimal
 		searchController.hidesNavigationBarDuringPresentation = false
-		// searchController.searchBar.showsScopeBar = true
-		// searchController.searchBar.scopeButtonTitles = ["All", "Buildings", "Food", "Nature", "People", "Tech", "Objects"]
-		// searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10.0)], forState: .Normal)
-		// searchController.searchBar.setScopeBarButtonTitleTextAttributes([NSFontAttributeName: UIFont.systemFontOfSize(10.0)], forState: .Selected)
-        
-        self.tableView.separatorStyle = .None
         
         // configure refreshController
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.backgroundColor = UIColor.whiteColor()
         self.refreshControl!.tintColor = UIColor.blackColor()
         self.refreshControl!.addTarget(self, action: "refreshSearchData", forControlEvents: .ValueChanged)
-        
-//        header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: "getSearchResults")
-//        header.lastUpdatedTimeLabel?.hidden = true
-//        header.stateLabel?.hidden = true
-//        self.tableView.mj_header = header
         
         footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "getSearchResults")
         footer.refreshingTitleHidden = true
@@ -116,20 +101,9 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 	
 	// MARK: UISearchController
-	func updateSearchResultsForSearchController(searchController: UISearchController) {
-//		let scope = searchController.searchBar.scopeButtonTitles![searchController.searchBar.selectedScopeButtonIndex]
-		
-	}
-	
-//	func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-	// searchController.resignFirstResponder()
-	// self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
-	// }
-	
-//	func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-	//
-	// }
-	
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    }
+    
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 		let whiteSpace = NSCharacterSet.whitespaceAndNewlineCharacterSet()
 		let searchTerm = searchController.searchBar.text?.stringByTrimmingCharactersInSet(whiteSpace)
@@ -179,11 +153,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
                                 if (self.totalItems == 0) {
                                     print("We couldn't find anything that matched that search.")
                                 }
-//                                else {
-//                                    self.footer.endRefreshingWithNoMoreData()
-//                                }
                             }
-                            print("totalpage is \(self.totalPages)")
 							for (_, subJson): (String, JSON) in json {
 								var photoDic = Dictionary<String, String>()
 								photoDic["regular"] = subJson["urls"] ["regular"].stringValue
@@ -216,6 +186,5 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
         self.photoID = []
         self.page = 1
         self.getSearchResults()
-//        self.refreshControl?.endRefreshing()
     }
 }

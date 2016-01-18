@@ -24,29 +24,16 @@ class BaseTableViewController: UITableViewController {
 			return Int(ceilf(Float(totalItems) / Float(perItem)))
 		}
 	}
-//	var header = MJRefreshNormalHeader()
 	var footer = MJRefreshAutoNormalFooter()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		// Uncomment the following line to preserve selection between presentations
-		// self.clearsSelectionOnViewWillAppear = false
-		
-		// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-		// self.navigationItem.rightBarButtonItem = self.editButtonItem()
-		
 		self.tableView.separatorStyle = .None
 		
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.backgroundColor = UIColor.whiteColor()
 		self.refreshControl!.tintColor = UIColor.blackColor()
 		self.refreshControl!.addTarget(self, action: "refreshData", forControlEvents: .ValueChanged)
-		
-//		header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: "getCollections")
-		// header.lastUpdatedTimeLabel?.hidden = true
-		// header.stateLabel?.hidden = true
-		// self.tableView.mj_header = header
 		
 		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "getCollections")
 		footer.refreshingTitleHidden = true
@@ -62,12 +49,10 @@ class BaseTableViewController: UITableViewController {
 	// MARK: - Table view data source
 	
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		// #warning Incomplete implementation, return the number of sections
 		return 1
 	}
 	
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		// #warning Incomplete implementation, return the number of rows
 		if self.successfullyGetJsonData {
 			return self.photosArray.count
 		}
@@ -136,10 +121,6 @@ class BaseTableViewController: UITableViewController {
 									self.getPhotos(collectionID)
 								}
 							}
-							print(self.collcectionsArray.count)
-							// for index in 0...(self.collcectionsArray.count - 1) {
-							// self.getPhotos(self.collcectionsArray[index])
-							// }
 						}
 					case .Failure(let error):
 						print(error)
@@ -171,7 +152,6 @@ class BaseTableViewController: UITableViewController {
 							photoDic["name"] = subJson["user"] ["name"].stringValue
 							self.photosArray.append(photoDic)
 						}
-						print(self.photosArray.count)
 						self.successfullyGetJsonData = true
 						self.tableView.reloadData()
 					}
@@ -186,7 +166,6 @@ class BaseTableViewController: UITableViewController {
 		self.photosArray = []
 		self.page = 1
 		self.getCollections()
-//        self.refreshControl?.endRefreshing()
 	}
 }
 

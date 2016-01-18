@@ -15,7 +15,6 @@
 		604B2F9D1C173ACE005EB9D0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F9C1C173ACE005EB9D0 /* ProfileViewController.swift */; };
 		6072C29C1C303A3600ECF780 /* LikedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6072C29B1C303A3600ECF780 /* LikedTableViewController.swift */; };
 		6072C29E1C303A5000ECF780 /* PostTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6072C29D1C303A5000ECF780 /* PostTableViewController.swift */; };
-		6072C2A11C30DD7800ECF780 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6072C2A01C30DD7800ECF780 /* UserModel.swift */; };
 		607FC4E41C2911B50046CEF3 /* RWDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 607FC4DF1C2911B50046CEF3 /* RWDropdownMenu.m */; };
 		607FC4E51C2911B50046CEF3 /* RWDropdownMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 607FC4E11C2911B50046CEF3 /* RWDropdownMenuCell.m */; };
 		607FC4E61C2911B50046CEF3 /* RWDropdownMenuTransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607FC4E31C2911B50046CEF3 /* RWDropdownMenuTransitionController.m */; };
@@ -91,7 +90,6 @@
 		604B2F9C1C173ACE005EB9D0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		6072C29B1C303A3600ECF780 /* LikedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikedTableViewController.swift; sourceTree = "<group>"; };
 		6072C29D1C303A5000ECF780 /* PostTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewController.swift; sourceTree = "<group>"; };
-		6072C2A01C30DD7800ECF780 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		607FC4C71C28FB130046CEF3 /* Spatter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spatter-Bridging-Header.h"; sourceTree = "<group>"; };
 		607FC4DE1C2911B50046CEF3 /* RWDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWDropdownMenu.h; sourceTree = "<group>"; };
 		607FC4DF1C2911B50046CEF3 /* RWDropdownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWDropdownMenu.m; sourceTree = "<group>"; };
@@ -304,14 +302,6 @@
 			name = ProfileView;
 			sourceTree = "<group>";
 		};
-		6072C29F1C30DD5800ECF780 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				6072C2A01C30DD7800ECF780 /* UserModel.swift */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		607FC4DD1C2911B50046CEF3 /* RWDropdownMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,7 +453,6 @@
 		60C558711C12E16600956D19 /* Spatter */ = {
 			isa = PBXGroup;
 			children = (
-				6072C29F1C30DD5800ECF780 /* Model */,
 				604B2F821C173395005EB9D0 /* ViewController */,
 				6042458F1C1D4F2D00E79919 /* View */,
 				604245A91C265A4C00E79919 /* 3rd lib */,
@@ -742,7 +731,6 @@
 				60F16D641C33ADBD006DDF59 /* SDWebImageDownloader.m in Sources */,
 				60C342061C42A10C00270E06 /* MJRefreshBackNormalFooter.m in Sources */,
 				60C342091C42A10C00270E06 /* MJRefreshNormalHeader.m in Sources */,
-				6072C2A11C30DD7800ECF780 /* UserModel.swift in Sources */,
 				607FC4F61C2A86030046CEF3 /* CMPopTipView.m in Sources */,
 				60C342071C42A10C00270E06 /* MJRefreshBackStateFooter.m in Sources */,
 				60F16D6C1C33ADBD006DDF59 /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -861,7 +849,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -899,7 +887,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -913,7 +901,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Spatter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuying.Spatter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -929,7 +917,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Spatter/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuying.Spatter;
 				PRODUCT_NAME = "$(TARGET_NAME)";

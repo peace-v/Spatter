@@ -10,14 +10,21 @@ import UIKit
 import SafariServices
 import MessageUI
 import AMScrollingNavbar
+import Alamofire
+import SwiftyJSON
 
 let APPVERSION = "1.0"
+var code = ""
+var refreshToken = ""
+var accessToken = ""
+var isLogin = false
 
 class MainViewController: BaseTableViewController, SFSafariViewControllerDelegate, MFMailComposeViewControllerDelegate {
 	
 	var viewControllers: [UIViewController] = []
 	var menuItemsAlreadyLogin: [RWDropdownMenuItem] = []
 	var menuItemsWithoutLogin: [RWDropdownMenuItem] = []
+	var safariVC: SFSafariViewController?
 	
 	@IBAction func showMenu(sender: AnyObject) {
 		if (isLogin) {
@@ -31,11 +38,8 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
 		
-//		// todo: tesing
-		// self.saveUserInfo()
+		self.tableView.separatorStyle = .None
 		
-        self.tableView.separatorStyle = .None
-        
 		// init menuItem
 		menuItemsAlreadyLogin = [
 			RWDropdownMenuItem(text: "Profile", image: nil, action: {
@@ -64,7 +68,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 				})]
 		
 		// configure tableView
-//		 self.getCollections()
+		// self.getCollections()
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -73,11 +77,18 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		if let navigationController = self.navigationController as? ScrollingNavigationController {
 			navigationController.followScrollView(self.tableView, delay: 50.0)
 		}
+		
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "oauthUser:", name: "DismissSafariVC", object: nil)
 	}
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
+	}
+	
+	deinit {
+        print("destory the observer")
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: "DismissSafariVC", object: nil)
 	}
 	
 	// MARK: tableView delegate
@@ -94,20 +105,63 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	}
 	
 	// MARK: SFSafariViewControllerDelegate
+	// func openSafari() {
+	// if #available(iOS 9.0, *) {
+	// let svc = SFSafariViewController(URL: NSURL(string: "https://unsplash.com/oauth/authorize?client_id=cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes")!)
+	// svc.delegate = self
+	// self.presentViewController(svc, animated: true, completion: nil)
+	// } else {
+	// // Fallback on earlier versions
+	// UIApplication.sharedApplication().openURL(NSURL(string: "https://unsplash.com/oauth/authorize?client_id=cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes")!)
+	// }
+	// }
+	//
+	// @available(iOS 9.0, *)
+	// func safariViewControllerDidFinish(controller: SFSafariViewController) {
+	// controller.dismissViewControllerAnimated(true, completion: nil)
+	// }
+	
 	func openSafari() {
-		if #available(iOS 9.0, *) {
-			let svc = SFSafariViewController(URL: NSURL(string: "https://unsplash.com/oauth/authorize?client_id=cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes")!)
-			svc.delegate = self
-			self.presentViewController(svc, animated: true, completion: nil)
-		} else {
-			// Fallback on earlier versions
-			UIApplication.sharedApplication().openURL(NSURL(string: "https://unsplash.com/oauth/authorize?client_id=cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes")!)
-		}
+		safariVC = SFSafariViewController(URL: NSURL(string: "https://unsplash.com/oauth/authorize?client_id=cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes")!)
+		safariVC!.delegate = self
+		self.presentViewController(safariVC!, animated: true, completion: nil)
 	}
 	
-	@available(iOS 9.0, *)
 	func safariViewControllerDidFinish(controller: SFSafariViewController) {
 		controller.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	// MARK: handle callback after oauth
+	func oauthUser(notification: NSNotification) {
+		print("received notification")
+		let url = notification.object as! NSURL
+		let urlString = url.absoluteString
+		if (urlString.containsString("code")) {
+			let urlArray = urlString.componentsSeparatedByString("=")
+			code = urlArray[1]
+			isLogin = true
+			
+			Alamofire.request(.POST, "https://unsplash.com/oauth/token", parameters: [
+					"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
+					"client_secret": "915698939466b067ec1655727d1af0ce40ba717258f366200473969033a2ab5f",
+					"redirect_uri": "spatter://com.yuying.spatter",
+					"code": code,
+					"grant_type": "authorization_code"
+				]).validate().responseJSON(completionHandler: {response in
+					switch response.result {
+					case .Success:
+						if let value = response.result.value {
+							let json = JSON(value)
+							refreshToken = json["refresh_token"].stringValue
+							accessToken = json["access_token"].stringValue
+						}
+					case .Failure(let error):
+						print(error)
+					}
+				})
+		}
+		
+		self.safariVC!.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
 	// MARK: MFMailComposeViewControllerDelegate
@@ -133,13 +187,6 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
 		self.dismissViewControllerAnimated(true, completion: nil)
 	}
-	
-//	// MARK: save userModel
-	// func saveUserInfo() {
-	// let avatarData = UIImageJPEGRepresentation(UIImage(named: "IMG_2184")!, 1.0)
-	// let userInfoArray: [AnyObject] = ["haru", avatarData!]
-	// NSKeyedArchiver.archiveRootObject(userInfoArray, toFile: UserModel.userModelFilePath)
-	// }
 	
 	// MARK: scrollingNavBar
 	override func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {

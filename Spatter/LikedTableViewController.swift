@@ -12,7 +12,6 @@ import SwiftyJSON
 
 class LikedTableViewController: BaseTableViewController {
 	
-//	var searchPage = 1
 	var photoID: [String] = []
 	var likedPerItem = 30
 	var likedTotalPages: Int {
@@ -23,13 +22,6 @@ class LikedTableViewController: BaseTableViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		// Uncomment the following line to preserve selection between presentations
-		// self.clearsSelectionOnViewWillAppear = false
-		
-		// Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-		// self.navigationItem.rightBarButtonItem = self.editButtonItem()
-		
 		self.tableView.separatorStyle = .None
 		
 		// configure refreshController
@@ -37,11 +29,6 @@ class LikedTableViewController: BaseTableViewController {
 		self.refreshControl!.backgroundColor = UIColor.whiteColor()
 		self.refreshControl!.tintColor = UIColor.blackColor()
 		self.refreshControl!.addTarget(self, action: "refreshLikedData", forControlEvents: .ValueChanged)
-		
-//		header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: "getLikedPhotos:")
-		// header.lastUpdatedTimeLabel?.hidden = true
-		// header.stateLabel?.hidden = true
-		// self.tableView.mj_header = header
 		
 		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "getLikedPhotos:")
 		footer.refreshingTitleHidden = true
@@ -89,9 +76,6 @@ class LikedTableViewController: BaseTableViewController {
 								if (self.totalItems == 0) {
                                     print("You don't like photo yet")
                                 }
-//                                else {
-//                                    self.footer.endRefreshingWithNoMoreData()
-//                                }
 							}
 							for (_, subJson): (String, JSON) in json {
 								var photoDic = Dictionary<String, String>()
@@ -125,6 +109,5 @@ class LikedTableViewController: BaseTableViewController {
 		self.photoID = []
 		self.page = 1
 		NSNotificationCenter.defaultCenter().postNotificationName("LoadLikedPhotos", object: nil)
-//		self.refreshControl?.endRefreshing()
 	}
 }

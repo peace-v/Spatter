@@ -14,13 +14,6 @@ class PostTableViewController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        
         self.tableView.separatorStyle = .None
         
         // configure refreshController
@@ -28,11 +21,6 @@ class PostTableViewController: BaseTableViewController {
         self.refreshControl!.backgroundColor = UIColor.whiteColor()
         self.refreshControl!.tintColor = UIColor.blackColor()
         self.refreshControl!.addTarget(self, action: "refreshPostData", forControlEvents: .ValueChanged)
-        
-//        header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: "getPostPhotos:")
-//        header.lastUpdatedTimeLabel?.hidden = true
-//        header.stateLabel?.hidden = true
-//        self.tableView.mj_header = header
         
         footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "showNoMoreInfo")
         footer.refreshingTitleHidden = true
@@ -72,9 +60,6 @@ class PostTableViewController: BaseTableViewController {
                             if (self.totalItems == 0) {
                                 print("You don't post photo yet.")
                             }
-//                            else {
-//                                self.footer.endRefreshingWithNoMoreData()
-//                            }
                         }
                         for (_, subJson): (String, JSON) in json {
                             var photoDic = Dictionary<String, String>()
@@ -101,6 +86,5 @@ class PostTableViewController: BaseTableViewController {
     func refreshPostData() {
         self.photosArray = []
         NSNotificationCenter.defaultCenter().postNotificationName("LoadPostPhotos", object: nil)
-//        self.refreshControl?.endRefreshing()
     }
 }
