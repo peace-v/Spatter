@@ -48,7 +48,7 @@ class PostTableViewController: BaseTableViewController {
     
     func getPostPhotos(notification: NSNotification) {
         Alamofire.request(.GET, "https://api.unsplash.com/users/\(username)/photos", parameters: [
-            "client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d"
+            "client_id": clientID!
             ]).validate().responseJSON(completionHandler: {response in
                 switch response.result {
                 case .Success:

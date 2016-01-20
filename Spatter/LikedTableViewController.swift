@@ -57,7 +57,7 @@ class LikedTableViewController: BaseTableViewController {
 	func getLikedPhotos(notification: NSNotification) {
 		if (self.page <= self.totalPages || self.page == 1) {
 			Alamofire.request(.GET, "https://api.unsplash.com/users/\(username)/likes", parameters: [
-					"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
+					"client_id": clientID!,
 					"page": self.page,
 					"per_page": self.likedPerItem
 				]).validate().responseJSON(completionHandler: {response in

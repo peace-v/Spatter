@@ -99,7 +99,7 @@ class BaseTableViewController: UITableViewController {
 	func getCollections() {
 		if (self.page <= self.totalPages || self.page == 1) {
 			Alamofire.request(.GET, "https://api.unsplash.com/curated_batches", parameters: [
-					"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
+					"client_id": clientID!,
 					"page": self.page,
 					"per_page": self.perItem
 				]).validate().responseJSON(completionHandler: {response in
@@ -136,7 +136,7 @@ class BaseTableViewController: UITableViewController {
 	
 	func getPhotos(id: Int) {
 		Alamofire.request(.GET, "https://api.unsplash.com/curated_batches/\(id)/photos", parameters: [
-				"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d"
+				"client_id": clientID!
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .Success:

@@ -132,7 +132,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	func getSearchResults() {
 		if (self.page <= self.totalPages || self.page == 1) {
 			Alamofire.request(.GET, "https://api.unsplash.com/photos/search/", parameters: [
-					"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
+					"client_id": clientID!,
 					"query": self.query,
 					"category": 0,
 					"page": self.page,

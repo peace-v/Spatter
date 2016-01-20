@@ -30,8 +30,8 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		
 		// Do any additional setup after loading the view.
 		Alamofire.request(.GET, "https://api.unsplash.com/me", headers: [
-				"Authorization": "Bearer \(accessToken)"], parameters: [
-				"client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d"
+				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
+				"client_id": clientID!
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .Success:
