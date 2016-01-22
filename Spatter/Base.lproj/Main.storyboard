@@ -413,13 +413,13 @@
                                             <action selector="back:" destination="il9-u6-8ur" id="Ihs-sG-7Xe"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="IOw-JI-5Qo"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="DLh-IT-6ep"/>
                                     <barButtonItem title="Save" id="fde-RS-KXM">
                                         <connections>
                                             <action selector="saveToAlbum:" destination="il9-u6-8ur" id="lyz-9m-yVp"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="hrr-ug-gcc"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="wcL-5U-j5X"/>
                                     <barButtonItem title="Like" id="POr-Ij-IZx">
                                         <connections>
                                             <action selector="likePhoto:" destination="il9-u6-8ur" id="Fnd-31-e3w"/>

@@ -17,7 +17,7 @@ class BaseTableViewController: UITableViewController {
 	var collcectionsArray: [Int] = []
 	var successfullyGetJsonData = false
 	var totalItems = 0
-	var perItem = 10
+	var perItem = 1
 	var page = 1
 	var totalPages: Int {
 		get {

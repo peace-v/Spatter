@@ -22,6 +22,15 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	var menuItemsWithoutLogin: [RWDropdownMenuItem] = []
 	var safariVC: SFSafariViewController?
     var code = ""
+    
+    var likedTotalItems = 0
+    var likedPerItem = 30
+    var likedPage = 1
+    var likedTotalPages: Int {
+        get {
+            return Int(ceilf(Float(totalItems) / Float(perItem)))
+        }
+    }
 	
 	@IBAction func showMenu(sender: AnyObject) {
 		if (NSUserDefaults.standardUserDefaults().boolForKey("isLogin")) {
@@ -68,7 +77,8 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 				})]
 		
 		// configure tableView
-		// self.getCollections()
+		 self.getCollections()
+        
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -80,6 +90,13 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "oauthUser:", name: "DismissSafariVC", object: nil)
 	}
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(true)
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.stopFollowingScrollView()
+        }
+    }
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
@@ -87,7 +104,6 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	}
 	
 	deinit {
-		print("destory the observer")
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: "DismissSafariVC", object: nil)
 	}
 	
@@ -101,6 +117,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			let indexPath = self.tableView.indexPathForCell(cell!)
 			detailViewController.downloadURL = self.photosArray[indexPath!.row] ["regular"]!
 			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
+            detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!
 		}
 	}
 	
@@ -155,6 +172,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 							let json = JSON(value)
 							keychain["refresh_token"] = json["refresh_token"].stringValue
 							keychain["access_token"] = json["access_token"].stringValue
+                            self.getLikedPhotoArray()
 						}
 					case .Failure(let error):
 						print(error)
@@ -162,7 +180,9 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 				})
 		}
 		
+        if (self.safariVC != nil){
 		self.safariVC!.dismissViewControllerAnimated(true, completion: nil)
+        }
 	}
 	
 	// MARK: MFMailComposeViewControllerDelegate
@@ -196,4 +216,69 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		}
 		return true
 	}
+    
+    // MARK: getLikedPhotoArray
+    func getLikedPhotoArray() {
+        print("get username")
+        Alamofire.request(.GET, "https://api.unsplash.com/me", headers: [
+            "Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
+                "client_id": clientID!
+            ]).validate().responseJSON(completionHandler: {response in
+                switch response.result {
+                case .Success:
+                    if let value = response.result.value {
+                        let json = JSON(value)
+                        // print("JSON:\(json)")
+                        username = json["username"].stringValue
+                        self.getLikedPhoto()
+                    }
+                case .Failure(let error):
+                    print(error)
+                }
+            })}
+    
+    func getLikedPhoto() {
+        print("get liked photos")
+        if (photoIDArray.count < self.likedTotalItems || photoIDArray.count == 0) {
+            Alamofire.request(.GET, "https://api.unsplash.com/users/\(username)/likes", parameters: [
+                "client_id": clientID!,
+                "page": self.likedPage,
+                "per_page": self.likedPerItem
+                ]).validate().responseJSON(completionHandler: {response in
+                    switch response.result {
+                    case .Success:
+                        if (self.likedPage == 1) {
+                            self.likedTotalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+                        }
+                        self.likedPage += 1
+                        if let value = response.result.value {
+                            let json = JSON(value)
+                            // print("JSON:\(json)")
+                            if (json.count == 0) {
+                                self.likedPage -= 1
+                                return
+                            }
+                            for (_, subJson): (String, JSON) in json {
+                                var photoDic = Dictionary<String, String>()
+                                photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+                                photoDic["small"] = subJson["urls"] ["small"].stringValue
+                                photoDic["id"] = subJson["id"].stringValue
+                                photoDic["download"] = subJson["links"] ["download"].stringValue
+                                photoDic["name"] = subJson["user"] ["name"].stringValue
+                                if (!photoIDArray.contains(subJson["id"].stringValue)) {
+                                    photoIDArray.append(subJson["id"].stringValue)
+                                    likedPhotosArray.append(photoDic)
+                                }
+                            }
+                            self.getLikedPhoto()
+                        }
+                    case .Failure(let error):
+                        print(error)
+                    }
+                })
+        } else {
+            print(photoIDArray)
+            return
+        }
+    }
 }

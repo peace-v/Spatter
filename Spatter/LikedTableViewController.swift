@@ -51,6 +51,7 @@ class LikedTableViewController: BaseTableViewController {
 			let indexPath = self.tableView.indexPathForCell(cell!)
 			detailViewController.downloadURL = self.photosArray[indexPath!.row] ["regular"]!
 			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
+            detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!
 		}
 	}
 	
