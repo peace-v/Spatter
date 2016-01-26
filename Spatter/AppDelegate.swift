@@ -16,25 +16,29 @@ let keychain = Keychain()
 let clientID = keychain["client_id"]
 let clientSecret = keychain["client_secret"]
 var likedPhotosArray: [Dictionary<String, String>] = [Dictionary<String, String>]()
-var photoIDArray: [String] = []
+var likedPhotoIDArray: NSMutableArray = []
+var likedTotalItems = 0
+var username = ""
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
-    var totalItems = 0
-    var perItem = 30
-    var page = 1
-    var totalPages: Int {
-        get {
-            return Int(ceilf(Float(totalItems) / Float(perItem)))
-        }
-    }
+//    var totalItems = 0
+//    var perItem = 30
+//    var page = 1
+//    var totalPages: Int {
+//        get {
+//            return Int(ceilf(Float(totalItems) / Float(perItem)))
+//        }
+//    }
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
+        let cache = NSURLCache.sharedURLCache()
+        cache.removeAllCachedResponses()
+        
 		if (!(NSUserDefaults.standardUserDefaults().boolForKey("firstLaunch"))) {
-            print("first launch")
 			NSUserDefaults.standardUserDefaults().setBool(false, forKey: "firstLaunch")
 			NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isLogin")
 			NSUserDefaults.standardUserDefaults().synchronize()
@@ -43,30 +47,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		if (NSUserDefaults.standardUserDefaults().boolForKey("isLogin")) {
-            print("refresh access token")
-			Alamofire.request(.POST, "https://unsplash.com/oauth/token", parameters: [
-					"client_id": clientID!,
-					"client_secret": clientSecret!,
-					"refresh_token": keychain["refresh_token"]!,
-					"grant_type": "refresh_token"
-				]).validate().responseJSON(completionHandler: {response in
-					switch response.result {
-					case .Success:
-						if let value = response.result.value {
-							let json = JSON(value)
-//							refreshToken = json["refresh_token"].stringValue
-//							accessToken = json["access_token"].stringValue
-							keychain["refresh_token"] = json["refresh_token"].stringValue
-							keychain["access_token"] = json["access_token"].stringValue
-							
-							self.getLikedPhotoArray()
-						}
-					case .Failure(let error):
-						print(error)
-					}
-				})
-		}
-		
+//			Alamofire.request(.POST, "https://unsplash.com/oauth/token", parameters: [
+//					"client_id": clientID!,
+//					"client_secret": clientSecret!,
+//					"refresh_token": keychain["refresh_token"]!,
+//					"grant_type": "refresh_token"
+//				]).validate().responseJSON(completionHandler: {response in
+//					switch response.result {
+//					case .Success:
+//						if let value = response.result.value {
+//							let json = JSON(value)
+////							refreshToken = json["refresh_token"].stringValue
+////							accessToken = json["access_token"].stringValue
+//							keychain["refresh_token"] = json["refresh_token"].stringValue
+//							keychain["access_token"] = json["access_token"].stringValue
+//							
+//							self.getLikedPhotoArray()
+//						}
+//					case .Failure(let error):
+//						print(error)
+//					}
+//				})
+//		}
+		BaseNetworkRequest.getUsername()
+        }
 		return true
 	}
 	
@@ -137,68 +141,68 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	// MARK: getLikedPhotoArray
-	func getLikedPhotoArray() {
-        print("get username")
-		Alamofire.request(.GET, "https://api.unsplash.com/me", headers: [
-				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
-				"client_id": clientID!
-			]).validate().responseJSON(completionHandler: {response in
-				switch response.result {
-				case .Success:
-					if let value = response.result.value {
-						let json = JSON(value)
-						// print("JSON:\(json)")
-						username = json["username"].stringValue
-						self.getLikedPhoto()
-					}
-				case .Failure(let error):
-					print(error)
-				}
-			})}
-	
-	func getLikedPhoto() {
-        print("get liked photos")
-		if (photoIDArray.count < self.totalItems || photoIDArray.count == 0) {
-			Alamofire.request(.GET, "https://api.unsplash.com/users/\(username)/likes", parameters: [
-					"client_id": clientID!,
-					"page": self.page,
-					"per_page": self.perItem
-				]).validate().responseJSON(completionHandler: {response in
-					switch response.result {
-					case .Success:
-						if (self.page == 1) {
-							self.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-						}
-						self.page += 1
-						if let value = response.result.value {
-							let json = JSON(value)
-							// print("JSON:\(json)")
-							if (json.count == 0) {
-								self.page -= 1
-								return
-							}
-							for (_, subJson): (String, JSON) in json {
-								var photoDic = Dictionary<String, String>()
-								photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-								photoDic["small"] = subJson["urls"] ["small"].stringValue
-								photoDic["id"] = subJson["id"].stringValue
-								photoDic["download"] = subJson["links"] ["download"].stringValue
-								photoDic["name"] = subJson["user"] ["name"].stringValue
-								if (!photoIDArray.contains(subJson["id"].stringValue)) {
-									photoIDArray.append(subJson["id"].stringValue)
-									likedPhotosArray.append(photoDic)
-								}
-							}
-                            self.getLikedPhoto()
-						}
-					case .Failure(let error):
-						print(error)
-					}
-				})
-		} else {
-            print(photoIDArray)
-			return
-		}
-	}
+//	func getLikedPhotoArray() {
+//        print("get username")
+//		Alamofire.request(.GET, "https://api.unsplash.com/me", headers: [
+//				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
+//				"client_id": clientID!
+//			]).validate().responseJSON(completionHandler: {response in
+//				switch response.result {
+//				case .Success:
+//					if let value = response.result.value {
+//						let json = JSON(value)
+//						// print("JSON:\(json)")
+//						username = json["username"].stringValue
+//						self.getLikedPhoto()
+//					}
+//				case .Failure(let error):
+//					print(error)
+//				}
+//			})}
+//	
+//	func getLikedPhoto() {
+//        print("get liked photos")
+//		if (photoIDArray.count < self.totalItems || photoIDArray.count == 0) {
+//			Alamofire.request(.GET, "https://api.unsplash.com/users/\(username)/likes", parameters: [
+//					"client_id": clientID!,
+//					"page": self.page,
+//					"per_page": self.perItem
+//				]).validate().responseJSON(completionHandler: {response in
+//					switch response.result {
+//					case .Success:
+//						if (self.page == 1) {
+//							self.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+//						}
+//						self.page += 1
+//						if let value = response.result.value {
+//							let json = JSON(value)
+//							// print("JSON:\(json)")
+//							if (json.count == 0) {
+//								self.page -= 1
+//								return
+//							}
+//							for (_, subJson): (String, JSON) in json {
+//								var photoDic = Dictionary<String, String>()
+//								photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+//								photoDic["small"] = subJson["urls"] ["small"].stringValue
+//								photoDic["id"] = subJson["id"].stringValue
+//								photoDic["download"] = subJson["links"] ["download"].stringValue
+//								photoDic["name"] = subJson["user"] ["name"].stringValue
+//								if (!photoIDArray.contains(subJson["id"].stringValue)) {
+//									photoIDArray.append(subJson["id"].stringValue)
+//									likedPhotosArray.append(photoDic)
+//								}
+//							}
+//                            self.getLikedPhoto()
+//						}
+//					case .Failure(let error):
+//						print(error)
+//					}
+//				})
+//		} else {
+//            print(photoIDArray)
+//			return
+//		}
+//	}
 }
 

@@ -11,8 +11,6 @@ import PagingMenuController
 import Alamofire
 import SwiftyJSON
 
-var username = ""
-
 class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 	
 	var viewControllers: [UIViewController] = []
@@ -29,30 +27,32 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view.
-		Alamofire.request(.GET, "https://api.unsplash.com/me", headers: [
-				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
-				"client_id": clientID!
-			]).validate().responseJSON(completionHandler: {response in
-				switch response.result {
-				case .Success:
-					if let value = response.result.value {
-						let json = JSON(value)
-//						print("JSON:\(json)")
-						dispatch_async(dispatch_get_main_queue()) {
-							self.avatar.sd_setImageWithURL(NSURL(string: json["profile_image"] ["medium"].stringValue))
-                            username = json["username"].stringValue
-                            self.userLabel.text = username
-                            if (!username.isEmpty) {
-                                NSNotificationCenter.defaultCenter().postNotificationName("LoadLikedPhotos", object: nil)
-                                NSNotificationCenter.defaultCenter().postNotificationName("LoadPostPhotos", object: nil)
-                            }
-						}
-					}
-				case .Failure(let error):
-					print(error)
-				}
-			})
+//		Alamofire.request(.GET, "https://api.unsplash.com/me", headers: [
+//				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
+//				"client_id": clientID!
+//			]).validate().responseJSON(completionHandler: {response in
+//				switch response.result {
+//				case .Success:
+//					if let value = response.result.value {
+//						let json = JSON(value)
+////						print("JSON:\(json)")
+//						dispatch_async(dispatch_get_main_queue()) {
+//							self.avatar.sd_setImageWithURL(NSURL(string: json["profile_image"] ["medium"].stringValue))
+//                            username = json["username"].stringValue
+//                            self.userLabel.text = username
+//                            if (!username.isEmpty) {
+//                                NSNotificationCenter.defaultCenter().postNotificationName("LoadLikedPhotos", object: nil)
+//                                NSNotificationCenter.defaultCenter().postNotificationName("LoadPostPhotos", object: nil)
+//                            }
+//						}
+//					}
+//				case .Failure(let error):
+//					print(error)
+//				}
+//			})
 		
+        BaseNetworkRequest.loadProfile(self)
+        
 		avatar.layer.masksToBounds = true
 		let avatarWidth = CGFloat(44.0)
 		avatar.layer.cornerRadius = avatarWidth / 2
@@ -70,7 +70,7 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		options.menuHeight = 44
 		options.menuDisplayMode = .SegmentedControl
 		options.defaultPage = 0
-		options.menuItemMode = .Underline(height: 3, color: UIColor.orangeColor(), horizontalPadding: 0, verticalPadding: 5)
+		options.menuItemMode = .Underline(height: 3, color: UIColor.blackColor(), horizontalPadding: 0, verticalPadding: 5)
 		pagingMenuController.setup(viewControllers: viewControllers, options: options)
 		
 		pagingMenuController.delegate = self

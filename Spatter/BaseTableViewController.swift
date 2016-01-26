@@ -14,7 +14,7 @@ class BaseTableViewController: UITableViewController {
 	
 	let reuseIdentifier = "cell"
 	var photosArray: [Dictionary<String, String>] = [Dictionary<String, String>]()
-	var collcectionsArray: [Int] = []
+    var collcectionsArray: [Int] = []
 	var successfullyGetJsonData = false
 	var totalItems = 0
 	var perItem = 1
@@ -24,7 +24,7 @@ class BaseTableViewController: UITableViewController {
 			return Int(ceilf(Float(totalItems) / Float(perItem)))
 		}
 	}
-	var footer = MJRefreshAutoNormalFooter()
+    var footer = MJRefreshAutoNormalFooter()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -69,7 +69,9 @@ class BaseTableViewController: UITableViewController {
 		imageView.setIndicatorStyle(.Gray)
 		imageView.setShowActivityIndicatorView(true)
 		if self.successfullyGetJsonData {
+            if (self.photosArray.count != 0) {
 			imageView.sd_setImageWithURL(NSURL(string: self.photosArray[indexPath.row] ["small"]!))
+            }
 		}
 		
 		return cell
@@ -96,76 +98,82 @@ class BaseTableViewController: UITableViewController {
 		}
 	}
 	
-	func getCollections() {
-		if (self.page <= self.totalPages || self.page == 1) {
-			Alamofire.request(.GET, "https://api.unsplash.com/curated_batches", parameters: [
-					"client_id": clientID!,
-					"page": self.page,
-					"per_page": self.perItem
-				]).validate().responseJSON(completionHandler: {response in
-					switch response.result {
-					case .Success:
-						self.refreshControl?.endRefreshing()
-//                    print("response is \(response.response?.allHeaderFields)")
-						if (self.page == 1) {
-							self.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-						}
-						self.page += 1
-						if let value = response.result.value {
-							let json = JSON(value)
-//						print("JSON:\(json)")
-							for (_, subJson): (String, JSON) in json {
-								let collectionID = subJson["id"].intValue
-								if (!self.collcectionsArray.contains(collectionID)) {
-									self.collcectionsArray.append(collectionID)
-									self.getPhotos(collectionID)
-								}
-							}
-						}
-					case .Failure(let error):
-						print(error)
-					}
-				})
-		} else {
-			footer.endRefreshingWithNoMoreData()
-		}
-		if (footer.isRefreshing()) {
-			footer.endRefreshing()
-		}
-	}
-	
-	func getPhotos(id: Int) {
-		Alamofire.request(.GET, "https://api.unsplash.com/curated_batches/\(id)/photos", parameters: [
-				"client_id": clientID!
-			]).validate().responseJSON(completionHandler: {response in
-				switch response.result {
-				case .Success:
-					if let value = response.result.value {
-						let json = JSON(value)
-//						print("JSON:\(json)")
-						for (_, subJson): (String, JSON) in json {
-							var photoDic = Dictionary<String, String>()
-							photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-							photoDic["small"] = subJson["urls"] ["small"].stringValue
-							photoDic["id"] = subJson["id"].stringValue
-							photoDic["download"] = subJson["links"] ["download"].stringValue
-							photoDic["name"] = subJson["user"] ["name"].stringValue
-							self.photosArray.append(photoDic)
-						}
-						self.successfullyGetJsonData = true
-						self.tableView.reloadData()
-					}
-				case .Failure(let error):
-					print(error)
-				}
-			})
-	}
+//	func getCollections() {
+//		if (self.page <= self.totalPages || self.page == 1) {
+//			Alamofire.request(.GET, "https://api.unsplash.com/curated_batches", parameters: [
+//					"client_id": clientID!,
+//					"page": self.page,
+//					"per_page": self.perItem
+//				]).validate().responseJSON(completionHandler: {response in
+//					switch response.result {
+//					case .Success:
+//						self.refreshControl?.endRefreshing()
+////                    print("response is \(response.response?.allHeaderFields)")
+//						if (self.page == 1) {
+//							self.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+//						}
+//						self.page += 1
+//						if let value = response.result.value {
+//							let json = JSON(value)
+////						print("JSON:\(json)")
+//							for (_, subJson): (String, JSON) in json {
+//								let collectionID = subJson["id"].intValue
+//								if (!self.collcectionsArray.contains(collectionID)) {
+//									self.collcectionsArray.append(collectionID)
+//									self.getPhotos(collectionID)
+//								}
+//							}
+//						}
+//					case .Failure(let error):
+//						print(error)
+//					}
+//				})
+//		} else {
+//			footer.endRefreshingWithNoMoreData()
+//		}
+//		if (footer.isRefreshing()) {
+//			footer.endRefreshing()
+//		}
+//	}
+//	
+//	func getPhotos(id: Int) {
+//		Alamofire.request(.GET, "https://api.unsplash.com/curated_batches/\(id)/photos", parameters: [
+//				"client_id": clientID!
+//			]).validate().responseJSON(completionHandler: {response in
+//				switch response.result {
+//				case .Success:
+//					if let value = response.result.value {
+//						let json = JSON(value)
+////						print("JSON:\(json)")
+//						for (_, subJson): (String, JSON) in json {
+//							var photoDic = Dictionary<String, String>()
+//							photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+//							photoDic["small"] = subJson["urls"] ["small"].stringValue
+//							photoDic["id"] = subJson["id"].stringValue
+//							photoDic["download"] = subJson["links"] ["download"].stringValue
+//							photoDic["name"] = subJson["user"] ["name"].stringValue
+//							self.photosArray.append(photoDic)
+//						}
+//						self.successfullyGetJsonData = true
+//						self.tableView.reloadData()
+//					}
+//				case .Failure(let error):
+//					print(error)
+//				}
+//			})
+//	}
+    
+    func getCollections() {
+        BaseNetworkRequest.getCollections(self)
+    }
 	
 	func refreshData() {
 		self.collcectionsArray = []
 		self.photosArray = []
 		self.page = 1
-		self.getCollections()
+        let cache = NSURLCache.sharedURLCache()
+        cache.removeAllCachedResponses()
+		BaseNetworkRequest.getCollections(self)
 	}
 }
 

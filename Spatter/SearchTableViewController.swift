@@ -10,6 +10,7 @@ import UIKit
 import AMScrollingNavbar
 import Alamofire
 import SwiftyJSON
+import Whisper
 
 class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 	
@@ -17,7 +18,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	var photoID: [String] = []
     var query = ""
     var searchPerItem = 30
-    var serachTotalPages: Int {
+    var searchTotalPages: Int {
         get {
             return Int(ceilf(Float(totalItems) / Float(searchPerItem)))
         }
@@ -115,9 +116,11 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
                 self.page = 1
             }
             self.query = searchController.searchBar.text!.lowercaseString
-			self.getSearchResults()
+			BaseNetworkRequest.getSearchResults(self)
 		} else {
-			print("Please enter the search term")
+//			print("Please enter the search term")
+            let murmur = Murmur(title: "Please enter the search term.")
+            Whistle(murmur)
 		}
 	}
 	
@@ -130,62 +133,68 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 	
 	// MARK: fetch search results
-	func getSearchResults() {
-		if (self.page <= self.totalPages || self.page == 1) {
-			Alamofire.request(.GET, "https://api.unsplash.com/photos/search/", parameters: [
-					"client_id": clientID!,
-					"query": self.query,
-					"category": 0,
-					"page": self.page,
-					"per_page": searchPerItem
-				]).validate().responseJSON(completionHandler: {response in
-					switch response.result {
-					case .Success:
-                        self.refreshControl?.endRefreshing()
-						if (self.page == 1) {
-							self.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-						}
-						self.page += 1
-						if let value = response.result.value {
-							let json = JSON(value)
-//						print("JSON:\(json)")
-                            if (json.count == 0){                             
-                                self.page -= 1
-                                if (self.totalItems == 0) {
-                                    print("We couldn't find anything that matched that search.")
-                                }
-                            }
-							for (_, subJson): (String, JSON) in json {
-								var photoDic = Dictionary<String, String>()
-								photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-								photoDic["small"] = subJson["urls"] ["small"].stringValue
-								photoDic["id"] = subJson["id"].stringValue
-								photoDic["download"] = subJson["links"] ["download"].stringValue
-								photoDic["name"] = subJson["user"] ["name"].stringValue
-								if (!self.photoID.contains(subJson["id"].stringValue)) {
-									self.photoID.append(subJson["id"].stringValue)
-									self.photosArray.append(photoDic)
-								}
-							}
-							self.successfullyGetJsonData = true
-							self.tableView.reloadData()
-						}
-					case .Failure(let error):
-						print(error)
-					}
-				})
-		} else {
-			footer.endRefreshingWithNoMoreData()
-		}
-        if (footer.isRefreshing()) {
-            footer.endRefreshing()
-        }
-	}
+//	func getSearchResults() {
+//		if (self.page <= self.totalPages || self.page == 1) {
+//			Alamofire.request(.GET, "https://api.unsplash.com/photos/search/", parameters: [
+//					"client_id": clientID!,
+//					"query": self.query,
+//					"category": 0,
+//					"page": self.page,
+//					"per_page": searchPerItem
+//				]).validate().responseJSON(completionHandler: {response in
+//					switch response.result {
+//					case .Success:
+//                        self.refreshControl?.endRefreshing()
+//						if (self.page == 1) {
+//							self.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+//						}
+//						self.page += 1
+//						if let value = response.result.value {
+//							let json = JSON(value)
+////						print("JSON:\(json)")
+//                            if (json.count == 0){                             
+//                                self.page -= 1
+//                                if (self.totalItems == 0) {
+//                                    print("We couldn't find anything that matched that search.")
+//                                }
+//                            }
+//							for (_, subJson): (String, JSON) in json {
+//								var photoDic = Dictionary<String, String>()
+//								photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+//								photoDic["small"] = subJson["urls"] ["small"].stringValue
+//								photoDic["id"] = subJson["id"].stringValue
+//								photoDic["download"] = subJson["links"] ["download"].stringValue
+//								photoDic["name"] = subJson["user"] ["name"].stringValue
+//								if (!self.photoID.contains(subJson["id"].stringValue)) {
+//									self.photoID.append(subJson["id"].stringValue)
+//									self.photosArray.append(photoDic)
+//								}
+//							}
+//							self.successfullyGetJsonData = true
+//							self.tableView.reloadData()
+//						}
+//					case .Failure(let error):
+//						print(error)
+//					}
+//				})
+//		} else {
+//			footer.endRefreshingWithNoMoreData()
+//		}
+//        if (footer.isRefreshing()) {
+//            footer.endRefreshing()
+//        }
+//	}
+    
+    func getSearchResults() {
+        BaseNetworkRequest.getSearchResults(self)
+    }
 	
     func refreshSearchData() {
         self.photosArray = []
         self.photoID = []
         self.page = 1
-        self.getSearchResults()
+        let cache = NSURLCache.sharedURLCache()
+        cache.removeAllCachedResponses()
+        BaseNetworkRequest.getSearchResults(self)
     }
 }

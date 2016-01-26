@@ -22,7 +22,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	var infoBtnPopTipView = CMPopTipView()
 	var safariVC: SFSafariViewController?
 	var code = ""
-	var isLiked = false
 	
 	@IBOutlet weak var toolbar: UIToolbar!
 	@IBOutlet weak var infoButton: UIBarButtonItem!
@@ -35,36 +34,40 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	}
 	@IBAction func likePhoto(sender: AnyObject) {
 		if (NSUserDefaults.standardUserDefaults().boolForKey("isLogin")) {
-			if isLiked {
-				Alamofire.request(.DELETE, "https://api.unsplash.com/photos/\(self.photoID)/like", headers: [
-						"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
-						"client_id": clientID!
-					]).validate().responseJSON(completionHandler: {response in
-						switch response.result {
-						case .Success:
-							if let value = response.result.value {
-								let json = JSON(value)
-								print("JSON:\(json)")
-							}
-						case .Failure(let error):
-							print(error)
-						}
-					})
+			if (likedPhotoIDArray.containsObject(photoID)) {
+//				Alamofire.request(.DELETE, "https://api.unsplash.com/photos/\(self.photoID)/like", headers: [
+//						"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
+//						"client_id": clientID!
+//					]).validate().responseJSON(completionHandler: {response in
+//						switch response.result {
+//						case .Success:
+//							if let value = response.result.value {
+//								let json = JSON(value)
+//								print("JSON:\(json)")
+//							}
+//						case .Failure(let error):
+//							print(error)
+//						}
+//					})
+                
+                BaseNetworkRequest.unlikePhoto(photoID)
 			} else {
-				Alamofire.request(.POST, "https://api.unsplash.com/photos/\(self.photoID)/like", headers: [
-						"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
-						"client_id": clientID!
-					]).validate().responseJSON(completionHandler: {response in
-						switch response.result {
-						case .Success:
-							if let value = response.result.value {
-								let json = JSON(value)
-								print("JSON:\(json)")
-							}
-						case .Failure(let error):
-							print(error)
-						}
-					})
+//				Alamofire.request(.POST, "https://api.unsplash.com/photos/\(self.photoID)/like", headers: [
+//						"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
+//						"client_id": clientID!
+//					]).validate().responseJSON(completionHandler: {response in
+//						switch response.result {
+//						case .Success:
+//							if let value = response.result.value {
+//								let json = JSON(value)
+//								print("JSON:\(json)")
+//							}
+//						case .Failure(let error):
+//							print(error)
+//						}
+//					})
+                
+                BaseNetworkRequest.likePhoto(photoID)
 			}
 		} else {
 			let alert = UIAlertController(title: "Login", message: "Please login to like a photo.", preferredStyle: .Alert)
@@ -135,11 +138,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		edgePan.edges = .Left
 		view.addGestureRecognizer(edgePan)
 		
-		// test
-		if (photoIDArray.contains(self.photoID)) {
-			isLiked = true
-		}
-		
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -193,34 +191,35 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	}
 	
 	func oauthUser(notification: NSNotification) {
-		let url = notification.object as! NSURL
-		let urlString = url.absoluteString
-		if (urlString.containsString("code")) {
-			let urlArray = urlString.componentsSeparatedByString("=")
-			code = urlArray[1]
-			NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isLogin")
-			NSUserDefaults.standardUserDefaults().synchronize()
-			// isLogin = true
-			
-			Alamofire.request(.POST, "https://unsplash.com/oauth/token", parameters: [
-					"client_id": clientID!,
-					"client_secret": clientSecret!,
-					"redirect_uri": "spatter://com.yuying.spatter",
-					"code": code,
-					"grant_type": "authorization_code"
-				]).validate().responseJSON(completionHandler: {response in
-					switch response.result {
-					case .Success:
-						if let value = response.result.value {
-							let json = JSON(value)
-							keychain["refresh_token"] = json["refresh_token"].stringValue
-							keychain["access_token"] = json["access_token"].stringValue
-						}
-					case .Failure(let error):
-						print(error)
-					}
-				})
-		}
+//		let url = notification.object as! NSURL
+//		let urlString = url.absoluteString
+//		if (urlString.containsString("code")) {
+//			let urlArray = urlString.componentsSeparatedByString("=")
+//			code = urlArray[1]
+//			NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isLogin")
+//			NSUserDefaults.standardUserDefaults().synchronize()
+//			// isLogin = true
+//			
+//			Alamofire.request(.POST, "https://unsplash.com/oauth/token", parameters: [
+//					"client_id": clientID!,
+//					"client_secret": clientSecret!,
+//					"redirect_uri": "spatter://com.yuying.spatter",
+//					"code": code,
+//					"grant_type": "authorization_code"
+//				]).validate().responseJSON(completionHandler: {response in
+//					switch response.result {
+//					case .Success:
+//						if let value = response.result.value {
+//							let json = JSON(value)
+//							keychain["refresh_token"] = json["refresh_token"].stringValue
+//							keychain["access_token"] = json["access_token"].stringValue
+//						}
+//					case .Failure(let error):
+//						print(error)
+//					}
+//				})
+//		}
+        BaseNetworkRequest.oauth(notification)
 		if (self.safariVC != nil) {
 			self.safariVC!.dismissViewControllerAnimated(true, completion: nil)
 		}

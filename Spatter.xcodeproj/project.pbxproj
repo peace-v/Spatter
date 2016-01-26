@@ -10,7 +10,7 @@
 		045AFACD271346AE2D9BD2B3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66F11AFCE85C47BAC9028933 /* Pods.framework */; };
 		604245971C252EAC00E79919 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245961C252EAC00E79919 /* SearchTableViewController.swift */; };
 		604245A71C2532BF00E79919 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604245A61C2532BF00E79919 /* BaseTableViewController.swift */; };
-		604367171C51F6300012AC18 /* BaseNetworkRequst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604367161C51F6300012AC18 /* BaseNetworkRequst.swift */; };
+		604367191C51F6C50012AC18 /* BaseNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604367181C51F6C50012AC18 /* BaseNetworkRequest.swift */; };
 		604B2F811C173225005EB9D0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F801C173225005EB9D0 /* MainViewController.swift */; };
 		604B2F971C1737B6005EB9D0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F961C1737B6005EB9D0 /* DetailViewController.swift */; };
 		604B2F9D1C173ACE005EB9D0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 604B2F9C1C173ACE005EB9D0 /* ProfileViewController.swift */; };
@@ -86,7 +86,7 @@
 		5A8DDFFF0F0D0174B6819301 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		604245961C252EAC00E79919 /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		604245A61C2532BF00E79919 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
-		604367161C51F6300012AC18 /* BaseNetworkRequst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNetworkRequst.swift; sourceTree = "<group>"; };
+		604367181C51F6C50012AC18 /* BaseNetworkRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNetworkRequest.swift; sourceTree = "<group>"; };
 		604B2F801C173225005EB9D0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		604B2F961C1737B6005EB9D0 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		604B2F9C1C173ACE005EB9D0 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 			children = (
 				60C558721C12E16600956D19 /* AppDelegate.swift */,
 				604245A61C2532BF00E79919 /* BaseTableViewController.swift */,
-				604367161C51F6300012AC18 /* BaseNetworkRequst.swift */,
+				604367181C51F6C50012AC18 /* BaseNetworkRequest.swift */,
 				607FC4C71C28FB130046CEF3 /* Spatter-Bridging-Header.h */,
 				60C5587E1C12E16600956D19 /* Info.plist */,
 			);
@@ -733,6 +733,7 @@
 				60F16D601C33ADBD006DDF59 /* NSData+ImageContentType.m in Sources */,
 				60F16D641C33ADBD006DDF59 /* SDWebImageDownloader.m in Sources */,
 				60C342061C42A10C00270E06 /* MJRefreshBackNormalFooter.m in Sources */,
+				604367191C51F6C50012AC18 /* BaseNetworkRequest.swift in Sources */,
 				60C342091C42A10C00270E06 /* MJRefreshNormalHeader.m in Sources */,
 				607FC4F61C2A86030046CEF3 /* CMPopTipView.m in Sources */,
 				60C342071C42A10C00270E06 /* MJRefreshBackStateFooter.m in Sources */,
@@ -748,7 +749,6 @@
 				607FC4E61C2911B50046CEF3 /* RWDropdownMenuTransitionController.m in Sources */,
 				60F16D5F1C33ADBD006DDF59 /* MKAnnotationView+WebCache.m in Sources */,
 				604B2F9D1C173ACE005EB9D0 /* ProfileViewController.swift in Sources */,
-				604367171C51F6300012AC18 /* BaseNetworkRequst.swift in Sources */,
 				60F16D671C33ADBD006DDF59 /* SDWebImagePrefetcher.m in Sources */,
 				607FC4E51C2911B50046CEF3 /* RWDropdownMenuCell.m in Sources */,
 				60F16D651C33ADBD006DDF59 /* SDWebImageDownloaderOperation.m in Sources */,
