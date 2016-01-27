@@ -62,7 +62,8 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 				}),
 			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
 					self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
-				})]
+				}),
+            RWDropdownMenuItem(text: "Credits", image: nil, action: nil)]
 		
 		menuItemsWithoutLogin = [
 			RWDropdownMenuItem(text: "Login", image: nil, action: {
@@ -73,7 +74,8 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 				}),
 			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
 					self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
-				})]
+				}),
+        RWDropdownMenuItem(text: "Credits", image: nil, action: nil)]
 		
 		// configure tableView
 //		 self.getCollections()

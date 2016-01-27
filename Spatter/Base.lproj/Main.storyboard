@@ -80,12 +80,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Spatter" id="uKA-wm-p67">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" id="xEP-sk-aah">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="xEP-sk-aah">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="showMenu:" destination="AbB-K0-C8k" id="sg8-UF-BVN"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Search" id="fgI-4o-rOV">
+                        <barButtonItem key="rightBarButtonItem" image="search" id="fgI-4o-rOV">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="3YQ-9k-pHy" kind="presentation" id="ZxT-wA-Uuj"/>
                             </connections>
@@ -172,7 +174,8 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="LvB-Db-Zni">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="uzY-Kf-KDR">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="uzY-Kf-KDR">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="back:" destination="5DD-Wz-GvX" id="fLp-WI-cbq"/>
                             </connections>
@@ -338,7 +341,8 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="QRK-Mz-K1j">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="xNb-GI-i1P">
+                        <barButtonItem key="leftBarButtonItem" image="back" id="xNb-GI-i1P">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="back:" destination="Eaa-9H-I1p" id="MZk-97-sjg"/>
                             </connections>
@@ -390,6 +394,23 @@
             </objects>
             <point key="canvasLocation" x="2556" y="404.25"/>
         </scene>
+        <!--Credit View Controller-->
+        <scene sceneID="cCx-pj-1yn">
+            <objects>
+                <viewController id="fAF-vu-aNb" customClass="CreditViewController" customModule="Spatter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Rxs-a9-LWp"/>
+                        <viewControllerLayoutGuide type="bottom" id="QiD-l1-omI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uTj-Wg-4qH">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qxz-ZD-ERw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="280.5" y="1201.5"/>
+        </scene>
         <!--Detail View Controller-->
         <scene sceneID="TlV-5Y-JyF">
             <objects>
@@ -408,31 +429,36 @@
                                     <constraint firstAttribute="height" constant="44" id="lA8-zG-Rj9"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="Back" id="yFv-Wg-4d4">
+                                    <barButtonItem image="back" id="yFv-Wg-4d4">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="back:" destination="il9-u6-8ur" id="Ihs-sG-7Xe"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="DLh-IT-6ep"/>
-                                    <barButtonItem title="Save" id="fde-RS-KXM">
+                                    <barButtonItem image="like-before" id="fde-RS-KXM">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <action selector="saveToAlbum:" destination="il9-u6-8ur" id="lyz-9m-yVp"/>
+                                            <action selector="likePhoto:" destination="il9-u6-8ur" id="lPE-E5-dLV"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="wcL-5U-j5X"/>
-                                    <barButtonItem title="Like" id="POr-Ij-IZx">
+                                    <barButtonItem image="download" id="POr-Ij-IZx">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <action selector="likePhoto:" destination="il9-u6-8ur" id="Fnd-31-e3w"/>
+                                            <action selector="saveToAlbum:" destination="il9-u6-8ur" id="yDW-ar-64O"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="kMm-Mg-Bju"/>
-                                    <barButtonItem title="Share" id="XgL-FP-ADc">
+                                    <barButtonItem image="share" id="XgL-FP-ADc">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="sharePhoto:" destination="il9-u6-8ur" id="bbZ-4i-HsG"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="qZq-yA-Sa4"/>
-                                    <barButtonItem title="Info" id="0my-TT-CkC">
+                                    <barButtonItem image="info" id="0my-TT-CkC">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <action selector="showPhotoInfo:" destination="il9-u6-8ur" id="BIb-Ci-2uw"/>
                                         </connections>
@@ -479,6 +505,7 @@
                     </view>
                     <connections>
                         <outlet property="infoButton" destination="0my-TT-CkC" id="8FU-2X-oDy"/>
+                        <outlet property="likeButton" destination="fde-RS-KXM" id="3nd-UO-4it"/>
                         <outlet property="toolbar" destination="1sh-8z-r1H" id="ldg-n1-Ihb"/>
                     </connections>
                 </viewController>
@@ -615,7 +642,16 @@
             <point key="canvasLocation" x="3619.5" y="1201.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="back" width="11" height="22"/>
+        <image name="download" width="11" height="21"/>
+        <image name="info" width="22" height="22"/>
+        <image name="like-before" width="22" height="18"/>
+        <image name="menu" width="22" height="14"/>
+        <image name="search" width="22" height="22"/>
+        <image name="share" width="11" height="22"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pQj-9Z-4za"/>
+        <segue reference="8k4-mD-Uoy"/>
     </inferredMetricsTieBreakers>
 </document>

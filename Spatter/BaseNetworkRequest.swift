@@ -35,9 +35,9 @@ class BaseNetworkRequest: NSObject {
 //						print("response is \(response.response?.allHeaderFields)")
 						if (tableViewController.page == 1) {
 							tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-                            if(tableViewController.totalItems == 0) {
-                                print("Some error occured.")
-                            }
+							if (tableViewController.totalItems == 0) {
+								print("Some error occured.")
+							}
 						}
 						tableViewController.page += 1
 						if let value = response.result.value {
@@ -51,9 +51,9 @@ class BaseNetworkRequest: NSObject {
 							}
 						}
 					case .Failure(let error):
-                        print("error is \(error)")
-                        print("response is \(response.response?.allHeaderFields)")
-                        print("result is \(response)")
+						print("error is \(error)")
+						print("response is \(response.response?.allHeaderFields)")
+						print("result is \(response)")
 					}
 				})
 		} else {
@@ -86,9 +86,9 @@ class BaseNetworkRequest: NSObject {
 						tableViewController.tableView.reloadData()
 					}
 				case .Failure(let error):
-                    print("error is \(error)")
-                    print("response is \(response.response?.allHeaderFields)")
-                    print("result is \(response)")
+					print("error is \(error)")
+					print("response is \(response.response?.allHeaderFields)")
+					print("result is \(response)")
 				}
 			})
 	}
@@ -118,9 +118,9 @@ class BaseNetworkRequest: NSObject {
 							BaseNetworkRequest.getUsername()
 						}
 					case .Failure(let error):
-                        print("error is \(error)")
-                        print("response is \(response.response?.allHeaderFields)")
-                        print("result is \(response)")
+						print("error is \(error)")
+						print("response is \(response.response?.allHeaderFields)")
+						print("result is \(response)")
 					}
 				})
 		}
@@ -146,9 +146,9 @@ class BaseNetworkRequest: NSObject {
 						BaseNetworkRequest.getUsername()
 					}
 				case .Failure(let error):
-                    print("error is \(error)")
-                    print("response is \(response.response?.allHeaderFields)")
-                    print("result is \(response)")
+					print("error is \(error)")
+					print("response is \(response.response?.allHeaderFields)")
+					print("result is \(response)")
 				}
 			})
 	}
@@ -168,9 +168,9 @@ class BaseNetworkRequest: NSObject {
 						BaseNetworkRequest.getLikedPhoto()
 					}
 				case .Failure(let error):
-                    print("error is \(error)")
-                    print("response is \(response.response?.allHeaderFields)")
-                    print("result is \(response)")
+					print("error is \(error)")
+					print("response is \(response.response?.allHeaderFields)")
+					print("result is \(response)")
 				}
 			})}
 	
@@ -186,13 +186,13 @@ class BaseNetworkRequest: NSObject {
 //						tableViewController?.refreshControl?.endRefreshing()
 						if (likedPage == 1) {
 							likedTotalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-                            if(likedTotalItems == 0) {
-                            print("You haven't like photo yet")
-                                tableViewController?.refreshControl?.endRefreshing()
-                                tableViewController?.successfullyGetJsonData = true
-                                tableViewController?.tableView.reloadData()
-                                return
-                            }
+							if (likedTotalItems == 0) {
+								print("You haven't like photo yet")
+								tableViewController?.refreshControl?.endRefreshing()
+								tableViewController?.successfullyGetJsonData = true
+								tableViewController?.tableView.reloadData()
+								return
+							}
 						}
 						likedPage += 1
 						if let value = response.result.value {
@@ -215,19 +215,19 @@ class BaseNetworkRequest: NSObject {
 //                                    tableViewController?.photosArray.append(photoDic)
 								}
 							}
-                                BaseNetworkRequest.getLikedPhoto(tableViewController)
+							BaseNetworkRequest.getLikedPhoto(tableViewController)
 						}
 					case .Failure(let error):
-                        print("error is \(error)")
-                        print("response is \(response.response?.allHeaderFields)")
-                        print("result is \(response)")
+						print("error is \(error)")
+						print("response is \(response.response?.allHeaderFields)")
+						print("result is \(response)")
 					}
 				})
 		} else {
-            tableViewController?.refreshControl?.endRefreshing()
-            tableViewController?.photosArray = likedPhotosArray
-            tableViewController?.successfullyGetJsonData = true
-            tableViewController?.tableView.reloadData()
+			tableViewController?.refreshControl?.endRefreshing()
+			tableViewController?.photosArray = likedPhotosArray
+			tableViewController?.successfullyGetJsonData = true
+			tableViewController?.tableView.reloadData()
 			return
 		}
 	}
@@ -241,10 +241,10 @@ class BaseNetworkRequest: NSObject {
 				case .Success:
 //                    print(response.response?.allHeaderFields)
 					tableViewController.refreshControl?.endRefreshing()
-                    tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-                    if(tableViewController.totalItems == 0) {
-                        print("You haven't post photo yet.")
-                    }
+					tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+					if (tableViewController.totalItems == 0) {
+						print("You haven't post photo yet.")
+					}
 					if let value = response.result.value {
 						let json = JSON(value)
 						// print("JSON:\(json)")
@@ -266,15 +266,15 @@ class BaseNetworkRequest: NSObject {
 						tableViewController.tableView.reloadData()
 					}
 				case .Failure(let error):
-                    print("error is \(error)")
-                    print("response is \(response.response?.allHeaderFields)")
-                    print("result is \(response)")
+					print("error is \(error)")
+					print("response is \(response.response?.allHeaderFields)")
+					print("result is \(response)")
 				}
 			})
 	}
 	
 	// MARK: like or unlike a photo
-	class func unlikePhoto(id: String) {
+	class func unlikePhoto(tableViewController: DetailViewController, id: String) {
 		print("unlike a photo")
 		Alamofire.request(.DELETE, "https://api.unsplash.com/photos/\(id)/like", headers: [
 				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
@@ -287,15 +287,18 @@ class BaseNetworkRequest: NSObject {
 						print("JSON:\(json)")
 						likedPhotoIDArray.removeObject(id)
 					}
+						dispatch_async(dispatch_get_main_queue()) {
+							tableViewController.likeButton.image = UIImage(named: "like-before")
+						}
 				case .Failure(let error):
-                    print("error is \(error)")
-                    print("response is \(response.response?.allHeaderFields)")
-                    print("result is \(response)")
+					print("error is \(error)")
+					print("response is \(response.response?.allHeaderFields)")
+					print("result is \(response)")
 				}
 			})
 	}
 	
-	class func likePhoto(id: String) {
+	class func likePhoto(tableViewController: DetailViewController, id: String) {
 		print("like a photo")
 		Alamofire.request(.POST, "https://api.unsplash.com/photos/\(id)/like", headers: [
 				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
@@ -308,10 +311,13 @@ class BaseNetworkRequest: NSObject {
 //                        print("JSON:\(json)")
 						likedPhotoIDArray.addObject(id)
 					}
+						dispatch_async(dispatch_get_main_queue()) {
+							tableViewController.likeButton.image = UIImage(named: "like-after")
+						}
 				case .Failure(let error):
-                    print("error is \(error)")
-                    print("response is \(response.response?.allHeaderFields)")
-                    print("result is \(response)")
+					print("error is \(error)")
+					print("response is \(response.response?.allHeaderFields)")
+					print("result is \(response)")
 				}
 			})
 	}
@@ -331,12 +337,12 @@ class BaseNetworkRequest: NSObject {
 						tableViewController.refreshControl?.endRefreshing()
 						if (tableViewController.page == 1) {
 							tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-                            if (tableViewController.totalItems == 0) {
-                                print("We couldn't find anything that matched that search.")
-                                tableViewController.successfullyGetJsonData = true
-                                tableViewController.tableView.reloadData()
-                                return
-                            }
+							if (tableViewController.totalItems == 0) {
+								print("We couldn't find anything that matched that search.")
+								tableViewController.successfullyGetJsonData = true
+								tableViewController.tableView.reloadData()
+								return
+							}
 						}
 						tableViewController.page += 1
 						if let value = response.result.value {
@@ -361,9 +367,9 @@ class BaseNetworkRequest: NSObject {
 							tableViewController.tableView.reloadData()
 						}
 					case .Failure(let error):
-                        print("error is \(error)")
-                        print("response is \(response.response?.allHeaderFields)")
-                        print("result is \(response)")
+						print("error is \(error)")
+						print("response is \(response.response?.allHeaderFields)")
+						print("result is \(response)")
 					}
 				})
 		} else {
@@ -397,8 +403,8 @@ class BaseNetworkRequest: NSObject {
 					}
 				case .Failure(let error):
 					print("error is \(error)")
-                    print("response is \(response.response?.allHeaderFields)")
-                    print("result is \(response)")
+					print("response is \(response.response?.allHeaderFields)")
+					print("result is \(response)")
 				}
 			})
 	}

@@ -25,6 +25,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	
 	@IBOutlet weak var toolbar: UIToolbar!
 	@IBOutlet weak var infoButton: UIBarButtonItem!
+	@IBOutlet weak var likeButton: UIBarButtonItem!
 	
 	@IBAction func back(sender: AnyObject) {
 		self.navigationController!.popViewControllerAnimated(true)
@@ -49,8 +50,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 //							print(error)
 //						}
 //					})
-                
-                BaseNetworkRequest.unlikePhoto(photoID)
+				
+				BaseNetworkRequest.unlikePhoto(self, id: photoID)
 			} else {
 //				Alamofire.request(.POST, "https://api.unsplash.com/photos/\(self.photoID)/like", headers: [
 //						"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
@@ -66,8 +67,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 //							print(error)
 //						}
 //					})
-                
-                BaseNetworkRequest.likePhoto(photoID)
+				
+				BaseNetworkRequest.likePhoto(self, id: photoID)
 			}
 		} else {
 			let alert = UIAlertController(title: "Login", message: "Please login to like a photo.", preferredStyle: .Alert)
@@ -112,6 +113,13 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 			barMetrics: UIBarMetrics.Default)
 		self.toolbar.setShadowImage(UIImage(),
 			forToolbarPosition: UIBarPosition.Any)
+		
+		// set likeButton image
+		if (likedPhotoIDArray.containsObject(photoID)) {
+			likeButton.image = UIImage(named: "like-after")
+		} else {
+			likeButton.image = UIImage(named: "like-before")
+		}
 		
 		// add motionView
 		let motionManager = CMMotionManager()
@@ -199,7 +207,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 //			NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isLogin")
 //			NSUserDefaults.standardUserDefaults().synchronize()
 //			// isLogin = true
-//			
+//
 //			Alamofire.request(.POST, "https://unsplash.com/oauth/token", parameters: [
 //					"client_id": clientID!,
 //					"client_secret": clientSecret!,
@@ -219,7 +227,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 //					}
 //				})
 //		}
-        BaseNetworkRequest.oauth(notification)
+		BaseNetworkRequest.oauth(notification)
 		if (self.safariVC != nil) {
 			self.safariVC!.dismissViewControllerAnimated(true, completion: nil)
 		}

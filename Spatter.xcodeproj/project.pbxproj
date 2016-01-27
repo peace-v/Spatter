@@ -22,6 +22,7 @@
 		607FC4F61C2A86030046CEF3 /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607FC4F51C2A86030046CEF3 /* CMPopTipView.m */; };
 		607FC4FD1C2E69EE0046CEF3 /* SCImagePanScrollBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607FC4F91C2E69EE0046CEF3 /* SCImagePanScrollBarView.m */; };
 		607FC4FE1C2E69EE0046CEF3 /* SCImagePanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607FC4FB1C2E69EE0046CEF3 /* SCImagePanViewController.m */; };
+		6087B1B81C58AA3800944C44 /* CreditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6087B1B71C58AA3800944C44 /* CreditViewController.swift */; };
 		60C341FD1C42A10C00270E06 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C341D31C42A10C00270E06 /* MJRefreshAutoFooter.m */; };
 		60C341FE1C42A10C00270E06 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C341D51C42A10C00270E06 /* MJRefreshBackFooter.m */; };
 		60C341FF1C42A10C00270E06 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 60C341D71C42A10C00270E06 /* MJRefreshComponent.m */; };
@@ -105,6 +106,7 @@
 		607FC4F91C2E69EE0046CEF3 /* SCImagePanScrollBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCImagePanScrollBarView.m; sourceTree = "<group>"; };
 		607FC4FA1C2E69EE0046CEF3 /* SCImagePanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCImagePanViewController.h; sourceTree = "<group>"; };
 		607FC4FB1C2E69EE0046CEF3 /* SCImagePanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCImagePanViewController.m; sourceTree = "<group>"; };
+		6087B1B71C58AA3800944C44 /* CreditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditViewController.swift; sourceTree = "<group>"; };
 		60C341D21C42A10C00270E06 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		60C341D31C42A10C00270E06 /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
 		60C341D41C42A10C00270E06 /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				604B2F801C173225005EB9D0 /* MainViewController.swift */,
+				6087B1B71C58AA3800944C44 /* CreditViewController.swift */,
 			);
 			name = MainView;
 			sourceTree = "<group>";
@@ -741,6 +744,7 @@
 				60C342081C42A10C00270E06 /* MJRefreshGifHeader.m in Sources */,
 				60C342031C42A10C00270E06 /* MJRefreshAutoNormalFooter.m in Sources */,
 				607FC4FE1C2E69EE0046CEF3 /* SCImagePanViewController.m in Sources */,
+				6087B1B81C58AA3800944C44 /* CreditViewController.swift in Sources */,
 				604B2F971C1737B6005EB9D0 /* DetailViewController.swift in Sources */,
 				60C342051C42A10C00270E06 /* MJRefreshBackGifFooter.m in Sources */,
 				60F16D6E1C33ADBD006DDF59 /* UIView+WebCacheOperation.m in Sources */,
@@ -903,6 +907,7 @@
 			baseConfigurationReference = B3C9E241AEAF2040A1BC18A0 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Spatter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -919,6 +924,7 @@
 			baseConfigurationReference = 5A8DDFFF0F0D0174B6819301 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Spatter/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
