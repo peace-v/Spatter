@@ -394,20 +394,163 @@
             </objects>
             <point key="canvasLocation" x="2556" y="404.25"/>
         </scene>
-        <!--Credit View Controller-->
+        <!--About View Controller-->
         <scene sceneID="cCx-pj-1yn">
             <objects>
-                <viewController id="fAF-vu-aNb" customClass="CreditViewController" customModule="Spatter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="about" id="fAF-vu-aNb" customClass="AboutViewController" customModule="Spatter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Rxs-a9-LWp"/>
                         <viewControllerLayoutGuide type="bottom" id="QiD-l1-omI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uTj-Wg-4qH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ink-60" translatesAutoresizingMaskIntoConstraints="NO" id="euJ-sY-fEP">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spatter" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lYd-JO-Rwl">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Developed by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EF-uZ-PZR">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photo provided by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VbR-7h-O1T">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="unsplash.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SNk-n2-foH">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Icons from" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0P4-Vj-ZUE">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="yuying" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVR-Cz-iQy">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="thenounproject.com" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4f-M4-Bjs">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="VbR-7h-O1T" firstAttribute="top" secondItem="TVR-Cz-iQy" secondAttribute="bottom" constant="50" id="19E-uH-b7I"/>
+                            <constraint firstItem="TVR-Cz-iQy" firstAttribute="top" secondItem="7EF-uZ-PZR" secondAttribute="bottom" constant="20" id="3yR-j4-Yoq">
+                                <variation key="heightClass=regular-widthClass=compact" constant="10"/>
+                            </constraint>
+                            <constraint firstItem="lYd-JO-Rwl" firstAttribute="centerX" secondItem="uTj-Wg-4qH" secondAttribute="centerX" id="70B-sy-UYa"/>
+                            <constraint firstItem="7EF-uZ-PZR" firstAttribute="top" secondItem="lYd-JO-Rwl" secondAttribute="bottom" constant="127" id="Arp-vX-omv">
+                                <variation key="heightClass=regular-widthClass=compact" constant="80"/>
+                            </constraint>
+                            <constraint firstItem="SNk-n2-foH" firstAttribute="top" secondItem="VbR-7h-O1T" secondAttribute="bottom" constant="20" id="BeC-rE-O7b">
+                                <variation key="heightClass=regular-widthClass=compact" constant="10"/>
+                            </constraint>
+                            <constraint firstItem="SNk-n2-foH" firstAttribute="centerX" secondItem="uTj-Wg-4qH" secondAttribute="centerX" id="EIg-cU-PvR"/>
+                            <constraint firstItem="VbR-7h-O1T" firstAttribute="centerX" secondItem="uTj-Wg-4qH" secondAttribute="centerX" id="M5O-Cq-4m6"/>
+                            <constraint firstItem="euJ-sY-fEP" firstAttribute="centerX" secondItem="uTj-Wg-4qH" secondAttribute="centerX" id="PCj-aK-xZo"/>
+                            <constraint firstItem="n4f-M4-Bjs" firstAttribute="top" secondItem="0P4-Vj-ZUE" secondAttribute="bottom" constant="20" id="SMk-fa-LBF">
+                                <variation key="heightClass=regular-widthClass=compact" constant="10"/>
+                            </constraint>
+                            <constraint firstItem="TVR-Cz-iQy" firstAttribute="centerX" secondItem="uTj-Wg-4qH" secondAttribute="centerX" id="V0s-mN-pRo"/>
+                            <constraint firstItem="euJ-sY-fEP" firstAttribute="top" secondItem="Rxs-a9-LWp" secondAttribute="bottom" constant="51" id="b58-0n-7d4"/>
+                            <constraint firstItem="lYd-JO-Rwl" firstAttribute="top" secondItem="euJ-sY-fEP" secondAttribute="bottom" constant="17" id="bPb-Id-91B"/>
+                            <constraint firstItem="7EF-uZ-PZR" firstAttribute="centerX" secondItem="uTj-Wg-4qH" secondAttribute="centerX" id="e8l-pn-pOx"/>
+                            <constraint firstItem="0P4-Vj-ZUE" firstAttribute="centerX" secondItem="uTj-Wg-4qH" secondAttribute="centerX" id="i58-UI-V2v"/>
+                            <constraint firstItem="0P4-Vj-ZUE" firstAttribute="top" secondItem="SNk-n2-foH" secondAttribute="bottom" constant="50" id="wxA-Z3-GSR"/>
+                            <constraint firstItem="n4f-M4-Bjs" firstAttribute="centerX" secondItem="uTj-Wg-4qH" secondAttribute="centerX" id="ykD-0l-uCO"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="euJ-sY-fEP"/>
+                                <exclude reference="lYd-JO-Rwl"/>
+                                <exclude reference="7EF-uZ-PZR"/>
+                                <exclude reference="VbR-7h-O1T"/>
+                                <exclude reference="SNk-n2-foH"/>
+                                <exclude reference="0P4-Vj-ZUE"/>
+                                <exclude reference="TVR-Cz-iQy"/>
+                                <exclude reference="n4f-M4-Bjs"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="i58-UI-V2v"/>
+                                <exclude reference="wxA-Z3-GSR"/>
+                                <exclude reference="Arp-vX-omv"/>
+                                <exclude reference="e8l-pn-pOx"/>
+                                <exclude reference="BeC-rE-O7b"/>
+                                <exclude reference="EIg-cU-PvR"/>
+                                <exclude reference="3yR-j4-Yoq"/>
+                                <exclude reference="V0s-mN-pRo"/>
+                                <exclude reference="19E-uH-b7I"/>
+                                <exclude reference="M5O-Cq-4m6"/>
+                                <exclude reference="70B-sy-UYa"/>
+                                <exclude reference="bPb-Id-91B"/>
+                                <exclude reference="SMk-fa-LBF"/>
+                                <exclude reference="ykD-0l-uCO"/>
+                                <exclude reference="PCj-aK-xZo"/>
+                                <exclude reference="b58-0n-7d4"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="euJ-sY-fEP"/>
+                                <include reference="lYd-JO-Rwl"/>
+                                <include reference="7EF-uZ-PZR"/>
+                                <include reference="VbR-7h-O1T"/>
+                                <include reference="SNk-n2-foH"/>
+                                <include reference="0P4-Vj-ZUE"/>
+                                <include reference="TVR-Cz-iQy"/>
+                                <include reference="n4f-M4-Bjs"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="i58-UI-V2v"/>
+                                <include reference="wxA-Z3-GSR"/>
+                                <include reference="Arp-vX-omv"/>
+                                <include reference="e8l-pn-pOx"/>
+                                <include reference="BeC-rE-O7b"/>
+                                <include reference="EIg-cU-PvR"/>
+                                <include reference="3yR-j4-Yoq"/>
+                                <include reference="V0s-mN-pRo"/>
+                                <include reference="19E-uH-b7I"/>
+                                <include reference="M5O-Cq-4m6"/>
+                                <include reference="70B-sy-UYa"/>
+                                <include reference="bPb-Id-91B"/>
+                                <include reference="SMk-fa-LBF"/>
+                                <include reference="ykD-0l-uCO"/>
+                                <include reference="PCj-aK-xZo"/>
+                                <include reference="b58-0n-7d4"/>
+                            </mask>
+                        </variation>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Uxy-ss-LH8" appends="YES" id="lXL-X2-VVw"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qxz-ZD-ERw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Uxy-ss-LH8">
+                    <connections>
+                        <action selector="dismissVC:" destination="fAF-vu-aNb" id="B32-5f-Gzb"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="280.5" y="1201.5"/>
         </scene>
@@ -643,6 +786,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Ink-60" width="60" height="60"/>
         <image name="back" width="11" height="22"/>
         <image name="download" width="11" height="21"/>
         <image name="info" width="22" height="22"/>
@@ -652,6 +796,6 @@
         <image name="share" width="11" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8k4-mD-Uoy"/>
+        <segue reference="pQj-9Z-4za"/>
     </inferredMetricsTieBreakers>
 </document>

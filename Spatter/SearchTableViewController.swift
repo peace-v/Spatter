@@ -52,6 +52,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		searchController.searchBar.delegate = self
 		searchController.searchBar.searchBarStyle = .Minimal
 		searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.tintColor = UIColor.blackColor()
         
         // configure refreshController
         self.refreshControl = UIRefreshControl()

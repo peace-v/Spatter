@@ -21,6 +21,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	var menuItemsAlreadyLogin: [RWDropdownMenuItem] = []
 	var menuItemsWithoutLogin: [RWDropdownMenuItem] = []
 	var safariVC: SFSafariViewController?
+    let aboutVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("about")
 //    var code = ""
 //    var likedTotalItems = 0
 //    var likedPerItem = 30
@@ -63,7 +64,9 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
 					self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
 				}),
-            RWDropdownMenuItem(text: "Credits", image: nil, action: nil)]
+            RWDropdownMenuItem(text: "About", image: nil, action: {
+            self.presentViewController(self.aboutVC, animated: true, completion: nil)
+            })]
 		
 		menuItemsWithoutLogin = [
 			RWDropdownMenuItem(text: "Login", image: nil, action: {
@@ -75,7 +78,9 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
 					self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
 				}),
-        RWDropdownMenuItem(text: "Credits", image: nil, action: nil)]
+            RWDropdownMenuItem(text: "About", image: nil, action: {
+                self.presentViewController(self.aboutVC, animated: true, completion: nil)
+            })]
 		
 		// configure tableView
 //		 self.getCollections()
