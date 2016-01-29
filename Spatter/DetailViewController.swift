@@ -14,7 +14,7 @@ import SwiftyJSON
 import SafariServices
 
 class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
-	var image = UIImage(named: "loading")
+	var image = UIImage(named: "loading-black")
 	var downloadURL = ""
 	var creatorName = ""
 	var photoID = ""
@@ -176,7 +176,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 			let murmur = Murmur(title: "Image Saved")
 			Whistle(murmur)
 		} else {
-			let murmur = Murmur(title: "Failed to save image, please try again.")
+			let murmur = Murmur(title: "Failed. please allow Spatter to access Photos in Settings app.",duration: 2.0)
 			Whistle(murmur)
 		}
 	}

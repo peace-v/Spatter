@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
         let cache = NSURLCache.sharedURLCache()
         cache.removeAllCachedResponses()
-        
+        print(NSUserDefaults.standardUserDefaults().boolForKey("isLogin"))
 		if (!(NSUserDefaults.standardUserDefaults().boolForKey("firstLaunch"))) {
 			NSUserDefaults.standardUserDefaults().setBool(false, forKey: "firstLaunch")
 			NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isLogin")

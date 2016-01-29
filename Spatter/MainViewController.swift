@@ -57,6 +57,10 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 //					isLogin = false
                 keychain["access_token"] = nil
                 keychain["refresh"] = nil
+                likedPhotoIDArray = []
+                likedPhotosArray = []
+                likedTotalItems = 0
+                username = ""
 				}),
 			RWDropdownMenuItem(text: "Clear Cache", image: nil, action: {
 					SDImageCache.sharedImageCache().clearDisk()

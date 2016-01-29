@@ -120,7 +120,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 			BaseNetworkRequest.getSearchResults(self)
 		} else {
 //			print("Please enter the search term")
-            let murmur = Murmur(title: "Please enter the search term.")
+            let murmur = Murmur(title: "Please enter the search term.",duration: 2.0)
             Whistle(murmur)
 		}
 	}
