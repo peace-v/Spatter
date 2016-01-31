@@ -7,3 +7,4 @@
 #import "SCImagePanViewController.h"
 #import "UIImageView+WebCache.h"
 #import "MJRefresh.h"
+#import "JDStatusBarNotification.h"

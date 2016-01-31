@@ -10,7 +10,6 @@ import UIKit
 import AMScrollingNavbar
 import Alamofire
 import SwiftyJSON
-import Whisper
 
 class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, UISearchResultsUpdating {
 	
@@ -69,14 +68,14 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		edgePan.edges = .Left
 		view.addGestureRecognizer(edgePan)
 	}
-	
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		if let navigationController = self.navigationController as? ScrollingNavigationController {
-			navigationController.followScrollView(self.tableView, delay: 50.0)
-		}
-	}
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(self.tableView, delay: 50.0)
+        }
+    }
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
@@ -120,18 +119,19 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 			BaseNetworkRequest.getSearchResults(self)
 		} else {
 //			print("Please enter the search term")
-            let murmur = Murmur(title: "Please enter the search term.",duration: 2.0)
-            Whistle(murmur)
+//            let murmur = Murmur(title: "Please enter the search term.",duration: 5.0)
+//            Whistle(murmur)
+            JDStatusBarNotification.showWithStatus("Please enter the search term", dismissAfter: 5.0)
 		}
 	}
-	
-	// MARK: scrollingNavBar
-	override func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
-		if let navigationController = self.navigationController as? ScrollingNavigationController {
-			navigationController.showNavbar(animated: true)
-		}
-		return true
-	}
+    
+    // MARK: scrollingNavBar
+    override func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+        if let navigationController = self.navigationController as? ScrollingNavigationController {
+            navigationController.showNavbar(animated: true)
+        }
+        return true
+    }
 	
 	// MARK: fetch search results
 //	func getSearchResults() {

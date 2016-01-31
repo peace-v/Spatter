@@ -454,7 +454,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPn-8Z-G33">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -468,7 +468,7 @@
                             </constraint>
                             <constraint firstItem="lYd-JO-Rwl" firstAttribute="centerX" secondItem="uTj-Wg-4qH" secondAttribute="centerX" id="70B-sy-UYa"/>
                             <constraint firstItem="7EF-uZ-PZR" firstAttribute="top" secondItem="lYd-JO-Rwl" secondAttribute="bottom" constant="127" id="Arp-vX-omv">
-                                <variation key="heightClass=regular-widthClass=compact" constant="80"/>
+                                <variation key="heightClass=regular-widthClass=compact" constant="100"/>
                             </constraint>
                             <constraint firstItem="SNk-n2-foH" firstAttribute="top" secondItem="VbR-7h-O1T" secondAttribute="bottom" constant="20" id="BeC-rE-O7b">
                                 <variation key="heightClass=regular-widthClass=compact" constant="5"/>
@@ -501,24 +501,24 @@
                                 <exclude reference="zPn-8Z-G33"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="PCj-aK-xZo"/>
-                                <exclude reference="b58-0n-7d4"/>
-                                <exclude reference="70B-sy-UYa"/>
-                                <exclude reference="bPb-Id-91B"/>
-                                <exclude reference="1LT-Wa-Uuy"/>
-                                <exclude reference="chT-bl-3Ax"/>
+                                <exclude reference="i58-UI-V2v"/>
+                                <exclude reference="wxA-Z3-GSR"/>
                                 <exclude reference="Arp-vX-omv"/>
                                 <exclude reference="e8l-pn-pOx"/>
+                                <exclude reference="BeC-rE-O7b"/>
+                                <exclude reference="EIg-cU-PvR"/>
                                 <exclude reference="3yR-j4-Yoq"/>
                                 <exclude reference="V0s-mN-pRo"/>
                                 <exclude reference="19E-uH-b7I"/>
                                 <exclude reference="M5O-Cq-4m6"/>
-                                <exclude reference="BeC-rE-O7b"/>
-                                <exclude reference="EIg-cU-PvR"/>
-                                <exclude reference="i58-UI-V2v"/>
-                                <exclude reference="wxA-Z3-GSR"/>
+                                <exclude reference="70B-sy-UYa"/>
+                                <exclude reference="bPb-Id-91B"/>
                                 <exclude reference="SMk-fa-LBF"/>
                                 <exclude reference="ykD-0l-uCO"/>
+                                <exclude reference="1LT-Wa-Uuy"/>
+                                <exclude reference="chT-bl-3Ax"/>
+                                <exclude reference="PCj-aK-xZo"/>
+                                <exclude reference="b58-0n-7d4"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -534,24 +534,24 @@
                                 <include reference="zPn-8Z-G33"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="PCj-aK-xZo"/>
-                                <include reference="b58-0n-7d4"/>
-                                <include reference="70B-sy-UYa"/>
-                                <include reference="bPb-Id-91B"/>
-                                <include reference="1LT-Wa-Uuy"/>
-                                <include reference="chT-bl-3Ax"/>
+                                <include reference="i58-UI-V2v"/>
+                                <include reference="wxA-Z3-GSR"/>
                                 <include reference="Arp-vX-omv"/>
                                 <include reference="e8l-pn-pOx"/>
+                                <include reference="BeC-rE-O7b"/>
+                                <include reference="EIg-cU-PvR"/>
                                 <include reference="3yR-j4-Yoq"/>
                                 <include reference="V0s-mN-pRo"/>
                                 <include reference="19E-uH-b7I"/>
                                 <include reference="M5O-Cq-4m6"/>
-                                <include reference="BeC-rE-O7b"/>
-                                <include reference="EIg-cU-PvR"/>
-                                <include reference="i58-UI-V2v"/>
-                                <include reference="wxA-Z3-GSR"/>
+                                <include reference="70B-sy-UYa"/>
+                                <include reference="bPb-Id-91B"/>
                                 <include reference="SMk-fa-LBF"/>
                                 <include reference="ykD-0l-uCO"/>
+                                <include reference="1LT-Wa-Uuy"/>
+                                <include reference="chT-bl-3Ax"/>
+                                <include reference="PCj-aK-xZo"/>
+                                <include reference="b58-0n-7d4"/>
                             </mask>
                         </variation>
                         <connections>
@@ -810,6 +810,6 @@
         <image name="spatter-60" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="pQj-9Z-4za"/>
+        <segue reference="VHM-ot-8Pp"/>
     </inferredMetricsTieBreakers>
 </document>

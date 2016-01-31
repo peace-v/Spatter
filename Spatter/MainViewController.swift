@@ -21,7 +21,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	var menuItemsAlreadyLogin: [RWDropdownMenuItem] = []
 	var menuItemsWithoutLogin: [RWDropdownMenuItem] = []
 	var safariVC: SFSafariViewController?
-    let aboutVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("about")
+	let aboutVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("about")
 //    var code = ""
 //    var likedTotalItems = 0
 //    var likedPerItem = 30
@@ -52,15 +52,15 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 					self.navigationController!.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("profileNavController"), animated: true, completion: nil)
 				}),
 			RWDropdownMenuItem(text: "Logout", image: nil, action: {
-                NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isLogin")
-                NSUserDefaults.standardUserDefaults().synchronize()
+					NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isLogin")
+					NSUserDefaults.standardUserDefaults().synchronize()
 //					isLogin = false
-                keychain["access_token"] = nil
-                keychain["refresh"] = nil
-                likedPhotoIDArray = []
-                likedPhotosArray = []
-                likedTotalItems = 0
-                username = ""
+					keychain["access_token"] = nil
+					keychain["refresh"] = nil
+					likedPhotoIDArray = []
+					likedPhotosArray = []
+					likedTotalItems = 0
+					username = ""
 				}),
 			RWDropdownMenuItem(text: "Clear Cache", image: nil, action: {
 					SDImageCache.sharedImageCache().clearDisk()
@@ -68,9 +68,9 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
 					self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
 				}),
-            RWDropdownMenuItem(text: "About", image: nil, action: {
-            self.presentViewController(self.aboutVC, animated: true, completion: nil)
-            })]
+			RWDropdownMenuItem(text: "About", image: nil, action: {
+					self.presentViewController(self.aboutVC, animated: true, completion: nil)
+				})]
 		
 		menuItemsWithoutLogin = [
 			RWDropdownMenuItem(text: "Login", image: nil, action: {
@@ -82,14 +82,14 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
 					self.sendFeedback("【反馈】Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
 				}),
-            RWDropdownMenuItem(text: "About", image: nil, action: {
-                self.presentViewController(self.aboutVC, animated: true, completion: nil)
-            })]
+			RWDropdownMenuItem(text: "About", image: nil, action: {
+					self.presentViewController(self.aboutVC, animated: true, completion: nil)
+				})]
 		
 		// configure tableView
 //		 self.getCollections()
-        BaseNetworkRequest.getCollections(self)
-        
+		BaseNetworkRequest.getCollections(self)
+		
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -100,14 +100,20 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		}
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "oauthUser:", name: "DismissSafariVC", object: nil)
-	}
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(true)
-        if let navigationController = self.navigationController as? ScrollingNavigationController {
-            navigationController.stopFollowingScrollView()
+        
+        JDStatusBarNotification.setDefaultStyle { (JDStatusBarStyle) -> JDStatusBarStyle! in
+            JDStatusBarStyle.barColor = UIColor.whiteColor()
+            JDStatusBarStyle.textColor = UIColor.blackColor()
+            return JDStatusBarStyle
         }
-    }
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(true)
+		if let navigationController = self.navigationController as? ScrollingNavigationController {
+			navigationController.stopFollowingScrollView()
+		}
+	}
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
@@ -128,7 +134,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			let indexPath = self.tableView.indexPathForCell(cell!)
 			detailViewController.downloadURL = self.photosArray[indexPath!.row] ["regular"]!
 			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
-            detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!
+			detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!
 		}
 	}
 	
@@ -169,7 +175,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 //            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isLogin")
 //            NSUserDefaults.standardUserDefaults().synchronize()
 ////			isLogin = true
-//			
+//
 ////			Alamofire.request(.POST, "https://unsplash.com/oauth/token", parameters: [
 ////					"client_id": clientID!,
 ////					"client_secret": clientSecret!,
@@ -189,12 +195,12 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 ////						print(error)
 ////					}
 ////				})
-//            
+//
 //		}
 		BaseNetworkRequest.oauth(notification)
-        if (self.safariVC != nil){
-		self.safariVC!.dismissViewControllerAnimated(true, completion: nil)
-        }
+		if (self.safariVC != nil) {
+			self.safariVC!.dismissViewControllerAnimated(true, completion: nil)
+		}
 	}
 	
 	// MARK: MFMailComposeViewControllerDelegate
@@ -228,8 +234,8 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		}
 		return true
 	}
-    
-    // MARK: getLikedPhotoArray
+	
+	// MARK: getLikedPhotoArray
 //    func getLikedPhotoArray() {
 //        print("get username")
 //        Alamofire.request(.GET, "https://api.unsplash.com/me", headers: [
@@ -248,7 +254,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 //                    print(error)
 //                }
 //            })}
-//    
+//
 //    func getLikedPhoto() {
 //        print("get liked photos")
 //        if (photoIDArray.count < self.likedTotalItems || photoIDArray.count == 0) {

@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreMotion
-import Whisper
 import Alamofire
 import SwiftyJSON
 import SafariServices
@@ -170,14 +169,27 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: "DismissSafariVC", object: nil)
 	}
 	
-	// MARK: Whisper
+	// MARK: StatusBar Notificaiton
 	func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafePointer<Void>) {
 		if error == nil {
-			let murmur = Murmur(title: "Image Saved")
-			Whistle(murmur)
+//			let murmur = Murmur(title: "Image Saved")
+//			Whistle(murmur)
+            JDStatusBarNotification.showWithStatus("Image saved", dismissAfter: 1.5)
 		} else {
-			let murmur = Murmur(title: "Failed. please allow Spatter to access Photos in Settings app.",duration: 2.0)
-			Whistle(murmur)
+//			let murmur = Murmur(title: "Failed. please allow Spatter to access Photos in Settings app.",duration: 5.0)
+//			Whistle(murmur)
+			let alert = UIAlertController(title: "Failed to save image", message: "Please allow Spatter to access Photos in Settings app.", preferredStyle: .Alert)
+			let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+			let allow = UIAlertAction(title: "Allow", style: .Default, handler: {
+					(UIAlertAction) -> Void in
+					let url = NSURL(string: UIApplicationOpenSettingsURLString)
+					if (UIApplication.sharedApplication().canOpenURL(url!)) {
+						UIApplication.sharedApplication().openURL(url!)
+					}
+				})
+			alert.addAction(cancel)
+			alert.addAction(allow)
+			self.presentViewController(alert, animated: true, completion: nil)
 		}
 	}
 	
@@ -232,5 +244,4 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 			self.safariVC!.dismissViewControllerAnimated(true, completion: nil)
 		}
 	}
-	
 }
