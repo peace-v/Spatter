@@ -14,18 +14,14 @@ class PostTableViewController: BaseTableViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.tableView.separatorStyle = .None
 		
 		// configure refreshController
-		self.refreshControl = UIRefreshControl()
-		self.refreshControl!.backgroundColor = UIColor.whiteColor()
-		self.refreshControl!.tintColor = UIColor.blackColor()
 		self.refreshControl!.addTarget(self, action: "refreshPostData", forControlEvents: .ValueChanged)
 		
 		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "showNoMoreInfo")
 		footer.refreshingTitleHidden = true
 		self.tableView.mj_footer = footer
-		
+        
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "getPostPhoto:", name: "LoadPostPhotos", object: nil)
 	}
 	
@@ -41,45 +37,21 @@ class PostTableViewController: BaseTableViewController {
 			let detailViewController = segue.destinationViewController as! DetailViewController
 			let cell = sender as? UITableViewCell
 			let indexPath = self.tableView.indexPathForCell(cell!)
-			detailViewController.downloadURL = self.photosArray[indexPath!.row] ["regular"]!
-			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
-			detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!
+            detailViewController.regular = self.photosArray[indexPath!.row] ["regular"]!
+            detailViewController.small = self.photosArray[indexPath!.row] ["small"]!
+            detailViewController.download = self.photosArray[indexPath!.row] ["download"]!
+            detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
+            detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!
 		}
 	}
 	
 	func getPostPhoto(notification: NSNotification) {
-//        Alamofire.request(.GET, "https://api.unsplash.com/users/\(username)/photos", parameters: [
-//            "client_id": clientID!
-//            ]).validate().responseJSON(completionHandler: {response in
-//                switch response.result {
-//                case .Success:
-//                    self.refreshControl?.endRefreshing()
-//                    if let value = response.result.value {
-//                        let json = JSON(value)
-//                        //						print("JSON:\(json)")
-//                        if (json.count == 0){
-//                            if (self.totalItems == 0) {
-//                                print("You don't post photo yet.")
-//                            }
-//                        }
-//                        for (_, subJson): (String, JSON) in json {
-//                            var photoDic = Dictionary<String, String>()
-//                            photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-//                            photoDic["small"] = subJson["urls"] ["small"].stringValue
-//                            photoDic["id"] = subJson["id"].stringValue
-//                            photoDic["download"] = subJson["links"] ["download"].stringValue
-//                            photoDic["name"] = subJson["user"] ["name"].stringValue
-//                                self.photosArray.append(photoDic)
-//                        }
-//                        self.successfullyGetJsonData = true
-//                        self.tableView.reloadData()
-//                    }
-//                case .Failure(let error):
-//                    print(error)
-//                }
-//            })
-		
-		BaseNetworkRequest.getPostPhoto(self)
+        if (self.photosArray.count != 0) {
+            self.successfullyGetJsonData = true
+            self.tableView.reloadData()
+        } else {
+            BaseNetworkRequest.getPostPhoto(self)
+        }
 	}
 	
 	func showNoMoreInfo() {
@@ -92,4 +64,39 @@ class PostTableViewController: BaseTableViewController {
 		cache.removeAllCachedResponses()
 		BaseNetworkRequest.getPostPhoto(self)
 	}
+    
+    // MARK: DZEmptyDataSet
+    override func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage {
+        if !isConnectedInternet {
+            return UIImage(named: "wifi")!
+        }else if somethingWentWrong {
+            return UIImage(named: "coffee")!
+        }else if noData {
+            return UIImage(named: "photo")!
+        }else {
+            return UIImage(named: "main-loading")!
+        }
+    }
+    
+    override func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
+        var text = ""
+        if !isConnectedInternet {
+            text = "Cannot connect to Internet"
+        } else if somethingWentWrong {
+            text = "Oops, something went wrong"
+        } else if noData{
+            text = "You haven't post photo yet"
+        }else {
+            text = "Loading..."
+        }
+        let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
+            NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+    
+    override func emptyDataSetDidTapButton(scrollView: UIScrollView) {
+        if (!isConnectedInternet || somethingWentWrong){
+            BaseNetworkRequest.getPostPhoto(self)
+        }
+    }
 }

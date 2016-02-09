@@ -15,7 +15,7 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 	
 	var viewControllers: [UIViewController] = []
 	
-    @IBOutlet weak var userLabel: UILabel!
+	@IBOutlet weak var userLabel: UILabel!
 	@IBOutlet weak var avatar: UIImageView!
 	@IBOutlet weak var backBtn: UIBarButtonItem!
 	
@@ -27,32 +27,8 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view.
-//		Alamofire.request(.GET, "https://api.unsplash.com/me", headers: [
-//				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
-//				"client_id": clientID!
-//			]).validate().responseJSON(completionHandler: {response in
-//				switch response.result {
-//				case .Success:
-//					if let value = response.result.value {
-//						let json = JSON(value)
-////						print("JSON:\(json)")
-//						dispatch_async(dispatch_get_main_queue()) {
-//							self.avatar.sd_setImageWithURL(NSURL(string: json["profile_image"] ["medium"].stringValue))
-//                            username = json["username"].stringValue
-//                            self.userLabel.text = username
-//                            if (!username.isEmpty) {
-//                                NSNotificationCenter.defaultCenter().postNotificationName("LoadLikedPhotos", object: nil)
-//                                NSNotificationCenter.defaultCenter().postNotificationName("LoadPostPhotos", object: nil)
-//                            }
-//						}
-//					}
-//				case .Failure(let error):
-//					print(error)
-//				}
-//			})
+		BaseNetworkRequest.loadProfile(self)
 		
-        BaseNetworkRequest.loadProfile(self)
-        
 		avatar.layer.masksToBounds = true
 		let avatarWidth = CGFloat(44.0)
 		avatar.layer.cornerRadius = avatarWidth / 2
@@ -86,6 +62,7 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		// Dispose of any resources that can be recreated.
 	}
 	
+// MARK: help function
 	func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .Recognized) {
 			self.navigationController!.dismissViewControllerAnimated(true, completion: nil)

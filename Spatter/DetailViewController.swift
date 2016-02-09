@@ -14,13 +14,16 @@ import SafariServices
 
 class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	var image = UIImage(named: "loading-black")
-	var downloadURL = ""
+	var small = ""
+	var regular = ""
+	var download = ""
 	var creatorName = ""
 	var photoID = ""
 	var imagePanViewController = SCImagePanViewController()
 	var infoBtnPopTipView = CMPopTipView()
 	var safariVC: SFSafariViewController?
-	var code = ""
+//	var code = ""
+//	var isConnectedInternet = true
 	
 	@IBOutlet weak var toolbar: UIToolbar!
 	@IBOutlet weak var infoButton: UIBarButtonItem!
@@ -34,40 +37,29 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	}
 	@IBAction func likePhoto(sender: AnyObject) {
 		if (NSUserDefaults.standardUserDefaults().boolForKey("isLogin")) {
+			var photoDic = Dictionary<String, String>()
+			photoDic["regular"] = regular
+			photoDic["small"] = small
+			photoDic["id"] = photoID
+			photoDic["download"] = download
+			photoDic["name"] = creatorName
+			
 			if (likedPhotoIDArray.containsObject(photoID)) {
-//				Alamofire.request(.DELETE, "https://api.unsplash.com/photos/\(self.photoID)/like", headers: [
-//						"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
-//						"client_id": clientID!
-//					]).validate().responseJSON(completionHandler: {response in
-//						switch response.result {
-//						case .Success:
-//							if let value = response.result.value {
-//								let json = JSON(value)
-//								print("JSON:\(json)")
-//							}
-//						case .Failure(let error):
-//							print(error)
-//						}
-//					})
-				
 				BaseNetworkRequest.unlikePhoto(self, id: photoID)
+				likeButton.image = UIImage(named: "like-before")
+				if (likedPhotoIDArray.containsObject(photoID)) {
+					likedPhotoIDArray.removeObject(photoID)
+					for (index, value) in likedPhotosArray.enumerate() {
+						if (value == photoDic) {
+							likedPhotosArray.removeAtIndex(index)
+						}
+					}
+				}
 			} else {
-//				Alamofire.request(.POST, "https://api.unsplash.com/photos/\(self.photoID)/like", headers: [
-//						"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
-//						"client_id": clientID!
-//					]).validate().responseJSON(completionHandler: {response in
-//						switch response.result {
-//						case .Success:
-//							if let value = response.result.value {
-//								let json = JSON(value)
-//								print("JSON:\(json)")
-//							}
-//						case .Failure(let error):
-//							print(error)
-//						}
-//					})
-				
 				BaseNetworkRequest.likePhoto(self, id: photoID)
+				likeButton.image = UIImage(named: "like-after")
+				likedPhotoIDArray.addObject(photoID)
+				likedPhotosArray.append(photoDic)
 			}
 		} else {
 			let alert = UIAlertController(title: "Login", message: "Please login to like a photo.", preferredStyle: .Alert)
@@ -96,7 +88,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		// Do any additional setup after loading the view.
 		// download the photo
 		let manager = SDWebImageManager.sharedManager()
-		manager.downloadImageWithURL(NSURL(string: self.downloadURL), options: SDWebImageOptions.AvoidAutoSetImage, progress: {
+		manager.downloadImageWithURL(NSURL(string: self.regular), options: SDWebImageOptions.AvoidAutoSetImage, progress: {
 				receivedSize, expectedSize in
 			}, completed: {
 				image, error, cacheType, finished, imageURL in
@@ -114,8 +106,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 			forToolbarPosition: UIBarPosition.Any)
 		
 		// set likeButton image
-		if (likedPhotoIDArray.containsObject(photoID)) {
-			likeButton.image = UIImage(named: "like-after")
+		if (NSUserDefaults.standardUserDefaults().boolForKey("isLogin")) {
+			if (likedPhotoIDArray.containsObject(photoID)) {
+				likeButton.image = UIImage(named: "like-after")
+			} else {
+				likeButton.image = UIImage(named: "like-before")
+			}
 		} else {
 			likeButton.image = UIImage(named: "like-before")
 		}
@@ -144,7 +140,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: "screenEdgeSwiped:")
 		edgePan.edges = .Left
 		view.addGestureRecognizer(edgePan)
-		
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -155,14 +150,32 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(true)
 		self.navigationController!.setNavigationBarHidden(true, animated: false)
-//		self.navigationController!.navigationBarHidden = true
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "oauthUser:", name: "DismissSafariVC", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self,
+			selector: "accessInternet:",
+			name: "CanAccessInternet",
+			object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self,
+			selector: "cannotAccessInternet:",
+			name: "CanNotAccessInternet",
+			object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self,
+			selector: "exceedLimit:",
+			name: "ExceedRateLimit",
+			object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self,
+			selector: "somethingWentWrong:",
+			name: "ErrorOccur",
+			object: nil)
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(true)
 		self.navigationController!.setNavigationBarHidden(false, animated: false)
-//		self.navigationController!.navigationBarHidden = false
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: "CanAccessInternet", object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: "CanNotAccessInternet", object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: "ExceedRateLimit", object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: "ErrorOccur", object: nil)
 	}
 	
 	deinit {
@@ -172,12 +185,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	// MARK: StatusBar Notificaiton
 	func image(image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafePointer<Void>) {
 		if error == nil {
-//			let murmur = Murmur(title: "Image Saved")
-//			Whistle(murmur)
-            JDStatusBarNotification.showWithStatus("Image saved", dismissAfter: 1.5)
+			JDStatusBarNotification.showWithStatus("Image saved", dismissAfter: 1.5)
 		} else {
-//			let murmur = Murmur(title: "Failed. please allow Spatter to access Photos in Settings app.",duration: 5.0)
-//			Whistle(murmur)
 			let alert = UIAlertController(title: "Failed to save image", message: "Please allow Spatter to access Photos in Settings app.", preferredStyle: .Alert)
 			let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
 			let allow = UIAlertAction(title: "Allow", style: .Default, handler: {
@@ -193,6 +202,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		}
 	}
 	
+	// MARK: help function
 	func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .Recognized) {
 			self.navigationController!.popViewControllerAnimated(true)
@@ -211,37 +221,36 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	}
 	
 	func oauthUser(notification: NSNotification) {
-//		let url = notification.object as! NSURL
-//		let urlString = url.absoluteString
-//		if (urlString.containsString("code")) {
-//			let urlArray = urlString.componentsSeparatedByString("=")
-//			code = urlArray[1]
-//			NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isLogin")
-//			NSUserDefaults.standardUserDefaults().synchronize()
-//			// isLogin = true
-//
-//			Alamofire.request(.POST, "https://unsplash.com/oauth/token", parameters: [
-//					"client_id": clientID!,
-//					"client_secret": clientSecret!,
-//					"redirect_uri": "spatter://com.yuying.spatter",
-//					"code": code,
-//					"grant_type": "authorization_code"
-//				]).validate().responseJSON(completionHandler: {response in
-//					switch response.result {
-//					case .Success:
-//						if let value = response.result.value {
-//							let json = JSON(value)
-//							keychain["refresh_token"] = json["refresh_token"].stringValue
-//							keychain["access_token"] = json["access_token"].stringValue
-//						}
-//					case .Failure(let error):
-//						print(error)
-//					}
-//				})
-//		}
 		BaseNetworkRequest.oauth(notification)
 		if (self.safariVC != nil) {
 			self.safariVC!.dismissViewControllerAnimated(true, completion: nil)
 		}
+	}
+	
+	// MARK: notification function
+	func accessInternet(notification: NSNotification) {
+		isConnectedInternet = true
+	}
+	
+	func cannotAccessInternet(notification: NSNotification) {
+		isConnectedInternet = false
+		let alert = UIAlertController(title: "Cannot connect to Internet", message: "Pull down to refresh", preferredStyle: .Alert)
+		let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+		alert.addAction(ok)
+		self.presentViewController(alert, animated: true, completion: nil)
+	}
+	
+	func exceedLimit(notification: NSNotification) {
+		let alert = UIAlertController(title: "Server has reached it's limit", message: "Have a break and come back later", preferredStyle: .Alert)
+		let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+		alert.addAction(ok)
+		self.presentViewController(alert, animated: true, completion: nil)
+	}
+	
+	func somethingWentWrong(notification: NSNotification) {
+		let alert = UIAlertController(title: "Oops, something went wrong", message: "Pull down to refresh", preferredStyle: .Alert)
+		let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+		alert.addAction(ok)
+		self.presentViewController(alert, animated: true, completion: nil)
 	}
 }

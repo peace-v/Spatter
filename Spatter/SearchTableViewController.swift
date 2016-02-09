@@ -15,13 +15,14 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	
 	let searchController = UISearchController(searchResultsController: nil)
 	var photoID: [String] = []
-    var query = ""
-    var searchPerItem = 30
-    var searchTotalPages: Int {
-        get {
-            return Int(ceilf(Float(totalItems) / Float(searchPerItem)))
-        }
-    }
+	var query = ""
+	var searchPerItem = 10
+	var searchTotalPages: Int {
+		get {
+			return Int(ceilf(Float(totalItems) / Float(searchPerItem)))
+		}
+	}
+    var isSearching = false
 	
 	@IBOutlet weak var backBtn: UIBarButtonItem!
 	
@@ -32,17 +33,9 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        self.tableView.separatorStyle = .None
-        
-		// clear searchController warning
-//		if #available(iOS 9.0, *) {
-//			searchController.loadViewIfNeeded()
-//		} else {
-//			let _ = searchController.view
-//		}
-        
-            searchController.loadViewIfNeeded()
-
+		
+		searchController.loadViewIfNeeded()
+		
 		// configure searchController
 		searchController.searchResultsUpdater = self
 		searchController.dimsBackgroundDuringPresentation = false
@@ -51,31 +44,31 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		searchController.searchBar.delegate = self
 		searchController.searchBar.searchBarStyle = .Minimal
 		searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.tintColor = UIColor.blackColor()
-        
-        // configure refreshController
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl!.backgroundColor = UIColor.whiteColor()
-        self.refreshControl!.tintColor = UIColor.blackColor()
-        self.refreshControl!.addTarget(self, action: "refreshSearchData", forControlEvents: .ValueChanged)
-        
-        footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "getSearchResults")
-        footer.refreshingTitleHidden = true
-        self.tableView.mj_footer = footer
+		searchController.searchBar.tintColor = UIColor.blackColor()
+		
+		// configure refreshController
+//        self.refreshControl = UIRefreshControl()
+//        self.refreshControl!.backgroundColor = UIColor.whiteColor()
+//        self.refreshControl!.tintColor = UIColor.blackColor()
+		self.refreshControl!.addTarget(self, action: "refreshSearchData", forControlEvents: .ValueChanged)
+		
+		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "getSearchResults")
+		footer.refreshingTitleHidden = true
+		self.tableView.mj_footer = footer
 		
 		// add screenEdgePanGesture
 		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: "screenEdgeSwiped:")
 		edgePan.edges = .Left
 		view.addGestureRecognizer(edgePan)
 	}
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if let navigationController = self.navigationController as? ScrollingNavigationController {
-            navigationController.followScrollView(self.tableView, delay: 50.0)
-        }
-    }
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		if let navigationController = self.navigationController as? ScrollingNavigationController {
+			navigationController.followScrollView(self.tableView, delay: 50.0)
+		}
+	}
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
@@ -89,12 +82,15 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 			let detailViewController = segue.destinationViewController as! DetailViewController
 			let cell = sender as? UITableViewCell
 			let indexPath = self.tableView.indexPathForCell(cell!)
-			detailViewController.downloadURL = self.photosArray[indexPath!.row] ["regular"]!
+			detailViewController.regular = self.photosArray[indexPath!.row] ["regular"]!
+			detailViewController.small = self.photosArray[indexPath!.row] ["small"]!
+			detailViewController.download = self.photosArray[indexPath!.row] ["download"]!
 			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
-            detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!
+			detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!
 		}
 	}
 	
+	// MARK: help function
 	func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .Recognized) {
 			searchController.resignFirstResponder()
@@ -103,99 +99,85 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 	
 	// MARK: UISearchController
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-    }
-    
+	func updateSearchResultsForSearchController(searchController: UISearchController) {
+	}
+	
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
 		let whiteSpace = NSCharacterSet.whitespaceAndNewlineCharacterSet()
 		let searchTerm = searchController.searchBar.text?.stringByTrimmingCharactersInSet(whiteSpace)
 		if (!searchTerm!.isEmpty) {
-            if (self.photosArray.count != 0) {
-                self.photosArray = []
-                self.photoID = []
-                self.page = 1
-            }
-            self.query = searchController.searchBar.text!.lowercaseString
+			if (self.photosArray.count != 0) {
+				self.photosArray = []
+				self.photoID = []
+				self.page = 1
+			}
+			self.query = searchController.searchBar.text!.lowercaseString
 			BaseNetworkRequest.getSearchResults(self)
+            isSearching = true
+            self.tableView.reloadData()
 		} else {
-//			print("Please enter the search term")
-//            let murmur = Murmur(title: "Please enter the search term.",duration: 5.0)
-//            Whistle(murmur)
-            JDStatusBarNotification.showWithStatus("Please enter the search term", dismissAfter: 5.0)
+			JDStatusBarNotification.showWithStatus("Please enter the search term", dismissAfter: 5.0)
+		}
+	}
+	
+	// MARK: scrollingNavBar
+	override func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+		if let navigationController = self.navigationController as? ScrollingNavigationController {
+			navigationController.showNavbar(animated: true)
+		}
+		return true
+	}
+	
+	// MARK: refresh function
+	func getSearchResults() {
+		BaseNetworkRequest.getSearchResults(self)
+	}
+	
+	func refreshSearchData() {
+		self.photosArray = []
+		self.photoID = []
+		self.page = 1
+		let cache = NSURLCache.sharedURLCache()
+		cache.removeAllCachedResponses()
+		BaseNetworkRequest.getSearchResults(self)
+	}
+	
+	// MARK: DZEmptyDataSet
+	override func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage {
+		if !isConnectedInternet {
+//			return UIImage(named: "wifi")!
+            return UIImage(named: "error")!
+		} else if somethingWentWrong {
+			return UIImage(named: "coffee")!
+		} else if noData {
+			return UIImage(named: "character")!
+        }else if isSearching {
+            return UIImage(named: "Searching")!
+        }else{
+            return UIImage(named: "blank4")!
+        }
+	}
+	
+	override func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
+		var text = ""
+		if !isConnectedInternet {
+			text = "Cannot connect to Internet"
+		} else if somethingWentWrong {
+			text = "Oops, something went wrong"
+		} else if noData{
+            text = "We couldn't find anything that matched the item"
+        }else {
+			text = "Searching..."
+		}
+		let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
+			NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+		return NSAttributedString(string: text, attributes: attributes)
+	}
+	
+	override func emptyDataSetDidTapButton(scrollView: UIScrollView) {
+		if (!isConnectedInternet || somethingWentWrong) {
+			BaseNetworkRequest.getSearchResults(self)
 		}
 	}
     
-    // MARK: scrollingNavBar
-    override func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
-        if let navigationController = self.navigationController as? ScrollingNavigationController {
-            navigationController.showNavbar(animated: true)
-        }
-        return true
-    }
-	
-	// MARK: fetch search results
-//	func getSearchResults() {
-//		if (self.page <= self.totalPages || self.page == 1) {
-//			Alamofire.request(.GET, "https://api.unsplash.com/photos/search/", parameters: [
-//					"client_id": clientID!,
-//					"query": self.query,
-//					"category": 0,
-//					"page": self.page,
-//					"per_page": searchPerItem
-//				]).validate().responseJSON(completionHandler: {response in
-//					switch response.result {
-//					case .Success:
-//                        self.refreshControl?.endRefreshing()
-//						if (self.page == 1) {
-//							self.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-//						}
-//						self.page += 1
-//						if let value = response.result.value {
-//							let json = JSON(value)
-////						print("JSON:\(json)")
-//                            if (json.count == 0){                             
-//                                self.page -= 1
-//                                if (self.totalItems == 0) {
-//                                    print("We couldn't find anything that matched that search.")
-//                                }
-//                            }
-//							for (_, subJson): (String, JSON) in json {
-//								var photoDic = Dictionary<String, String>()
-//								photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-//								photoDic["small"] = subJson["urls"] ["small"].stringValue
-//								photoDic["id"] = subJson["id"].stringValue
-//								photoDic["download"] = subJson["links"] ["download"].stringValue
-//								photoDic["name"] = subJson["user"] ["name"].stringValue
-//								if (!self.photoID.contains(subJson["id"].stringValue)) {
-//									self.photoID.append(subJson["id"].stringValue)
-//									self.photosArray.append(photoDic)
-//								}
-//							}
-//							self.successfullyGetJsonData = true
-//							self.tableView.reloadData()
-//						}
-//					case .Failure(let error):
-//						print(error)
-//					}
-//				})
-//		} else {
-//			footer.endRefreshingWithNoMoreData()
-//		}
-//        if (footer.isRefreshing()) {
-//            footer.endRefreshing()
-//        }
-//	}
-    
-    func getSearchResults() {
-        BaseNetworkRequest.getSearchResults(self)
-    }
-	
-    func refreshSearchData() {
-        self.photosArray = []
-        self.photoID = []
-        self.page = 1
-        let cache = NSURLCache.sharedURLCache()
-        cache.removeAllCachedResponses()
-        BaseNetworkRequest.getSearchResults(self)
-    }
 }

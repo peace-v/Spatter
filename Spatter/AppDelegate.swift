@@ -19,22 +19,18 @@ var likedPhotosArray: [Dictionary<String, String>] = [Dictionary<String, String>
 var likedPhotoIDArray: NSMutableArray = []
 var likedTotalItems = 0
 var username = ""
+var avatarURL = ""
+var isConnectedInternet = true
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	
+	var reach: TMReachability?
 	var window: UIWindow?
-//    var totalItems = 0
-//    var perItem = 30
-//    var page = 1
-//    var totalPages: Int {
-//        get {
-//            return Int(ceilf(Float(totalItems) / Float(perItem)))
-//        }
-//    }
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		// Override point for customization after application launch.
+        // set userDefailts when first launch
 		if (!(NSUserDefaults.standardUserDefaults().boolForKey("notFirstLaunch"))) {
 			NSUserDefaults.standardUserDefaults().setBool(true, forKey: "notFirstLaunch")
 			NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isLogin")
@@ -44,31 +40,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		if (NSUserDefaults.standardUserDefaults().boolForKey("isLogin")) {
-//			Alamofire.request(.POST, "https://unsplash.com/oauth/token", parameters: [
-//					"client_id": clientID!,
-//					"client_secret": clientSecret!,
-//					"refresh_token": keychain["refresh_token"]!,
-//					"grant_type": "refresh_token"
-//				]).validate().responseJSON(completionHandler: {response in
-//					switch response.result {
-//					case .Success:
-//						if let value = response.result.value {
-//							let json = JSON(value)
-////							refreshToken = json["refresh_token"].stringValue
-////							accessToken = json["access_token"].stringValue
-//							keychain["refresh_token"] = json["refresh_token"].stringValue
-//							keychain["access_token"] = json["access_token"].stringValue
-//							
-//							self.getLikedPhotoArray()
-//						}
-//					case .Failure(let error):
-//						print(error)
-//					}
-//				})
-//		}
-		BaseNetworkRequest.getUsername()
-        }
-
+			BaseNetworkRequest.loadProfile()
+		}
+		
+		reach = TMReachability.reachabilityForInternetConnection()
+		reach!.reachableOnWWAN = false
+		NSNotificationCenter.defaultCenter().addObserver(self,
+			selector: "reachabilityChanged:",
+			name: kReachabilityChangedNotification,
+			object: nil)
+		reach!.startNotifier()
+		
+//		let cache = NSURLCache.sharedURLCache()
+//		cache.removeAllCachedResponses()
+		
 		return true
 	}
 	
@@ -92,45 +77,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationWillTerminate(application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        let cache = NSURLCache.sharedURLCache()
-        cache.removeAllCachedResponses()
+//        let cache = NSURLCache.sharedURLCache()
+//        cache.removeAllCachedResponses()
 	}
-	
-//	func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
-	// print("the redirect uri is \(url)")
-	// let urlString = url.absoluteString
-	// if (urlString.containsString("code")) {
-	// let urlArray = urlString.componentsSeparatedByString("=")
-	// code = urlArray[1]
-	// isLogin = true
-	//
-	// Alamofire.request(.POST, "https://unsplash.com/oauth/token", parameters: [
-	// "client_id": "cfda40dc872056077a4baab01df44629708fb3434f2e15a565cef75cc2af105d",
-	// "client_secret": "915698939466b067ec1655727d1af0ce40ba717258f366200473969033a2ab5f",
-	// "redirect_uri": "spatter://com.yuying.spatter",
-	// "code": code,
-	// "grant_type": "authorization_code"
-	// ]).validate().responseJSON(completionHandler: {response in
-	// switch response.result {
-	// case .Success:
-	// if let value = response.result.value {
-	// let json = JSON(value)
-	// refreshToken = json["refresh_token"].stringValue
-	// accessToken = json["access_token"].stringValue
-	// }
-	// case .Failure(let error):
-	// print(error)
-	// }
-	// })
-	// }
-	
-//		let storyboard = UIStoryboard(name: "Main", bundle: nil)
-	// let navController = storyboard.instantiateViewControllerWithIdentifier("navController")
-	// self.window?.rootViewController = navController
-	// self.window?.makeKeyAndVisible()
-	//
-	// return true
-	// }
 	
 	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
 		if (sourceApplication == "com.apple.SafariViewService") {
@@ -140,69 +89,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 	
-	// MARK: getLikedPhotoArray
-//	func getLikedPhotoArray() {
-//        print("get username")
-//		Alamofire.request(.GET, "https://api.unsplash.com/me", headers: [
-//				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
-//				"client_id": clientID!
-//			]).validate().responseJSON(completionHandler: {response in
-//				switch response.result {
-//				case .Success:
-//					if let value = response.result.value {
-//						let json = JSON(value)
-//						// print("JSON:\(json)")
-//						username = json["username"].stringValue
-//						self.getLikedPhoto()
-//					}
-//				case .Failure(let error):
-//					print(error)
-//				}
-//			})}
-//	
-//	func getLikedPhoto() {
-//        print("get liked photos")
-//		if (photoIDArray.count < self.totalItems || photoIDArray.count == 0) {
-//			Alamofire.request(.GET, "https://api.unsplash.com/users/\(username)/likes", parameters: [
-//					"client_id": clientID!,
-//					"page": self.page,
-//					"per_page": self.perItem
-//				]).validate().responseJSON(completionHandler: {response in
-//					switch response.result {
-//					case .Success:
-//						if (self.page == 1) {
-//							self.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-//						}
-//						self.page += 1
-//						if let value = response.result.value {
-//							let json = JSON(value)
-//							// print("JSON:\(json)")
-//							if (json.count == 0) {
-//								self.page -= 1
-//								return
-//							}
-//							for (_, subJson): (String, JSON) in json {
-//								var photoDic = Dictionary<String, String>()
-//								photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-//								photoDic["small"] = subJson["urls"] ["small"].stringValue
-//								photoDic["id"] = subJson["id"].stringValue
-//								photoDic["download"] = subJson["links"] ["download"].stringValue
-//								photoDic["name"] = subJson["user"] ["name"].stringValue
-//								if (!photoIDArray.contains(subJson["id"].stringValue)) {
-//									photoIDArray.append(subJson["id"].stringValue)
-//									likedPhotosArray.append(photoDic)
-//								}
-//							}
-//                            self.getLikedPhoto()
-//						}
-//					case .Failure(let error):
-//						print(error)
-//					}
-//				})
-//		} else {
-//            print(photoIDArray)
-//			return
-//		}
-//	}
+	// MARK: TMReachability notification
+	func reachabilityChanged(notification: NSNotification) {
+		if reach!.isReachableViaWiFi() || reach!.isReachableViaWWAN() {
+            print("connected")
+			NSNotificationCenter.defaultCenter().postNotificationName("CanAccessInternet", object: nil)
+		} else {
+            print("not connected")
+			NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+		}
+	}
 }
 
