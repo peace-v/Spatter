@@ -62,7 +62,25 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		// Dispose of any resources that can be recreated.
 	}
 	
-// MARK: help function
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(true)
+		NSNotificationCenter.defaultCenter().addObserver(self,
+			selector: "accessInternet:",
+			name: "CanAccessInternet",
+			object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self,
+			selector: "cannotAccessInternet:",
+			name: "CanNotAccessInternet",
+			object: nil)
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(true)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: "CanAccessInternet", object: nil)
+		NSNotificationCenter.defaultCenter().removeObserver(self, name: "CanNotAccessInternet", object: nil)
+	}
+	
+// MARK: swipe back
 	func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .Recognized) {
 			self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
@@ -86,4 +104,13 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		}
 	}
 	
+	// MARK: notification function
+	func accessInternet(notification: NSNotification) {
+		isConnectedInternet = true
+		BaseNetworkRequest.loadProfile(self)
+	}
+	
+	func cannotAccessInternet(notification: NSNotification) {
+		isConnectedInternet = false
+	}
 }

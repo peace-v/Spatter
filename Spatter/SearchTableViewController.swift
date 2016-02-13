@@ -22,7 +22,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 			return Int(ceilf(Float(totalItems) / Float(searchPerItem)))
 		}
 	}
-    var isSearching = false
+	var isSearching = false
 	
 	@IBOutlet weak var backBtn: UIBarButtonItem!
 	
@@ -47,9 +47,6 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		searchController.searchBar.tintColor = UIColor.blackColor()
 		
 		// configure refreshController
-//        self.refreshControl = UIRefreshControl()
-//        self.refreshControl!.backgroundColor = UIColor.whiteColor()
-//        self.refreshControl!.tintColor = UIColor.blackColor()
 		self.refreshControl!.addTarget(self, action: "refreshSearchData", forControlEvents: .ValueChanged)
 		
 		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "getSearchResults")
@@ -90,7 +87,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		}
 	}
 	
-	// MARK: help function
+	// MARK: swipe back
 	func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .Recognized) {
 			searchController.resignFirstResponder()
@@ -103,21 +100,22 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 	
 	func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-		let whiteSpace = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-		let searchTerm = searchController.searchBar.text?.stringByTrimmingCharactersInSet(whiteSpace)
-		if (!searchTerm!.isEmpty) {
-			if (self.photosArray.count != 0) {
-				self.photosArray = []
-				self.photoID = []
-				self.page = 1
-			}
-			self.query = searchController.searchBar.text!.lowercaseString
-			BaseNetworkRequest.getSearchResults(self)
-            isSearching = true
-            self.tableView.reloadData()
-		} else {
-			JDStatusBarNotification.showWithStatus("Please enter the search term", dismissAfter: 5.0)
-		}
+//		let whiteSpace = NSCharacterSet.whitespaceAndNewlineCharacterSet()
+//		let searchTerm = searchController.searchBar.text?.stringByTrimmingCharactersInSet(whiteSpace)
+//		if (!searchTerm!.isEmpty) {
+//			if (self.photosArray.count != 0) {
+//				self.photosArray = []
+//				self.photoID = []
+//				self.page = 1
+//			}
+//			self.query = searchController.searchBar.text!.lowercaseString
+//			BaseNetworkRequest.getSearchResults(self)
+//            isSearching = true
+//            self.tableView.reloadData()
+//		} else {
+//			JDStatusBarNotification.showWithStatus("Please enter the search term", dismissAfter: 5.0)
+//		}
+		self.searchItem()
 	}
 	
 	// MARK: scrollingNavBar
@@ -145,29 +143,28 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	// MARK: DZEmptyDataSet
 	override func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage {
 		if !isConnectedInternet {
-//			return UIImage(named: "wifi")!
-            return UIImage(named: "error")!
-		} else if somethingWentWrong {
-			return UIImage(named: "coffee")!
+			return UIImage(named: "wifi")!
+		} else if isSearching {
+			return UIImage(named: "Searching")!
 		} else if noData {
 			return UIImage(named: "character")!
-        }else if isSearching {
-            return UIImage(named: "Searching")!
-        }else{
-            return UIImage(named: "blank4")!
-        }
+		} else if somethingWrong {
+			return UIImage(named: "coffee")!
+		} else {
+			return UIImage(named: "blank4")!
+		}
 	}
 	
 	override func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
 		var text = ""
 		if !isConnectedInternet {
 			text = "Cannot connect to Internet"
-		} else if somethingWentWrong {
-			text = "Oops, something went wrong"
-		} else if noData{
-            text = "We couldn't find anything that matched the item"
-        }else {
+		} else if noData {
+			text = "We couldn't find anything that matched the item"
+		} else if isSearching {
 			text = "Searching..."
+		} else if somethingWrong {
+			text = "Oops, something went wrong"
 		}
 		let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
 			NSForegroundColorAttributeName: UIColor.darkGrayColor()]
@@ -175,9 +172,48 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 	
 	override func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-		if (!isConnectedInternet || somethingWentWrong) {
+		if (!isConnectedInternet || somethingWrong) {
 			BaseNetworkRequest.getSearchResults(self)
 		}
 	}
-    
+	
+	// MARK: network notificaiton
+	override func accessInternet(notification: NSNotification) {
+		isConnectedInternet = true
+//        let whiteSpace = NSCharacterSet.whitespaceAndNewlineCharacterSet()
+//        let searchTerm = searchController.searchBar.text?.stringByTrimmingCharactersInSet(whiteSpace)
+//        if (!searchTerm!.isEmpty) {
+//            if (self.photosArray.count != 0) {
+//                self.photosArray = []
+//                self.photoID = []
+//                self.page = 1
+//            }
+//            self.query = searchController.searchBar.text!.lowercaseString
+//            BaseNetworkRequest.getSearchResults(self)
+//            isSearching = true
+//            self.tableView.reloadData()
+//        } else {
+//            JDStatusBarNotification.showWithStatus("Please enter the search term", dismissAfter: 5.0)
+//        }
+		self.searchItem()
+	}
+	
+	// MARK: help function
+	func searchItem() {
+		let whiteSpace = NSCharacterSet.whitespaceAndNewlineCharacterSet()
+		let searchTerm = searchController.searchBar.text?.stringByTrimmingCharactersInSet(whiteSpace)
+		if (!searchTerm!.isEmpty) {
+            isSearching = true
+            self.tableView.reloadData()
+			if (self.photosArray.count != 0) {
+				self.photosArray = []
+				self.photoID = []
+				self.page = 1
+			}
+			self.query = searchController.searchBar.text!.lowercaseString
+			BaseNetworkRequest.getSearchResults(self)
+		} else {
+			JDStatusBarNotification.showWithStatus("Please enter the search term", dismissAfter: 5.0)
+		}
+	}
 }

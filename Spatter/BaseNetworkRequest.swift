@@ -26,12 +26,14 @@ class BaseNetworkRequest: NSObject {
 				]).validate().responseJSON(completionHandler: {response in
 					switch response.result {
 					case .Success:
+						reachLimit = false
+						somethingWrong = false
 						tableViewController.refreshControl?.endRefreshing()
 						if (tableViewController.page == 1) {
 							tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
 							if (tableViewController.totalItems == 0) {
 								print("Some error occured.")
-                                NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 							}
 						}
 						tableViewController.page += 1
@@ -56,7 +58,11 @@ class BaseNetworkRequest: NSObject {
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 							}
 						} else {
-							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+							if (String(error).containsString("The Internet connection appears to be offline")) {
+								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+							} else {
+								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+							}
 						}
 					}
 				})
@@ -74,6 +80,8 @@ class BaseNetworkRequest: NSObject {
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .Success:
+					reachLimit = false
+					somethingWrong = false
 					if let value = response.result.value {
 						let json = JSON(value)
 						// print("JSON:\(json)")
@@ -100,7 +108,11 @@ class BaseNetworkRequest: NSObject {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 						}
 					} else {
-						NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+						if (String(error).containsString("The Internet connection appears to be offline")) {
+							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+						} else {
+							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+						}
 					}
 				}
 			})
@@ -124,8 +136,12 @@ class BaseNetworkRequest: NSObject {
 				]).validate().responseJSON(completionHandler: {response in
 					switch response.result {
 					case .Success:
+						reachLimit = false
+						somethingWrong = false
 						if let value = response.result.value {
 							let json = JSON(value)
+							keychain["refresh_token"] = nil
+							keychain["access_token"] = nil
 							keychain["refresh_token"] = json["refresh_token"].stringValue
 							keychain["access_token"] = json["access_token"].stringValue
 							BaseNetworkRequest.loadProfile()
@@ -141,7 +157,11 @@ class BaseNetworkRequest: NSObject {
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 							}
 						} else {
-							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+							if (String(error).containsString("The Internet connection appears to be offline")) {
+								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+							} else {
+								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+							}
 						}
 					}
 				})
@@ -158,8 +178,12 @@ class BaseNetworkRequest: NSObject {
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .Success:
+					reachLimit = false
+					somethingWrong = false
 					if let value = response.result.value {
 						let json = JSON(value)
+						keychain["refresh_token"] = nil
+						keychain["access_token"] = nil
 						keychain["refresh_token"] = json["refresh_token"].stringValue
 						keychain["access_token"] = json["access_token"].stringValue
 						
@@ -180,11 +204,15 @@ class BaseNetworkRequest: NSObject {
 							viewController.presentViewController(alert, animated: true, completion: nil)
 						}
 					} else {
-						MainViewController.logout()
-						let alert = UIAlertController(title: "Failed to login", message: "Please login to proceed with the operation", preferredStyle: .Alert)
-						let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
-						alert.addAction(ok)
-						viewController.presentViewController(alert, animated: true, completion: nil)
+						if (String(error).containsString("The Internet connection appears to be offline")) {
+							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+						} else {
+							MainViewController.logout()
+							let alert = UIAlertController(title: "Failed to login", message: "Please login to proceed with the operation", preferredStyle: .Alert)
+							let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+							alert.addAction(ok)
+							viewController.presentViewController(alert, animated: true, completion: nil)
+						}
 					}
 				}
 			})
@@ -193,6 +221,7 @@ class BaseNetworkRequest: NSObject {
 	// MARK: get liked photos
 	class func getLikedPhoto(tableViewController: LikedTableViewController? = nil) {
 		print("calling get like photo")
+        tableViewController?.noData = false
 		if (likedPhotoIDArray.count < likedTotalItems || likedPhotoIDArray.count == 0) {
 			Alamofire.request(.GET, "https://api.unsplash.com/users/\(username)/likes", parameters: [
 					"client_id": clientID!,
@@ -201,10 +230,13 @@ class BaseNetworkRequest: NSObject {
 				]).validate().responseJSON(completionHandler: {response in
 					switch response.result {
 					case .Success:
+						reachLimit = false
+						somethingWrong = false
 						if (likedPage == 1) {
 							likedTotalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
 							if (likedTotalItems == 0) {
 								print("You haven't like photo yet")
+                                tableViewController?.noData = true
 								NSNotificationCenter.defaultCenter().postNotificationName("NoData", object: nil)
 								
 								tableViewController?.refreshControl?.endRefreshing()
@@ -245,7 +277,11 @@ class BaseNetworkRequest: NSObject {
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 							}
 						} else {
-							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+							if (String(error).containsString("The Internet connection appears to be offline")) {
+								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+							} else {
+								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+							}
 						}
 					}
 				})
@@ -254,7 +290,6 @@ class BaseNetworkRequest: NSObject {
 			tableViewController?.photosArray = likedPhotosArray
 			tableViewController?.successfullyGetJsonData = true
 			tableViewController?.tableView.reloadData()
-            print("liked photos are \(likedPhotoIDArray.count)")
 			return
 		}
 	}
@@ -262,15 +297,19 @@ class BaseNetworkRequest: NSObject {
 	// MARK: get post photos
 	class func getPostPhoto(tableViewController: PostTableViewController) {
 		print("calling post photos")
+        tableViewController.noData = false
 		Alamofire.request(.GET, "https://api.unsplash.com/users/\(username)/photos", parameters: [
 				"client_id": clientID!
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .Success:
+					reachLimit = false
+					somethingWrong = false
 					tableViewController.refreshControl?.endRefreshing()
 					tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
 					if (tableViewController.totalItems == 0) {
 						print("You haven't post photo yet.")
+                        tableViewController.noData = true
 						NSNotificationCenter.defaultCenter().postNotificationName("NoData", object: nil)
 					}
 					if let value = response.result.value {
@@ -300,7 +339,11 @@ class BaseNetworkRequest: NSObject {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 						}
 					} else {
-						NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+						if (String(error).containsString("The Internet connection appears to be offline")) {
+							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+						} else {
+							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+						}
 					}
 				}
 			})
@@ -315,9 +358,11 @@ class BaseNetworkRequest: NSObject {
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .Success:
+					reachLimit = false
+					somethingWrong = false
 					if let value = response.result.value {
 						let json = JSON(value)
-						print("JSON:\(json)")
+//						print("JSON:\(json)")
 						likedPhotoIDArray.removeObject(id)
 					}
 					dispatch_async(dispatch_get_main_queue()) {
@@ -330,13 +375,17 @@ class BaseNetworkRequest: NSObject {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
 						} else if (statusCode == 401) {
 							BaseNetworkRequest.refreshAccessToken(tableViewController)
-                        }else if(statusCode == 408){
-                            NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
-                        } else {
+						} else if (statusCode == 408) {
+							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 						}
 					} else {
-						NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+						if (String(error).containsString("The Internet connection appears to be offline")) {
+							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+						} else {
+							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+						}
 					}
 				}
 			})
@@ -350,6 +399,8 @@ class BaseNetworkRequest: NSObject {
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .Success:
+					reachLimit = false
+					somethingWrong = false
 //					if let value = response.result.value {
 //						let json = JSON(value)
 ////                        print("JSON:\(json)")
@@ -366,13 +417,17 @@ class BaseNetworkRequest: NSObject {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
 						} else if (statusCode == 401) {
 							BaseNetworkRequest.refreshAccessToken(viewController)
-                        }else if(statusCode == 408){
-                            NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
-                        } else {
+						} else if (statusCode == 408) {
+							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 						}
 					} else {
-						NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+						if (String(error).containsString("The Internet connection appears to be offline")) {
+							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+						} else {
+							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+						}
 					}
 				}
 			})
@@ -380,6 +435,8 @@ class BaseNetworkRequest: NSObject {
 	
 	// MARK: get search results
 	class func getSearchResults(tableViewController: SearchTableViewController) {
+        tableViewController.isSearching = false
+        tableViewController.noData = false
 		if (tableViewController.page <= tableViewController.searchTotalPages || tableViewController.page == 1) {
 			Alamofire.request(.GET, "https://api.unsplash.com/photos/search/", parameters: [
 					"client_id": clientID!,
@@ -390,12 +447,12 @@ class BaseNetworkRequest: NSObject {
 				]).validate().responseJSON(completionHandler: {response in
 					switch response.result {
 					case .Success:
-						print("response is \(response.response)")
+						reachLimit = false
+						somethingWrong = false
 						tableViewController.refreshControl?.endRefreshing()
 						if (tableViewController.page == 1) {
 							tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
 							if (tableViewController.totalItems == 0) {
-								print("We couldn't find anything that matched that search.")
 								NSNotificationCenter.defaultCenter().postNotificationName("NoData", object: nil)
 								
 								tableViewController.successfullyGetJsonData = true
@@ -430,13 +487,19 @@ class BaseNetworkRequest: NSObject {
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
 								NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
-                            }else if(statusCode == 408){
-                                NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
-                            } else {
+							} else if (statusCode == 408) {
+								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+							} else {
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 							}
 						} else {
-							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+							let stringError = String(error)
+							print(stringError.containsString("The Internet connection appears to be offline"))
+							if (String(error).containsString("The Internet connection appears to be offline")) {
+								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+							} else {
+								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+							}
 						}
 					}
 				})
@@ -450,13 +513,15 @@ class BaseNetworkRequest: NSObject {
 	
 	// MARK: load user profile
 	class func loadProfile(viewController: ProfileViewController? = nil) {
-        print("load profile")
+		print("load profile")
 		Alamofire.request(.GET, "https://api.unsplash.com/me", headers: [
 				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
 				"client_id": clientID!
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .Success:
+					reachLimit = false
+					somethingWrong = false
 					if let value = response.result.value {
 						let json = JSON(value)
 						// print("JSON:\(json)")
@@ -466,8 +531,6 @@ class BaseNetworkRequest: NSObject {
 							dispatch_async(dispatch_get_main_queue()) {
 								viewController!.avatar.sd_setImageWithURL(NSURL(string: avatarURL))
 								viewController!.userLabel.text = username
-                                print("name is \(username)")
-                                print("avatar is \(avatarURL)")
 							}
 							if (!username.isEmpty) {
 								NSNotificationCenter.defaultCenter().postNotificationName("LoadLikedPhotos", object: nil)
@@ -486,44 +549,19 @@ class BaseNetworkRequest: NSObject {
 							if (viewController != nil) {
 								BaseNetworkRequest.refreshAccessToken(viewController!)
 							}
-                        }else if(statusCode == 408){
-                            NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
-                        } else {
+						} else if (statusCode == 408) {
+							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 						}
 					} else {
-						NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+						if (String(error).containsString("The Internet connection appears to be offline")) {
+							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+						} else {
+							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+						}
 					}
 				}
-			})}
-	
-//	class func getUser(tableViewController: ProfileViewController) {
-//		Alamofire.request(.GET, "https://api.unsplash.com/me", headers: [
-//				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
-//				"client_id": clientID!
-//			]).validate().responseJSON(completionHandler: {response in
-//				switch response.result {
-//				case .Success:
-//                    print("response is \(response.response?.allHeaderFields)")
-//					if let value = response.result.value {
-//						let json = JSON(value)
-//						// print("JSON:\(json)")
-//						dispatch_async(dispatch_get_main_queue()) {
-//							tableViewController.avatar.sd_setImageWithURL(NSURL(string: json["profile_image"] ["medium"].stringValue))
-//							username = json["username"].stringValue
-//							tableViewController.userLabel.text = username
-//							if (!username.isEmpty) {
-//								NSNotificationCenter.defaultCenter().postNotificationName("LoadLikedPhotos", object: nil)
-//								NSNotificationCenter.defaultCenter().postNotificationName("LoadPostPhotos", object: nil)
-//							}
-//						}
-//					}
-//				case .Failure(let error):
-//					print("error is \(error)")
-////					print("response is \(response.response?.allHeaderFields)")
-////					print("result is \(response)")
-//				}
-//			})
-//	}
-	
+			})
+    }
 }

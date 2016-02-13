@@ -67,12 +67,13 @@ class PostTableViewController: BaseTableViewController {
     
     // MARK: DZEmptyDataSet
     override func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage {
+        print("is nodata \(noData)")
         if !isConnectedInternet {
             return UIImage(named: "wifi")!
-        }else if somethingWentWrong {
-            return UIImage(named: "coffee")!
         }else if noData {
             return UIImage(named: "photo")!
+        }else if somethingWrong {
+            return UIImage(named: "coffee")!
         }else {
             return UIImage(named: "main-loading")!
         }
@@ -82,10 +83,10 @@ class PostTableViewController: BaseTableViewController {
         var text = ""
         if !isConnectedInternet {
             text = "Cannot connect to Internet"
-        } else if somethingWentWrong {
-            text = "Oops, something went wrong"
         } else if noData{
             text = "You haven't post photo yet"
+        } else if somethingWrong {
+            text = "Oops, something went wrong"
         }else {
             text = "Loading..."
         }
@@ -95,8 +96,11 @@ class PostTableViewController: BaseTableViewController {
     }
     
     override func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-        if (!isConnectedInternet || somethingWentWrong){
+        if (!isConnectedInternet || somethingWrong){
+            let cache = NSURLCache.sharedURLCache()
+            cache.removeAllCachedResponses()
             BaseNetworkRequest.getPostPhoto(self)
         }
     }
+    
 }

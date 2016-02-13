@@ -15,12 +15,17 @@ import KeychainAccess
 let keychain = Keychain()
 let clientID = keychain["client_id"]
 let clientSecret = keychain["client_secret"]
+
 var likedPhotosArray: [Dictionary<String, String>] = [Dictionary<String, String>]()
 var likedPhotoIDArray: NSMutableArray = []
 var likedTotalItems = 0
+
 var username = ""
 var avatarURL = ""
+
 var isConnectedInternet = true
+var reachLimit = false
+var somethingWrong = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -44,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		reach = TMReachability.reachabilityForInternetConnection()
-		reach!.reachableOnWWAN = false
+		reach!.reachableOnWWAN = true
 		NSNotificationCenter.defaultCenter().addObserver(self,
 			selector: "reachabilityChanged:",
 			name: kReachabilityChangedNotification,

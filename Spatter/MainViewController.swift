@@ -17,7 +17,6 @@ let APPVERSION = "1.0"
 
 class MainViewController: BaseTableViewController, SFSafariViewControllerDelegate, MFMailComposeViewControllerDelegate {
 	
-//	var viewControllers: [UIViewController] = []
 	var menuItemsAlreadyLogin: [RWDropdownMenuItem] = []
 	var menuItemsWithoutLogin: [RWDropdownMenuItem] = []
 	var safariVC: SFSafariViewController?
@@ -75,13 +74,15 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		BaseNetworkRequest.getCollections(self)
         
         let reach = TMReachability.reachabilityForInternetConnection()
-        reach!.reachableOnWWAN = false
+        reach!.reachableOnWWAN = true
 		reach!.startNotifier()
         if reach!.isReachableViaWiFi() || reach!.isReachableViaWWAN() {
             isConnectedInternet = true
         }else {
             isConnectedInternet = false
-            tableView.reloadData()
+            if (self.photosArray.count == 0) {
+                self.tableView.reloadData()
+            }
         }
         reach!.stopNotifier()
 	}
@@ -205,7 +206,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
         BaseNetworkRequest.getCollections(self)
     }
     
-    // MARK: logout
+    // MARK: help function
     class func logout() {
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isLogin")
         NSUserDefaults.standardUserDefaults().synchronize()
@@ -216,5 +217,11 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
         likedTotalItems = 0
         username = ""
         avatarURL = ""
+    }
+    
+    // MARK: network notificaiton
+    override func accessInternet(notification: NSNotification) {
+        isConnectedInternet = true
+        BaseNetworkRequest.getCollections(self)
     }
 }

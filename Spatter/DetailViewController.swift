@@ -22,8 +22,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	var imagePanViewController = SCImagePanViewController()
 	var infoBtnPopTipView = CMPopTipView()
 	var safariVC: SFSafariViewController?
-//	var code = ""
-//	var isConnectedInternet = true
 	
 	@IBOutlet weak var toolbar: UIToolbar!
 	@IBOutlet weak var infoButton: UIBarButtonItem!
@@ -36,41 +34,51 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		UIImageWriteToSavedPhotosAlbum(image!, self, "image:didFinishSavingWithError:contextInfo:", nil)
 	}
 	@IBAction func likePhoto(sender: AnyObject) {
-		if (NSUserDefaults.standardUserDefaults().boolForKey("isLogin")) {
-			var photoDic = Dictionary<String, String>()
-			photoDic["regular"] = regular
-			photoDic["small"] = small
-			photoDic["id"] = photoID
-			photoDic["download"] = download
-			photoDic["name"] = creatorName
-			
-			if (likedPhotoIDArray.containsObject(photoID)) {
-				BaseNetworkRequest.unlikePhoto(self, id: photoID)
-				likeButton.image = UIImage(named: "like-before")
+		if isConnectedInternet {
+			if (NSUserDefaults.standardUserDefaults().boolForKey("isLogin")) {
+				var photoDic = Dictionary<String, String>()
+				photoDic["regular"] = regular
+				photoDic["small"] = small
+				photoDic["id"] = photoID
+				photoDic["download"] = download
+				photoDic["name"] = creatorName
+				
 				if (likedPhotoIDArray.containsObject(photoID)) {
-					likedPhotoIDArray.removeObject(photoID)
-					for (index, value) in likedPhotosArray.enumerate() {
-						if (value == photoDic) {
-							likedPhotosArray.removeAtIndex(index)
+					BaseNetworkRequest.unlikePhoto(self, id: photoID)
+					likeButton.image = UIImage(named: "like-before")
+					if (likedPhotoIDArray.containsObject(photoID)) {
+						likedPhotoIDArray.removeObject(photoID)
+						for (index, value) in likedPhotosArray.enumerate() {
+							if (value == photoDic) {
+								likedPhotosArray.removeAtIndex(index)
+							}
 						}
 					}
+				} else {
+					BaseNetworkRequest.likePhoto(self, id: photoID)
+					likeButton.image = UIImage(named: "like-after")
+					likedPhotoIDArray.addObject(photoID)
+					likedPhotosArray.insert(photoDic, atIndex: 0)
 				}
 			} else {
-				BaseNetworkRequest.likePhoto(self, id: photoID)
-				likeButton.image = UIImage(named: "like-after")
-				likedPhotoIDArray.addObject(photoID)
-				likedPhotosArray.append(photoDic)
+				let alert = UIAlertController(title: "Login", message: "Please login to like a photo.", preferredStyle: .Alert)
+				let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+				let login = UIAlertAction(title: "Login", style: .Default, handler: {
+						(UIAlertAction) -> Void in
+						self.openSafari()
+					})
+				alert.addAction(cancel)
+				alert.addAction(login)
+				self.presentViewController(alert, animated: true, completion: nil)
 			}
 		} else {
-			let alert = UIAlertController(title: "Login", message: "Please login to like a photo.", preferredStyle: .Alert)
-			let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-			let login = UIAlertAction(title: "Login", style: .Default, handler: {
-					(UIAlertAction) -> Void in
-					self.openSafari()
-				})
-			alert.addAction(cancel)
-			alert.addAction(login)
-			self.presentViewController(alert, animated: true, completion: nil)
+//            let alert = UIAlertController(title: "Cannot connect to Internet", message: "", preferredStyle: .Alert)
+//            let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+//            alert.addAction(ok)
+//            self.presentViewController(alert, animated: true, completion: nil)
+//            self.image = UIImage(named: "noNetwork")!
+//            self.imagePanViewController.configureWithImage(self.image!)
+			self.noNetwork()
 		}
 	}
 	@IBAction func sharePhoto(sender: AnyObject) {
@@ -86,17 +94,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view.
-		// download the photo
-		let manager = SDWebImageManager.sharedManager()
-		manager.downloadImageWithURL(NSURL(string: self.regular), options: SDWebImageOptions.AvoidAutoSetImage, progress: {
-				receivedSize, expectedSize in
-			}, completed: {
-				image, error, cacheType, finished, imageURL in
-				if (image != nil) {
-					self.image = image
-					self.imagePanViewController.configureWithImage(self.image!)
-				}
-			})
+		self.loadImage()
 		
 		// transparent toolbar
 		self.toolbar.setBackgroundImage(UIImage(),
@@ -202,7 +200,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		}
 	}
 	
-	// MARK: help function
+	// MARK: swipe back
 	func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .Recognized) {
 			self.navigationController!.popViewControllerAnimated(true)
@@ -227,30 +225,62 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		}
 	}
 	
+	// MARK: help function
+	func loadImage() {
+		let manager = SDWebImageManager.sharedManager()
+		manager.downloadImageWithURL(NSURL(string: self.regular), options: SDWebImageOptions.AvoidAutoSetImage, progress: {
+				receivedSize, expectedSize in
+			}, completed: {
+				image, error, cacheType, finished, imageURL in
+				if (image != nil) {
+					self.image = image
+					self.imagePanViewController.configureWithImage(self.image!)
+				}
+			})
+	}
+	
 	// MARK: notification function
 	func accessInternet(notification: NSNotification) {
 		isConnectedInternet = true
+		if (self.image == UIImage(named: "loading-black") || self.image == UIImage(named: "noNetwork")) {
+			self.loadImage()
+		}
 	}
 	
 	func cannotAccessInternet(notification: NSNotification) {
 		isConnectedInternet = false
-		let alert = UIAlertController(title: "Cannot connect to Internet", message: "Pull down to refresh", preferredStyle: .Alert)
-		let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
-		alert.addAction(ok)
-		self.presentViewController(alert, animated: true, completion: nil)
+		if (self.image == UIImage(named: "loading-black")) {
+//			let alert = UIAlertController(title: "Cannot connect to Internet", message: "", preferredStyle: .Alert)
+//			let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+//			alert.addAction(ok)
+//			self.presentViewController(alert, animated: true, completion: nil)
+//			self.image = UIImage(named: "noNetwork")!
+//			self.imagePanViewController.configureWithImage(self.image!)
+			self.noNetwork()
+		}
 	}
 	
 	func exceedLimit(notification: NSNotification) {
 		let alert = UIAlertController(title: "Server has reached it's limit", message: "Have a break and come back later", preferredStyle: .Alert)
-		let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+		let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
 		alert.addAction(ok)
 		self.presentViewController(alert, animated: true, completion: nil)
 	}
 	
 	func somethingWentWrong(notification: NSNotification) {
-		let alert = UIAlertController(title: "Oops, something went wrong", message: "Pull down to refresh", preferredStyle: .Alert)
-		let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+		let alert = UIAlertController(title: "Oops, something went wrong", message: "", preferredStyle: .Alert)
+		let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
 		alert.addAction(ok)
 		self.presentViewController(alert, animated: true, completion: nil)
+	}
+	
+	// MARK: help function
+	func noNetwork() {
+		let alert = UIAlertController(title: "Cannot connect to Internet", message: "", preferredStyle: .Alert)
+		let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+		alert.addAction(ok)
+		self.presentViewController(alert, animated: true, completion: nil)
+		self.image = UIImage(named: "noNetwork")!
+		self.imagePanViewController.configureWithImage(self.image!)
 	}
 }

@@ -24,6 +24,12 @@ class LikedTableViewController: BaseTableViewController {
 		
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "getLikedPhotos:", name: "LoadLikedPhotos", object: nil)
 	}
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        self.photosArray = likedPhotosArray
+        self.tableView.reloadData()
+    }
 	
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(true)
@@ -75,10 +81,10 @@ class LikedTableViewController: BaseTableViewController {
     override func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage {
         if !isConnectedInternet {
             return UIImage(named: "wifi")!
-        }else if somethingWentWrong {
-            return UIImage(named: "coffee")!
         }else if noData {
             return UIImage(named: "photo")!
+        }else if somethingWrong {
+            return UIImage(named: "coffee")!
         }else {
             return UIImage(named: "main-loading")!
         }
@@ -88,10 +94,10 @@ class LikedTableViewController: BaseTableViewController {
         var text = ""
         if !isConnectedInternet {
             text = "Cannot connect to Internet"
-        } else if somethingWentWrong {
-            text = "Oops, something went wrong"
         } else if noData{
             text = "You haven't like photo yet"
+        } else if somethingWrong {
+            text = "Oops, something went wrong"
         }else {
             text = "Loading..."
         }
@@ -101,8 +107,9 @@ class LikedTableViewController: BaseTableViewController {
     }
     
     override func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-        if (!isConnectedInternet || somethingWentWrong){
+        if (!isConnectedInternet || somethingWrong){
             BaseNetworkRequest.getLikedPhoto(self)
         }
     }
+
 }

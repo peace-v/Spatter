@@ -25,10 +25,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		}
 	}
 	var footer = MJRefreshAutoNormalFooter()
-	
-	var somethingWentWrong = false
 	var noData = false
-	var exceedLimit = false
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -112,7 +109,6 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 				imageView.sd_setImageWithURL(NSURL(string: self.photosArray[indexPath.row] ["small"]!))
 			}
 		}
-		
 		return cell
 	}
 	
@@ -141,9 +137,9 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage {
 		if !isConnectedInternet {
 			return UIImage(named: "wifi")!
-		} else if somethingWentWrong {
+		} else if somethingWrong {
 			return UIImage(named: "error")!
-		} else if exceedLimit {
+		} else if reachLimit {
 			return UIImage(named: "coffee")!
 		}
 		return UIImage(named: "main-loading")!
@@ -163,9 +159,9 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		var text = ""
 		if !isConnectedInternet {
 			text = "Cannot connect to Internet"
-		} else if somethingWentWrong {
+		} else if somethingWrong {
 			text = "Oops, something went wrong"
-		} else if exceedLimit {
+		} else if reachLimit {
 			text = "Sever has reached it's limit"
 		} else {
 			text = "Loading..."
@@ -177,9 +173,9 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	
 	func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
 		var text = ""
-		if somethingWentWrong {
+		if somethingWrong {
 			text = "Please try agian"
-		} else if exceedLimit {
+		} else if reachLimit {
 			text = "Have a break and come back later"
 		}
 		let paragraph = NSMutableParagraphStyle()
@@ -193,7 +189,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	
 	func buttonTitleForEmptyDataSet(scrollView: UIScrollView, forState state: UIControlState) -> NSAttributedString {
 		var title = ""
-		if (!isConnectedInternet || somethingWentWrong) {
+		if (!isConnectedInternet || somethingWrong) {
 			title = "Tap to refresh"
 		}
 		let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(17.0)]
@@ -203,6 +199,10 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	func backgroundColorForEmptyDataSet(scrollView: UIScrollView) -> UIColor {
 		return UIColor.whiteColor()
 	}
+    
+    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView) -> CGFloat {
+        return -44
+    }
 	
 	// MARK: DZEmptyDataSet Delegate
 	func emptyDataSetShouldDisplay(scrollView: UIScrollView) -> Bool {
@@ -214,6 +214,9 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	}
 	
 	func emptyDataSetShouldAllowScroll(scrollView: UIScrollView) -> Bool {
+        if !isConnectedInternet {
+            return false
+        }
 		return true
 	}
 	
@@ -227,39 +230,40 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	// MARK: notification function
 	func accessInternet(notification: NSNotification) {
 		isConnectedInternet = true
+        self.tableView.reloadData()
 	}
 	
 	func cannotAccessInternet(notification: NSNotification) {
 		isConnectedInternet = false
-		if (self.photosArray.count == 0) {
-			self.tableView.reloadData()
-		} else {
-			let alert = UIAlertController(title: "Cannot connect to Internet", message: "Pull down to refresh", preferredStyle: .Alert)
-			let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
-			alert.addAction(ok)
+        if (self.photosArray.count == 0) {
+            self.tableView.reloadData()
+        }else {
+            let alert = UIAlertController(title: "Cannot connect to Internet", message: "Please try again", preferredStyle: .Alert)
+            let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            alert.addAction(ok)
             self.presentViewController(alert, animated: true, completion: nil)
-		}
+        }
 	}
 	
 	func exceedLimit(notification: NSNotification) {
-        exceedLimit = true
+        reachLimit = true
 		if (self.photosArray.count == 0) {
 			self.tableView.reloadData()
 		} else {
             let alert = UIAlertController(title: "Server has reached it's limit", message: "Have a break and come back later", preferredStyle: .Alert)
-            let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+            let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
             alert.addAction(ok)
             self.presentViewController(alert, animated: true, completion: nil)
 		}
 	}
 	
 	func somethingWentWrong(notification: NSNotification) {
-        somethingWentWrong = true
+        somethingWrong = true
         if (self.photosArray.count == 0) {
             self.tableView.reloadData()
         } else {
             let alert = UIAlertController(title: "Oops, something went wrong", message: "Pull down to refresh", preferredStyle: .Alert)
-            let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
+            let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
             alert.addAction(ok)
             self.presentViewController(alert, animated: true, completion: nil)
         }
@@ -267,9 +271,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	
 	func noData(notification: NSNotification) {
 		noData = true
-        if (self.photosArray.count != 0){
-            self.photosArray = []
-        }
+        self.photosArray = []
         self.tableView.reloadData()
 	}
 }
