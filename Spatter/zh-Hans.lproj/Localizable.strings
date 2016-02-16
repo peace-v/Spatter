@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  Spatter
+
+  Created by Molay on 16/2/13.
+  Copyright © 2016年 yuying. All rights reserved.
+*/
+
+"Profile" = "个人资料";
+"Logout" = "登出";
+"Clear Cache" = "清除缓存";
+"Feedback" = "反馈";
+"About" = "关于";
+"Login" = "登录";
+"Cannot sent email" = "发送邮件失败";
+"Please check the system email setting" = "请检查系统邮件设置";
+"Please login to like a photo" = "登录后才能收藏图片哦";
+"Cancel" = "取消";
+"Image saved" = "保存成功";
+"Failed to save image" = "保存失败";
+"Please allow Spatter to access Photos in Settings app" = "请在设置中允许Spatter 访问照片";
+"Allow" = "允许";
+"Server has reached it's limit" = "服务器抵达上限";
+"Have a break and come back later" = "休息，休息一下";
+"Oops, something went wrong" = "出错啦";
+"Ok" = "好的";
+"Cannot connect to Internet" = "无网络连接";
+"Please try again" = "请重新操作";
+"We couldn't find anything that matched the item" = "找不到匹配的图片";
+"Searching..." = "搜索中...";
+"Please enter the search term" = "请输入搜索条件";
+"You haven't like photo yet" = "没有喜欢的图片";
+"Loading..." = "载入中...";
+"You haven't post photo yet" = "没有发布过图片";
+"Tap to refresh" = "点击刷新";
+"Failed to login" = "登录失败";
+"Please login to proceed with the operation" = "请登录后进行相应操作";
+"Like" = "喜欢";
+"Post" = "发布";
+"Pull down to refresh" = "下拉刷新";

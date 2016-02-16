@@ -67,13 +67,14 @@ class PostTableViewController: BaseTableViewController {
     
     // MARK: DZEmptyDataSet
     override func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage {
-        print("is nodata \(noData)")
         if !isConnectedInternet {
             return UIImage(named: "wifi")!
         }else if noData {
             return UIImage(named: "photo")!
-        }else if somethingWrong {
+        } else if reachLimit {
             return UIImage(named: "coffee")!
+        } else if somethingWrong {
+            return UIImage(named: "error")!
         }else {
             return UIImage(named: "main-loading")!
         }
@@ -82,25 +83,18 @@ class PostTableViewController: BaseTableViewController {
     override func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
         var text = ""
         if !isConnectedInternet {
-            text = "Cannot connect to Internet"
+            text = NSLocalizedString("Cannot connect to Internet", comment: "")
         } else if noData{
-            text = "You haven't post photo yet"
+            text = NSLocalizedString("You haven't post photo yet", comment: "")
+        }  else if reachLimit {
+            text = NSLocalizedString("Server has reached it's limit", comment: "")
         } else if somethingWrong {
-            text = "Oops, something went wrong"
+            text = NSLocalizedString("Oops, something went wrong", comment: "")
         }else {
-            text = "Loading..."
+            text = NSLocalizedString("Loading...", comment: "")
         }
         let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
             NSForegroundColorAttributeName: UIColor.darkGrayColor()]
         return NSAttributedString(string: text, attributes: attributes)
     }
-    
-    override func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-        if (!isConnectedInternet || somethingWrong){
-            let cache = NSURLCache.sharedURLCache()
-            cache.removeAllCachedResponses()
-            BaseNetworkRequest.getPostPhoto(self)
-        }
-    }
-    
 }

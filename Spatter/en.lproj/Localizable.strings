@@ -1,0 +1,41 @@
+/* 
+  Localizable.strings
+  Spatter
+
+  Created by Molay on 16/2/13.
+  Copyright © 2016年 yuying. All rights reserved.
+*/
+
+"Profile" = "Profile";
+"Logout" = "Logout";
+"Clear Cache" = "Clear Cache";
+"Feedback" = "Feedback";
+"About" = "About";
+"Login" = "Login";
+"Cannot sent email" = "Cannot sent email";
+"Please check the system email setting" = "Please check the system email setting";
+"Please login to like a photo" = "Please login to like a photo";
+"Cancel" = "Cancel";
+"Image saved" = "Image saved";
+"Failed to save image" = "Failed to save image";
+"Please allow Spatter to access Photos in Settings app" = "Please allow Spatter to access Photos in Settings app";
+"Allow" = "Allow";
+"Server has reached it's limit" = "Server has reached it's limit";
+"Have a break and come back later" = "Have a break and come back later";
+"Oops, something went wrong" = "Oops, something went wrong";
+"Ok" = "Ok";
+"Cannot connect to Internet" = "Cannot connect to Internet";
+"Please try again" = "Please try again";
+"We couldn't find anything that matched the item" = "We couldn't find anything that matched the item";
+"Searching..." = "Searching...";
+"Please enter the search term" = "Please enter the search term";
+"You haven't like photo yet" = "You haven't like photo yet";
+"Loading..." = "Loading...";
+"You haven't post photo yet" = "You haven't post photo yet";
+"Tap to refresh" = "Tap to refresh";
+"Failed to login" = "Failed to login";
+"Please login to proceed with the operation" = "Please login to proceed with the operation";
+"Like" = "Like";
+"Post" = "Post";
+"Pull down to refresh" = "Pull down to refresh";
+

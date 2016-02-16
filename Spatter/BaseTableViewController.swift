@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
-	
+
 	let reuseIdentifier = "cell"
 	var photosArray: [Dictionary<String, String>] = [Dictionary<String, String>]()
 	var collcectionsArray: [Int] = []
@@ -26,29 +26,31 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	}
 	var footer = MJRefreshAutoNormalFooter()
 	var noData = false
-	
+    var somethingWrong = false
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        
 		self.tableView.separatorStyle = .None
-		
+
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.backgroundColor = UIColor.whiteColor()
 		self.refreshControl!.tintColor = UIColor.blackColor()
-		
+
 		self.tableView.emptyDataSetSource = self;
 		self.tableView.emptyDataSetDelegate = self;
-        
-        if !isConnectedInternet {
-            self.tableView.reloadData()
-        }
+
+		if !isConnectedInternet {
+			self.tableView.reloadData()
+		}
 	}
-	
+
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 		SDImageCache.sharedImageCache().clearMemory()
 	}
-	
+
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(true)
 		NSNotificationCenter.defaultCenter().addObserver(self,
@@ -72,7 +74,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 			name: "NoData",
 			object: nil)
 	}
-	
+
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(true)
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: "CanAccessInternet", object: nil)
@@ -81,23 +83,22 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: "ErrorOccur", object: nil)
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: "NoData", object: nil)
 	}
-	
+
 	// MARK: - Table view data source
-	
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
 		return 1
 	}
-	
+
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if self.successfullyGetJsonData {
 			return self.photosArray.count
 		}
 		return 0
 	}
-	
+
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath)
-		
+
 		// Configure the cell...
 		cell.backgroundColor = UIColor.whiteColor()
 		let imageView = cell.contentView.subviews[0] as! UIImageView
@@ -111,40 +112,40 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		}
 		return cell
 	}
-	
+
 	override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 		return tableView.bounds.width / 1.5
 	}
-	
+
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 		// Remove separator inset
 		if cell.respondsToSelector("setSeparatorInset:") {
 			cell.separatorInset = UIEdgeInsetsZero
 		}
-		
+
 		// Prevent the cell from inheriting the Table View's margin settings
 		if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
 			cell.preservesSuperviewLayoutMargins = false
 		}
-		
+
 		// Explictly set your cell's layout margins
 		if cell.respondsToSelector("setLayoutMargins:") {
 			cell.layoutMargins = UIEdgeInsetsZero
 		}
 	}
-	
+
 	// MARK: DZEmptyDataSet Data Source
 	func imageForEmptyDataSet(scrollView: UIScrollView) -> UIImage {
 		if !isConnectedInternet {
 			return UIImage(named: "wifi")!
-		} else if somethingWrong {
-			return UIImage(named: "error")!
 		} else if reachLimit {
 			return UIImage(named: "coffee")!
+		} else if somethingWrong {
+			return UIImage(named: "error")!
 		}
 		return UIImage(named: "main-loading")!
 	}
-	
+
 	func imageAnimationForEmptyDataSet(scrollView: UIScrollView) -> CAAnimation {
 		let animation = CABasicAnimation(keyPath: "transform")
 		animation.fromValue = NSValue(CATransform3D: CATransform3DIdentity)
@@ -154,29 +155,31 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		animation.repeatCount = MAXFLOAT
 		return animation
 	}
-	
+
 	func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
 		var text = ""
 		if !isConnectedInternet {
-			text = "Cannot connect to Internet"
-		} else if somethingWrong {
-			text = "Oops, something went wrong"
+			text = NSLocalizedString("Cannot connect to Internet", comment: "")
 		} else if reachLimit {
-			text = "Sever has reached it's limit"
+			text = NSLocalizedString("Server has reached it's limit", comment: "")
+		} else if somethingWrong {
+			text = NSLocalizedString("Oops, something went wrong", comment: "")
 		} else {
-			text = "Loading..."
+			text = NSLocalizedString("Loading...", comment: "")
 		}
 		let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
 			NSForegroundColorAttributeName: UIColor.darkGrayColor()]
 		return NSAttributedString(string: text, attributes: attributes)
 	}
-	
+
 	func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
 		var text = ""
-		if somethingWrong {
-			text = "Please try agian"
+		if !isConnectedInternet {
+			text = NSLocalizedString("Pull down to refresh", comment: "")
 		} else if reachLimit {
-			text = "Have a break and come back later"
+			text = NSLocalizedString("Have a break and come back later", comment: "")
+		} else if somethingWrong {
+			text = NSLocalizedString("Please try again", comment: "")
 		}
 		let paragraph = NSMutableParagraphStyle()
 		paragraph.lineBreakMode = .ByWordWrapping
@@ -186,93 +189,95 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 			NSParagraphStyleAttributeName: paragraph]
 		return NSAttributedString(string: text, attributes: attributes)
 	}
-	
+
 	func buttonTitleForEmptyDataSet(scrollView: UIScrollView, forState state: UIControlState) -> NSAttributedString {
-		var title = ""
-		if (!isConnectedInternet || somethingWrong) {
-			title = "Tap to refresh"
-		}
+		let title = ""
 		let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(17.0)]
 		return NSAttributedString(string: title, attributes: attributes)
 	}
-	
+
 	func backgroundColorForEmptyDataSet(scrollView: UIScrollView) -> UIColor {
 		return UIColor.whiteColor()
 	}
-    
-    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView) -> CGFloat {
-        return -44
-    }
-	
+
+	func verticalOffsetForEmptyDataSet(scrollView: UIScrollView) -> CGFloat {
+		let top = scrollView.contentInset.top
+		return top - 66
+	}
+
 	// MARK: DZEmptyDataSet Delegate
 	func emptyDataSetShouldDisplay(scrollView: UIScrollView) -> Bool {
 		return true
 	}
-	
+
 	func emptyDataSetShouldAllowTouch(scrollView: UIScrollView) -> Bool {
 		return true
 	}
-	
+
 	func emptyDataSetShouldAllowScroll(scrollView: UIScrollView) -> Bool {
-        if !isConnectedInternet {
-            return false
-        }
 		return true
 	}
-	
+
 	func emptyDataSetShouldAllowImageViewAnimate(scrollView: UIScrollView) -> Bool {
 		return true
 	}
-	
+
 	func emptyDataSetDidTapButton(scrollView: UIScrollView) {
 	}
-	
+
 	// MARK: notification function
 	func accessInternet(notification: NSNotification) {
 		isConnectedInternet = true
-        self.tableView.reloadData()
+		self.tableView.reloadData()
 	}
-	
+
 	func cannotAccessInternet(notification: NSNotification) {
 		isConnectedInternet = false
-        if (self.photosArray.count == 0) {
-            self.tableView.reloadData()
-        }else {
-            let alert = UIAlertController(title: "Cannot connect to Internet", message: "Please try again", preferredStyle: .Alert)
-            let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-            alert.addAction(ok)
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-	}
-	
-	func exceedLimit(notification: NSNotification) {
-        reachLimit = true
 		if (self.photosArray.count == 0) {
 			self.tableView.reloadData()
 		} else {
-            let alert = UIAlertController(title: "Server has reached it's limit", message: "Have a break and come back later", preferredStyle: .Alert)
-            let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-            alert.addAction(ok)
-            self.presentViewController(alert, animated: true, completion: nil)
+			let alert = UIAlertController(title: NSLocalizedString("Cannot connect to Internet", comment: ""), message: NSLocalizedString("Please try again", comment: ""), preferredStyle: .Alert)
+			let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
+			alert.addAction(ok)
+			self.presentViewController(alert, animated: true, completion: nil)
 		}
 	}
-	
-	func somethingWentWrong(notification: NSNotification) {
-        somethingWrong = true
-        if (self.photosArray.count == 0) {
-            self.tableView.reloadData()
-        } else {
-            let alert = UIAlertController(title: "Oops, something went wrong", message: "Pull down to refresh", preferredStyle: .Alert)
-            let ok = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-            alert.addAction(ok)
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
+
+	func exceedLimit(notification: NSNotification) {
+		isConnectedInternet = true
+		reachLimit = true
+		somethingWrong = false
+		if (self.photosArray.count == 0) {
+			self.tableView.reloadData()
+		} else {
+			let alert = UIAlertController(title: NSLocalizedString("Server has reached it's limit", comment: ""), message: NSLocalizedString("Have a break and come back later", comment: ""), preferredStyle: .Alert)
+			let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
+			alert.addAction(ok)
+			self.presentViewController(alert, animated: true, completion: nil)
+		}
 	}
-	
+
+	func somethingWentWrong(notification: NSNotification) {
+		isConnectedInternet = true
+		somethingWrong = true
+		reachLimit = false
+		if (self.photosArray.count == 0) {
+			self.tableView.reloadData()
+		} else {
+			let alert = UIAlertController(title: NSLocalizedString("Oops, something went wrong", comment: ""), message: NSLocalizedString("Please try again", comment: ""), preferredStyle: .Alert)
+			let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
+			alert.addAction(ok)
+			self.presentViewController(alert, animated: true, completion: nil)
+		}
+	}
+
 	func noData(notification: NSNotification) {
+		isConnectedInternet = true
 		noData = true
-        self.photosArray = []
-        self.tableView.reloadData()
+		somethingWrong = false
+		reachLimit = false
+		self.photosArray = []
+		self.tableView.reloadData()
 	}
 }
 

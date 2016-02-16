@@ -41,40 +41,41 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
         
 		// init menuItem
 		menuItemsAlreadyLogin = [
-			RWDropdownMenuItem(text: "Profile", image: nil, action: {
+			RWDropdownMenuItem(text: NSLocalizedString("Profile",comment:""), image: nil, action: {
 					self.navigationController!.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("profileNavController"), animated: true, completion: nil)
 				}),
-			RWDropdownMenuItem(text: "Logout", image: nil, action: {
+			RWDropdownMenuItem(text: NSLocalizedString("Logout", comment: ""), image: nil, action: {
                 MainViewController.logout()
 				}),
-			RWDropdownMenuItem(text: "Clear Cache", image: nil, action: {
+			RWDropdownMenuItem(text: NSLocalizedString("Clear Cache", comment: ""), image: nil, action: {
 					SDImageCache.sharedImageCache().clearDisk()
 				}),
-			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
+			RWDropdownMenuItem(text: NSLocalizedString("Feedback", comment: ""), image: nil, action: {
 					self.sendFeedback("Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
 				}),
-			RWDropdownMenuItem(text: "About", image: nil, action: {
+			RWDropdownMenuItem(text: NSLocalizedString("About", comment: ""), image: nil, action: {
 					self.presentViewController(self.aboutVC, animated: true, completion: nil)
 				})]
 		
 		menuItemsWithoutLogin = [
-			RWDropdownMenuItem(text: "Login", image: nil, action: {
+			RWDropdownMenuItem(text: NSLocalizedString("Login", comment: ""), image: nil, action: {
 					self.openSafari()
 				}),
-			RWDropdownMenuItem(text: "Clear Cache", image: nil, action: {
+			RWDropdownMenuItem(text: NSLocalizedString("Clear Cache", comment: ""), image: nil, action: {
 					SDImageCache.sharedImageCache().clearDisk()
 				}),
-			RWDropdownMenuItem(text: "Feedback", image: nil, action: {
+			RWDropdownMenuItem(text: NSLocalizedString("Feedback", comment: ""), image: nil, action: {
 					self.sendFeedback("Spatter Feedback", recipients: ["molayyu@gmail.com"], appVersion: APPVERSION)
 				}),
-			RWDropdownMenuItem(text: "About", image: nil, action: {
+			RWDropdownMenuItem(text: NSLocalizedString("About", comment: ""), image: nil, action: {
 					self.presentViewController(self.aboutVC, animated: true, completion: nil)
 				})]
 		
 		BaseNetworkRequest.getCollections(self)
         
+        // check the network condition when launch
         let reach = TMReachability.reachabilityForInternetConnection()
-        reach!.reachableOnWWAN = true
+        reach!.reachableOnWWAN = false
 		reach!.startNotifier()
         if reach!.isReachableViaWiFi() || reach!.isReachableViaWWAN() {
             isConnectedInternet = true
@@ -147,9 +148,8 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		controller.dismissViewControllerAnimated(true, completion: nil)
 	}
 	
-	// MARK: handle callback after oauth
 	func oauthUser(notification: NSNotification) {
-		BaseNetworkRequest.oauth(notification)
+		BaseNetworkRequest.oauth(notification, vc:self)
 		if (self.safariVC != nil) {
 			self.safariVC!.dismissViewControllerAnimated(true, completion: nil)
 		}
@@ -168,8 +168,8 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			picker.setMessageBody(body, isHTML: false)
 			self.presentViewController(picker, animated: true, completion: nil)
 		} else {
-			let alert = UIAlertController(title: "Cannot sent email", message: "Please check the system email setting", preferredStyle: .Alert)
-			let ok = UIAlertAction(title: "OK", style: .Default, handler: nil)
+			let alert = UIAlertController(title: NSLocalizedString("Cannot sent email", comment: ""), message: NSLocalizedString("Please check the system email setting", comment: ""), preferredStyle: .Alert)
+			let ok = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .Default, handler: nil)
 			alert.addAction(ok)
 			self.presentViewController(alert, animated: true, completion: nil)
 		}
@@ -202,8 +202,9 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
     }
     
     // MARK: DZEmptyDataSet
-    override func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-        BaseNetworkRequest.getCollections(self)
+    override func verticalOffsetForEmptyDataSet(scrollView: UIScrollView) -> CGFloat {
+        let top = scrollView.contentInset.top
+        return top - 44
     }
     
     // MARK: help function
@@ -222,6 +223,9 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
     // MARK: network notificaiton
     override func accessInternet(notification: NSNotification) {
         isConnectedInternet = true
+        self.tableView.reloadData()
+        if (self.photosArray.count == 0){
         BaseNetworkRequest.getCollections(self)
+        }
     }
 }

@@ -25,7 +25,6 @@ var avatarURL = ""
 
 var isConnectedInternet = true
 var reachLimit = false
-var somethingWrong = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -45,20 +44,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		
 		if (NSUserDefaults.standardUserDefaults().boolForKey("isLogin")) {
+            if (keychain["access_token"] != nil) {
 			BaseNetworkRequest.loadProfile()
+            }
 		}
 		
 		reach = TMReachability.reachabilityForInternetConnection()
-		reach!.reachableOnWWAN = true
+		reach!.reachableOnWWAN = false
 		NSNotificationCenter.defaultCenter().addObserver(self,
 			selector: "reachabilityChanged:",
 			name: kReachabilityChangedNotification,
 			object: nil)
 		reach!.startNotifier()
-		
-//		let cache = NSURLCache.sharedURLCache()
-//		cache.removeAllCachedResponses()
-		
+        
 		return true
 	}
 	

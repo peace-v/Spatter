@@ -34,6 +34,7 @@ class LikedTableViewController: BaseTableViewController {
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(true)
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: "LoadLikedPhotos", object: nil)
+        
 	}
 	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -83,8 +84,10 @@ class LikedTableViewController: BaseTableViewController {
             return UIImage(named: "wifi")!
         }else if noData {
             return UIImage(named: "photo")!
-        }else if somethingWrong {
+        } else if reachLimit {
             return UIImage(named: "coffee")!
+        } else if somethingWrong {
+            return UIImage(named: "error")!
         }else {
             return UIImage(named: "main-loading")!
         }
@@ -93,23 +96,18 @@ class LikedTableViewController: BaseTableViewController {
     override func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
         var text = ""
         if !isConnectedInternet {
-            text = "Cannot connect to Internet"
+            text = NSLocalizedString("Cannot connect to Internet", comment: "")
         } else if noData{
-            text = "You haven't like photo yet"
+            text = NSLocalizedString("You haven't like photo yet", comment: "")
+        } else if reachLimit {
+            text = NSLocalizedString("Server has reached it's limit", comment: "")
         } else if somethingWrong {
-            text = "Oops, something went wrong"
-        }else {
-            text = "Loading..."
+            text = NSLocalizedString("Oops, something went wrong", comment: "")
+        } else {
+            text = NSLocalizedString("Loading...", comment: "")
         }
         let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
             NSForegroundColorAttributeName: UIColor.darkGrayColor()]
         return NSAttributedString(string: text, attributes: attributes)
     }
-    
-    override func emptyDataSetDidTapButton(scrollView: UIScrollView) {
-        if (!isConnectedInternet || somethingWrong){
-            BaseNetworkRequest.getLikedPhoto(self)
-        }
-    }
-
 }

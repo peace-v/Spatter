@@ -27,12 +27,14 @@ class BaseNetworkRequest: NSObject {
 					switch response.result {
 					case .Success:
 						reachLimit = false
-						somethingWrong = false
+						tableViewController.somethingWrong = false
+                        isConnectedInternet = true
 						tableViewController.refreshControl?.endRefreshing()
 						if (tableViewController.page == 1) {
+                            if (response.response?.allHeaderFields["X-Total"] != nil){
 							tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+                            }
 							if (tableViewController.totalItems == 0) {
-								print("Some error occured.")
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 							}
 						}
@@ -49,18 +51,17 @@ class BaseNetworkRequest: NSObject {
 						}
 					case .Failure(let error):
 						print("error is \(error)")
+                        tableViewController.refreshControl?.endRefreshing()
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
 								NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
-							} else if (statusCode == 408) {
-								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 							} else {
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 							}
 						} else {
-							if (String(error).containsString("The Internet connection appears to be offline")) {
+							if (String(error).containsString("-1009") || String(error).containsString("-1001") || String(error).containsString("-1005")) {
 								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
-							} else {
+                            } else {
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 							}
 						}
@@ -81,10 +82,10 @@ class BaseNetworkRequest: NSObject {
 				switch response.result {
 				case .Success:
 					reachLimit = false
-					somethingWrong = false
+					tableViewController.somethingWrong = false
+                    isConnectedInternet = true
 					if let value = response.result.value {
 						let json = JSON(value)
-						// print("JSON:\(json)")
 						for (_, subJson): (String, JSON) in json {
 							var photoDic = Dictionary<String, String>()
 							photoDic["regular"] = subJson["urls"] ["regular"].stringValue
@@ -102,13 +103,11 @@ class BaseNetworkRequest: NSObject {
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
-						} else if (statusCode == 408) {
-							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 						}
 					} else {
-						if (String(error).containsString("The Internet connection appears to be offline")) {
+						if (String(error).containsString("-1009") || String(error).containsString("-1001") || String(error).containsString("-1005")) {
 							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
@@ -119,7 +118,7 @@ class BaseNetworkRequest: NSObject {
 	}
 	
 	// MARK: oauth callback
-	class func oauth(notification: NSNotification) {
+    class func oauth(notification: NSNotification, vc:UIViewController) {
 		let url = notification.object as! NSURL
 		let urlString = url.absoluteString
 		if (urlString.containsString("code")) {
@@ -137,7 +136,12 @@ class BaseNetworkRequest: NSObject {
 					switch response.result {
 					case .Success:
 						reachLimit = false
-						somethingWrong = false
+                        isConnectedInternet = true
+                        if((vc as? DetailViewController) != nil){
+                            (vc as! DetailViewController).somethingWrong = false
+                        }else if((vc as? ProfileViewController) != nil){
+                            (vc as! ProfileViewController).somethingWrong = false
+                        }
 						if let value = response.result.value {
 							let json = JSON(value)
 							keychain["refresh_token"] = nil
@@ -151,13 +155,11 @@ class BaseNetworkRequest: NSObject {
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
 								NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
-							} else if (statusCode == 408) {
-								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
-							} else {
+							}else {
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 							}
 						} else {
-							if (String(error).containsString("The Internet connection appears to be offline")) {
+							if (String(error).containsString("-1009") || String(error).containsString("-1001") || String(error).containsString("-1005")) {
 								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 							} else {
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
@@ -179,7 +181,14 @@ class BaseNetworkRequest: NSObject {
 				switch response.result {
 				case .Success:
 					reachLimit = false
-					somethingWrong = false
+                    isConnectedInternet = true
+                    if ((viewController as? BaseTableViewController) != nil){
+                        (viewController as! BaseTableViewController).somethingWrong = false
+                    }else if((viewController as? DetailViewController) != nil){
+                    (viewController as! DetailViewController).somethingWrong = false
+                    }else if((viewController as? ProfileViewController) != nil){
+                        (viewController as! ProfileViewController).somethingWrong = false
+                    }
 					if let value = response.result.value {
 						let json = JSON(value)
 						keychain["refresh_token"] = nil
@@ -194,21 +203,19 @@ class BaseNetworkRequest: NSObject {
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
-						} else if (statusCode == 408) {
-							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 						} else {
 							MainViewController.logout()
-							let alert = UIAlertController(title: "Failed to login", message: "Please login to proceed with the operation", preferredStyle: .Alert)
+							let alert = UIAlertController(title: NSLocalizedString("Failed to login", comment: ""), message: NSLocalizedString("Please login to proceed with the operation", comment: ""), preferredStyle: .Alert)
 							let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
 							alert.addAction(ok)
 							viewController.presentViewController(alert, animated: true, completion: nil)
 						}
 					} else {
-						if (String(error).containsString("The Internet connection appears to be offline")) {
+						if (String(error).containsString("-1009") || String(error).containsString("-1001") || String(error).containsString("-1005")) {
 							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 						} else {
 							MainViewController.logout()
-							let alert = UIAlertController(title: "Failed to login", message: "Please login to proceed with the operation", preferredStyle: .Alert)
+							let alert = UIAlertController(title: NSLocalizedString("Failed to login", comment: ""), message: NSLocalizedString("Please login to proceed with the operation", comment: ""), preferredStyle: .Alert)
 							let ok = UIAlertAction(title: "Ok", style: .Cancel, handler: nil)
 							alert.addAction(ok)
 							viewController.presentViewController(alert, animated: true, completion: nil)
@@ -220,7 +227,6 @@ class BaseNetworkRequest: NSObject {
 	
 	// MARK: get liked photos
 	class func getLikedPhoto(tableViewController: LikedTableViewController? = nil) {
-		print("calling get like photo")
         tableViewController?.noData = false
 		if (likedPhotoIDArray.count < likedTotalItems || likedPhotoIDArray.count == 0) {
 			Alamofire.request(.GET, "https://api.unsplash.com/users/\(username)/likes", parameters: [
@@ -231,11 +237,11 @@ class BaseNetworkRequest: NSObject {
 					switch response.result {
 					case .Success:
 						reachLimit = false
-						somethingWrong = false
+						tableViewController?.somethingWrong = false
+                        isConnectedInternet = true
 						if (likedPage == 1) {
 							likedTotalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
 							if (likedTotalItems == 0) {
-								print("You haven't like photo yet")
                                 tableViewController?.noData = true
 								NSNotificationCenter.defaultCenter().postNotificationName("NoData", object: nil)
 								
@@ -264,23 +270,38 @@ class BaseNetworkRequest: NSObject {
 						}
 					case .Failure(let error):
 						print("error is \(error)")
+                        tableViewController?.refreshControl?.endRefreshing()
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
 								NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
+                                
+                                if (tableViewController != nil){
+                                    BaseNetworkRequest.reachLimitNotification(tableViewController!)
+                                }
 							} else if (statusCode == 401) {
 								if (tableViewController != nil) {
 									BaseNetworkRequest.refreshAccessToken(tableViewController!)
 								}
-							} else if (statusCode == 408) {
-								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
-							} else {
+							}  else {
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+                                
+                                if (tableViewController != nil){
+                                    BaseNetworkRequest.somethingWrongNotification(tableViewController!)
+                                }
 							}
 						} else {
-							if (String(error).containsString("The Internet connection appears to be offline")) {
+							if (String(error).containsString("-1009") || String(error).containsString("-1001") || String(error).containsString("-1005")) {
 								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+                                
+                                if (tableViewController != nil){
+                                    BaseNetworkRequest.noNetworkNotification(tableViewController!)
+                                }
 							} else {
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+                                
+                                if (tableViewController != nil){
+                                    BaseNetworkRequest.somethingWrongNotification(tableViewController!)
+                                }
 							}
 						}
 					}
@@ -296,7 +317,6 @@ class BaseNetworkRequest: NSObject {
 	
 	// MARK: get post photos
 	class func getPostPhoto(tableViewController: PostTableViewController) {
-		print("calling post photos")
         tableViewController.noData = false
 		Alamofire.request(.GET, "https://api.unsplash.com/users/\(username)/photos", parameters: [
 				"client_id": clientID!
@@ -304,11 +324,11 @@ class BaseNetworkRequest: NSObject {
 				switch response.result {
 				case .Success:
 					reachLimit = false
-					somethingWrong = false
+					tableViewController.somethingWrong = false
+                    isConnectedInternet = true
 					tableViewController.refreshControl?.endRefreshing()
 					tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
 					if (tableViewController.totalItems == 0) {
-						print("You haven't post photo yet.")
                         tableViewController.noData = true
 						NSNotificationCenter.defaultCenter().postNotificationName("NoData", object: nil)
 					}
@@ -328,21 +348,28 @@ class BaseNetworkRequest: NSObject {
 					}
 				case .Failure(let error):
 					print("error is \(error)")
+                    tableViewController.refreshControl?.endRefreshing()
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
-						} else if (statusCode == 408) {
-							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+                            
+                            BaseNetworkRequest.reachLimitNotification(tableViewController)
 						} else if (statusCode == 401) {
 							BaseNetworkRequest.refreshAccessToken(tableViewController)
 						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+                            
+                            BaseNetworkRequest.somethingWrongNotification(tableViewController)
 						}
 					} else {
-						if (String(error).containsString("The Internet connection appears to be offline")) {
+						if (String(error).containsString("-1009") || String(error).containsString("-1001") || String(error).containsString("-1005")) {
 							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
+                            
+                            BaseNetworkRequest.noNetworkNotification(tableViewController)
 						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
+                            
+                            BaseNetworkRequest.somethingWrongNotification(tableViewController)
 						}
 					}
 				}
@@ -351,7 +378,6 @@ class BaseNetworkRequest: NSObject {
 	
 	// MARK: like or unlike a photo
 	class func unlikePhoto(tableViewController: DetailViewController, id: String) {
-		print("unlike a photo")
 		Alamofire.request(.DELETE, "https://api.unsplash.com/photos/\(id)/like", headers: [
 				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
 				"client_id": clientID!
@@ -359,12 +385,9 @@ class BaseNetworkRequest: NSObject {
 				switch response.result {
 				case .Success:
 					reachLimit = false
-					somethingWrong = false
-					if let value = response.result.value {
-						let json = JSON(value)
-//						print("JSON:\(json)")
-						likedPhotoIDArray.removeObject(id)
-					}
+					tableViewController.somethingWrong = false
+                    isConnectedInternet = true
+                    likedPhotoIDArray.removeObject(id)
 					dispatch_async(dispatch_get_main_queue()) {
 						tableViewController.likeButton.image = UIImage(named: "like-before")
 					}
@@ -375,13 +398,11 @@ class BaseNetworkRequest: NSObject {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
 						} else if (statusCode == 401) {
 							BaseNetworkRequest.refreshAccessToken(tableViewController)
-						} else if (statusCode == 408) {
-							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 						}
 					} else {
-						if (String(error).containsString("The Internet connection appears to be offline")) {
+						if (String(error).containsString("-1009") || String(error).containsString("-1001") || String(error).containsString("-1005")) {
 							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
@@ -392,7 +413,6 @@ class BaseNetworkRequest: NSObject {
 	}
 	
 	class func likePhoto(viewController: DetailViewController, id: String) {
-		print("like a photo")
 		Alamofire.request(.POST, "https://api.unsplash.com/photos/\(id)/like", headers: [
 				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
 				"client_id": clientID!
@@ -400,12 +420,8 @@ class BaseNetworkRequest: NSObject {
 				switch response.result {
 				case .Success:
 					reachLimit = false
-					somethingWrong = false
-//					if let value = response.result.value {
-//						let json = JSON(value)
-////                        print("JSON:\(json)")
-//						likedPhotoIDArray.addObject(id)
-//					}
+					viewController.somethingWrong = false
+                    isConnectedInternet = true
 					likedPhotoIDArray.addObject(id)
 					dispatch_async(dispatch_get_main_queue()) {
 						viewController.likeButton.image = UIImage(named: "like-after")
@@ -417,13 +433,11 @@ class BaseNetworkRequest: NSObject {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
 						} else if (statusCode == 401) {
 							BaseNetworkRequest.refreshAccessToken(viewController)
-						} else if (statusCode == 408) {
-							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 						}
 					} else {
-						if (String(error).containsString("The Internet connection appears to be offline")) {
+						if (String(error).containsString("-1009") || String(error).containsString("-1001") || String(error).containsString("-1005")) {
 							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
@@ -448,7 +462,8 @@ class BaseNetworkRequest: NSObject {
 					switch response.result {
 					case .Success:
 						reachLimit = false
-						somethingWrong = false
+						tableViewController.somethingWrong = false
+                        isConnectedInternet = true
 						tableViewController.refreshControl?.endRefreshing()
 						if (tableViewController.page == 1) {
 							tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
@@ -463,7 +478,6 @@ class BaseNetworkRequest: NSObject {
 						tableViewController.page += 1
 						if let value = response.result.value {
 							let json = JSON(value)
-							// print("JSON:\(json)")
 //							if (json.count == 0) {
 //								tableViewController.page -= 1
 //							}
@@ -484,18 +498,15 @@ class BaseNetworkRequest: NSObject {
 						}
 					case .Failure(let error):
 						print("error is \(error)")
+                        tableViewController.refreshControl?.endRefreshing()
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
 								NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
-							} else if (statusCode == 408) {
-								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 							} else {
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 							}
 						} else {
-							let stringError = String(error)
-							print(stringError.containsString("The Internet connection appears to be offline"))
-							if (String(error).containsString("The Internet connection appears to be offline")) {
+							if (String(error).containsString("-1009") || String(error).containsString("-1001") || String(error).containsString("-1005")) {
 								NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 							} else {
 								NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
@@ -513,7 +524,6 @@ class BaseNetworkRequest: NSObject {
 	
 	// MARK: load user profile
 	class func loadProfile(viewController: ProfileViewController? = nil) {
-		print("load profile")
 		Alamofire.request(.GET, "https://api.unsplash.com/me", headers: [
 				"Authorization": "Bearer \(keychain["access_token"]!)"], parameters: [
 				"client_id": clientID!
@@ -521,10 +531,9 @@ class BaseNetworkRequest: NSObject {
 				switch response.result {
 				case .Success:
 					reachLimit = false
-					somethingWrong = false
+                    isConnectedInternet = true
 					if let value = response.result.value {
 						let json = JSON(value)
-						// print("JSON:\(json)")
 						username = json["username"].stringValue
 						avatarURL = json["profile_image"] ["medium"].stringValue
 						if (viewController != nil) {
@@ -549,13 +558,11 @@ class BaseNetworkRequest: NSObject {
 							if (viewController != nil) {
 								BaseNetworkRequest.refreshAccessToken(viewController!)
 							}
-						} else if (statusCode == 408) {
-							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
 						}
 					} else {
-						if (String(error).containsString("The Internet connection appears to be offline")) {
+						if (String(error).containsString("-1009") || String(error).containsString("-1001") || String(error).containsString("-1005")) {
 							NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 						} else {
 							NSNotificationCenter.defaultCenter().postNotificationName("ErrorOccur", object: nil)
@@ -563,5 +570,46 @@ class BaseNetworkRequest: NSObject {
 					}
 				}
 			})
+    }
+    
+    // MARK: help function
+    class func reachLimitNotification(vc:BaseTableViewController) {
+        isConnectedInternet = true
+        reachLimit = true
+        vc.somethingWrong = false
+        if (vc.photosArray.count == 0) {
+            vc.tableView.reloadData()
+        } else {
+            let alert = UIAlertController(title: NSLocalizedString("Server has reached it's limit", comment: ""), message: NSLocalizedString("Have a break and come back later", comment: ""), preferredStyle: .Alert)
+            let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
+            alert.addAction(ok)
+            vc.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    class func noNetworkNotification(vc:BaseTableViewController) {
+        isConnectedInternet = false
+        if (vc.photosArray.count == 0) {
+            vc.tableView.reloadData()
+        }else {
+            let alert = UIAlertController(title: NSLocalizedString("Cannot connect to Internet", comment: ""), message: NSLocalizedString("Please try again", comment: ""), preferredStyle: .Alert)
+            let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
+            alert.addAction(ok)
+            vc.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    class func somethingWrongNotification(vc:BaseTableViewController) {
+        isConnectedInternet = true
+        vc.somethingWrong = true
+        reachLimit = false
+        if (vc.photosArray.count == 0) {
+            vc.tableView.reloadData()
+        } else {
+            let alert = UIAlertController(title: NSLocalizedString("Oops, something went wrong", comment: ""), message: NSLocalizedString("Please try again", comment: ""), preferredStyle: .Alert)
+            let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
+            alert.addAction(ok)
+            vc.presentViewController(alert, animated: true, completion: nil)
+        }
     }
 }

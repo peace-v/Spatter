@@ -10,10 +10,12 @@ import UIKit
 import PagingMenuController
 import Alamofire
 import SwiftyJSON
+import KeychainAccess
 
 class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 	
 	var viewControllers: [UIViewController] = []
+    var somethingWrong = false
 	
 	@IBOutlet weak var userLabel: UILabel!
 	@IBOutlet weak var avatar: UIImageView!
@@ -27,7 +29,9 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view.
+        if (keychain["access_token"] != nil) {
 		BaseNetworkRequest.loadProfile(self)
+        }
 		
 		avatar.layer.masksToBounds = true
 		let avatarWidth = CGFloat(44.0)
@@ -35,9 +39,9 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		
 		// add pagingMenu
 		let likedTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("liked") as! LikedTableViewController
-		likedTableViewController.title = "Like"
+		likedTableViewController.title = NSLocalizedString("Like", comment: "")
 		let postTableViewController = self.storyboard?.instantiateViewControllerWithIdentifier("post") as! PostTableViewController
-		postTableViewController.title = "Post"
+		postTableViewController.title = NSLocalizedString("Post", comment: "")
 		viewControllers = [likedTableViewController, postTableViewController]
 		
 		let pagingMenuController = self.childViewControllers.first as! PagingMenuController
@@ -72,12 +76,22 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 			selector: "cannotAccessInternet:",
 			name: "CanNotAccessInternet",
 			object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector: "exceedLimit:",
+            name: "ExceedRateLimit",
+            object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector: "somethingWentWrong:",
+            name: "ErrorOccur",
+            object: nil)
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(true)
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: "CanAccessInternet", object: nil)
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: "CanNotAccessInternet", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "ExceedRateLimit", object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "ErrorOccur", object: nil)
 	}
 	
 // MARK: swipe back
@@ -113,4 +127,24 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 	func cannotAccessInternet(notification: NSNotification) {
 		isConnectedInternet = false
 	}
+    
+    func exceedLimit(notification: NSNotification) {
+        isConnectedInternet = true
+        reachLimit = true
+        somethingWrong = false
+            let alert = UIAlertController(title: NSLocalizedString("Server has reached it's limit", comment: ""), message: NSLocalizedString("Have a break and come back later", comment: ""), preferredStyle: .Alert)
+            let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
+            alert.addAction(ok)
+            self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func somethingWentWrong(notification: NSNotification) {
+        isConnectedInternet = true
+        somethingWrong = true
+        reachLimit = false
+            let alert = UIAlertController(title: NSLocalizedString("Oops, something went wrong", comment: ""), message: NSLocalizedString("Please try again", comment: ""), preferredStyle: .Alert)
+            let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
+            alert.addAction(ok)
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
 }
