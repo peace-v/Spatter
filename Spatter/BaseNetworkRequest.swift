@@ -50,7 +50,7 @@ class BaseNetworkRequest: NSObject {
 							}
 						}
 					case .Failure(let error):
-						print("error is \(error)")
+//						print("error is \(error)")
                         tableViewController.refreshControl?.endRefreshing()
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
@@ -99,7 +99,7 @@ class BaseNetworkRequest: NSObject {
 						tableViewController.tableView.reloadData()
 					}
 				case .Failure(let error):
-					print("error is \(error)")
+//					print("error is \(error)")
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
@@ -151,7 +151,7 @@ class BaseNetworkRequest: NSObject {
 							BaseNetworkRequest.loadProfile()
 						}
 					case .Failure(let error):
-						print("error is \(error)")
+//						print("error is \(error)")
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
 								NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
@@ -199,7 +199,7 @@ class BaseNetworkRequest: NSObject {
 						BaseNetworkRequest.loadProfile()
 					}
 				case .Failure(let error):
-					print("error is \(error)")
+//					print("error is \(error)")
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
@@ -269,7 +269,7 @@ class BaseNetworkRequest: NSObject {
 							BaseNetworkRequest.getLikedPhoto(tableViewController)
 						}
 					case .Failure(let error):
-						print("error is \(error)")
+//						print("error is \(error)")
                         tableViewController?.refreshControl?.endRefreshing()
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
@@ -347,7 +347,7 @@ class BaseNetworkRequest: NSObject {
 						tableViewController.tableView.reloadData()
 					}
 				case .Failure(let error):
-					print("error is \(error)")
+//					print("error is \(error)")
                     tableViewController.refreshControl?.endRefreshing()
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
@@ -392,7 +392,7 @@ class BaseNetworkRequest: NSObject {
 						tableViewController.likeButton.image = UIImage(named: "like-before")
 					}
 				case .Failure(let error):
-					print("error is \(error)")
+//					print("error is \(error)")
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
@@ -427,7 +427,7 @@ class BaseNetworkRequest: NSObject {
 						viewController.likeButton.image = UIImage(named: "like-after")
 					}
 				case .Failure(let error):
-					print("error is \(error)")
+//					print("error is \(error)")
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
@@ -497,7 +497,7 @@ class BaseNetworkRequest: NSObject {
 							tableViewController.tableView.reloadData()
 						}
 					case .Failure(let error):
-						print("error is \(error)")
+//						print("error is \(error)")
                         tableViewController.refreshControl?.endRefreshing()
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
@@ -550,7 +550,7 @@ class BaseNetworkRequest: NSObject {
 						}
 					}
 				case .Failure(let error):
-					print("error is \(error)")
+//					print("error is \(error)")
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)

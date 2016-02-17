@@ -69,7 +69,6 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 
     override func viewDidAppear(animated: Bool) {
-        print("viewdidappear")
         super.viewDidAppear(true)
         if (self.tableView.contentOffset.y < 0 && self.tableView.emptyDataSetVisible) {
             self.tableView.contentOffset = CGPoint(x: 0, y: -64)

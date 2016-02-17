@@ -76,22 +76,12 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 			selector: "cannotAccessInternet:",
 			name: "CanNotAccessInternet",
 			object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "exceedLimit:",
-            name: "ExceedRateLimit",
-            object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "somethingWentWrong:",
-            name: "ErrorOccur",
-            object: nil)
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(true)
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: "CanAccessInternet", object: nil)
 		NSNotificationCenter.defaultCenter().removeObserver(self, name: "CanNotAccessInternet", object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "ExceedRateLimit", object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "ErrorOccur", object: nil)
 	}
 	
 // MARK: swipe back
@@ -127,24 +117,4 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 	func cannotAccessInternet(notification: NSNotification) {
 		isConnectedInternet = false
 	}
-    
-    func exceedLimit(notification: NSNotification) {
-        isConnectedInternet = true
-        reachLimit = true
-        somethingWrong = false
-            let alert = UIAlertController(title: NSLocalizedString("Server has reached it's limit", comment: ""), message: NSLocalizedString("Have a break and come back later", comment: ""), preferredStyle: .Alert)
-            let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
-            alert.addAction(ok)
-            self.presentViewController(alert, animated: true, completion: nil)
-    }
-    
-    func somethingWentWrong(notification: NSNotification) {
-        isConnectedInternet = true
-        somethingWrong = true
-        reachLimit = false
-            let alert = UIAlertController(title: NSLocalizedString("Oops, something went wrong", comment: ""), message: NSLocalizedString("Please try again", comment: ""), preferredStyle: .Alert)
-            let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
-            alert.addAction(ok)
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
 }

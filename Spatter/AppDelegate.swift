@@ -95,10 +95,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	// MARK: TMReachability notification
 	func reachabilityChanged(notification: NSNotification) {
 		if reach!.isReachableViaWiFi() || reach!.isReachableViaWWAN() {
-            print("connected")
+//            print("connected")
 			NSNotificationCenter.defaultCenter().postNotificationName("CanAccessInternet", object: nil)
 		} else {
-            print("not connected")
+//            print("not connected")
 			NSNotificationCenter.defaultCenter().postNotificationName("CanNotAccessInternet", object: nil)
 		}
 	}
