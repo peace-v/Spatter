@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import KeychainAccess
+import PKHUD
 
 class BaseNetworkRequest: NSObject {
 	
@@ -455,7 +456,7 @@ class BaseNetworkRequest: NSObject {
 			Alamofire.request(.GET, "https://api.unsplash.com/photos/search/", parameters: [
 					"client_id": clientID!,
 					"query": tableViewController.query,
-					"category": 0,
+					"category": "",
 					"page": tableViewController.page,
 					"per_page": tableViewController.searchPerItem
 				]).validate().responseJSON(completionHandler: {response in
@@ -580,10 +581,9 @@ class BaseNetworkRequest: NSObject {
         if (vc.photosArray.count == 0) {
             vc.tableView.reloadData()
         } else {
-            let alert = UIAlertController(title: NSLocalizedString("Server has reached it's limit", comment: ""), message: NSLocalizedString("Have a break and come back later", comment: ""), preferredStyle: .Alert)
-            let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
-            alert.addAction(ok)
-            vc.presentViewController(alert, animated: true, completion: nil)
+            PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Server has reached it's limit", comment: "") + "\n" + NSLocalizedString("Have a break and come back later", comment: "")))
+            PKHUD.sharedHUD.show()
+            PKHUD.sharedHUD.hide(afterDelay: 2.5)
         }
     }
     
@@ -592,10 +592,9 @@ class BaseNetworkRequest: NSObject {
         if (vc.photosArray.count == 0) {
             vc.tableView.reloadData()
         }else {
-            let alert = UIAlertController(title: NSLocalizedString("Cannot connect to Internet", comment: ""), message: NSLocalizedString("Please try again", comment: ""), preferredStyle: .Alert)
-            let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
-            alert.addAction(ok)
-            vc.presentViewController(alert, animated: true, completion: nil)
+            PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Cannot connect to Internet", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
+            PKHUD.sharedHUD.show()
+            PKHUD.sharedHUD.hide(afterDelay: 2.5)
         }
     }
     
@@ -606,10 +605,9 @@ class BaseNetworkRequest: NSObject {
         if (vc.photosArray.count == 0) {
             vc.tableView.reloadData()
         } else {
-            let alert = UIAlertController(title: NSLocalizedString("Oops, something went wrong", comment: ""), message: NSLocalizedString("Please try again", comment: ""), preferredStyle: .Alert)
-            let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
-            alert.addAction(ok)
-            vc.presentViewController(alert, animated: true, completion: nil)
+            PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Oops, something went wrong", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
+            PKHUD.sharedHUD.show()
+            PKHUD.sharedHUD.hide(afterDelay: 2.5)
         }
     }
 }

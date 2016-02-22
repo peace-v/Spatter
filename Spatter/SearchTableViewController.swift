@@ -34,7 +34,6 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-//        self.edgesForExtendedLayout = UIRectEdge.None
 		searchController.loadViewIfNeeded()
 
 		// configure searchController
@@ -197,7 +196,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 			self.query = searchController.searchBar.text!.lowercaseString
 			BaseNetworkRequest.getSearchResults(self)
 		} else {
-			JDStatusBarNotification.showWithStatus(NSLocalizedString("Please enter the search term", comment: ""), dismissAfter: 5.0)
+			JDStatusBarNotification.showWithStatus(NSLocalizedString("Please enter the search term", comment: ""), dismissAfter: 2.5)
 		}
 	}
     

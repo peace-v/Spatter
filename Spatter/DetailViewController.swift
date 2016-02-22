@@ -12,6 +12,7 @@ import SafariServices
 import KeychainAccess
 import Alamofire
 import SwiftyJSON
+import PKHUD
 
 class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	var image = UIImage(named: "loading-black")
@@ -259,29 +260,28 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
         reachLimit = true
         somethingWrong = false
         
-		let alert = UIAlertController(title: NSLocalizedString("Server has reached it's limit", comment: ""), message: NSLocalizedString("Have a break and come back later", comment: ""), preferredStyle: .Alert)
-		let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
-		alert.addAction(ok)
-		self.presentViewController(alert, animated: true, completion: nil)
+        PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Server has reached it's limit", comment: "") + "\n" + NSLocalizedString("Have a break and come back later", comment: "")))
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.5)
 	}
 
 	func somethingWentWrong(notification: NSNotification) {
         isConnectedInternet = true
         somethingWrong = true
         reachLimit = false
-        
-		let alert = UIAlertController(title: NSLocalizedString("Oops, something went wrong", comment: ""), message: NSLocalizedString("Please try again", comment: ""), preferredStyle: .Alert)
-		let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
-		alert.addAction(ok)
-		self.presentViewController(alert, animated: true, completion: nil)
+
+        PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Oops, something went wrong", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.5)
 	}
 
 	// MARK: help function
 	func noNetwork() {
-		let alert = UIAlertController(title: NSLocalizedString("Cannot connect to Internet", comment: ""), message: NSLocalizedString("Please try again", comment: ""), preferredStyle: .Alert)
-		let ok = UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .Default, handler: nil)
-		alert.addAction(ok)
-		self.presentViewController(alert, animated: true, completion: nil)
+
+        PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Cannot connect to Internet", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.5)
+        
 		if (self.image == UIImage(named: "loading-black")) {
 			self.image = UIImage(named: "noNetwork")!
 			self.imagePanViewController.configureWithImage(self.image!)
