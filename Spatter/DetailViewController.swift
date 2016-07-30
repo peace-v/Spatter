@@ -29,7 +29,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		let button = UIButton()
 		let image = UIImage.init(named: "bubble")
 		let resizableImage = image!.resizableImageWithCapInsets(UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10), resizingMode: UIImageResizingMode.Stretch)
-        button.setBackgroundImage(resizableImage, forState: .Normal)
+		button.setBackgroundImage(resizableImage, forState: .Normal)
 		button.tag = 1111
 		button.addTarget(self, action: #selector(self.openSafari), forControlEvents: .TouchUpInside)
 		return button
@@ -105,15 +105,26 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		if infoBtnPopTipView.isDescendantOfView(self.view) {
 			self.removeInfoBtnPopTipView()
 		} else {
-            let attrs:[String : AnyObject] = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont.systemFontOfSize(14), NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
-            infoBtnPopTipView.setAttributedTitle(NSAttributedString.init(string: "Photo by \(creatorName)", attributes: attrs), forState: .Normal)
+			let attrs: [String: AnyObject] = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont.systemFontOfSize(14), NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
+			infoBtnPopTipView.setAttributedTitle(NSAttributedString.init(string: "Photo by \(creatorName)", attributes: attrs), forState: .Normal)
 
 			let size = infoBtnPopTipView.titleLabel?.attributedText?.size()
-			infoBtnPopTipView.frame = CGRect(x: UIScreen.mainScreen().bounds.width - size!.width-20, y: CGRectGetMinY(toolbar.frame) - 44, width: size!.width+20, height: 44)
-            infoBtnPopTipView.titleEdgeInsets = UIEdgeInsets(top: -15, left: 0, bottom: 0, right: 0)
-            
+			infoBtnPopTipView.frame = CGRect(x: UIScreen.mainScreen().bounds.width - size!.width - 20, y: CGRectGetMinY(toolbar.frame) - 44, width: size!.width + 20, height: 44)
+			infoBtnPopTipView.titleEdgeInsets = UIEdgeInsets(top: -15, left: 0, bottom: 0, right: 0)
+
 			self.addInfoBtnPopTipView()
 		}
+	}
+
+	func configureData(data: [Dictionary<String, String>], withIndex index: Int) {
+		regular = data[index]["regular"]!
+		small = data[index]["small"]!
+		full = data[index]["full"]!
+		raw = data[index]["raw"]!
+		download = data[index]["download"]!
+		creatorName = data[index]["name"]!
+		photoID = data[index]["id"]!
+		profileUrl = data[index]["profileUrl"]!
 	}
 
 	override func viewDidLoad() {
@@ -230,8 +241,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	// MARK: oauth
 	func openSafari(sender: AnyObject?) {
 		if sender?.tag == 1111 {
-            safariVC = SFSafariViewController(URL: NSURL(string: self.profileUrl)!)
-        } else {
+			safariVC = SFSafariViewController(URL: NSURL(string: self.profileUrl)!)
+		} else {
 			safariVC = SFSafariViewController(URL: NSURL(string: "https://unsplash.com/oauth/authorize?client_id=\(clientID!)&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes")!)
 		}
 		safariVC!.delegate = self

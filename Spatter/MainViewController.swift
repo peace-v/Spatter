@@ -13,7 +13,7 @@ import AMScrollingNavbar
 import Alamofire
 import SwiftyJSON
 
-let APPVERSION = "1.0"
+let APPVERSION:String = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
 
 class MainViewController: BaseTableViewController, SFSafariViewControllerDelegate, MFMailComposeViewControllerDelegate {
 	
@@ -129,14 +129,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			let detailViewController = segue.destinationViewController as! DetailViewController
 			let cell = sender as? UITableViewCell
 			let indexPath = self.tableView.indexPathForCell(cell!)
-			detailViewController.regular = self.photosArray[indexPath!.row] ["regular"]!
-            detailViewController.small = self.photosArray[indexPath!.row] ["small"]!
-            detailViewController.full = self.photosArray[indexPath!.row] ["full"]!
-            detailViewController.raw = self.photosArray[indexPath!.row] ["raw"]!
-            detailViewController.download = self.photosArray[indexPath!.row] ["download"]!
-			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
-			detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!
-            detailViewController.profileUrl = self.photosArray[indexPath!.row] ["profileUrl"]!
+			detailViewController.configureData(self.photosArray,withIndex: (indexPath?.row)!)
 		}
 	}
 	

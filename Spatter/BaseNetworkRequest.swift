@@ -267,6 +267,7 @@ class BaseNetworkRequest: NSObject {
 								photoDic["id"] = subJson["id"].stringValue
 								photoDic["download"] = subJson["links"] ["download"].stringValue
 								photoDic["name"] = subJson["user"] ["name"].stringValue
+                                photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
 								if (!likedPhotoIDArray.containsObject(subJson["id"].stringValue)) {
 									likedPhotoIDArray.addObject(subJson["id"].stringValue)
 									likedPhotosArray.append(photoDic)
@@ -275,7 +276,6 @@ class BaseNetworkRequest: NSObject {
 							BaseNetworkRequest.getLikedPhoto(tableViewController)
 						}
 					case .Failure(let error):
-//						print("error is \(error)")
                         tableViewController?.refreshControl?.endRefreshing()
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
@@ -349,13 +349,13 @@ class BaseNetworkRequest: NSObject {
 							photoDic["id"] = subJson["id"].stringValue
 							photoDic["download"] = subJson["links"] ["download"].stringValue
 							photoDic["name"] = subJson["user"] ["name"].stringValue
+                            photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
 							tableViewController.photosArray.append(photoDic)
 						}
 						tableViewController.successfullyGetJsonData = true
 						tableViewController.tableView.reloadData()
 					}
 				case .Failure(let error):
-//					print("error is \(error)")
                     tableViewController.refreshControl?.endRefreshing()
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
@@ -400,7 +400,6 @@ class BaseNetworkRequest: NSObject {
 						tableViewController.likeButton.image = UIImage(named: "like-before")
 					}
 				case .Failure(let error):
-//					print("error is \(error)")
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
@@ -435,7 +434,6 @@ class BaseNetworkRequest: NSObject {
 						viewController.likeButton.image = UIImage(named: "like-after")
 					}
 				case .Failure(let error):
-//					print("error is \(error)")
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
@@ -498,6 +496,7 @@ class BaseNetworkRequest: NSObject {
 								photoDic["id"] = subJson["id"].stringValue
 								photoDic["download"] = subJson["links"] ["download"].stringValue
 								photoDic["name"] = subJson["user"] ["name"].stringValue
+                                photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
 								if (!tableViewController.photoID.contains(subJson["id"].stringValue)) {
 									tableViewController.photoID.append(subJson["id"].stringValue)
 									tableViewController.photosArray.append(photoDic)
@@ -507,7 +506,6 @@ class BaseNetworkRequest: NSObject {
 							tableViewController.tableView.reloadData()
 						}
 					case .Failure(let error):
-//						print("error is \(error)")
                         tableViewController.refreshControl?.endRefreshing()
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
@@ -560,7 +558,6 @@ class BaseNetworkRequest: NSObject {
 						}
 					}
 				case .Failure(let error):
-//					print("error is \(error)")
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
 							NSNotificationCenter.defaultCenter().postNotificationName("ExceedRateLimit", object: nil)
