@@ -18,15 +18,24 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	var image = UIImage(named: "loading-black")
 	var small = ""
 	var regular = ""
-    var full = ""
-    var raw = ""
+	var full = ""
+	var raw = ""
 	var download = ""
 	var creatorName = ""
 	var photoID = ""
+	var profileUrl = ""
 	var imagePanViewController = SCImagePanViewController()
-	var infoBtnPopTipView = CMPopTipView()
+	lazy var infoBtnPopTipView: UIButton = {
+		let button = UIButton()
+		let image = UIImage.init(named: "bubble")
+		let resizableImage = image!.resizableImageWithCapInsets(UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10), resizingMode: UIImageResizingMode.Stretch)
+        button.setBackgroundImage(resizableImage, forState: .Normal)
+		button.tag = 1111
+		button.addTarget(self, action: #selector(self.openSafari), forControlEvents: .TouchUpInside)
+		return button
+	}()
 	var safariVC: SFSafariViewController?
-    var somethingWrong = false
+	var somethingWrong = false
 
 	@IBOutlet weak var toolbar: UIToolbar!
 	@IBOutlet weak var infoButton: UIBarButtonItem!
@@ -36,7 +45,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		self.navigationController!.popViewControllerAnimated(true)
 	}
 	@IBAction func saveToAlbum(sender: AnyObject) {
-		UIImageWriteToSavedPhotosAlbum(image!, self, #selector(DetailViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
+		UIImageWriteToSavedPhotosAlbum(image!, self, #selector(DetailViewController.image(_: didFinishSavingWithError: contextInfo:)), nil)
 	}
 	@IBAction func likePhoto(sender: AnyObject) {
 		if isConnectedInternet {
@@ -44,8 +53,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 				var photoDic = Dictionary<String, String>()
 				photoDic["regular"] = regular
 				photoDic["small"] = small
-                photoDic["full"] = full
-                photoDic["raw"] = raw
+				photoDic["full"] = full
+				photoDic["raw"] = raw
 				photoDic["id"] = photoID
 				photoDic["download"] = download
 				photoDic["name"] = creatorName
@@ -76,7 +85,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 				let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .Cancel, handler: nil)
 				let login = UIAlertAction(title: NSLocalizedString("Login", comment: ""), style: .Default, handler: {
 					(UIAlertAction) -> Void in
-					self.openSafari()
+					self.openSafari(nil)
 				})
 				alert.addAction(cancel)
 				alert.addAction(login)
@@ -86,13 +95,25 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 			self.noNetwork()
 		}
 	}
+
 	@IBAction func sharePhoto(sender: AnyObject) {
 		let activityViewController = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
 		self.presentViewController(activityViewController, animated: true, completion: nil)
 	}
+
 	@IBAction func showPhotoInfo(sender: AnyObject) {
-		infoBtnPopTipView.message = "Photo By \(creatorName)"
-		infoBtnPopTipView.presentPointingAtBarButtonItem(infoButton, animated: true)
+		if infoBtnPopTipView.isDescendantOfView(self.view) {
+			self.removeInfoBtnPopTipView()
+		} else {
+            let attrs:[String : AnyObject] = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont.systemFontOfSize(14), NSUnderlineStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
+            infoBtnPopTipView.setAttributedTitle(NSAttributedString.init(string: "Photo by \(creatorName)", attributes: attrs), forState: .Normal)
+
+			let size = infoBtnPopTipView.titleLabel?.attributedText?.size()
+			infoBtnPopTipView.frame = CGRect(x: UIScreen.mainScreen().bounds.width - size!.width-20, y: CGRectGetMinY(toolbar.frame) - 44, width: size!.width+20, height: 44)
+            infoBtnPopTipView.titleEdgeInsets = UIEdgeInsets(top: -15, left: 0, bottom: 0, right: 0)
+            
+			self.addInfoBtnPopTipView()
+		}
 	}
 
 	override func viewDidLoad() {
@@ -132,12 +153,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 		imagePanViewController.didMoveToParentViewController(self)
 		imagePanViewController.configureWithImage(image!)
-
-		// init poplabel
-		infoBtnPopTipView.dismissTapAnywhere = true
-		infoBtnPopTipView.backgroundColor = UIColor.blackColor()
-		infoBtnPopTipView.textColor = UIColor.whiteColor()
-		infoBtnPopTipView.has3DStyle = false
 
 		// add screenEdgePanGesture
 		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(DetailViewController.screenEdgeSwiped(_:)))
@@ -213,8 +228,12 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	}
 
 	// MARK: oauth
-	func openSafari() {
-		safariVC = SFSafariViewController(URL: NSURL(string: "https://unsplash.com/oauth/authorize?client_id=\(clientID!)&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes")!)
+	func openSafari(sender: AnyObject?) {
+		if sender?.tag == 1111 {
+            safariVC = SFSafariViewController(URL: NSURL(string: self.profileUrl)!)
+        } else {
+			safariVC = SFSafariViewController(URL: NSURL(string: "https://unsplash.com/oauth/authorize?client_id=\(clientID!)&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes")!)
+		}
 		safariVC!.delegate = self
 		self.presentViewController(safariVC!, animated: true, completion: nil)
 	}
@@ -224,7 +243,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	}
 
 	func oauthUser(notification: NSNotification) {
-        BaseNetworkRequest.oauth(notification, vc:self)
+		BaseNetworkRequest.oauth(notification, vc: self)
 		if (self.safariVC != nil) {
 			self.safariVC!.dismissViewControllerAnimated(true, completion: nil)
 		}
@@ -260,35 +279,51 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	}
 
 	func exceedLimit(notification: NSNotification) {
-        isConnectedInternet = true
-        reachLimit = true
-        somethingWrong = false
-        
-        PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Server has reached it's limit", comment: "") + "\n" + NSLocalizedString("Have a break and come back later", comment: "")))
-        PKHUD.sharedHUD.show()
-        PKHUD.sharedHUD.hide(afterDelay: 2.5)
+		isConnectedInternet = true
+		reachLimit = true
+		somethingWrong = false
+
+		PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Server has reached it's limit", comment: "") + "\n" + NSLocalizedString("Have a break and come back later", comment: "")))
+		PKHUD.sharedHUD.show()
+		PKHUD.sharedHUD.hide(afterDelay: 2.5)
 	}
 
 	func somethingWentWrong(notification: NSNotification) {
-        isConnectedInternet = true
-        somethingWrong = true
-        reachLimit = false
+		isConnectedInternet = true
+		somethingWrong = true
+		reachLimit = false
 
-        PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Oops, something went wrong", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
-        PKHUD.sharedHUD.show()
-        PKHUD.sharedHUD.hide(afterDelay: 2.5)
+		PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Oops, something went wrong", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
+		PKHUD.sharedHUD.show()
+		PKHUD.sharedHUD.hide(afterDelay: 2.5)
 	}
 
 	// MARK: help function
 	func noNetwork() {
+		PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Cannot connect to Internet", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
+		PKHUD.sharedHUD.show()
+		PKHUD.sharedHUD.hide(afterDelay: 2.5)
 
-        PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Cannot connect to Internet", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
-        PKHUD.sharedHUD.show()
-        PKHUD.sharedHUD.hide(afterDelay: 2.5)
-        
 		if (self.image == UIImage(named: "loading-black")) {
 			self.image = UIImage(named: "noNetwork")!
 			self.imagePanViewController.configureWithImage(self.image!)
+		}
+	}
+
+	func addInfoBtnPopTipView() {
+		self.view.addSubview(infoBtnPopTipView)
+		UIView.animateWithDuration(0.1, animations: {
+			self.infoBtnPopTipView.alpha = 1.0
+		}) { (finished) in
+		}
+	}
+
+	func removeInfoBtnPopTipView() {
+		infoBtnPopTipView.alpha = 1.0
+		UIView.animateWithDuration(0.1, animations: {
+			self.infoBtnPopTipView.alpha = 0.0
+		}) { (finished) in
+			self.infoBtnPopTipView.removeFromSuperview()
 		}
 	}
 }

@@ -136,6 +136,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
             detailViewController.download = self.photosArray[indexPath!.row] ["download"]!
 			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
 			detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!
+            detailViewController.profileUrl = self.photosArray[indexPath!.row] ["profileUrl"]!
 		}
 	}
 	

@@ -96,6 +96,7 @@ class BaseNetworkRequest: NSObject {
 							photoDic["id"] = subJson["id"].stringValue
 							photoDic["download"] = subJson["links"] ["download"].stringValue
 							photoDic["name"] = subJson["user"] ["name"].stringValue
+                            photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
 							tableViewController.photosArray.append(photoDic)
 						}
 						tableViewController.successfullyGetJsonData = true
