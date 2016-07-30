@@ -27,11 +27,11 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	}
 	var footer = MJRefreshAutoNormalFooter()
 	var noData = false
-    var somethingWrong = false
+	var somethingWrong = false
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        
+
 		self.tableView.separatorStyle = .None
 
 		self.refreshControl = UIRefreshControl()
@@ -55,23 +55,23 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(true)
 		NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: "accessInternet:",
+			selector: #selector(BaseTableViewController.accessInternet(_:)),
 			name: "CanAccessInternet",
 			object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: "cannotAccessInternet:",
+			selector: #selector(BaseTableViewController.cannotAccessInternet(_:)),
 			name: "CanNotAccessInternet",
 			object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: "exceedLimit:",
+			selector: #selector(BaseTableViewController.exceedLimit(_:)),
 			name: "ExceedRateLimit",
 			object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: "somethingWentWrong:",
+			selector: #selector(BaseTableViewController.somethingWentWrong(_:)),
 			name: "ErrorOccur",
 			object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: "noData:",
+			selector: #selector(BaseTableViewController.noData(_:)),
 			name: "NoData",
 			object: nil)
 	}
@@ -120,17 +120,17 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 
 	override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
 		// Remove separator inset
-		if cell.respondsToSelector("setSeparatorInset:") {
+		if cell.respondsToSelector(Selector("setSeparatorInset:")) {
 			cell.separatorInset = UIEdgeInsetsZero
 		}
 
 		// Prevent the cell from inheriting the Table View's margin settings
-		if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+		if cell.respondsToSelector(Selector("setPreservesSuperviewLayoutMargins:")) {
 			cell.preservesSuperviewLayoutMargins = false
 		}
 
 		// Explictly set your cell's layout margins
-		if cell.respondsToSelector("setLayoutMargins:") {
+		if cell.respondsToSelector(Selector("setLayoutMargins:")) {
 			cell.layoutMargins = UIEdgeInsetsZero
 		}
 	}
@@ -237,9 +237,9 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		if (self.photosArray.count == 0) {
 			self.tableView.reloadData()
 		} else {
-            PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Cannot connect to Internet", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
-            PKHUD.sharedHUD.show()
-            PKHUD.sharedHUD.hide(afterDelay: 2.5)
+			PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Cannot connect to Internet", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
+			PKHUD.sharedHUD.show()
+			PKHUD.sharedHUD.hide(afterDelay: 2.5)
 		}
 	}
 
@@ -250,9 +250,9 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		if (self.photosArray.count == 0) {
 			self.tableView.reloadData()
 		} else {
-            PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Server has reached it's limit", comment: "") + "\n" + NSLocalizedString("Have a break and come back later", comment: "")))
-            PKHUD.sharedHUD.show()
-            PKHUD.sharedHUD.hide(afterDelay: 2.5)
+			PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Server has reached it's limit", comment: "") + "\n" + NSLocalizedString("Have a break and come back later", comment: "")))
+			PKHUD.sharedHUD.show()
+			PKHUD.sharedHUD.hide(afterDelay: 2.5)
 		}
 	}
 
@@ -263,9 +263,9 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		if (self.photosArray.count == 0) {
 			self.tableView.reloadData()
 		} else {
-            PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Oops, something went wrong", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
-            PKHUD.sharedHUD.show()
-            PKHUD.sharedHUD.hide(afterDelay: 2.5)
+			PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Oops, something went wrong", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
+			PKHUD.sharedHUD.show()
+			PKHUD.sharedHUD.hide(afterDelay: 2.5)
 		}
 	}
 

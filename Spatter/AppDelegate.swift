@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		reach = TMReachability.reachabilityForInternetConnection()
 		reach!.reachableOnWWAN = false
 		NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: "reachabilityChanged:",
+			selector: #selector(AppDelegate.reachabilityChanged(_:)),
 			name: kReachabilityChangedNotification,
 			object: nil)
 		reach!.startNotifier()
@@ -80,8 +80,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func applicationWillTerminate(application: UIApplication) {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-//        let cache = NSURLCache.sharedURLCache()
-//        cache.removeAllCachedResponses()
 	}
 	
 	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {

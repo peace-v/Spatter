@@ -16,13 +16,13 @@ class PostTableViewController: BaseTableViewController {
 		super.viewDidLoad()
 		
 		// configure refreshController
-		self.refreshControl!.addTarget(self, action: "refreshPostData", forControlEvents: .ValueChanged)
+		self.refreshControl!.addTarget(self, action: #selector(PostTableViewController.refreshPostData), forControlEvents: .ValueChanged)
 		
-		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "showNoMoreInfo")
+		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(PostTableViewController.showNoMoreInfo))
 		footer.refreshingTitleHidden = true
 		self.tableView.mj_footer = footer
         
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "getPostPhoto:", name: "LoadPostPhotos", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PostTableViewController.getPostPhoto(_:)), name: "LoadPostPhotos", object: nil)
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
@@ -39,6 +39,8 @@ class PostTableViewController: BaseTableViewController {
 			let indexPath = self.tableView.indexPathForCell(cell!)
             detailViewController.regular = self.photosArray[indexPath!.row] ["regular"]!
             detailViewController.small = self.photosArray[indexPath!.row] ["small"]!
+            detailViewController.full = self.photosArray[indexPath!.row] ["full"]!
+            detailViewController.raw = self.photosArray[indexPath!.row] ["raw"]!
             detailViewController.download = self.photosArray[indexPath!.row] ["download"]!
             detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
             detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!

@@ -16,13 +16,13 @@ class LikedTableViewController: BaseTableViewController {
 		super.viewDidLoad()
 		
 		// configure refreshController
-		self.refreshControl!.addTarget(self, action: "refreshLikedData", forControlEvents: .ValueChanged)
+		self.refreshControl!.addTarget(self, action: #selector(LikedTableViewController.refreshLikedData), forControlEvents: .ValueChanged)
 		
-		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "showNoMoreInfo")
+		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(LikedTableViewController.showNoMoreInfo))
 		footer.refreshingTitleHidden = true
 		self.tableView.mj_footer = footer
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "getLikedPhotos:", name: "LoadLikedPhotos", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LikedTableViewController.getLikedPhotos(_:)), name: "LoadLikedPhotos", object: nil)
 	}
     
     override func viewWillAppear(animated: Bool) {
@@ -46,6 +46,8 @@ class LikedTableViewController: BaseTableViewController {
 			let indexPath = self.tableView.indexPathForCell(cell!)
 			detailViewController.regular = self.photosArray[indexPath!.row] ["regular"]!
 			detailViewController.small = self.photosArray[indexPath!.row] ["small"]!
+            detailViewController.full = self.photosArray[indexPath!.row] ["full"]!
+            detailViewController.raw = self.photosArray[indexPath!.row] ["raw"]!
 			detailViewController.download = self.photosArray[indexPath!.row] ["download"]!
 			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
 			detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!

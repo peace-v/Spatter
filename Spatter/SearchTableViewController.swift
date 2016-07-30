@@ -47,14 +47,14 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		searchController.searchBar.tintColor = UIColor.blackColor()
 
 		// configure refreshController
-		self.refreshControl!.addTarget(self, action: "refreshSearchData", forControlEvents: .ValueChanged)
+		self.refreshControl!.addTarget(self, action: #selector(SearchTableViewController.refreshSearchData), forControlEvents: .ValueChanged)
 
-		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "getSearchResults")
+		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(SearchTableViewController.getSearchResults))
 		footer.refreshingTitleHidden = true
 		self.tableView.mj_footer = footer
 
 		// add screenEdgePanGesture
-		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: "screenEdgeSwiped:")
+		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(SearchTableViewController.screenEdgeSwiped(_:)))
 		edgePan.edges = .Left
 		view.addGestureRecognizer(edgePan)
 	}
@@ -88,6 +88,8 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 			let indexPath = self.tableView.indexPathForCell(cell!)
 			detailViewController.regular = self.photosArray[indexPath!.row] ["regular"]!
 			detailViewController.small = self.photosArray[indexPath!.row] ["small"]!
+            detailViewController.full = self.photosArray[indexPath!.row] ["full"]!
+            detailViewController.raw = self.photosArray[indexPath!.row] ["raw"]!
 			detailViewController.download = self.photosArray[indexPath!.row] ["download"]!
 			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
 			detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!

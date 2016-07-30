@@ -18,6 +18,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	var image = UIImage(named: "loading-black")
 	var small = ""
 	var regular = ""
+    var full = ""
+    var raw = ""
 	var download = ""
 	var creatorName = ""
 	var photoID = ""
@@ -34,7 +36,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		self.navigationController!.popViewControllerAnimated(true)
 	}
 	@IBAction func saveToAlbum(sender: AnyObject) {
-		UIImageWriteToSavedPhotosAlbum(image!, self, "image:didFinishSavingWithError:contextInfo:", nil)
+		UIImageWriteToSavedPhotosAlbum(image!, self, #selector(DetailViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
 	}
 	@IBAction func likePhoto(sender: AnyObject) {
 		if isConnectedInternet {
@@ -42,6 +44,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 				var photoDic = Dictionary<String, String>()
 				photoDic["regular"] = regular
 				photoDic["small"] = small
+                photoDic["full"] = full
+                photoDic["raw"] = raw
 				photoDic["id"] = photoID
 				photoDic["download"] = download
 				photoDic["name"] = creatorName
@@ -136,7 +140,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		infoBtnPopTipView.has3DStyle = false
 
 		// add screenEdgePanGesture
-		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: "screenEdgeSwiped:")
+		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(DetailViewController.screenEdgeSwiped(_:)))
 		edgePan.edges = .Left
 		view.addGestureRecognizer(edgePan)
 	}
@@ -149,21 +153,21 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(true)
 		self.navigationController!.setNavigationBarHidden(true, animated: false)
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "oauthUser:", name: "DismissSafariVC", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DetailViewController.oauthUser(_:)), name: "DismissSafariVC", object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: "accessInternet:",
+			selector: #selector(DetailViewController.accessInternet(_:)),
 			name: "CanAccessInternet",
 			object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: "cannotAccessInternet:",
+			selector: #selector(DetailViewController.cannotAccessInternet(_:)),
 			name: "CanNotAccessInternet",
 			object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: "exceedLimit:",
+			selector: #selector(DetailViewController.exceedLimit(_:)),
 			name: "ExceedRateLimit",
 			object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: "somethingWentWrong:",
+			selector: #selector(DetailViewController.somethingWentWrong(_:)),
 			name: "ErrorOccur",
 			object: nil)
 	}

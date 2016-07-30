@@ -51,12 +51,12 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 		options.menuDisplayMode = .SegmentedControl
 		options.defaultPage = 0
 		options.menuItemMode = .Underline(height: 3, color: UIColor.blackColor(), horizontalPadding: 0, verticalPadding: 5)
-		pagingMenuController.setup(viewControllers: viewControllers, options: options)
+		pagingMenuController.setup(viewControllers, options: options)
 		
 		pagingMenuController.delegate = self
 		
 		// add screenEdgePanGesture
-		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: "screenEdgeSwiped:")
+		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(ProfileViewController.screenEdgeSwiped(_:)))
 		edgePan.edges = .Left
 		view.addGestureRecognizer(edgePan)
 	}
@@ -69,11 +69,11 @@ class ProfileViewController: UIViewController, PagingMenuControllerDelegate {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(true)
 		NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: "accessInternet:",
+			selector: #selector(ProfileViewController.accessInternet(_:)),
 			name: "CanAccessInternet",
 			object: nil)
 		NSNotificationCenter.defaultCenter().addObserver(self,
-			selector: "cannotAccessInternet:",
+			selector: #selector(ProfileViewController.cannotAccessInternet(_:)),
 			name: "CanNotAccessInternet",
 			object: nil)
 	}

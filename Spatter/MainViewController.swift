@@ -34,8 +34,8 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		super.viewDidLoad()
 		// Do any additional setup after loading the view, typically from a nib.
         // configure refreshControl
-        self.refreshControl!.addTarget(self, action: "refreshData", forControlEvents: .ValueChanged)
-        footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: "getCollections")
+        self.refreshControl!.addTarget(self, action: #selector(MainViewController.refreshData), forControlEvents: .ValueChanged)
+        footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(MainViewController.getCollections))
         footer.refreshingTitleHidden = true
         self.tableView.mj_footer = footer
         
@@ -95,7 +95,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			navigationController.followScrollView(self.tableView, delay: 50.0)
 		}
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "oauthUser:", name: "DismissSafariVC", object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainViewController.oauthUser(_:)), name: "DismissSafariVC", object: nil)
         
         // configure the statusbar notification
         JDStatusBarNotification.setDefaultStyle { (JDStatusBarStyle) -> JDStatusBarStyle! in
@@ -131,6 +131,8 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			let indexPath = self.tableView.indexPathForCell(cell!)
 			detailViewController.regular = self.photosArray[indexPath!.row] ["regular"]!
             detailViewController.small = self.photosArray[indexPath!.row] ["small"]!
+            detailViewController.full = self.photosArray[indexPath!.row] ["full"]!
+            detailViewController.raw = self.photosArray[indexPath!.row] ["raw"]!
             detailViewController.download = self.photosArray[indexPath!.row] ["download"]!
 			detailViewController.creatorName = self.photosArray[indexPath!.row] ["name"]!
 			detailViewController.photoID = self.photosArray[indexPath!.row] ["id"]!
@@ -219,6 +221,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
         username = ""
         avatarURL = ""
     }
+    
     
     // MARK: network notificaiton
     override func accessInternet(notification: NSNotification) {

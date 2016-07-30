@@ -91,6 +91,8 @@ class BaseNetworkRequest: NSObject {
 							var photoDic = Dictionary<String, String>()
 							photoDic["regular"] = subJson["urls"] ["regular"].stringValue
 							photoDic["small"] = subJson["urls"] ["small"].stringValue
+                            photoDic["full"] = subJson["urls"] ["full"].stringValue
+                            photoDic["raw"] = subJson["urls"] ["raw"].stringValue
 							photoDic["id"] = subJson["id"].stringValue
 							photoDic["download"] = subJson["links"] ["download"].stringValue
 							photoDic["name"] = subJson["user"] ["name"].stringValue
@@ -259,6 +261,8 @@ class BaseNetworkRequest: NSObject {
 								var photoDic = Dictionary<String, String>()
 								photoDic["regular"] = subJson["urls"] ["regular"].stringValue
 								photoDic["small"] = subJson["urls"] ["small"].stringValue
+                                photoDic["full"] = subJson["urls"] ["full"].stringValue
+                                photoDic["raw"] = subJson["urls"] ["raw"].stringValue
 								photoDic["id"] = subJson["id"].stringValue
 								photoDic["download"] = subJson["links"] ["download"].stringValue
 								photoDic["name"] = subJson["user"] ["name"].stringValue
@@ -339,6 +343,8 @@ class BaseNetworkRequest: NSObject {
 							var photoDic = Dictionary<String, String>()
 							photoDic["regular"] = subJson["urls"] ["regular"].stringValue
 							photoDic["small"] = subJson["urls"] ["small"].stringValue
+                            photoDic["full"] = subJson["urls"] ["full"].stringValue
+                            photoDic["raw"] = subJson["urls"] ["raw"].stringValue
 							photoDic["id"] = subJson["id"].stringValue
 							photoDic["download"] = subJson["links"] ["download"].stringValue
 							photoDic["name"] = subJson["user"] ["name"].stringValue
@@ -486,6 +492,8 @@ class BaseNetworkRequest: NSObject {
 								var photoDic = Dictionary<String, String>()
 								photoDic["regular"] = subJson["urls"] ["regular"].stringValue
 								photoDic["small"] = subJson["urls"] ["small"].stringValue
+                                photoDic["full"] = subJson["urls"] ["full"].stringValue
+                                photoDic["raw"] = subJson["urls"] ["raw"].stringValue
 								photoDic["id"] = subJson["id"].stringValue
 								photoDic["download"] = subJson["links"] ["download"].stringValue
 								photoDic["name"] = subJson["user"] ["name"].stringValue
