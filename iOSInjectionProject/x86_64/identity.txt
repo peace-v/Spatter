@@ -1,0 +1,2 @@
+/Users/molay/Library/Developer/Xcode/DerivedData/Spatter-frdgftbapucgfodyssdrmvekzsyv/Build/Products/Debug-iphonesimulator/Spatter.app
+iPhone Distribution: Ying Yu (BPBP7M953A)
