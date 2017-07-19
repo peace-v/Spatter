@@ -1,0 +1,5 @@
+version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
+options: "102523534f52f4d411ab11ca7ae7cf2d"
+build_time: [553766993, 50088000]
+inputs:
+  "/Users/yuying/Desktop/demo/Spatter/Carthage/Checkouts/SwiftyJSON/Source/SwiftyJSON.swift": [9223372036854775807, 0]

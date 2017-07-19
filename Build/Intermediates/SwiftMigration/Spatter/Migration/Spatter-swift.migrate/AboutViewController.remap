@@ -1,0 +1,19 @@
+[
+ {
+  "file": "/Users/yuying/Desktop/demo/Spatter/Spatter/AboutViewController.swift",
+  "offset": 275,
+  "text": "_ ",
+ },
+ {
+  "file": "/Users/yuying/Desktop/demo/Spatter/Spatter/AboutViewController.swift",
+  "offset": 316,
+  "remove": 16,
+  "text": "(an",
+ },
+ {
+  "file": "/Users/yuying/Desktop/demo/Spatter/Spatter/AboutViewController.swift",
+  "offset": 338,
+  "remove": 1,
+  "text": ": ",
+ }
+]

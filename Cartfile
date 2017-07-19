@@ -1,0 +1,7 @@
+github "kishikawakatsumi/KeychainAccess"
+github "Alamofire/Alamofire" ~> 4.4
+github "pkluz/PKHUD" ~> 4.0
+github "andreamazz/AMScrollingNavbar"
+github "kitasuke/PagingMenuController"
+github "SwiftyJSON/SwiftyJSON"
+github "rs/SDWebImage"

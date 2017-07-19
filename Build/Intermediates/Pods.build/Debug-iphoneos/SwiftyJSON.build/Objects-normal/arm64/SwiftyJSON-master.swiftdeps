@@ -1,0 +1,5 @@
+version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
+options: "9c12bc864412809f61c40cb82f849a77"
+build_time: [553761235, 800741000]
+inputs:
+  "/Users/yuying/Desktop/demo/Spatter/Pods/SwiftyJSON/Source/SwiftyJSON.swift": [553761221, 0]

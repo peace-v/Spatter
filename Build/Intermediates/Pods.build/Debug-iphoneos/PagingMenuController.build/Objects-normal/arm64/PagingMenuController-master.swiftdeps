@@ -1,0 +1,19 @@
+version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
+options: "f9a616fefe08f0ccc12c90be8d7a33a8"
+build_time: [553761236, 957975000]
+inputs:
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/Protocols/GestureHandler.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/Protocols/LabelSizeCalculatable.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/Protocols/MenuItemMultipliable.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/MenuItemView.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/Protocols/MenuItemViewCustomizable.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/MenuView.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/Protocols/MenuViewCustomizable.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/Protocols/Pagable.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/Protocols/PageDetectable.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/Protocols/PageLoadable.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/PagingMenuController.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/Protocols/PagingMenuControllerCustomizable.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/Protocols/PagingValidator.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/PagingViewController.swift": [553676944, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Pods/PagingMenuController/Pod/Classes/Protocols/ViewCleanable.swift": [553676944, 0]

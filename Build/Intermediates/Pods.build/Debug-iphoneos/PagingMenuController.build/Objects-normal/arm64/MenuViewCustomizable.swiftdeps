@@ -1,0 +1,230 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "MenuViewCustomizable"
+- "MenuDisplayMode"
+- "MenuItemWidthMode"
+- "MenuScrollingMode"
+- "MenuFocusMode"
+- "MenuPosition"
+- "=="
+- "=="
+provides-nominal:
+- "P20PagingMenuController20MenuViewCustomizable"
+- "O20PagingMenuController15MenuDisplayMode"
+- "O20PagingMenuController17MenuItemWidthMode"
+- "O20PagingMenuController17MenuScrollingMode"
+- "O20PagingMenuController13MenuFocusMode"
+- "O20PagingMenuController12MenuPosition"
+provides-member:
+- ["P20PagingMenuController20MenuViewCustomizable", ""]
+- ["O20PagingMenuController15MenuDisplayMode", ""]
+- ["O20PagingMenuController17MenuItemWidthMode", ""]
+- ["O20PagingMenuController17MenuScrollingMode", ""]
+- ["O20PagingMenuController13MenuFocusMode", ""]
+- ["O20PagingMenuController12MenuPosition", ""]
+- ["P20PagingMenuController20MenuViewCustomizable", "backgroundColor"]
+- ["P20PagingMenuController20MenuViewCustomizable", "selectedBackgroundColor"]
+- ["P20PagingMenuController20MenuViewCustomizable", "height"]
+- ["P20PagingMenuController20MenuViewCustomizable", "animationDuration"]
+- ["P20PagingMenuController20MenuViewCustomizable", "deceleratingRate"]
+- ["P20PagingMenuController20MenuViewCustomizable", "selectedItemCenter"]
+- ["P20PagingMenuController20MenuViewCustomizable", "displayMode"]
+- ["P20PagingMenuController20MenuViewCustomizable", "focusMode"]
+- ["P20PagingMenuController20MenuViewCustomizable", "dummyItemViewsSet"]
+- ["P20PagingMenuController20MenuViewCustomizable", "menuPosition"]
+- ["P20PagingMenuController20MenuViewCustomizable", "dividerImage"]
+provides-dynamic-lookup:
+depends-top-level:
+- "=="
+- "Bool"
+- !private "BooleanLiteralType"
+- "CGFloat"
+- "Int"
+- "MenuDisplayMode"
+- "MenuFocusMode"
+- "MenuItemViewCustomizable"
+- "MenuItemWidthMode"
+- "MenuPosition"
+- "MenuScrollingMode"
+- "MenuViewCustomizable"
+- "TimeInterval"
+- "UIColor"
+- "UIImage"
+- !private "UIScrollViewDecelerationRateFast"
+depends-member:
+- !private ["Ps9AnyObject", "blue"]
+- !private ["Ps9AnyObject", "white"]
+- !private ["Ps17BitwiseOperations", "hashValue"]
+- !private ["Ps7CVarArg", "blue"]
+- !private ["Ps7CVarArg", "hashValue"]
+- !private ["Ps7CVarArg", "white"]
+- !private ["Ps10Comparable", "hashValue"]
+- !private ["Ps28CustomDebugStringConvertible", "blue"]
+- !private ["Ps28CustomDebugStringConvertible", "white"]
+- !private ["Ps29CustomPlaygroundQuickLookable", "hashValue"]
+- !private ["Ps17CustomReflectable", "hashValue"]
+- !private ["Ps23CustomStringConvertible", "blue"]
+- !private ["Ps23CustomStringConvertible", "hashValue"]
+- !private ["Ps23CustomStringConvertible", "white"]
+- ["Ps9Equatable", "_toAnyHashable"]
+- !private ["Ps9Equatable", "blue"]
+- ["Ps9Equatable", "hashValue"]
+- !private ["Ps9Equatable", "pagingEnabled"]
+- !private ["Ps9Equatable", "top"]
+- !private ["Ps9Equatable", "white"]
+- ["Ps9Equatable", ""]
+- !private ["Ps27ExpressibleByIntegerLiteral", "hashValue"]
+- ["Ps8Hashable", "_toAnyHashable"]
+- !private ["Ps8Hashable", "blue"]
+- ["Ps8Hashable", "hashValue"]
+- !private ["Ps8Hashable", "pagingEnabled"]
+- !private ["Ps8Hashable", "top"]
+- !private ["Ps8Hashable", "white"]
+- ["Ps8Hashable", ""]
+- !private ["Si", "hashValue"]
+- !private ["Ps7Integer", "hashValue"]
+- !private ["Ps17IntegerArithmetic", "hashValue"]
+- ["O20PagingMenuController15MenuDisplayMode", "Bool"]
+- ["O20PagingMenuController15MenuDisplayMode", "MenuItemWidthMode"]
+- ["O20PagingMenuController15MenuDisplayMode", "MenuScrollingMode"]
+- ["O20PagingMenuController15MenuDisplayMode", "infinite"]
+- ["O20PagingMenuController15MenuDisplayMode", "segmentedControl"]
+- ["O20PagingMenuController15MenuDisplayMode", "standard"]
+- ["O20PagingMenuController13MenuFocusMode", "CGFloat"]
+- ["O20PagingMenuController13MenuFocusMode", "UIColor"]
+- ["O20PagingMenuController13MenuFocusMode", "none"]
+- ["O20PagingMenuController13MenuFocusMode", "roundRect"]
+- ["O20PagingMenuController13MenuFocusMode", "underline"]
+- ["O20PagingMenuController17MenuItemWidthMode", "CGFloat"]
+- ["O20PagingMenuController17MenuItemWidthMode", "fixed"]
+- ["O20PagingMenuController17MenuItemWidthMode", "flexible"]
+- ["O20PagingMenuController12MenuPosition", "=="]
+- ["O20PagingMenuController12MenuPosition", "_toAnyHashable"]
+- ["O20PagingMenuController12MenuPosition", "bottom"]
+- ["O20PagingMenuController12MenuPosition", "deinit"]
+- ["O20PagingMenuController12MenuPosition", "hashValue"]
+- ["O20PagingMenuController12MenuPosition", "top"]
+- ["O20PagingMenuController17MenuScrollingMode", "=="]
+- ["O20PagingMenuController17MenuScrollingMode", "_toAnyHashable"]
+- ["O20PagingMenuController17MenuScrollingMode", "deinit"]
+- ["O20PagingMenuController17MenuScrollingMode", "hashValue"]
+- ["O20PagingMenuController17MenuScrollingMode", "pagingEnabled"]
+- ["O20PagingMenuController17MenuScrollingMode", "scrollEnabled"]
+- ["O20PagingMenuController17MenuScrollingMode", "scrollEnabledAndBouces"]
+- ["P20PagingMenuController20MenuViewCustomizable", "Bool"]
+- ["P20PagingMenuController20MenuViewCustomizable", "CGFloat"]
+- ["P20PagingMenuController20MenuViewCustomizable", "Int"]
+- ["P20PagingMenuController20MenuViewCustomizable", "MenuDisplayMode"]
+- ["P20PagingMenuController20MenuViewCustomizable", "MenuFocusMode"]
+- ["P20PagingMenuController20MenuViewCustomizable", "MenuItemViewCustomizable"]
+- ["P20PagingMenuController20MenuViewCustomizable", "MenuPosition"]
+- ["P20PagingMenuController20MenuViewCustomizable", "TimeInterval"]
+- ["P20PagingMenuController20MenuViewCustomizable", "UIColor"]
+- ["P20PagingMenuController20MenuViewCustomizable", "UIImage"]
+- !private ["P20PagingMenuController20MenuViewCustomizable", "UIScrollViewDecelerationRateFast"]
+- ["P20PagingMenuController20MenuViewCustomizable", "animationDuration"]
+- ["P20PagingMenuController20MenuViewCustomizable", "backgroundColor"]
+- ["P20PagingMenuController20MenuViewCustomizable", "deceleratingRate"]
+- ["P20PagingMenuController20MenuViewCustomizable", "displayMode"]
+- ["P20PagingMenuController20MenuViewCustomizable", "dividerImage"]
+- ["P20PagingMenuController20MenuViewCustomizable", "dummyItemViewsSet"]
+- ["P20PagingMenuController20MenuViewCustomizable", "focusMode"]
+- ["P20PagingMenuController20MenuViewCustomizable", "height"]
+- ["P20PagingMenuController20MenuViewCustomizable", "itemsOptions"]
+- ["P20PagingMenuController20MenuViewCustomizable", "menuPosition"]
+- ["P20PagingMenuController20MenuViewCustomizable", "selectedBackgroundColor"]
+- ["P20PagingMenuController20MenuViewCustomizable", "selectedItemCenter"]
+- !private ["Ps10MirrorPath", "hashValue"]
+- !private ["PSo8NSCoding", "blue"]
+- !private ["PSo8NSCoding", "white"]
+- !private ["PSo9NSCopying", "blue"]
+- !private ["PSo9NSCopying", "white"]
+- !private ["CSo8NSObject", "blue"]
+- !private ["CSo8NSObject", "white"]
+- !private ["PSo16NSObjectProtocol", "blue"]
+- !private ["PSo16NSObjectProtocol", "white"]
+- !private ["PSo14NSSecureCoding", "blue"]
+- !private ["PSo14NSSecureCoding", "white"]
+- !private ["Ps13SignedInteger", "hashValue"]
+- !private ["Ps12SignedNumber", "hashValue"]
+- !private ["Ps10Strideable", "hashValue"]
+- !private ["CSo7UIColor", "blue"]
+- !private ["CSo7UIColor", "white"]
+- !private ["Ps35_ExpressibleByBuiltinIntegerLiteral", "hashValue"]
+- !private ["Ps26_ExpressibleByColorLiteral", "blue"]
+- !private ["Ps26_ExpressibleByColorLiteral", "white"]
+- ["Ps9_Hashable", "_toAnyHashable"]
+- !private ["Ps9_Hashable", "blue"]
+- ["Ps9_Hashable", "hashValue"]
+- !private ["Ps9_Hashable", "pagingEnabled"]
+- !private ["Ps9_Hashable", "top"]
+- !private ["Ps9_Hashable", "white"]
+- ["Ps9_Hashable", ""]
+- !private ["Ps14_Incrementable", "hashValue"]
+- !private ["Ps8_Integer", "hashValue"]
+- !private ["Ps18_IntegerArithmetic", "hashValue"]
+- !private ["Ps21_ObjectiveCBridgeable", "hashValue"]
+- !private ["Ps14_SignedInteger", "hashValue"]
+- !private ["Ps11_Strideable", "hashValue"]
+depends-nominal:
+- !private "Ps9AnyObject"
+- !private "Ps17BitwiseOperations"
+- !private "Ps7CVarArg"
+- !private "Ps10Comparable"
+- !private "Ps28CustomDebugStringConvertible"
+- !private "Ps29CustomPlaygroundQuickLookable"
+- !private "Ps17CustomReflectable"
+- !private "Ps23CustomStringConvertible"
+- "Ps9Equatable"
+- !private "Ps27ExpressibleByIntegerLiteral"
+- "Ps8Hashable"
+- !private "Si"
+- !private "Ps7Integer"
+- !private "Ps17IntegerArithmetic"
+- "O20PagingMenuController15MenuDisplayMode"
+- "O20PagingMenuController13MenuFocusMode"
+- "O20PagingMenuController17MenuItemWidthMode"
+- "O20PagingMenuController12MenuPosition"
+- "O20PagingMenuController17MenuScrollingMode"
+- "P20PagingMenuController20MenuViewCustomizable"
+- !private "Ps10MirrorPath"
+- !private "PSo8NSCoding"
+- !private "PSo9NSCopying"
+- !private "CSo8NSObject"
+- !private "PSo16NSObjectProtocol"
+- !private "PSo14NSSecureCoding"
+- !private "Ps13SignedInteger"
+- !private "Ps12SignedNumber"
+- !private "Ps10Strideable"
+- !private "CSo7UIColor"
+- !private "Ps35_ExpressibleByBuiltinIntegerLiteral"
+- !private "Ps26_ExpressibleByColorLiteral"
+- "Ps9_Hashable"
+- !private "Ps14_Incrementable"
+- !private "Ps8_Integer"
+- !private "Ps18_IntegerArithmetic"
+- !private "Ps21_ObjectiveCBridgeable"
+- !private "Ps14_SignedInteger"
+- !private "Ps11_Strideable"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/ObjectiveC.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Metal.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Foundation.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/CoreGraphics.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/UIKit.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/CoreText.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Dispatch.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/arm64/SwiftOnoneSupport.swiftmodule"
+- "/Users/yuying/Desktop/demo/Spatter/Pods/Target Support Files/PagingMenuController/PagingMenuController-umbrella.h"
+- "/Users/yuying/Desktop/demo/Spatter/Build/Intermediates/Pods.build/Debug-iphoneos/PagingMenuController.build/unextended-module.modulemap"
+interface-hash: "3998bfa5ea9e8679088fca71e4be6575"

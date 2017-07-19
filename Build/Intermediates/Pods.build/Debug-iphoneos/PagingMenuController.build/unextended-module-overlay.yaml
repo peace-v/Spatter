@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': '/Users/yuying/Desktop/demo/Spatter/Build/Products/Debug-iphoneos/PagingMenuController/PagingMenuController.framework/Modules'
+    'contents': [{
+      'type': 'file',
+      'name': 'module.modulemap',
+      'external-contents': '/Users/yuying/Desktop/demo/Spatter/Build/Intermediates/Pods.build/Debug-iphoneos/PagingMenuController.build/unextended-module.modulemap',
+    }]
+  }]
+}
