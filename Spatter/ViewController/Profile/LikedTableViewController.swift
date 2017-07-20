@@ -26,13 +26,13 @@ class LikedTableViewController: BaseTableViewController {
 	}
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         self.photosArray = likedPhotosArray
         self.tableView.reloadData()
     }
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(true)
+		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "LoadLikedPhotos"), object: nil)
         
 	}
@@ -75,6 +75,7 @@ class LikedTableViewController: BaseTableViewController {
 	}
     
     // MARK: DZEmptyDataSet
+    
     override func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage {
         if !isConnectedInternet {
             return UIImage(named: "wifi")!

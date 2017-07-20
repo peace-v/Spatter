@@ -460,8 +460,8 @@
 		220F0B451F1F581C0033AD72 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				220F0B461F1F581C0033AD72 /* BaseNetworkRequest.swift */,
 				220F0B471F1F581C0033AD72 /* BaseTableViewController.swift */,
+				220F0B461F1F581C0033AD72 /* BaseNetworkRequest.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";

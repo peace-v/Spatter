@@ -26,7 +26,7 @@ class PostTableViewController: BaseTableViewController {
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(true)
+		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "LoadPostPhotos"), object: nil)
 	}
 	
@@ -62,6 +62,7 @@ class PostTableViewController: BaseTableViewController {
 	}
     
     // MARK: DZEmptyDataSet
+    
     override func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage {
         if !isConnectedInternet {
             return UIImage(named: "wifi")!

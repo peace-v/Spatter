@@ -91,6 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 	
 	// MARK: TMReachability notification
+    
 	func reachabilityChanged(_ notification: Notification) {
 		if reach!.isReachableViaWiFi() || reach!.isReachableViaWWAN() {
 //            print("connected")

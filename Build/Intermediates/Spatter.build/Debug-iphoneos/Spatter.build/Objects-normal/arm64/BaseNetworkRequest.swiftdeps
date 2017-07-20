@@ -69,6 +69,7 @@ depends-top-level:
 - !private "likedPhotoIDArray"
 - !private "likedPhotosArray"
 - !private "likedTotalItems"
+- !private "print"
 - !private "reachLimit"
 - !private "username"
 - !private "||"
@@ -135,6 +136,7 @@ depends-member:
 - !private ["Ps9AnyObject", "photosArray"]
 - !private ["Ps9AnyObject", "post"]
 - !private ["Ps9AnyObject", "present"]
+- !private ["Ps9AnyObject", "print"]
 - !private ["Ps9AnyObject", "query"]
 - !private ["Ps9AnyObject", "reachLimit"]
 - !private ["Ps9AnyObject", "reachLimitNotification"]
@@ -215,6 +217,7 @@ depends-member:
 - ["C7Spatter18BaseNetworkRequest", "loadProfile"]
 - ["C7Spatter18BaseNetworkRequest", "noNetworkNotification"]
 - ["C7Spatter18BaseNetworkRequest", "oauth"]
+- !private ["C7Spatter18BaseNetworkRequest", "print"]
 - !private ["C7Spatter18BaseNetworkRequest", "reachLimit"]
 - ["C7Spatter18BaseNetworkRequest", "reachLimitNotification"]
 - ["C7Spatter18BaseNetworkRequest", "refreshAccessToken"]
@@ -316,6 +319,7 @@ depends-member:
 - !private ["Ps7CVarArg", "photosArray"]
 - !private ["Ps7CVarArg", "post"]
 - !private ["Ps7CVarArg", "present"]
+- !private ["Ps7CVarArg", "print"]
 - !private ["Ps7CVarArg", "query"]
 - !private ["Ps7CVarArg", "reachLimit"]
 - !private ["Ps7CVarArg", "reachLimitNotification"]
@@ -424,6 +428,7 @@ depends-member:
 - !private ["Ps28CustomDebugStringConvertible", "photosArray"]
 - !private ["Ps28CustomDebugStringConvertible", "post"]
 - !private ["Ps28CustomDebugStringConvertible", "present"]
+- !private ["Ps28CustomDebugStringConvertible", "print"]
 - !private ["Ps28CustomDebugStringConvertible", "query"]
 - !private ["Ps28CustomDebugStringConvertible", "reachLimit"]
 - !private ["Ps28CustomDebugStringConvertible", "reachLimitNotification"]
@@ -543,6 +548,7 @@ depends-member:
 - !private ["Ps23CustomStringConvertible", "photosArray"]
 - !private ["Ps23CustomStringConvertible", "post"]
 - !private ["Ps23CustomStringConvertible", "present"]
+- !private ["Ps23CustomStringConvertible", "print"]
 - !private ["Ps23CustomStringConvertible", "query"]
 - !private ["Ps23CustomStringConvertible", "reachLimit"]
 - !private ["Ps23CustomStringConvertible", "reachLimitNotification"]
@@ -695,6 +701,7 @@ depends-member:
 - !private ["Ps9Equatable", "photosArray"]
 - !private ["Ps9Equatable", "post"]
 - !private ["Ps9Equatable", "present"]
+- !private ["Ps9Equatable", "print"]
 - !private ["Ps9Equatable", "query"]
 - !private ["Ps9Equatable", "reachLimit"]
 - !private ["Ps9Equatable", "reachLimitNotification"]
@@ -847,6 +854,7 @@ depends-member:
 - !private ["Ps8Hashable", "photosArray"]
 - !private ["Ps8Hashable", "post"]
 - !private ["Ps8Hashable", "present"]
+- !private ["Ps8Hashable", "print"]
 - !private ["Ps8Hashable", "query"]
 - !private ["Ps8Hashable", "reachLimit"]
 - !private ["Ps8Hashable", "reachLimitNotification"]
@@ -1092,6 +1100,7 @@ depends-member:
 - !private ["CSo8NSObject", "photosArray"]
 - !private ["CSo8NSObject", "post"]
 - !private ["CSo8NSObject", "present"]
+- !private ["CSo8NSObject", "print"]
 - !private ["CSo8NSObject", "query"]
 - !private ["CSo8NSObject", "reachLimit"]
 - ["CSo8NSObject", "reachLimitNotification"]
@@ -1181,6 +1190,7 @@ depends-member:
 - !private ["PSo16NSObjectProtocol", "photosArray"]
 - !private ["PSo16NSObjectProtocol", "post"]
 - !private ["PSo16NSObjectProtocol", "present"]
+- !private ["PSo16NSObjectProtocol", "print"]
 - !private ["PSo16NSObjectProtocol", "query"]
 - !private ["PSo16NSObjectProtocol", "reachLimit"]
 - !private ["PSo16NSObjectProtocol", "reachLimitNotification"]
@@ -1837,6 +1847,7 @@ depends-member:
 - !private ["Ps9_Hashable", "photosArray"]
 - !private ["Ps9_Hashable", "post"]
 - !private ["Ps9_Hashable", "present"]
+- !private ["Ps9_Hashable", "print"]
 - !private ["Ps9_Hashable", "query"]
 - !private ["Ps9_Hashable", "reachLimit"]
 - !private ["Ps9_Hashable", "reachLimitNotification"]

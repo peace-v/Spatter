@@ -45,9 +45,11 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	@IBAction func back(_ sender: AnyObject) {
 		self.navigationController!.popViewController(animated: true)
 	}
+
 	@IBAction func saveToAlbum(_ sender: AnyObject) {
 		UIImageWriteToSavedPhotosAlbum(image!, self, #selector(DetailViewController.image(_: didFinishSavingWithError: contextInfo:)), nil)
 	}
+
 	@IBAction func likePhoto(_ sender: AnyObject) {
 		if isConnectedInternet {
 			if (UserDefaults.standard.bool(forKey: "isLogin")) {
@@ -130,8 +132,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		// Do any additional setup after loading the view.
 		self.loadImage()
 
 		// transparent toolbar
@@ -172,13 +172,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		view.addGestureRecognizer(edgePan)
 	}
 
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-
 	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(true)
+		super.viewWillAppear(animated)
 		self.navigationController!.setNavigationBarHidden(true, animated: false)
 		NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.oauthUser(_:)), name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
 		NotificationCenter.default.addObserver(self,
@@ -200,7 +195,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(true)
+		super.viewWillDisappear(animated)
 		self.navigationController!.setNavigationBarHidden(false, animated: false)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanAccessInternet"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
@@ -213,6 +208,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	}
 
 	// MARK: StatusBar Notificaiton
+
 	func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
 		if error == nil {
 			JDStatusBarNotification.show(withStatus: NSLocalizedString("Image saved", comment: ""), dismissAfter: 1.5)
@@ -233,6 +229,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	}
 
 	// MARK: swipe back
+
 	func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .recognized) {
 			self.navigationController!.popViewController(animated: true)
@@ -240,6 +237,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	}
 
 	// MARK: oauth
+
 	func openSafari(_ sender: AnyObject?) {
 		if sender?.tag == 1111 {
 			safariVC = SFSafariViewController(url: URL(string: self.profileUrl)!)
@@ -261,17 +259,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		}
 	}
 
-	// MARK: help function
-	func loadImage() {
-        SDWebImageManager.shared().loadImage(with: URL(string: self.regular), options: [SDWebImageOptions.avoidAutoSetImage,], progress: nil) { (image, data, error, _, _, _) in
-            if image != nil {
-                self.image = image
-                self.imagePanViewController.configure(with: self.image!)
-            }
-        }
-	}
-
 	// MARK: notification function
+
 	func accessInternet(_ notification: Notification) {
 		isConnectedInternet = true
 		if (self.image == UIImage(named: "loading-black") || self.image == UIImage(named: "noNetwork")) {
@@ -307,6 +296,16 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	}
 
 	// MARK: help function
+
+    func loadImage() {
+        SDWebImageManager.shared().loadImage(with: URL(string: self.regular), options: [SDWebImageOptions.avoidAutoSetImage,], progress: nil) { (image, data, error, _, _, _) in
+            if image != nil {
+                self.image = image
+                self.imagePanViewController.configure(with: self.image!)
+            }
+        }
+    }
+
 	func noNetwork() {
 		PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Cannot connect to Internet", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
 		PKHUD.sharedHUD.show()

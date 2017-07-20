@@ -45,6 +45,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		searchController.searchBar.searchBarStyle = .minimal
 		searchController.hidesNavigationBarDuringPresentation = false
 		searchController.searchBar.tintColor = UIColor.black
+        searchController.searchBar.backgroundColor = UIColor.white
 
 		// configure refreshController
 		self.refreshControl!.addTarget(self, action: #selector(SearchTableViewController.refreshSearchData), for: .valueChanged)
@@ -61,23 +62,17 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-
 		if let navigationController = self.navigationController as? ScrollingNavigationController {
 			navigationController.followScrollView(self.tableView, delay: 50.0)
 		}
 	}
 
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
+        super.viewDidAppear(animated)
         if (self.tableView.contentOffset.y < 0 && self.tableView.isEmptyDataSetVisible) {
             self.tableView.contentOffset = CGPoint(x: 0, y: -64)
         }
     }
-
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		// Get the new view controller using segue.destinationViewController.
@@ -91,6 +86,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 
 	// MARK: swipe back
+
 	func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .recognized) {
 			searchController.resignFirstResponder()
@@ -99,6 +95,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 
 	// MARK: UISearchController
+
 	func updateSearchResults(for searchController: UISearchController) {
 	}
 
@@ -107,6 +104,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 
 	// MARK: scrollingNavBar
+
 	override func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
 		if let navigationController = self.navigationController as? ScrollingNavigationController {
 			navigationController.showNavbar(animated: true)
@@ -115,6 +113,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 
 	// MARK: refresh function
+
 	func getSearchResults() {
 		BaseNetworkRequest.getSearchResults(self)
 	}
@@ -129,6 +128,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 
 	// MARK: DZEmptyDataSet
+
 	override func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage {
 		if !isConnectedInternet {
 			return UIImage(named: "wifi")!
@@ -164,6 +164,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 
 	// MARK: network notificaiton
+
 	override func accessInternet(_ notification: Notification) {
 		isConnectedInternet = true
 		if (self.photosArray.count == 0) {
@@ -178,6 +179,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	}
 
 	// MARK: help function
+
 	func searchItem() {
 		let whiteSpace = CharacterSet.whitespacesAndNewlines
 		let searchTerm = searchController.searchBar.text?.trimmingCharacters(in: whiteSpace)

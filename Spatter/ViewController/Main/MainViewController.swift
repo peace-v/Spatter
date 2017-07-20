@@ -16,7 +16,16 @@ import SDWebImage
 
 let APPVERSION:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
-class MainViewController: BaseTableViewController, SFSafariViewControllerDelegate, MFMailComposeViewControllerDelegate {
+class MainViewController: BaseTableViewController, SFSafariViewControllerDelegate, MFMailComposeViewControllerDelegate, ScrollingNavigationControllerDelegate {
+
+    override var prefersStatusBarHidden: Bool {
+        return isNavHidden
+    }
+    var isNavHidden = false {
+        didSet {
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+    }
 	
 	var menuItemsAlreadyLogin: [RWDropdownMenuItem] = []
 	var menuItemsWithoutLogin: [RWDropdownMenuItem] = []
@@ -33,7 +42,6 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
         // configure refreshControl
         self.refreshControl!.addTarget(self, action: #selector(MainViewController.refreshData), for: .valueChanged)
         footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(MainViewController.getCollections))
@@ -90,10 +98,11 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(true)
+		super.viewWillAppear(animated)
 		
 		if let navigationController = self.navigationController as? ScrollingNavigationController {
 			navigationController.followScrollView(self.tableView, delay: 50.0)
+            navigationController.scrollingNavbarDelegate = self
 		}
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.oauthUser(_:)), name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
@@ -107,22 +116,18 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(true)
+		super.viewWillDisappear(animated)
 		if let navigationController = self.navigationController as? ScrollingNavigationController {
 			navigationController.stopFollowingScrollView()
 		}
 	}
 	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-	
 	deinit {
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
 	}
-	
+
 	// MARK: tableView delegate
+
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		// Get the new view controller using segue.destinationViewController.
 		// Pass the selected object to the new view controller.
@@ -133,8 +138,22 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			detailViewController.configureData(self.photosArray,withIndex: (indexPath?.row)!)
 		}
 	}
+
+    // MARK: - ScrollingNavigationControllerDelegate
+
+    func scrollingNavigationController(_ controller: ScrollingNavigationController, didChangeState state: NavigationBarState) {
+        switch state {
+        case .collapsed:
+            isNavHidden = true
+        case .expanded:
+            isNavHidden = false
+        case .scrolling:
+            break
+        }
+    }
 	
     // MARK: safari
+
 	func openSafari() {
 		safariVC = SFSafariViewController(url: URL(string: "https://unsplash.com/oauth/authorize?client_id=\(clientID!)&redirect_uri=spatter://com.yuying.spatter&response_type=code&scope=public+read_user+write_user+read_photos+write_photos+write_likes")!)
 		safariVC!.delegate = self
@@ -153,6 +172,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	}
 	
 	// MARK: MFMailComposeViewControllerDelegate
+
 	func sendFeedback(_ subject: String, recipients: [String], appVersion: String) {
 		if (MFMailComposeViewController.canSendMail()) {
 			let picker = MFMailComposeViewController()
@@ -177,6 +197,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	}
 	
 	// MARK: scrollingNavBar
+
 	override func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
 		if let navigationController = self.navigationController as? ScrollingNavigationController {
 			navigationController.showNavbar(animated: true)
@@ -184,7 +205,8 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		return true
 	}
     
-    // MARK: refresh methods    
+    // MARK: refresh methods
+
     func getCollections() {
         BaseNetworkRequest.getCollections(self)
     }
@@ -199,12 +221,14 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
     }
     
     // MARK: DZEmptyDataSet
+
     override func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat {
         let top = scrollView.contentInset.top
         return top - 44
     }
     
     // MARK: help function
+
     class func logout() {
         UserDefaults.standard.set(false, forKey: "isLogin")
         UserDefaults.standard.synchronize()
@@ -219,6 +243,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
     
     
     // MARK: network notificaiton
+    
     override func accessInternet(_ notification: Notification) {
         isConnectedInternet = true
         self.tableView.reloadData()

@@ -20,7 +20,7 @@ class BaseNetworkRequest: NSObject {
 	// MARK: get collection photos
 	class func getCollections(_ tableViewController: BaseTableViewController) {
 		if (tableViewController.page <= tableViewController.totalPages || tableViewController.page == 1) {
-			Alamofire.request("https://api.unsplash.com/curated_batches/get", parameters: [
+			Alamofire.request("https://api.unsplash.com/curated_batches", parameters: [
 					"client_id": clientID!,
 					"page": tableViewController.page,
 					"per_page": tableViewController.perItem
@@ -43,7 +43,7 @@ class BaseNetworkRequest: NSObject {
 						if let value = response.result.value {
 							let json = JSON(value)
 							for (_, subJson): (String, JSON) in json {
-								let collectionID = subJson["id"].intValue
+                                let collectionID:Int = subJson["id"].intValue
 								if (!tableViewController.collcectionsArray.contains(collectionID)) {
 									tableViewController.collcectionsArray.append(collectionID)
 									BaseNetworkRequest.getPhotos(tableViewController, id: collectionID)
@@ -51,7 +51,6 @@ class BaseNetworkRequest: NSObject {
 							}
 						}
 					case .failure(let error):
-//						print("error is \(error)")
                         tableViewController.refreshControl?.endRefreshing()
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
@@ -79,7 +78,7 @@ class BaseNetworkRequest: NSObject {
 	}
 	
 	class func getPhotos(_ tableViewController: BaseTableViewController, id: Int) {
-		Alamofire.request("https://api.unsplash.com/curated_batches/\(id)/photos/get", parameters: [
+		Alamofire.request("https://api.unsplash.com/curated_batches/\(id)/photos", parameters: [
 				"client_id": clientID!
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
@@ -105,7 +104,6 @@ class BaseNetworkRequest: NSObject {
 						tableViewController.tableView.reloadData()
 					}
 				case .failure(let error):
-//					print("error is \(error)")
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
@@ -134,7 +132,7 @@ class BaseNetworkRequest: NSObject {
 			let code = urlArray[1]
 			UserDefaults.standard.set(true, forKey: "isLogin")
 			UserDefaults.standard.synchronize()
-            Alamofire.request("https://unsplash.com/oauth/token/post", method: .post,  parameters: [
+            Alamofire.request("https://unsplash.com/oauth/token", method: .post,  parameters: [
 					"client_id": clientID!,
 					"client_secret": clientSecret!,
 					"redirect_uri": "spatter://com.yuying.spatter",
@@ -159,7 +157,6 @@ class BaseNetworkRequest: NSObject {
 							BaseNetworkRequest.loadProfile()
 						}
 					case .failure(let error):
-//						print("error is \(error)")
 						if let statusCode = response.response?.statusCode {
 							if statusCode == 403 {
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
@@ -182,7 +179,7 @@ class BaseNetworkRequest: NSObject {
 	
 	// MARK: refresh access token
 	class func refreshAccessToken(_ viewController: UIViewController) {
-        Alamofire.request("https://unsplash.com/oauth/token/post", method:.post, parameters: [
+        Alamofire.request("https://unsplash.com/oauth/token", method:.post, parameters: [
 				"client_id": clientID!,
 				"client_secret": clientSecret!,
 				"refresh_token": keychain["refresh_token"]!,
@@ -209,7 +206,6 @@ class BaseNetworkRequest: NSObject {
 						BaseNetworkRequest.loadProfile()
 					}
 				case .failure(let error):
-//					print("error is \(error)")
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
@@ -242,7 +238,7 @@ class BaseNetworkRequest: NSObject {
 	class func getLikedPhoto(_ tableViewController: LikedTableViewController? = nil) {
         tableViewController?.noData = false
 		if (likedPhotoIDArray.count < likedTotalItems || likedPhotoIDArray.count == 0) {
-			Alamofire.request("https://api.unsplash.com/users/\(username)/likes/get", parameters: [
+			Alamofire.request("https://api.unsplash.com/users/\(username)/likes", parameters: [
 					"client_id": clientID!,
 					"page": likedPage,
 					"per_page": likedPerItem
@@ -336,7 +332,7 @@ class BaseNetworkRequest: NSObject {
 	// MARK: get post photos
 	class func getPostPhoto(_ tableViewController: PostTableViewController) {
         tableViewController.noData = false
-		Alamofire.request("https://api.unsplash.com/users/\(username)/photos/get", parameters: [
+		Alamofire.request("https://api.unsplash.com/users/\(username)/photos", parameters: [
 				"client_id": clientID!
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
@@ -400,7 +396,7 @@ class BaseNetworkRequest: NSObject {
 	
 	// MARK: like or unlike a photo
 	class func unlikePhoto(_ tableViewController: DetailViewController, id: String) {
-        Alamofire.request("https://api.unsplash.com/photos/\(id)/like/delete", method: .delete, parameters: [
+        Alamofire.request("https://api.unsplash.com/photos/\(id)/like", method: .delete, parameters: [
             "client_id": clientID!
             ], headers: [
 				"Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
@@ -436,7 +432,7 @@ class BaseNetworkRequest: NSObject {
 	}
 	
 	class func likePhoto(_ viewController: DetailViewController, id: String) {
-        Alamofire.request("https://api.unsplash.com/photos/\(id)/like/post", method: .post, parameters: [
+        Alamofire.request("https://api.unsplash.com/photos/\(id)/like", method: .post, parameters: [
             "client_id": clientID!
             ], headers: [
 				"Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
@@ -476,7 +472,7 @@ class BaseNetworkRequest: NSObject {
         tableViewController.isSearching = false
         tableViewController.noData = false
 		if (tableViewController.page <= tableViewController.searchTotalPages || tableViewController.page == 1) {
-			Alamofire.request("https://api.unsplash.com/photos/search/get", parameters: [
+			Alamofire.request("https://api.unsplash.com/photos/search/", parameters: [
 					"client_id": clientID!,
 					"query": tableViewController.query,
 					"category": "",
@@ -551,7 +547,7 @@ class BaseNetworkRequest: NSObject {
 	
 	// MARK: load user profile
 	class func loadProfile(_ viewController: ProfileViewController? = nil) {
-        Alamofire.request("https://api.unsplash.com/me/get", parameters: [
+        Alamofire.request("https://api.unsplash.com/me", parameters: [
             "client_id": clientID!
             ], headers: [
 				"Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in

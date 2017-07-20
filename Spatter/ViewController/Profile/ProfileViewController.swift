@@ -27,8 +27,7 @@ class ProfileViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
-		// Do any additional setup after loading the view.
+
         if (keychain["access_token"] != nil) {
 		BaseNetworkRequest.loadProfile(self)
         }
@@ -115,13 +114,8 @@ class ProfileViewController: UIViewController {
 		view.addGestureRecognizer(edgePan)
 	}
 	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-	
 	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(true)
+		super.viewWillAppear(animated)
 		NotificationCenter.default.addObserver(self,
 			selector: #selector(ProfileViewController.accessInternet(_:)),
 			name: NSNotification.Name(rawValue: "CanAccessInternet"),
@@ -133,12 +127,13 @@ class ProfileViewController: UIViewController {
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(true)
+		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanAccessInternet"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
 	}
 	
     // MARK: swipe back
+
 	func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .recognized) {
 			self.navigationController!.dismiss(animated: true, completion: nil)
@@ -146,6 +141,7 @@ class ProfileViewController: UIViewController {
 	}
 	
 	// MARK: notification function
+    
 	func accessInternet(_ notification: Notification) {
 		isConnectedInternet = true
 		BaseNetworkRequest.loadProfile(self)

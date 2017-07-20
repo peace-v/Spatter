@@ -49,12 +49,11 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
 		SDImageCache.shared().clearMemory()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(true)
+		super.viewWillAppear(animated)
 		NotificationCenter.default.addObserver(self,
 			selector: #selector(BaseTableViewController.accessInternet(_:)),
 			name: NSNotification.Name(rawValue: "CanAccessInternet"),
@@ -78,7 +77,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(true)
+		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanAccessInternet"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
@@ -87,6 +86,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	}
 
 	// MARK: - Table view data source
+
 	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
@@ -100,8 +100,6 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-
-		// Configure the cell...
 		cell.backgroundColor = UIColor.white
 		let imageView = cell.contentView.subviews[0] as! UIImageView
 		imageView.contentMode = .scaleAspectFill
@@ -137,6 +135,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	}
 
 	// MARK: DZEmptyDataSet Data Source
+
 	func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage {
 		if !isConnectedInternet {
 			return UIImage(named: "wifi")!
@@ -208,6 +207,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	}
 
 	// MARK: DZEmptyDataSet Delegate
+
 	func emptyDataSetShouldDisplay(_ scrollView: UIScrollView) -> Bool {
 		return true
 	}
@@ -228,6 +228,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	}
 
 	// MARK: notification function
+    
 	func accessInternet(_ notification: Notification) {
 		isConnectedInternet = true
 		self.tableView.reloadData()

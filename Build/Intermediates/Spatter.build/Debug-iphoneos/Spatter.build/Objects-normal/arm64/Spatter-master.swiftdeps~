@@ -1,11 +1,11 @@
 version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
 options: "f17fbe1350ebedd138206c7d7562e910"
-build_time: [553767584, 458097000]
+build_time: [553830594, 314158000]
 inputs:
-  "/Users/yuying/Desktop/demo/Spatter/Spatter/Support/BaseTableViewController.swift": [553767584, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Spatter/Base/BaseTableViewController.swift": [553772204, 0]
   "/Users/yuying/Desktop/demo/Spatter/Spatter/AppDelegate.swift": [553677971, 0]
-  "/Users/yuying/Desktop/demo/Spatter/Spatter/Support/BaseNetworkRequest.swift": [553683932, 0]
   "/Users/yuying/Desktop/demo/Spatter/Spatter/ViewController/Main/MainViewController.swift": [553767347, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Spatter/Base/BaseNetworkRequest.swift": [553773728, 0]
   "/Users/yuying/Desktop/demo/Spatter/Spatter/ViewController/Main/AboutViewController.swift": [553677971, 0]
   "/Users/yuying/Desktop/demo/Spatter/Spatter/ViewController/Profile/PostTableViewController.swift": [553677971, 0]
   "/Users/yuying/Desktop/demo/Spatter/Spatter/ViewController/Profile/ProfileViewController.swift": [553766124, 0]
