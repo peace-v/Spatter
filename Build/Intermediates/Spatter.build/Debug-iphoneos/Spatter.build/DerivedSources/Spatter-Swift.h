@@ -138,6 +138,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import CoreGraphics;
 @import SafariServices;
 @import MessageUI;
+@import AMScrollingNavbar;
 #endif
 
 #import "/Users/yuying/Desktop/demo/Spatter/Spatter/Spatter-Bridging-Header.h"
@@ -177,30 +178,29 @@ SWIFT_CLASS("_TtC7Spatter11AppDelegate")
 @end
 
 @class BaseTableViewController;
+@class SearchTableViewController;
+@class DetailViewController;
+@class ProfileViewController;
 @class LikedTableViewController;
 @class PostTableViewController;
-@class DetailViewController;
-@class SearchTableViewController;
-@class ProfileViewController;
 
 SWIFT_CLASS("_TtC7Spatter18BaseNetworkRequest")
 @interface BaseNetworkRequest : NSObject
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class) NSInteger likedPerItem;)
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSInteger likedPerItem;)
 + (NSInteger)likedPerItem SWIFT_WARN_UNUSED_RESULT;
-+ (void)setLikedPerItem:(NSInteger)value;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class) NSInteger likedPage;)
 + (NSInteger)likedPage SWIFT_WARN_UNUSED_RESULT;
 + (void)setLikedPage:(NSInteger)value;
-+ (void)getCollections:(BaseTableViewController * _Nonnull)tableViewController;
-+ (void)getPhotos:(BaseTableViewController * _Nonnull)tableViewController id:(NSInteger)id;
 + (void)oauth:(NSNotification * _Nonnull)notification vc:(UIViewController * _Nonnull)vc;
 + (void)refreshAccessToken:(UIViewController * _Nonnull)viewController;
++ (void)getCollections:(BaseTableViewController * _Nonnull)tableViewController;
++ (void)getPhotos:(BaseTableViewController * _Nonnull)tableViewController id:(NSInteger)id;
++ (void)getSearchResults:(SearchTableViewController * _Nonnull)tableViewController;
++ (void)likePhoto:(DetailViewController * _Nonnull)viewController id:(NSString * _Nonnull)id;
++ (void)unlikePhoto:(DetailViewController * _Nonnull)tableViewController id:(NSString * _Nonnull)id;
++ (void)loadProfile:(ProfileViewController * _Nullable)viewController;
 + (void)getLikedPhoto:(LikedTableViewController * _Nullable)tableViewController;
 + (void)getPostPhoto:(PostTableViewController * _Nonnull)tableViewController;
-+ (void)unlikePhoto:(DetailViewController * _Nonnull)tableViewController id:(NSString * _Nonnull)id;
-+ (void)likePhoto:(DetailViewController * _Nonnull)viewController id:(NSString * _Nonnull)id;
-+ (void)getSearchResults:(SearchTableViewController * _Nonnull)tableViewController;
-+ (void)loadProfile:(ProfileViewController * _Nullable)viewController;
 + (void)reachLimitNotification:(BaseTableViewController * _Nonnull)vc;
 + (void)noNetworkNotification:(BaseTableViewController * _Nonnull)vc;
 + (void)somethingWrongNotification:(BaseTableViewController * _Nonnull)vc;
@@ -293,7 +293,6 @@ SWIFT_CLASS("_TtC7Spatter20DetailViewController")
 - (IBAction)showPhotoInfo:(id _Nonnull)sender;
 - (void)configureData:(NSArray<NSDictionary<NSString *, NSString *> *> * _Nonnull)data withIndex:(NSInteger)index;
 - (void)viewDidLoad;
-- (void)didReceiveMemoryWarning;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
 - (void)image:(UIImage * _Nonnull)image didFinishSavingWithError:(NSError * _Nullable)error contextInfo:(void const * _Nonnull)contextInfo;
@@ -301,11 +300,11 @@ SWIFT_CLASS("_TtC7Spatter20DetailViewController")
 - (void)openSafari:(id _Nullable)sender;
 - (void)safariViewControllerDidFinish:(SFSafariViewController * _Nonnull)controller;
 - (void)oauthUser:(NSNotification * _Nonnull)notification;
-- (void)loadImage;
 - (void)accessInternet:(NSNotification * _Nonnull)notification;
 - (void)cannotAccessInternet:(NSNotification * _Nonnull)notification;
 - (void)exceedLimit:(NSNotification * _Nonnull)notification;
 - (void)somethingWentWrong:(NSNotification * _Nonnull)notification;
+- (void)loadImage;
 - (void)noNetwork;
 - (void)addInfoBtnPopTipView;
 - (void)removeInfoBtnPopTipView;
@@ -332,10 +331,13 @@ SWIFT_CLASS("_TtC7Spatter24LikedTableViewController")
 @end
 
 @class RWDropdownMenuItem;
+@class ScrollingNavigationController;
 @class MFMailComposeViewController;
 
 SWIFT_CLASS("_TtC7Spatter18MainViewController")
-@interface MainViewController : BaseTableViewController <MFMailComposeViewControllerDelegate, SFSafariViewControllerDelegate>
+@interface MainViewController : BaseTableViewController <MFMailComposeViewControllerDelegate, ScrollingNavigationControllerDelegate, SFSafariViewControllerDelegate>
+@property (nonatomic, readonly) BOOL prefersStatusBarHidden;
+@property (nonatomic) BOOL isNavHidden;
 @property (nonatomic, copy) NSArray<RWDropdownMenuItem *> * _Nonnull menuItemsAlreadyLogin;
 @property (nonatomic, copy) NSArray<RWDropdownMenuItem *> * _Nonnull menuItemsWithoutLogin;
 @property (nonatomic, strong) SFSafariViewController * _Nullable safariVC;
@@ -344,8 +346,8 @@ SWIFT_CLASS("_TtC7Spatter18MainViewController")
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
-- (void)didReceiveMemoryWarning;
 - (void)prepareForSegue:(UIStoryboardSegue * _Nonnull)segue sender:(id _Nullable)sender;
+- (void)scrollingNavigationController:(ScrollingNavigationController * _Nonnull)controller didChangeState:(enum NavigationBarState)state;
 - (void)openSafari;
 - (void)safariViewControllerDidFinish:(SFSafariViewController * _Nonnull)controller;
 - (void)oauthUser:(NSNotification * _Nonnull)notification;
@@ -389,7 +391,6 @@ SWIFT_CLASS("_TtC7Spatter21ProfileViewController")
 @property (nonatomic, weak) IBOutlet UIBarButtonItem * _Null_unspecified backBtn;
 - (IBAction)back:(id _Nonnull)sender;
 - (void)viewDidLoad;
-- (void)didReceiveMemoryWarning;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
 - (void)screenEdgeSwiped:(UIScreenEdgePanGestureRecognizer * _Nonnull)recognizer;
@@ -415,7 +416,6 @@ SWIFT_CLASS("_TtC7Spatter25SearchTableViewController")
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewDidAppear:(BOOL)animated;
-- (void)didReceiveMemoryWarning;
 - (void)prepareForSegue:(UIStoryboardSegue * _Nonnull)segue sender:(id _Nullable)sender;
 - (void)screenEdgeSwiped:(UIScreenEdgePanGestureRecognizer * _Nonnull)recognizer;
 - (void)updateSearchResultsForSearchController:(UISearchController * _Nonnull)searchController;

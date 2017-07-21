@@ -11,7 +11,6 @@ provides-dynamic-lookup:
 - "back"
 - "backBtn"
 - "cannotAccessInternet"
-- "didReceiveMemoryWarning"
 - "screenEdgeSwiped"
 - "somethingWrong"
 - "userLabel"
@@ -89,7 +88,6 @@ depends-member:
 - !private ["Ps9AnyObject", "cornerRadius"]
 - !private ["Ps9AnyObject", "currentPage"]
 - !private ["Ps9AnyObject", "default"]
-- !private ["Ps9AnyObject", "didReceiveMemoryWarning"]
 - !private ["Ps9AnyObject", "dismiss"]
 - !private ["Ps9AnyObject", "edges"]
 - !private ["Ps9AnyObject", "init"]
@@ -159,7 +157,6 @@ depends-member:
 - !private ["Ps7CVarArg", "count"]
 - !private ["Ps7CVarArg", "currentPage"]
 - !private ["Ps7CVarArg", "default"]
-- !private ["Ps7CVarArg", "didReceiveMemoryWarning"]
 - !private ["Ps7CVarArg", "dismiss"]
 - !private ["Ps7CVarArg", "edges"]
 - !private ["Ps7CVarArg", "first"]
@@ -217,7 +214,6 @@ depends-member:
 - !private ["Ps28CustomDebugStringConvertible", "count"]
 - !private ["Ps28CustomDebugStringConvertible", "currentPage"]
 - !private ["Ps28CustomDebugStringConvertible", "default"]
-- !private ["Ps28CustomDebugStringConvertible", "didReceiveMemoryWarning"]
 - !private ["Ps28CustomDebugStringConvertible", "dismiss"]
 - !private ["Ps28CustomDebugStringConvertible", "edges"]
 - !private ["Ps28CustomDebugStringConvertible", "first"]
@@ -278,7 +274,6 @@ depends-member:
 - !private ["Ps23CustomStringConvertible", "count"]
 - !private ["Ps23CustomStringConvertible", "currentPage"]
 - !private ["Ps23CustomStringConvertible", "default"]
-- !private ["Ps23CustomStringConvertible", "didReceiveMemoryWarning"]
 - !private ["Ps23CustomStringConvertible", "dismiss"]
 - !private ["Ps23CustomStringConvertible", "edges"]
 - !private ["Ps23CustomStringConvertible", "first"]
@@ -333,7 +328,6 @@ depends-member:
 - !private ["Ps9Equatable", "cornerRadius"]
 - !private ["Ps9Equatable", "currentPage"]
 - !private ["Ps9Equatable", "default"]
-- !private ["Ps9Equatable", "didReceiveMemoryWarning"]
 - !private ["Ps9Equatable", "dismiss"]
 - !private ["Ps9Equatable", "edges"]
 - !private ["Ps9Equatable", "init"]
@@ -398,7 +392,6 @@ depends-member:
 - !private ["Ps8Hashable", "cornerRadius"]
 - !private ["Ps8Hashable", "currentPage"]
 - !private ["Ps8Hashable", "default"]
-- !private ["Ps8Hashable", "didReceiveMemoryWarning"]
 - !private ["Ps8Hashable", "dismiss"]
 - !private ["Ps8Hashable", "edges"]
 - !private ["Ps8Hashable", "init"]
@@ -494,7 +487,6 @@ depends-member:
 - !private ["PSo8NSCoding", "childViewControllers"]
 - !private ["PSo8NSCoding", "cornerRadius"]
 - !private ["PSo8NSCoding", "currentPage"]
-- !private ["PSo8NSCoding", "didReceiveMemoryWarning"]
 - !private ["PSo8NSCoding", "dismiss"]
 - !private ["PSo8NSCoding", "init"]
 - !private ["PSo8NSCoding", "isConnectedInternet"]
@@ -536,7 +528,6 @@ depends-member:
 - !private ["PSo26NSExtensionRequestHandling", "cannotAccessInternet"]
 - !private ["PSo26NSExtensionRequestHandling", "childViewControllers"]
 - !private ["PSo26NSExtensionRequestHandling", "currentPage"]
-- !private ["PSo26NSExtensionRequestHandling", "didReceiveMemoryWarning"]
 - !private ["PSo26NSExtensionRequestHandling", "dismiss"]
 - !private ["PSo26NSExtensionRequestHandling", "init"]
 - !private ["PSo26NSExtensionRequestHandling", "isConnectedInternet"]
@@ -600,7 +591,6 @@ depends-member:
 - !private ["CSo8NSObject", "cornerRadius"]
 - !private ["CSo8NSObject", "currentPage"]
 - !private ["CSo8NSObject", "default"]
-- ["CSo8NSObject", "didReceiveMemoryWarning"]
 - !private ["CSo8NSObject", "dismiss"]
 - !private ["CSo8NSObject", "edges"]
 - ["CSo8NSObject", "init"]
@@ -651,7 +641,6 @@ depends-member:
 - !private ["PSo16NSObjectProtocol", "cornerRadius"]
 - !private ["PSo16NSObjectProtocol", "currentPage"]
 - !private ["PSo16NSObjectProtocol", "default"]
-- !private ["PSo16NSObjectProtocol", "didReceiveMemoryWarning"]
 - !private ["PSo16NSObjectProtocol", "dismiss"]
 - !private ["PSo16NSObjectProtocol", "edges"]
 - !private ["PSo16NSObjectProtocol", "init"]
@@ -742,7 +731,6 @@ depends-member:
 - ["C7Spatter21ProfileViewController", "cannotAccessInternet"]
 - !private ["C7Spatter21ProfileViewController", "childViewControllers"]
 - ["C7Spatter21ProfileViewController", "deinit"]
-- ["C7Spatter21ProfileViewController", "didReceiveMemoryWarning"]
 - ["C7Spatter21ProfileViewController", "init"]
 - !private ["C7Spatter21ProfileViewController", "isConnectedInternet"]
 - !private ["C7Spatter21ProfileViewController", "keychain"]
@@ -799,7 +787,6 @@ depends-member:
 - !private ["PSo21UIAppearanceContainer", "cannotAccessInternet"]
 - !private ["PSo21UIAppearanceContainer", "childViewControllers"]
 - !private ["PSo21UIAppearanceContainer", "currentPage"]
-- !private ["PSo21UIAppearanceContainer", "didReceiveMemoryWarning"]
 - !private ["PSo21UIAppearanceContainer", "dismiss"]
 - !private ["PSo21UIAppearanceContainer", "init"]
 - !private ["PSo21UIAppearanceContainer", "isConnectedInternet"]
@@ -838,7 +825,6 @@ depends-member:
 - !private ["PSo18UIContentContainer", "cannotAccessInternet"]
 - !private ["PSo18UIContentContainer", "childViewControllers"]
 - !private ["PSo18UIContentContainer", "currentPage"]
-- !private ["PSo18UIContentContainer", "didReceiveMemoryWarning"]
 - !private ["PSo18UIContentContainer", "dismiss"]
 - !private ["PSo18UIContentContainer", "init"]
 - !private ["PSo18UIContentContainer", "isConnectedInternet"]
@@ -881,7 +867,6 @@ depends-member:
 - !private ["PSo18UIFocusEnvironment", "cannotAccessInternet"]
 - !private ["PSo18UIFocusEnvironment", "childViewControllers"]
 - !private ["PSo18UIFocusEnvironment", "currentPage"]
-- !private ["PSo18UIFocusEnvironment", "didReceiveMemoryWarning"]
 - !private ["PSo18UIFocusEnvironment", "dismiss"]
 - !private ["PSo18UIFocusEnvironment", "init"]
 - !private ["PSo18UIFocusEnvironment", "isConnectedInternet"]
@@ -953,7 +938,6 @@ depends-member:
 - ["CSo11UIResponder", "cannotAccessInternet"]
 - !private ["CSo11UIResponder", "childViewControllers"]
 - !private ["CSo11UIResponder", "currentPage"]
-- ["CSo11UIResponder", "didReceiveMemoryWarning"]
 - !private ["CSo11UIResponder", "dismiss"]
 - ["CSo11UIResponder", "init"]
 - !private ["CSo11UIResponder", "isConnectedInternet"]
@@ -993,7 +977,6 @@ depends-member:
 - !private ["PSo30UIResponderStandardEditActions", "cannotAccessInternet"]
 - !private ["PSo30UIResponderStandardEditActions", "childViewControllers"]
 - !private ["PSo30UIResponderStandardEditActions", "currentPage"]
-- !private ["PSo30UIResponderStandardEditActions", "didReceiveMemoryWarning"]
 - !private ["PSo30UIResponderStandardEditActions", "dismiss"]
 - !private ["PSo30UIResponderStandardEditActions", "init"]
 - !private ["PSo30UIResponderStandardEditActions", "isConnectedInternet"]
@@ -1040,7 +1023,6 @@ depends-member:
 - !private ["PSo16UIStateRestoring", "cannotAccessInternet"]
 - !private ["PSo16UIStateRestoring", "childViewControllers"]
 - !private ["PSo16UIStateRestoring", "currentPage"]
-- !private ["PSo16UIStateRestoring", "didReceiveMemoryWarning"]
 - !private ["PSo16UIStateRestoring", "dismiss"]
 - !private ["PSo16UIStateRestoring", "init"]
 - !private ["PSo16UIStateRestoring", "isConnectedInternet"]
@@ -1086,7 +1068,6 @@ depends-member:
 - !private ["PSo18UITraitEnvironment", "cannotAccessInternet"]
 - !private ["PSo18UITraitEnvironment", "childViewControllers"]
 - !private ["PSo18UITraitEnvironment", "currentPage"]
-- !private ["PSo18UITraitEnvironment", "didReceiveMemoryWarning"]
 - !private ["PSo18UITraitEnvironment", "dismiss"]
 - !private ["PSo18UITraitEnvironment", "init"]
 - !private ["PSo18UITraitEnvironment", "isConnectedInternet"]
@@ -1147,7 +1128,6 @@ depends-member:
 - ["CSo16UIViewController", "cannotAccessInternet"]
 - !private ["CSo16UIViewController", "childViewControllers"]
 - !private ["CSo16UIViewController", "currentPage"]
-- ["CSo16UIViewController", "didReceiveMemoryWarning"]
 - !private ["CSo16UIViewController", "dismiss"]
 - ["CSo16UIViewController", "init"]
 - !private ["CSo16UIViewController", "isConnectedInternet"]
@@ -1216,7 +1196,6 @@ depends-member:
 - !private ["Ps9_Hashable", "cornerRadius"]
 - !private ["Ps9_Hashable", "currentPage"]
 - !private ["Ps9_Hashable", "default"]
-- !private ["Ps9_Hashable", "didReceiveMemoryWarning"]
 - !private ["Ps9_Hashable", "dismiss"]
 - !private ["Ps9_Hashable", "edges"]
 - !private ["Ps9_Hashable", "init"]
@@ -1437,58 +1416,58 @@ depends-external:
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/MKAnnotationView+WebCache.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIImageView+HighlightedWebCache.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDImageCache.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/JDStatusBarNotification/JDStatusBarStyle.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/JDStatusBarNotification/JDStatusBarStyle.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/NSData+ImageContentType.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDImageCacheConfig.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/NSBundle+MJRefresh.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/UIScrollView+MJRefresh.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/MJRefresh.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/RWDropdownMenu/RWDropdownMenuCell.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/UIView+MJExtension.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/UIScrollView+MJExtension.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/JDStatusBarNotification/JDStatusBarNotification.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/NSBundle+MJRefresh.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/UIScrollView+MJRefresh.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/MJRefresh.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/RWDropdownMenu/RWDropdownMenuCell.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/UIView+MJExtension.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/UIScrollView+MJExtension.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/JDStatusBarNotification/JDStatusBarNotification.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageOperation.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIView+WebCacheOperation.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageDownloaderOperation.h"
 - "/Users/yuying/Desktop/demo/Spatter/Spatter/Spatter-Bridging-Header.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Header/MJRefreshStateHeader.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Header/MJRefreshGifHeader.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Base/MJRefreshHeader.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Header/MJRefreshNormalHeader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Header/MJRefreshStateHeader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Header/MJRefreshGifHeader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshHeader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Header/MJRefreshNormalHeader.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageDownloader.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageDecoder.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageManager.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImagePrefetcher.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PagingMenuController.framework/Headers/PagingMenuController.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/SubjectiveCPhotoPanner/SCImagePanViewController.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Footer/Back/MJRefreshBackStateFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Footer/Auto/MJRefreshAutoStateFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Footer/Back/MJRefreshBackGifFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Footer/Auto/MJRefreshAutoGifFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Base/MJRefreshFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Base/MJRefreshBackFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Footer/Back/MJRefreshBackNormalFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Footer/Auto/MJRefreshAutoNormalFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Base/MJRefreshAutoFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/SubjectiveCPhotoPanner/SCImagePanViewController.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Back/MJRefreshBackStateFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Auto/MJRefreshAutoStateFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Back/MJRefreshBackGifFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Auto/MJRefreshAutoGifFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshBackFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Back/MJRefreshBackNormalFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Auto/MJRefreshAutoNormalFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshAutoFooter.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/KeychainAccess.framework/Headers/KeychainAccess.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIImage+MultiFormat.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageCompat.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/DZNEmptyDataSet/UIScrollView+EmptyDataSet.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/DZNEmptyDataSet/DZNEmptyDataSet.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/DZNEmptyDataSet/UIScrollView+EmptyDataSet.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/DZNEmptyDataSet/DZNEmptyDataSet.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PKHUD.framework/Headers/PKHUD-Swift.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SwiftyJSON.framework/Headers/SwiftyJSON-Swift.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire-Swift.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/AMScrollingNavbar.framework/Headers/AMScrollingNavbar-Swift.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PagingMenuController.framework/Headers/PagingMenuController-Swift.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/KeychainAccess.framework/Headers/KeychainAccess-Swift.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Base/MJRefreshComponent.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/MJRefreshConst.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/RWDropdownMenu/RWDropdownMenu.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshComponent.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/MJRefreshConst.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/RWDropdownMenu/RWDropdownMenu.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/FLAnimatedImageView.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/CMPopTipView/CMPopTipView.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/JDStatusBarNotification/JDStatusBarView.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/TMReachability/TMReachability.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/CMPopTipView/CMPopTipView.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/JDStatusBarNotification/JDStatusBarView.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/TMReachability/TMReachability.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PKHUD.framework/Modules/module.modulemap"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SwiftyJSON.framework/Modules/module.modulemap"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Modules/module.modulemap"
@@ -1496,4 +1475,4 @@ depends-external:
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/AMScrollingNavbar.framework/Modules/module.modulemap"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PagingMenuController.framework/Modules/module.modulemap"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/KeychainAccess.framework/Modules/module.modulemap"
-interface-hash: "92ec984d31f0f7ea1626f9d77b4518e3"
+interface-hash: "5e5e6331c0bc4f9fc5e4b49d69ce1452"

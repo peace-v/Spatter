@@ -1,0 +1,791 @@
+### Swift dependencies file v0 ###
+provides-top-level:
+- "keychain"
+- "clientID"
+- "clientSecret"
+- "likedPhotosArray"
+- "likedPhotoIDArray"
+- "likedTotalItems"
+- "username"
+- "avatarURL"
+- "isConnectedInternet"
+- "reachLimit"
+- "AppDelegate"
+provides-nominal:
+- "C7Spatter11AppDelegate"
+provides-member:
+- ["C7Spatter11AppDelegate", ""]
+provides-dynamic-lookup:
+- "application"
+- "applicationDidBecomeActive"
+- "applicationDidEnterBackground"
+- "applicationWillEnterForeground"
+- "applicationWillResignActive"
+- "applicationWillTerminate"
+- "reach"
+- "reachabilityChanged"
+- "window"
+depends-top-level:
+- !private "!"
+- !private "!="
+- !private "=="
+- "AppDelegate"
+- "Array"
+- "AssignmentPrecedence"
+- !private "BaseNetworkRequest"
+- "Bool"
+- "BooleanLiteralType"
+- "Dictionary"
+- "Keychain"
+- "NSMutableArray"
+- !private "NSNotification"
+- "Notification"
+- !private "NotificationCenter"
+- "String"
+- "StringLiteralType"
+- "TMReachability"
+- "UIApplication"
+- "UIApplicationDelegate"
+- "UIApplicationLaunchOptionsKey"
+- "UIResponder"
+- "UIWindow"
+- "URL"
+- !private "UserDefaults"
+- "avatarURL"
+- "clientID"
+- "clientSecret"
+- "isConnectedInternet"
+- "keychain"
+- "likedPhotoIDArray"
+- "likedPhotosArray"
+- "likedTotalItems"
+- "reachLimit"
+- "username"
+- !private "||"
+depends-member:
+- !private ["Ps9AnyObject", "AppDelegate"]
+- !private ["Ps9AnyObject", "BaseNetworkRequest"]
+- !private ["Ps9AnyObject", "NSNotification"]
+- !private ["Ps9AnyObject", "Name"]
+- !private ["Ps9AnyObject", "Notification"]
+- !private ["Ps9AnyObject", "NotificationCenter"]
+- !private ["Ps9AnyObject", "TMReachability"]
+- !private ["Ps9AnyObject", "UserDefaults"]
+- !private ["Ps9AnyObject", "addObserver"]
+- ["Ps9AnyObject", "application"]
+- ["Ps9AnyObject", "applicationDidBecomeActive"]
+- ["Ps9AnyObject", "applicationDidEnterBackground"]
+- ["Ps9AnyObject", "applicationDidFinishLaunching"]
+- ["Ps9AnyObject", "applicationDidReceiveMemoryWarning"]
+- ["Ps9AnyObject", "applicationProtectedDataDidBecomeAvailable"]
+- ["Ps9AnyObject", "applicationProtectedDataWillBecomeUnavailable"]
+- ["Ps9AnyObject", "applicationShouldRequestHealthAuthorization"]
+- ["Ps9AnyObject", "applicationSignificantTimeChange"]
+- ["Ps9AnyObject", "applicationWillEnterForeground"]
+- ["Ps9AnyObject", "applicationWillResignActive"]
+- ["Ps9AnyObject", "applicationWillTerminate"]
+- !private ["Ps9AnyObject", "bool"]
+- !private ["Ps9AnyObject", "default"]
+- !private ["Ps9AnyObject", "forInternetConnection"]
+- ["Ps9AnyObject", "init"]
+- !private ["Ps9AnyObject", "isReachableViaWWAN"]
+- !private ["Ps9AnyObject", "isReachableViaWiFi"]
+- !private ["Ps9AnyObject", "keychain"]
+- !private ["Ps9AnyObject", "loadProfile"]
+- !private ["Ps9AnyObject", "post"]
+- !private ["Ps9AnyObject", "reach"]
+- !private ["Ps9AnyObject", "reachabilityChanged"]
+- !private ["Ps9AnyObject", "reachableOnWWAN"]
+- !private ["Ps9AnyObject", "set"]
+- !private ["Ps9AnyObject", "standard"]
+- !private ["Ps9AnyObject", "startNotifier"]
+- ["Ps9AnyObject", "subscript"]
+- !private ["Ps9AnyObject", "synchronize"]
+- ["Ps9AnyObject", "window"]
+- ["Ps9AnyObject", ""]
+- !private ["C7Spatter11AppDelegate", "AppDelegate"]
+- !private ["C7Spatter11AppDelegate", "BaseNetworkRequest"]
+- ["C7Spatter11AppDelegate", "Bool"]
+- !private ["C7Spatter11AppDelegate", "NSNotification"]
+- ["C7Spatter11AppDelegate", "Notification"]
+- !private ["C7Spatter11AppDelegate", "NotificationCenter"]
+- ["C7Spatter11AppDelegate", "String"]
+- ["C7Spatter11AppDelegate", "TMReachability"]
+- ["C7Spatter11AppDelegate", "UIApplication"]
+- ["C7Spatter11AppDelegate", "UIApplicationLaunchOptionsKey"]
+- ["C7Spatter11AppDelegate", "UIWindow"]
+- ["C7Spatter11AppDelegate", "URL"]
+- !private ["C7Spatter11AppDelegate", "UserDefaults"]
+- ["C7Spatter11AppDelegate", "application"]
+- ["C7Spatter11AppDelegate", "applicationDidBecomeActive"]
+- ["C7Spatter11AppDelegate", "applicationDidEnterBackground"]
+- ["C7Spatter11AppDelegate", "applicationDidFinishLaunching"]
+- ["C7Spatter11AppDelegate", "applicationDidReceiveMemoryWarning"]
+- ["C7Spatter11AppDelegate", "applicationProtectedDataDidBecomeAvailable"]
+- ["C7Spatter11AppDelegate", "applicationProtectedDataWillBecomeUnavailable"]
+- ["C7Spatter11AppDelegate", "applicationShouldRequestHealthAuthorization"]
+- ["C7Spatter11AppDelegate", "applicationSignificantTimeChange"]
+- ["C7Spatter11AppDelegate", "applicationWillEnterForeground"]
+- ["C7Spatter11AppDelegate", "applicationWillResignActive"]
+- ["C7Spatter11AppDelegate", "applicationWillTerminate"]
+- ["C7Spatter11AppDelegate", "deinit"]
+- ["C7Spatter11AppDelegate", "init"]
+- !private ["C7Spatter11AppDelegate", "keychain"]
+- ["C7Spatter11AppDelegate", "reach"]
+- ["C7Spatter11AppDelegate", "reachabilityChanged"]
+- ["C7Spatter11AppDelegate", "window"]
+- ["Sa", "init"]
+- !private ["C7Spatter18BaseNetworkRequest", "loadProfile"]
+- ["Ps23BidirectionalCollection", "init"]
+- !private ["Sb", "_getBuiltinLogicValue"]
+- !private ["Ps7CVarArg", "AppDelegate"]
+- !private ["Ps7CVarArg", "BaseNetworkRequest"]
+- !private ["Ps7CVarArg", "NSNotification"]
+- !private ["Ps7CVarArg", "Name"]
+- !private ["Ps7CVarArg", "Notification"]
+- !private ["Ps7CVarArg", "NotificationCenter"]
+- !private ["Ps7CVarArg", "TMReachability"]
+- !private ["Ps7CVarArg", "UserDefaults"]
+- !private ["Ps7CVarArg", "addObserver"]
+- ["Ps7CVarArg", "application"]
+- ["Ps7CVarArg", "applicationDidBecomeActive"]
+- ["Ps7CVarArg", "applicationDidEnterBackground"]
+- ["Ps7CVarArg", "applicationDidFinishLaunching"]
+- ["Ps7CVarArg", "applicationDidReceiveMemoryWarning"]
+- ["Ps7CVarArg", "applicationProtectedDataDidBecomeAvailable"]
+- ["Ps7CVarArg", "applicationProtectedDataWillBecomeUnavailable"]
+- ["Ps7CVarArg", "applicationShouldRequestHealthAuthorization"]
+- ["Ps7CVarArg", "applicationSignificantTimeChange"]
+- ["Ps7CVarArg", "applicationWillEnterForeground"]
+- ["Ps7CVarArg", "applicationWillResignActive"]
+- ["Ps7CVarArg", "applicationWillTerminate"]
+- !private ["Ps7CVarArg", "bool"]
+- !private ["Ps7CVarArg", "default"]
+- !private ["Ps7CVarArg", "forInternetConnection"]
+- ["Ps7CVarArg", "init"]
+- !private ["Ps7CVarArg", "isReachableViaWWAN"]
+- !private ["Ps7CVarArg", "isReachableViaWiFi"]
+- !private ["Ps7CVarArg", "keychain"]
+- !private ["Ps7CVarArg", "loadProfile"]
+- !private ["Ps7CVarArg", "post"]
+- !private ["Ps7CVarArg", "reach"]
+- !private ["Ps7CVarArg", "reachabilityChanged"]
+- !private ["Ps7CVarArg", "reachableOnWWAN"]
+- !private ["Ps7CVarArg", "set"]
+- !private ["Ps7CVarArg", "standard"]
+- !private ["Ps7CVarArg", "startNotifier"]
+- !private ["Ps7CVarArg", "synchronize"]
+- ["Ps7CVarArg", "window"]
+- ["Ps7CVarArg", ""]
+- ["Ps10Collection", "init"]
+- ["Ps10Comparable", "init"]
+- !private ["Ps10Comparable", "reachabilityChanged"]
+- !private ["Ps28CustomDebugStringConvertible", "AppDelegate"]
+- !private ["Ps28CustomDebugStringConvertible", "BaseNetworkRequest"]
+- !private ["Ps28CustomDebugStringConvertible", "NSNotification"]
+- !private ["Ps28CustomDebugStringConvertible", "Name"]
+- !private ["Ps28CustomDebugStringConvertible", "Notification"]
+- !private ["Ps28CustomDebugStringConvertible", "NotificationCenter"]
+- !private ["Ps28CustomDebugStringConvertible", "TMReachability"]
+- !private ["Ps28CustomDebugStringConvertible", "UserDefaults"]
+- !private ["Ps28CustomDebugStringConvertible", "addObserver"]
+- ["Ps28CustomDebugStringConvertible", "application"]
+- ["Ps28CustomDebugStringConvertible", "applicationDidBecomeActive"]
+- ["Ps28CustomDebugStringConvertible", "applicationDidEnterBackground"]
+- ["Ps28CustomDebugStringConvertible", "applicationDidFinishLaunching"]
+- ["Ps28CustomDebugStringConvertible", "applicationDidReceiveMemoryWarning"]
+- ["Ps28CustomDebugStringConvertible", "applicationProtectedDataDidBecomeAvailable"]
+- ["Ps28CustomDebugStringConvertible", "applicationProtectedDataWillBecomeUnavailable"]
+- ["Ps28CustomDebugStringConvertible", "applicationShouldRequestHealthAuthorization"]
+- ["Ps28CustomDebugStringConvertible", "applicationSignificantTimeChange"]
+- ["Ps28CustomDebugStringConvertible", "applicationWillEnterForeground"]
+- ["Ps28CustomDebugStringConvertible", "applicationWillResignActive"]
+- ["Ps28CustomDebugStringConvertible", "applicationWillTerminate"]
+- !private ["Ps28CustomDebugStringConvertible", "bool"]
+- !private ["Ps28CustomDebugStringConvertible", "default"]
+- !private ["Ps28CustomDebugStringConvertible", "forInternetConnection"]
+- ["Ps28CustomDebugStringConvertible", "init"]
+- !private ["Ps28CustomDebugStringConvertible", "isReachableViaWWAN"]
+- !private ["Ps28CustomDebugStringConvertible", "isReachableViaWiFi"]
+- !private ["Ps28CustomDebugStringConvertible", "keychain"]
+- !private ["Ps28CustomDebugStringConvertible", "loadProfile"]
+- !private ["Ps28CustomDebugStringConvertible", "post"]
+- !private ["Ps28CustomDebugStringConvertible", "reach"]
+- !private ["Ps28CustomDebugStringConvertible", "reachabilityChanged"]
+- !private ["Ps28CustomDebugStringConvertible", "reachableOnWWAN"]
+- !private ["Ps28CustomDebugStringConvertible", "set"]
+- !private ["Ps28CustomDebugStringConvertible", "standard"]
+- !private ["Ps28CustomDebugStringConvertible", "startNotifier"]
+- ["Ps28CustomDebugStringConvertible", "subscript"]
+- !private ["Ps28CustomDebugStringConvertible", "synchronize"]
+- ["Ps28CustomDebugStringConvertible", "window"]
+- ["Ps28CustomDebugStringConvertible", ""]
+- !private ["Ps29CustomPlaygroundQuickLookable", "_getBuiltinLogicValue"]
+- ["Ps29CustomPlaygroundQuickLookable", "init"]
+- !private ["Ps17CustomReflectable", "Name"]
+- !private ["Ps17CustomReflectable", "_getBuiltinLogicValue"]
+- ["Ps17CustomReflectable", "init"]
+- !private ["Ps23CustomStringConvertible", "AppDelegate"]
+- !private ["Ps23CustomStringConvertible", "BaseNetworkRequest"]
+- !private ["Ps23CustomStringConvertible", "NSNotification"]
+- !private ["Ps23CustomStringConvertible", "Name"]
+- !private ["Ps23CustomStringConvertible", "Notification"]
+- !private ["Ps23CustomStringConvertible", "NotificationCenter"]
+- !private ["Ps23CustomStringConvertible", "TMReachability"]
+- !private ["Ps23CustomStringConvertible", "UserDefaults"]
+- !private ["Ps23CustomStringConvertible", "_getBuiltinLogicValue"]
+- !private ["Ps23CustomStringConvertible", "addObserver"]
+- ["Ps23CustomStringConvertible", "application"]
+- ["Ps23CustomStringConvertible", "applicationDidBecomeActive"]
+- ["Ps23CustomStringConvertible", "applicationDidEnterBackground"]
+- ["Ps23CustomStringConvertible", "applicationDidFinishLaunching"]
+- ["Ps23CustomStringConvertible", "applicationDidReceiveMemoryWarning"]
+- ["Ps23CustomStringConvertible", "applicationProtectedDataDidBecomeAvailable"]
+- ["Ps23CustomStringConvertible", "applicationProtectedDataWillBecomeUnavailable"]
+- ["Ps23CustomStringConvertible", "applicationShouldRequestHealthAuthorization"]
+- ["Ps23CustomStringConvertible", "applicationSignificantTimeChange"]
+- ["Ps23CustomStringConvertible", "applicationWillEnterForeground"]
+- ["Ps23CustomStringConvertible", "applicationWillResignActive"]
+- ["Ps23CustomStringConvertible", "applicationWillTerminate"]
+- !private ["Ps23CustomStringConvertible", "bool"]
+- !private ["Ps23CustomStringConvertible", "default"]
+- !private ["Ps23CustomStringConvertible", "forInternetConnection"]
+- ["Ps23CustomStringConvertible", "init"]
+- !private ["Ps23CustomStringConvertible", "isReachableViaWWAN"]
+- !private ["Ps23CustomStringConvertible", "isReachableViaWiFi"]
+- !private ["Ps23CustomStringConvertible", "keychain"]
+- !private ["Ps23CustomStringConvertible", "loadProfile"]
+- !private ["Ps23CustomStringConvertible", "post"]
+- !private ["Ps23CustomStringConvertible", "reach"]
+- !private ["Ps23CustomStringConvertible", "reachabilityChanged"]
+- !private ["Ps23CustomStringConvertible", "reachableOnWWAN"]
+- !private ["Ps23CustomStringConvertible", "set"]
+- !private ["Ps23CustomStringConvertible", "standard"]
+- !private ["Ps23CustomStringConvertible", "startNotifier"]
+- ["Ps23CustomStringConvertible", "subscript"]
+- !private ["Ps23CustomStringConvertible", "synchronize"]
+- ["Ps23CustomStringConvertible", "window"]
+- ["Ps23CustomStringConvertible", ""]
+- !private ["Ps9Equatable", "AppDelegate"]
+- !private ["Ps9Equatable", "BaseNetworkRequest"]
+- !private ["Ps9Equatable", "NSNotification"]
+- !private ["Ps9Equatable", "Name"]
+- !private ["Ps9Equatable", "Notification"]
+- !private ["Ps9Equatable", "NotificationCenter"]
+- !private ["Ps9Equatable", "TMReachability"]
+- !private ["Ps9Equatable", "UserDefaults"]
+- !private ["Ps9Equatable", "_getBuiltinLogicValue"]
+- !private ["Ps9Equatable", "addObserver"]
+- ["Ps9Equatable", "application"]
+- ["Ps9Equatable", "applicationDidBecomeActive"]
+- ["Ps9Equatable", "applicationDidEnterBackground"]
+- ["Ps9Equatable", "applicationDidFinishLaunching"]
+- ["Ps9Equatable", "applicationDidReceiveMemoryWarning"]
+- ["Ps9Equatable", "applicationProtectedDataDidBecomeAvailable"]
+- ["Ps9Equatable", "applicationProtectedDataWillBecomeUnavailable"]
+- ["Ps9Equatable", "applicationShouldRequestHealthAuthorization"]
+- ["Ps9Equatable", "applicationSignificantTimeChange"]
+- ["Ps9Equatable", "applicationWillEnterForeground"]
+- ["Ps9Equatable", "applicationWillResignActive"]
+- ["Ps9Equatable", "applicationWillTerminate"]
+- !private ["Ps9Equatable", "bool"]
+- !private ["Ps9Equatable", "default"]
+- !private ["Ps9Equatable", "forInternetConnection"]
+- ["Ps9Equatable", "init"]
+- !private ["Ps9Equatable", "isReachableViaWWAN"]
+- !private ["Ps9Equatable", "isReachableViaWiFi"]
+- !private ["Ps9Equatable", "keychain"]
+- !private ["Ps9Equatable", "loadProfile"]
+- !private ["Ps9Equatable", "post"]
+- !private ["Ps9Equatable", "reach"]
+- !private ["Ps9Equatable", "reachabilityChanged"]
+- !private ["Ps9Equatable", "reachableOnWWAN"]
+- !private ["Ps9Equatable", "set"]
+- !private ["Ps9Equatable", "standard"]
+- !private ["Ps9Equatable", "startNotifier"]
+- !private ["Ps9Equatable", "synchronize"]
+- ["Ps9Equatable", "window"]
+- ["Ps9Equatable", ""]
+- ["Ps25ExpressibleByArrayLiteral", "init"]
+- !private ["Ps27ExpressibleByBooleanLiteral", "_getBuiltinLogicValue"]
+- ["Ps43ExpressibleByExtendedGraphemeClusterLiteral", "init"]
+- ["Ps26ExpressibleByStringLiteral", "init"]
+- ["Ps33ExpressibleByUnicodeScalarLiteral", "init"]
+- !private ["Ps8Hashable", "AppDelegate"]
+- !private ["Ps8Hashable", "BaseNetworkRequest"]
+- !private ["Ps8Hashable", "NSNotification"]
+- !private ["Ps8Hashable", "Name"]
+- !private ["Ps8Hashable", "Notification"]
+- !private ["Ps8Hashable", "NotificationCenter"]
+- !private ["Ps8Hashable", "TMReachability"]
+- !private ["Ps8Hashable", "UserDefaults"]
+- !private ["Ps8Hashable", "_getBuiltinLogicValue"]
+- !private ["Ps8Hashable", "addObserver"]
+- ["Ps8Hashable", "application"]
+- ["Ps8Hashable", "applicationDidBecomeActive"]
+- ["Ps8Hashable", "applicationDidEnterBackground"]
+- ["Ps8Hashable", "applicationDidFinishLaunching"]
+- ["Ps8Hashable", "applicationDidReceiveMemoryWarning"]
+- ["Ps8Hashable", "applicationProtectedDataDidBecomeAvailable"]
+- ["Ps8Hashable", "applicationProtectedDataWillBecomeUnavailable"]
+- ["Ps8Hashable", "applicationShouldRequestHealthAuthorization"]
+- ["Ps8Hashable", "applicationSignificantTimeChange"]
+- ["Ps8Hashable", "applicationWillEnterForeground"]
+- ["Ps8Hashable", "applicationWillResignActive"]
+- ["Ps8Hashable", "applicationWillTerminate"]
+- !private ["Ps8Hashable", "bool"]
+- !private ["Ps8Hashable", "default"]
+- !private ["Ps8Hashable", "forInternetConnection"]
+- ["Ps8Hashable", "init"]
+- !private ["Ps8Hashable", "isReachableViaWWAN"]
+- !private ["Ps8Hashable", "isReachableViaWiFi"]
+- !private ["Ps8Hashable", "keychain"]
+- !private ["Ps8Hashable", "loadProfile"]
+- !private ["Ps8Hashable", "post"]
+- !private ["Ps8Hashable", "reach"]
+- !private ["Ps8Hashable", "reachabilityChanged"]
+- !private ["Ps8Hashable", "reachableOnWWAN"]
+- !private ["Ps8Hashable", "set"]
+- !private ["Ps8Hashable", "standard"]
+- !private ["Ps8Hashable", "startNotifier"]
+- !private ["Ps8Hashable", "synchronize"]
+- ["Ps8Hashable", "window"]
+- ["Ps8Hashable", ""]
+- ["P10SwiftyJSON17JSONSubscriptType", "init"]
+- ["C14KeychainAccess8Keychain", "init"]
+- ["C14KeychainAccess8Keychain", "subscript"]
+- !private ["Ps25LosslessStringConvertible", "_getBuiltinLogicValue"]
+- ["Ps25LosslessStringConvertible", "init"]
+- ["Ps10MirrorPath", "init"]
+- ["Ps17MutableCollection", "init"]
+- !private ["PSo8NSCoding", "Name"]
+- ["PSo8NSCoding", "init"]
+- !private ["PSo9NSCopying", "Name"]
+- ["PSo9NSCopying", "init"]
+- ["PSo16NSMutableCopying", "init"]
+- !private ["CSo14NSNotification", "Name"]
+- !private ["CSo8NSObject", "AppDelegate"]
+- !private ["CSo8NSObject", "BaseNetworkRequest"]
+- ["CSo8NSObject", "Bool"]
+- !private ["CSo8NSObject", "NSNotification"]
+- !private ["CSo8NSObject", "Name"]
+- ["CSo8NSObject", "Notification"]
+- !private ["CSo8NSObject", "NotificationCenter"]
+- ["CSo8NSObject", "String"]
+- ["CSo8NSObject", "TMReachability"]
+- ["CSo8NSObject", "UIApplication"]
+- ["CSo8NSObject", "UIApplicationLaunchOptionsKey"]
+- ["CSo8NSObject", "UIWindow"]
+- ["CSo8NSObject", "URL"]
+- !private ["CSo8NSObject", "UserDefaults"]
+- !private ["CSo8NSObject", "addObserver"]
+- ["CSo8NSObject", "application"]
+- ["CSo8NSObject", "applicationDidBecomeActive"]
+- ["CSo8NSObject", "applicationDidEnterBackground"]
+- ["CSo8NSObject", "applicationDidFinishLaunching"]
+- ["CSo8NSObject", "applicationDidReceiveMemoryWarning"]
+- ["CSo8NSObject", "applicationProtectedDataDidBecomeAvailable"]
+- ["CSo8NSObject", "applicationProtectedDataWillBecomeUnavailable"]
+- ["CSo8NSObject", "applicationShouldRequestHealthAuthorization"]
+- ["CSo8NSObject", "applicationSignificantTimeChange"]
+- ["CSo8NSObject", "applicationWillEnterForeground"]
+- ["CSo8NSObject", "applicationWillResignActive"]
+- ["CSo8NSObject", "applicationWillTerminate"]
+- !private ["CSo8NSObject", "bool"]
+- !private ["CSo8NSObject", "default"]
+- !private ["CSo8NSObject", "forInternetConnection"]
+- ["CSo8NSObject", "init"]
+- !private ["CSo8NSObject", "isReachableViaWWAN"]
+- !private ["CSo8NSObject", "isReachableViaWiFi"]
+- !private ["CSo8NSObject", "keychain"]
+- !private ["CSo8NSObject", "loadProfile"]
+- !private ["CSo8NSObject", "post"]
+- ["CSo8NSObject", "reach"]
+- ["CSo8NSObject", "reachabilityChanged"]
+- !private ["CSo8NSObject", "reachableOnWWAN"]
+- !private ["CSo8NSObject", "set"]
+- !private ["CSo8NSObject", "standard"]
+- !private ["CSo8NSObject", "startNotifier"]
+- !private ["CSo8NSObject", "synchronize"]
+- ["CSo8NSObject", "window"]
+- !private ["PSo16NSObjectProtocol", "AppDelegate"]
+- !private ["PSo16NSObjectProtocol", "BaseNetworkRequest"]
+- !private ["PSo16NSObjectProtocol", "NSNotification"]
+- !private ["PSo16NSObjectProtocol", "Name"]
+- !private ["PSo16NSObjectProtocol", "Notification"]
+- !private ["PSo16NSObjectProtocol", "NotificationCenter"]
+- !private ["PSo16NSObjectProtocol", "TMReachability"]
+- !private ["PSo16NSObjectProtocol", "UserDefaults"]
+- !private ["PSo16NSObjectProtocol", "addObserver"]
+- ["PSo16NSObjectProtocol", "application"]
+- ["PSo16NSObjectProtocol", "applicationDidBecomeActive"]
+- ["PSo16NSObjectProtocol", "applicationDidEnterBackground"]
+- ["PSo16NSObjectProtocol", "applicationDidFinishLaunching"]
+- ["PSo16NSObjectProtocol", "applicationDidReceiveMemoryWarning"]
+- ["PSo16NSObjectProtocol", "applicationProtectedDataDidBecomeAvailable"]
+- ["PSo16NSObjectProtocol", "applicationProtectedDataWillBecomeUnavailable"]
+- ["PSo16NSObjectProtocol", "applicationShouldRequestHealthAuthorization"]
+- ["PSo16NSObjectProtocol", "applicationSignificantTimeChange"]
+- ["PSo16NSObjectProtocol", "applicationWillEnterForeground"]
+- ["PSo16NSObjectProtocol", "applicationWillResignActive"]
+- ["PSo16NSObjectProtocol", "applicationWillTerminate"]
+- !private ["PSo16NSObjectProtocol", "bool"]
+- !private ["PSo16NSObjectProtocol", "default"]
+- !private ["PSo16NSObjectProtocol", "forInternetConnection"]
+- ["PSo16NSObjectProtocol", "init"]
+- !private ["PSo16NSObjectProtocol", "isReachableViaWWAN"]
+- !private ["PSo16NSObjectProtocol", "isReachableViaWiFi"]
+- !private ["PSo16NSObjectProtocol", "keychain"]
+- !private ["PSo16NSObjectProtocol", "loadProfile"]
+- !private ["PSo16NSObjectProtocol", "post"]
+- !private ["PSo16NSObjectProtocol", "reach"]
+- !private ["PSo16NSObjectProtocol", "reachabilityChanged"]
+- !private ["PSo16NSObjectProtocol", "reachableOnWWAN"]
+- !private ["PSo16NSObjectProtocol", "set"]
+- !private ["PSo16NSObjectProtocol", "standard"]
+- !private ["PSo16NSObjectProtocol", "startNotifier"]
+- !private ["PSo16NSObjectProtocol", "synchronize"]
+- ["PSo16NSObjectProtocol", "window"]
+- ["PSo16NSObjectProtocol", ""]
+- ["PSo14NSSecureCoding", "init"]
+- ["CSo8NSString", "init"]
+- !private ["VCSo14NSNotification4Name", "init"]
+- !private ["VCSo14NSNotification4Name", "reachabilityChanged"]
+- !private ["V10Foundation12Notification", "Name"]
+- !private ["CSo18NotificationCenter", "addObserver"]
+- !private ["CSo18NotificationCenter", "default"]
+- !private ["CSo18NotificationCenter", "post"]
+- ["Ps22RandomAccessCollection", "init"]
+- ["Ps26RangeReplaceableCollection", "init"]
+- !private ["Ps16RawRepresentable", "init"]
+- !private ["Ps16RawRepresentable", "reachabilityChanged"]
+- !private ["P10Foundation20ReferenceConvertible", "Name"]
+- ["Ps8Sequence", "init"]
+- ["SS", "init"]
+- !private ["CSo14TMReachability", "forInternetConnection"]
+- !private ["CSo14TMReachability", "isReachableViaWWAN"]
+- !private ["CSo14TMReachability", "isReachableViaWiFi"]
+- !private ["CSo14TMReachability", "reachableOnWWAN"]
+- !private ["CSo14TMReachability", "startNotifier"]
+- ["Ps16TextOutputStream", "init"]
+- ["Ps20TextOutputStreamable", "init"]
+- !private ["PSo21UIApplicationDelegate", "AppDelegate"]
+- !private ["PSo21UIApplicationDelegate", "BaseNetworkRequest"]
+- !private ["PSo21UIApplicationDelegate", "NSNotification"]
+- !private ["PSo21UIApplicationDelegate", "Notification"]
+- !private ["PSo21UIApplicationDelegate", "NotificationCenter"]
+- !private ["PSo21UIApplicationDelegate", "TMReachability"]
+- !private ["PSo21UIApplicationDelegate", "UserDefaults"]
+- ["PSo21UIApplicationDelegate", "application"]
+- ["PSo21UIApplicationDelegate", "applicationDidBecomeActive"]
+- ["PSo21UIApplicationDelegate", "applicationDidEnterBackground"]
+- ["PSo21UIApplicationDelegate", "applicationDidFinishLaunching"]
+- ["PSo21UIApplicationDelegate", "applicationDidReceiveMemoryWarning"]
+- ["PSo21UIApplicationDelegate", "applicationProtectedDataDidBecomeAvailable"]
+- ["PSo21UIApplicationDelegate", "applicationProtectedDataWillBecomeUnavailable"]
+- ["PSo21UIApplicationDelegate", "applicationShouldRequestHealthAuthorization"]
+- ["PSo21UIApplicationDelegate", "applicationSignificantTimeChange"]
+- ["PSo21UIApplicationDelegate", "applicationWillEnterForeground"]
+- ["PSo21UIApplicationDelegate", "applicationWillResignActive"]
+- ["PSo21UIApplicationDelegate", "applicationWillTerminate"]
+- !private ["PSo21UIApplicationDelegate", "keychain"]
+- !private ["PSo21UIApplicationDelegate", "reach"]
+- !private ["PSo21UIApplicationDelegate", "reachabilityChanged"]
+- ["PSo21UIApplicationDelegate", "window"]
+- ["PSo21UIApplicationDelegate", ""]
+- !private ["CSo11UIResponder", "AppDelegate"]
+- !private ["CSo11UIResponder", "BaseNetworkRequest"]
+- ["CSo11UIResponder", "Bool"]
+- !private ["CSo11UIResponder", "NSNotification"]
+- ["CSo11UIResponder", "Notification"]
+- !private ["CSo11UIResponder", "NotificationCenter"]
+- ["CSo11UIResponder", "String"]
+- ["CSo11UIResponder", "TMReachability"]
+- ["CSo11UIResponder", "UIApplication"]
+- ["CSo11UIResponder", "UIApplicationLaunchOptionsKey"]
+- ["CSo11UIResponder", "UIWindow"]
+- ["CSo11UIResponder", "URL"]
+- !private ["CSo11UIResponder", "UserDefaults"]
+- ["CSo11UIResponder", "application"]
+- ["CSo11UIResponder", "applicationDidBecomeActive"]
+- ["CSo11UIResponder", "applicationDidEnterBackground"]
+- ["CSo11UIResponder", "applicationDidFinishLaunching"]
+- ["CSo11UIResponder", "applicationDidReceiveMemoryWarning"]
+- ["CSo11UIResponder", "applicationProtectedDataDidBecomeAvailable"]
+- ["CSo11UIResponder", "applicationProtectedDataWillBecomeUnavailable"]
+- ["CSo11UIResponder", "applicationShouldRequestHealthAuthorization"]
+- ["CSo11UIResponder", "applicationSignificantTimeChange"]
+- ["CSo11UIResponder", "applicationWillEnterForeground"]
+- ["CSo11UIResponder", "applicationWillResignActive"]
+- ["CSo11UIResponder", "applicationWillTerminate"]
+- ["CSo11UIResponder", "init"]
+- !private ["CSo11UIResponder", "keychain"]
+- ["CSo11UIResponder", "reach"]
+- ["CSo11UIResponder", "reachabilityChanged"]
+- ["CSo11UIResponder", "window"]
+- ["CSo11UIResponder", ""]
+- !private ["PSo30UIResponderStandardEditActions", "AppDelegate"]
+- !private ["PSo30UIResponderStandardEditActions", "BaseNetworkRequest"]
+- !private ["PSo30UIResponderStandardEditActions", "NSNotification"]
+- !private ["PSo30UIResponderStandardEditActions", "Notification"]
+- !private ["PSo30UIResponderStandardEditActions", "NotificationCenter"]
+- !private ["PSo30UIResponderStandardEditActions", "TMReachability"]
+- !private ["PSo30UIResponderStandardEditActions", "UserDefaults"]
+- ["PSo30UIResponderStandardEditActions", "application"]
+- ["PSo30UIResponderStandardEditActions", "applicationDidBecomeActive"]
+- ["PSo30UIResponderStandardEditActions", "applicationDidEnterBackground"]
+- ["PSo30UIResponderStandardEditActions", "applicationDidFinishLaunching"]
+- ["PSo30UIResponderStandardEditActions", "applicationDidReceiveMemoryWarning"]
+- ["PSo30UIResponderStandardEditActions", "applicationProtectedDataDidBecomeAvailable"]
+- ["PSo30UIResponderStandardEditActions", "applicationProtectedDataWillBecomeUnavailable"]
+- ["PSo30UIResponderStandardEditActions", "applicationShouldRequestHealthAuthorization"]
+- ["PSo30UIResponderStandardEditActions", "applicationSignificantTimeChange"]
+- ["PSo30UIResponderStandardEditActions", "applicationWillEnterForeground"]
+- ["PSo30UIResponderStandardEditActions", "applicationWillResignActive"]
+- ["PSo30UIResponderStandardEditActions", "applicationWillTerminate"]
+- !private ["PSo30UIResponderStandardEditActions", "init"]
+- !private ["PSo30UIResponderStandardEditActions", "keychain"]
+- !private ["PSo30UIResponderStandardEditActions", "reach"]
+- !private ["PSo30UIResponderStandardEditActions", "reachabilityChanged"]
+- ["PSo30UIResponderStandardEditActions", "window"]
+- ["PSo30UIResponderStandardEditActions", ""]
+- ["P9Alamofire14URLConvertible", "init"]
+- !private ["CSo12UserDefaults", "bool"]
+- !private ["CSo12UserDefaults", "set"]
+- !private ["CSo12UserDefaults", "standard"]
+- !private ["CSo12UserDefaults", "synchronize"]
+- ["Ps14_ArrayProtocol", "init"]
+- ["Ps23_BidirectionalIndexable", "init"]
+- ["Ps24_DestructorSafeContainer", "init"]
+- !private ["Ps35_ExpressibleByBuiltinBooleanLiteral", "_getBuiltinLogicValue"]
+- ["Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral", "init"]
+- ["Ps34_ExpressibleByBuiltinStringLiteral", "init"]
+- ["Ps39_ExpressibleByBuiltinUTF16StringLiteral", "init"]
+- ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "init"]
+- ["Ps33_ExpressibleByStringInterpolation", "init"]
+- !private ["Ps35_HasCustomAnyHashableRepresentation", "Name"]
+- ["Ps35_HasCustomAnyHashableRepresentation", "init"]
+- !private ["Ps9_Hashable", "AppDelegate"]
+- !private ["Ps9_Hashable", "BaseNetworkRequest"]
+- !private ["Ps9_Hashable", "NSNotification"]
+- !private ["Ps9_Hashable", "Name"]
+- !private ["Ps9_Hashable", "Notification"]
+- !private ["Ps9_Hashable", "NotificationCenter"]
+- !private ["Ps9_Hashable", "TMReachability"]
+- !private ["Ps9_Hashable", "UserDefaults"]
+- !private ["Ps9_Hashable", "_getBuiltinLogicValue"]
+- !private ["Ps9_Hashable", "addObserver"]
+- ["Ps9_Hashable", "application"]
+- ["Ps9_Hashable", "applicationDidBecomeActive"]
+- ["Ps9_Hashable", "applicationDidEnterBackground"]
+- ["Ps9_Hashable", "applicationDidFinishLaunching"]
+- ["Ps9_Hashable", "applicationDidReceiveMemoryWarning"]
+- ["Ps9_Hashable", "applicationProtectedDataDidBecomeAvailable"]
+- ["Ps9_Hashable", "applicationProtectedDataWillBecomeUnavailable"]
+- ["Ps9_Hashable", "applicationShouldRequestHealthAuthorization"]
+- ["Ps9_Hashable", "applicationSignificantTimeChange"]
+- ["Ps9_Hashable", "applicationWillEnterForeground"]
+- ["Ps9_Hashable", "applicationWillResignActive"]
+- ["Ps9_Hashable", "applicationWillTerminate"]
+- !private ["Ps9_Hashable", "bool"]
+- !private ["Ps9_Hashable", "default"]
+- !private ["Ps9_Hashable", "forInternetConnection"]
+- ["Ps9_Hashable", "init"]
+- !private ["Ps9_Hashable", "isReachableViaWWAN"]
+- !private ["Ps9_Hashable", "isReachableViaWiFi"]
+- !private ["Ps9_Hashable", "keychain"]
+- !private ["Ps9_Hashable", "loadProfile"]
+- !private ["Ps9_Hashable", "post"]
+- !private ["Ps9_Hashable", "reach"]
+- !private ["Ps9_Hashable", "reachabilityChanged"]
+- !private ["Ps9_Hashable", "reachableOnWWAN"]
+- !private ["Ps9_Hashable", "set"]
+- !private ["Ps9_Hashable", "standard"]
+- !private ["Ps9_Hashable", "startNotifier"]
+- !private ["Ps9_Hashable", "synchronize"]
+- ["Ps9_Hashable", "window"]
+- ["Ps9_Hashable", ""]
+- ["Ps10_Indexable", "init"]
+- ["Ps14_IndexableBase", "init"]
+- ["Ps17_MutableIndexable", "init"]
+- !private ["Ps21_ObjectiveCBridgeable", "Name"]
+- !private ["Ps21_ObjectiveCBridgeable", "_getBuiltinLogicValue"]
+- ["Ps21_ObjectiveCBridgeable", "init"]
+- !private ["Ps21_ObjectiveCBridgeable", "reachabilityChanged"]
+- ["Ps22_RandomAccessIndexable", "init"]
+- ["Ps26_RangeReplaceableIndexable", "init"]
+- !private ["Ps20_SwiftNewtypeWrapper", "init"]
+- !private ["Ps20_SwiftNewtypeWrapper", "reachabilityChanged"]
+depends-nominal:
+- "Ps9AnyObject"
+- "C7Spatter11AppDelegate"
+- "Sa"
+- !private "C7Spatter18BaseNetworkRequest"
+- "Ps23BidirectionalCollection"
+- !private "Sb"
+- "Ps7CVarArg"
+- "Ps10Collection"
+- "Ps10Comparable"
+- "Ps28CustomDebugStringConvertible"
+- "Ps29CustomPlaygroundQuickLookable"
+- "Ps17CustomReflectable"
+- "Ps23CustomStringConvertible"
+- "Ps9Equatable"
+- "Ps25ExpressibleByArrayLiteral"
+- !private "Ps27ExpressibleByBooleanLiteral"
+- "Ps43ExpressibleByExtendedGraphemeClusterLiteral"
+- "Ps26ExpressibleByStringLiteral"
+- "Ps33ExpressibleByUnicodeScalarLiteral"
+- "Ps8Hashable"
+- "P10SwiftyJSON17JSONSubscriptType"
+- "C14KeychainAccess8Keychain"
+- "Ps25LosslessStringConvertible"
+- "Ps10MirrorPath"
+- "Ps17MutableCollection"
+- "PSo8NSCoding"
+- "PSo9NSCopying"
+- "PSo16NSMutableCopying"
+- !private "CSo14NSNotification"
+- "CSo8NSObject"
+- "PSo16NSObjectProtocol"
+- "PSo14NSSecureCoding"
+- "CSo8NSString"
+- !private "VCSo14NSNotification4Name"
+- !private "V10Foundation12Notification"
+- !private "CSo18NotificationCenter"
+- "Ps22RandomAccessCollection"
+- "Ps26RangeReplaceableCollection"
+- !private "Ps16RawRepresentable"
+- !private "P10Foundation20ReferenceConvertible"
+- "Ps8Sequence"
+- "SS"
+- !private "CSo14TMReachability"
+- "Ps16TextOutputStream"
+- "Ps20TextOutputStreamable"
+- "PSo21UIApplicationDelegate"
+- "CSo11UIResponder"
+- "PSo30UIResponderStandardEditActions"
+- "P9Alamofire14URLConvertible"
+- !private "CSo12UserDefaults"
+- "Ps14_ArrayProtocol"
+- "Ps23_BidirectionalIndexable"
+- "Ps24_DestructorSafeContainer"
+- !private "Ps35_ExpressibleByBuiltinBooleanLiteral"
+- "Ps51_ExpressibleByBuiltinExtendedGraphemeClusterLiteral"
+- "Ps34_ExpressibleByBuiltinStringLiteral"
+- "Ps39_ExpressibleByBuiltinUTF16StringLiteral"
+- "Ps41_ExpressibleByBuiltinUnicodeScalarLiteral"
+- "Ps33_ExpressibleByStringInterpolation"
+- "Ps35_HasCustomAnyHashableRepresentation"
+- "Ps9_Hashable"
+- "Ps10_Indexable"
+- "Ps14_IndexableBase"
+- "Ps17_MutableIndexable"
+- "Ps21_ObjectiveCBridgeable"
+- "Ps22_RandomAccessIndexable"
+- "Ps26_RangeReplaceableIndexable"
+- !private "Ps20_SwiftNewtypeWrapper"
+depends-dynamic-lookup:
+depends-external:
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/ObjectiveC.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/MessageUI.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/Dispatch.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/Metal.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/CoreLocation.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/Foundation.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/CoreGraphics.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/UIKit.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/WebKit.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/MapKit.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/CoreText.apinotesc"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/ObjectiveC.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/CoreImage.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/QuartzCore.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/Dispatch.swiftmodule"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PKHUD.framework/Modules/PKHUD.swiftmodule/arm.swiftmodule"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SwiftyJSON.framework/Modules/SwiftyJSON.swiftmodule/arm.swiftmodule"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/Alamofire.framework/Modules/Alamofire.swiftmodule/arm.swiftmodule"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/AMScrollingNavbar.framework/Modules/AMScrollingNavbar.swiftmodule/arm.swiftmodule"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PagingMenuController.framework/Modules/PagingMenuController.swiftmodule/arm.swiftmodule"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/KeychainAccess.framework/Modules/KeychainAccess.swiftmodule/arm.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/Darwin.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/CoreLocation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/Foundation.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/CoreGraphics.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/Swift.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/UIKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/MapKit.swiftmodule"
+- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphoneos/armv7/SwiftOnoneSupport.swiftmodule"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PKHUD.framework/Headers/PKHUD.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIImage+GIF.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SwiftyJSON.framework/Headers/SwiftyJSON.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIImage+WebP.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/AMScrollingNavbar.framework/Headers/AMScrollingNavbar-umbrella.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImage.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIButton+WebCache.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIView+WebCache.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIImageView+WebCache.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/FLAnimatedImageView+WebCache.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/MKAnnotationView+WebCache.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIImageView+HighlightedWebCache.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDImageCache.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/JDStatusBarNotification/JDStatusBarStyle.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/NSData+ImageContentType.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDImageCacheConfig.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/NSBundle+MJRefresh.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/UIScrollView+MJRefresh.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/MJRefresh.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/RWDropdownMenu/RWDropdownMenuCell.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/UIView+MJExtension.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/UIScrollView+MJExtension.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/JDStatusBarNotification/JDStatusBarNotification.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageOperation.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIView+WebCacheOperation.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageDownloaderOperation.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/Spatter-Bridging-Header.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Header/MJRefreshStateHeader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Header/MJRefreshGifHeader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshHeader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Header/MJRefreshNormalHeader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageDownloader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageDecoder.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageManager.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImagePrefetcher.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PagingMenuController.framework/Headers/PagingMenuController.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/SubjectiveCPhotoPanner/SCImagePanViewController.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Back/MJRefreshBackStateFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Auto/MJRefreshAutoStateFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Back/MJRefreshBackGifFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Auto/MJRefreshAutoGifFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshBackFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Back/MJRefreshBackNormalFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Auto/MJRefreshAutoNormalFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshAutoFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/KeychainAccess.framework/Headers/KeychainAccess.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIImage+MultiFormat.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageCompat.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/DZNEmptyDataSet/UIScrollView+EmptyDataSet.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/DZNEmptyDataSet/DZNEmptyDataSet.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PKHUD.framework/Headers/PKHUD-Swift.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SwiftyJSON.framework/Headers/SwiftyJSON-Swift.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire-Swift.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/AMScrollingNavbar.framework/Headers/AMScrollingNavbar-Swift.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PagingMenuController.framework/Headers/PagingMenuController-Swift.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/KeychainAccess.framework/Headers/KeychainAccess-Swift.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshComponent.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/MJRefreshConst.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/RWDropdownMenu/RWDropdownMenu.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/FLAnimatedImageView.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/CMPopTipView/CMPopTipView.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/JDStatusBarNotification/JDStatusBarView.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/TMReachability/TMReachability.h"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PKHUD.framework/Modules/module.modulemap"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SwiftyJSON.framework/Modules/module.modulemap"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Modules/module.modulemap"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/Alamofire.framework/Modules/module.modulemap"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/AMScrollingNavbar.framework/Modules/module.modulemap"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PagingMenuController.framework/Modules/module.modulemap"
+- "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/KeychainAccess.framework/Modules/module.modulemap"
+interface-hash: "9c401389e188dbfb4bcac9e4c15287e4"

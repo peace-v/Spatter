@@ -9,7 +9,6 @@ provides-dynamic-lookup:
 - "accessInternet"
 - "back"
 - "backBtn"
-- "didReceiveMemoryWarning"
 - "getSearchResults"
 - "image"
 - "isSearching"
@@ -99,6 +98,7 @@ depends-member:
 - !private ["Ps9AnyObject", "URLCache"]
 - !private ["Ps9AnyObject", "addGestureRecognizer"]
 - !private ["Ps9AnyObject", "addTarget"]
+- !private ["Ps9AnyObject", "backgroundColor"]
 - !private ["Ps9AnyObject", "black"]
 - !private ["Ps9AnyObject", "boldSystemFont"]
 - !private ["Ps9AnyObject", "ceilf"]
@@ -108,7 +108,6 @@ depends-member:
 - !private ["Ps9AnyObject", "definesPresentationContext"]
 - !private ["Ps9AnyObject", "delegate"]
 - !private ["Ps9AnyObject", "destination"]
-- !private ["Ps9AnyObject", "didReceiveMemoryWarning"]
 - !private ["Ps9AnyObject", "dimsBackgroundDuringPresentation"]
 - !private ["Ps9AnyObject", "dismiss"]
 - !private ["Ps9AnyObject", "edges"]
@@ -173,6 +172,7 @@ depends-member:
 - !private ["Ps9AnyObject", "viewDidAppear"]
 - !private ["Ps9AnyObject", "viewDidLoad"]
 - !private ["Ps9AnyObject", "viewWillAppear"]
+- !private ["Ps9AnyObject", "white"]
 - ["Ps9AnyObject", ""]
 - !private ["Sa", "count"]
 - !private ["C7Spatter18BaseNetworkRequest", "getSearchResults"]
@@ -210,7 +210,6 @@ depends-member:
 - ["C7Spatter23BaseTableViewController", "backBtn"]
 - !private ["C7Spatter23BaseTableViewController", "ceilf"]
 - !private ["C7Spatter23BaseTableViewController", "definesPresentationContext"]
-- ["C7Spatter23BaseTableViewController", "didReceiveMemoryWarning"]
 - !private ["C7Spatter23BaseTableViewController", "footer"]
 - ["C7Spatter23BaseTableViewController", "getSearchResults"]
 - ["C7Spatter23BaseTableViewController", "image"]
@@ -262,6 +261,7 @@ depends-member:
 - !private ["Sb", "_getBuiltinLogicValue"]
 - !private ["PSo15CALayerDelegate", "addGestureRecognizer"]
 - !private ["PSo15CALayerDelegate", "addTarget"]
+- !private ["PSo15CALayerDelegate", "backgroundColor"]
 - !private ["PSo15CALayerDelegate", "contentOffset"]
 - !private ["PSo15CALayerDelegate", "delegate"]
 - !private ["PSo15CALayerDelegate", "indexPath"]
@@ -296,6 +296,7 @@ depends-member:
 - !private ["Ps7CVarArg", "URLCache"]
 - !private ["Ps7CVarArg", "addGestureRecognizer"]
 - !private ["Ps7CVarArg", "addTarget"]
+- !private ["Ps7CVarArg", "backgroundColor"]
 - !private ["Ps7CVarArg", "black"]
 - !private ["Ps7CVarArg", "boldSystemFont"]
 - !private ["Ps7CVarArg", "ceilf"]
@@ -306,7 +307,6 @@ depends-member:
 - !private ["Ps7CVarArg", "definesPresentationContext"]
 - !private ["Ps7CVarArg", "delegate"]
 - !private ["Ps7CVarArg", "destination"]
-- !private ["Ps7CVarArg", "didReceiveMemoryWarning"]
 - !private ["Ps7CVarArg", "dimsBackgroundDuringPresentation"]
 - !private ["Ps7CVarArg", "dismiss"]
 - !private ["Ps7CVarArg", "edges"]
@@ -371,6 +371,7 @@ depends-member:
 - !private ["Ps7CVarArg", "viewDidAppear"]
 - !private ["Ps7CVarArg", "viewDidLoad"]
 - !private ["Ps7CVarArg", "viewWillAppear"]
+- !private ["Ps7CVarArg", "white"]
 - ["Ps7CVarArg", ""]
 - !private ["V10Foundation12CharacterSet", "whitespacesAndNewlines"]
 - !private ["Ps10Collection", "count"]
@@ -400,6 +401,7 @@ depends-member:
 - !private ["Ps28CustomDebugStringConvertible", "URLCache"]
 - !private ["Ps28CustomDebugStringConvertible", "addGestureRecognizer"]
 - !private ["Ps28CustomDebugStringConvertible", "addTarget"]
+- !private ["Ps28CustomDebugStringConvertible", "backgroundColor"]
 - !private ["Ps28CustomDebugStringConvertible", "black"]
 - !private ["Ps28CustomDebugStringConvertible", "boldSystemFont"]
 - !private ["Ps28CustomDebugStringConvertible", "ceilf"]
@@ -410,7 +412,6 @@ depends-member:
 - !private ["Ps28CustomDebugStringConvertible", "definesPresentationContext"]
 - !private ["Ps28CustomDebugStringConvertible", "delegate"]
 - !private ["Ps28CustomDebugStringConvertible", "destination"]
-- !private ["Ps28CustomDebugStringConvertible", "didReceiveMemoryWarning"]
 - !private ["Ps28CustomDebugStringConvertible", "dimsBackgroundDuringPresentation"]
 - !private ["Ps28CustomDebugStringConvertible", "dismiss"]
 - !private ["Ps28CustomDebugStringConvertible", "edges"]
@@ -476,6 +477,7 @@ depends-member:
 - !private ["Ps28CustomDebugStringConvertible", "viewDidAppear"]
 - !private ["Ps28CustomDebugStringConvertible", "viewDidLoad"]
 - !private ["Ps28CustomDebugStringConvertible", "viewWillAppear"]
+- !private ["Ps28CustomDebugStringConvertible", "white"]
 - !private ["Ps28CustomDebugStringConvertible", "whitespacesAndNewlines"]
 - !private ["Ps28CustomDebugStringConvertible", "y"]
 - ["Ps28CustomDebugStringConvertible", ""]
@@ -514,6 +516,7 @@ depends-member:
 - !private ["Ps23CustomStringConvertible", "_getBuiltinLogicValue"]
 - !private ["Ps23CustomStringConvertible", "addGestureRecognizer"]
 - !private ["Ps23CustomStringConvertible", "addTarget"]
+- !private ["Ps23CustomStringConvertible", "backgroundColor"]
 - !private ["Ps23CustomStringConvertible", "black"]
 - !private ["Ps23CustomStringConvertible", "boldSystemFont"]
 - !private ["Ps23CustomStringConvertible", "ceilf"]
@@ -524,7 +527,6 @@ depends-member:
 - !private ["Ps23CustomStringConvertible", "definesPresentationContext"]
 - !private ["Ps23CustomStringConvertible", "delegate"]
 - !private ["Ps23CustomStringConvertible", "destination"]
-- !private ["Ps23CustomStringConvertible", "didReceiveMemoryWarning"]
 - !private ["Ps23CustomStringConvertible", "dimsBackgroundDuringPresentation"]
 - !private ["Ps23CustomStringConvertible", "dismiss"]
 - !private ["Ps23CustomStringConvertible", "edges"]
@@ -590,6 +592,7 @@ depends-member:
 - !private ["Ps23CustomStringConvertible", "viewDidAppear"]
 - !private ["Ps23CustomStringConvertible", "viewDidLoad"]
 - !private ["Ps23CustomStringConvertible", "viewWillAppear"]
+- !private ["Ps23CustomStringConvertible", "white"]
 - !private ["Ps23CustomStringConvertible", "whitespacesAndNewlines"]
 - ["Ps23CustomStringConvertible", ""]
 - !private ["PSo23DZNEmptyDataSetDelegate", "BaseNetworkRequest"]
@@ -612,7 +615,6 @@ depends-member:
 - !private ["PSo23DZNEmptyDataSetDelegate", "URLCache"]
 - !private ["PSo23DZNEmptyDataSetDelegate", "ceilf"]
 - !private ["PSo23DZNEmptyDataSetDelegate", "definesPresentationContext"]
-- !private ["PSo23DZNEmptyDataSetDelegate", "didReceiveMemoryWarning"]
 - !private ["PSo23DZNEmptyDataSetDelegate", "footer"]
 - !private ["PSo23DZNEmptyDataSetDelegate", "getSearchResults"]
 - !private ["PSo23DZNEmptyDataSetDelegate", "init"]
@@ -672,7 +674,6 @@ depends-member:
 - !private ["PSo21DZNEmptyDataSetSource", "URLCache"]
 - !private ["PSo21DZNEmptyDataSetSource", "ceilf"]
 - !private ["PSo21DZNEmptyDataSetSource", "definesPresentationContext"]
-- !private ["PSo21DZNEmptyDataSetSource", "didReceiveMemoryWarning"]
 - !private ["PSo21DZNEmptyDataSetSource", "footer"]
 - !private ["PSo21DZNEmptyDataSetSource", "getSearchResults"]
 - !private ["PSo21DZNEmptyDataSetSource", "init"]
@@ -734,6 +735,7 @@ depends-member:
 - !private ["Ps9Equatable", "_getBuiltinLogicValue"]
 - !private ["Ps9Equatable", "addGestureRecognizer"]
 - !private ["Ps9Equatable", "addTarget"]
+- !private ["Ps9Equatable", "backgroundColor"]
 - !private ["Ps9Equatable", "black"]
 - !private ["Ps9Equatable", "boldSystemFont"]
 - !private ["Ps9Equatable", "ceilf"]
@@ -743,7 +745,6 @@ depends-member:
 - !private ["Ps9Equatable", "definesPresentationContext"]
 - !private ["Ps9Equatable", "delegate"]
 - !private ["Ps9Equatable", "destination"]
-- !private ["Ps9Equatable", "didReceiveMemoryWarning"]
 - !private ["Ps9Equatable", "dimsBackgroundDuringPresentation"]
 - !private ["Ps9Equatable", "dismiss"]
 - !private ["Ps9Equatable", "edges"]
@@ -813,6 +814,7 @@ depends-member:
 - !private ["Ps9Equatable", "viewDidAppear"]
 - !private ["Ps9Equatable", "viewDidLoad"]
 - !private ["Ps9Equatable", "viewWillAppear"]
+- !private ["Ps9Equatable", "white"]
 - !private ["Ps9Equatable", "whitespacesAndNewlines"]
 - !private ["Ps9Equatable", "y"]
 - ["Ps9Equatable", ""]
@@ -859,6 +861,7 @@ depends-member:
 - !private ["Ps8Hashable", "_getBuiltinLogicValue"]
 - !private ["Ps8Hashable", "addGestureRecognizer"]
 - !private ["Ps8Hashable", "addTarget"]
+- !private ["Ps8Hashable", "backgroundColor"]
 - !private ["Ps8Hashable", "black"]
 - !private ["Ps8Hashable", "boldSystemFont"]
 - !private ["Ps8Hashable", "ceilf"]
@@ -868,7 +871,6 @@ depends-member:
 - !private ["Ps8Hashable", "definesPresentationContext"]
 - !private ["Ps8Hashable", "delegate"]
 - !private ["Ps8Hashable", "destination"]
-- !private ["Ps8Hashable", "didReceiveMemoryWarning"]
 - !private ["Ps8Hashable", "dimsBackgroundDuringPresentation"]
 - !private ["Ps8Hashable", "dismiss"]
 - !private ["Ps8Hashable", "edges"]
@@ -936,6 +938,7 @@ depends-member:
 - !private ["Ps8Hashable", "viewDidAppear"]
 - !private ["Ps8Hashable", "viewDidLoad"]
 - !private ["Ps8Hashable", "viewWillAppear"]
+- !private ["Ps8Hashable", "white"]
 - !private ["Ps8Hashable", "whitespacesAndNewlines"]
 - ["Ps8Hashable", ""]
 - !private ["V10Foundation9IndexPath", "row"]
@@ -989,6 +992,7 @@ depends-member:
 - !private ["PSo8NSCoding", "URLCache"]
 - !private ["PSo8NSCoding", "addGestureRecognizer"]
 - !private ["PSo8NSCoding", "addTarget"]
+- !private ["PSo8NSCoding", "backgroundColor"]
 - !private ["PSo8NSCoding", "black"]
 - !private ["PSo8NSCoding", "ceilf"]
 - !private ["PSo8NSCoding", "configureData"]
@@ -996,7 +1000,6 @@ depends-member:
 - !private ["PSo8NSCoding", "darkGray"]
 - !private ["PSo8NSCoding", "definesPresentationContext"]
 - !private ["PSo8NSCoding", "delegate"]
-- !private ["PSo8NSCoding", "didReceiveMemoryWarning"]
 - !private ["PSo8NSCoding", "dimsBackgroundDuringPresentation"]
 - !private ["PSo8NSCoding", "dismiss"]
 - !private ["PSo8NSCoding", "followScrollView"]
@@ -1055,6 +1058,7 @@ depends-member:
 - !private ["PSo8NSCoding", "viewDidAppear"]
 - !private ["PSo8NSCoding", "viewDidLoad"]
 - !private ["PSo8NSCoding", "viewWillAppear"]
+- !private ["PSo8NSCoding", "white"]
 - ["PSo8NSCoding", ""]
 - !private ["PSo9NSCopying", "black"]
 - !private ["PSo9NSCopying", "boldSystemFont"]
@@ -1063,6 +1067,7 @@ depends-member:
 - !private ["PSo9NSCopying", "isEmpty"]
 - !private ["PSo9NSCopying", "lowercased"]
 - !private ["PSo9NSCopying", "trimmingCharacters"]
+- !private ["PSo9NSCopying", "white"]
 - !private ["PSo26NSExtensionRequestHandling", "BaseNetworkRequest"]
 - !private ["PSo26NSExtensionRequestHandling", "CGPoint"]
 - !private ["PSo26NSExtensionRequestHandling", "CharacterSet"]
@@ -1084,7 +1089,6 @@ depends-member:
 - !private ["PSo26NSExtensionRequestHandling", "ceilf"]
 - !private ["PSo26NSExtensionRequestHandling", "configureData"]
 - !private ["PSo26NSExtensionRequestHandling", "definesPresentationContext"]
-- !private ["PSo26NSExtensionRequestHandling", "didReceiveMemoryWarning"]
 - !private ["PSo26NSExtensionRequestHandling", "dimsBackgroundDuringPresentation"]
 - !private ["PSo26NSExtensionRequestHandling", "dismiss"]
 - !private ["PSo26NSExtensionRequestHandling", "followScrollView"]
@@ -1170,6 +1174,7 @@ depends-member:
 - !private ["CSo8NSObject", "addTarget"]
 - ["CSo8NSObject", "back"]
 - ["CSo8NSObject", "backBtn"]
+- !private ["CSo8NSObject", "backgroundColor"]
 - !private ["CSo8NSObject", "black"]
 - !private ["CSo8NSObject", "boldSystemFont"]
 - !private ["CSo8NSObject", "ceilf"]
@@ -1179,7 +1184,6 @@ depends-member:
 - !private ["CSo8NSObject", "definesPresentationContext"]
 - !private ["CSo8NSObject", "delegate"]
 - !private ["CSo8NSObject", "destination"]
-- ["CSo8NSObject", "didReceiveMemoryWarning"]
 - !private ["CSo8NSObject", "dimsBackgroundDuringPresentation"]
 - !private ["CSo8NSObject", "dismiss"]
 - !private ["CSo8NSObject", "edges"]
@@ -1249,6 +1253,7 @@ depends-member:
 - ["CSo8NSObject", "viewDidAppear"]
 - ["CSo8NSObject", "viewDidLoad"]
 - ["CSo8NSObject", "viewWillAppear"]
+- !private ["CSo8NSObject", "white"]
 - !private ["PSo16NSObjectProtocol", "BaseNetworkRequest"]
 - !private ["PSo16NSObjectProtocol", "CGPoint"]
 - !private ["PSo16NSObjectProtocol", "CharacterSet"]
@@ -1269,6 +1274,7 @@ depends-member:
 - !private ["PSo16NSObjectProtocol", "URLCache"]
 - !private ["PSo16NSObjectProtocol", "addGestureRecognizer"]
 - !private ["PSo16NSObjectProtocol", "addTarget"]
+- !private ["PSo16NSObjectProtocol", "backgroundColor"]
 - !private ["PSo16NSObjectProtocol", "black"]
 - !private ["PSo16NSObjectProtocol", "boldSystemFont"]
 - !private ["PSo16NSObjectProtocol", "ceilf"]
@@ -1278,7 +1284,6 @@ depends-member:
 - !private ["PSo16NSObjectProtocol", "definesPresentationContext"]
 - !private ["PSo16NSObjectProtocol", "delegate"]
 - !private ["PSo16NSObjectProtocol", "destination"]
-- !private ["PSo16NSObjectProtocol", "didReceiveMemoryWarning"]
 - !private ["PSo16NSObjectProtocol", "dimsBackgroundDuringPresentation"]
 - !private ["PSo16NSObjectProtocol", "dismiss"]
 - !private ["PSo16NSObjectProtocol", "edges"]
@@ -1343,6 +1348,7 @@ depends-member:
 - !private ["PSo16NSObjectProtocol", "viewDidAppear"]
 - !private ["PSo16NSObjectProtocol", "viewDidLoad"]
 - !private ["PSo16NSObjectProtocol", "viewWillAppear"]
+- !private ["PSo16NSObjectProtocol", "white"]
 - ["PSo16NSObjectProtocol", ""]
 - !private ["PSo14NSSecureCoding", "black"]
 - !private ["PSo14NSSecureCoding", "darkGray"]
@@ -1350,6 +1356,7 @@ depends-member:
 - !private ["PSo14NSSecureCoding", "isEmpty"]
 - !private ["PSo14NSSecureCoding", "lowercased"]
 - !private ["PSo14NSSecureCoding", "trimmingCharacters"]
+- !private ["PSo14NSSecureCoding", "white"]
 - ["CSo8NSString", "init"]
 - !private ["CSo8NSString", "isEmpty"]
 - !private ["CSo8NSString", "lowercased"]
@@ -1403,7 +1410,6 @@ depends-member:
 - !private ["C7Spatter25SearchTableViewController", "ceilf"]
 - !private ["C7Spatter25SearchTableViewController", "definesPresentationContext"]
 - ["C7Spatter25SearchTableViewController", "deinit"]
-- ["C7Spatter25SearchTableViewController", "didReceiveMemoryWarning"]
 - !private ["C7Spatter25SearchTableViewController", "footer"]
 - ["C7Spatter25SearchTableViewController", "getSearchResults"]
 - ["C7Spatter25SearchTableViewController", "image"]
@@ -1469,6 +1475,7 @@ depends-member:
 - !private ["Ps20TextOutputStreamable", "trimmingCharacters"]
 - !private ["PSo29UIAccessibilityIdentification", "addGestureRecognizer"]
 - !private ["PSo29UIAccessibilityIdentification", "addTarget"]
+- !private ["PSo29UIAccessibilityIdentification", "backgroundColor"]
 - !private ["PSo29UIAccessibilityIdentification", "contentOffset"]
 - !private ["PSo29UIAccessibilityIdentification", "delegate"]
 - !private ["PSo29UIAccessibilityIdentification", "indexPath"]
@@ -1483,6 +1490,7 @@ depends-member:
 - !private ["PSo29UIAccessibilityIdentification", "tintColor"]
 - !private ["PSo12UIAppearance", "addGestureRecognizer"]
 - !private ["PSo12UIAppearance", "addTarget"]
+- !private ["PSo12UIAppearance", "backgroundColor"]
 - !private ["PSo12UIAppearance", "contentOffset"]
 - !private ["PSo12UIAppearance", "delegate"]
 - !private ["PSo12UIAppearance", "indexPath"]
@@ -1515,12 +1523,12 @@ depends-member:
 - !private ["PSo21UIAppearanceContainer", "URLCache"]
 - !private ["PSo21UIAppearanceContainer", "addGestureRecognizer"]
 - !private ["PSo21UIAppearanceContainer", "addTarget"]
+- !private ["PSo21UIAppearanceContainer", "backgroundColor"]
 - !private ["PSo21UIAppearanceContainer", "ceilf"]
 - !private ["PSo21UIAppearanceContainer", "configureData"]
 - !private ["PSo21UIAppearanceContainer", "contentOffset"]
 - !private ["PSo21UIAppearanceContainer", "definesPresentationContext"]
 - !private ["PSo21UIAppearanceContainer", "delegate"]
-- !private ["PSo21UIAppearanceContainer", "didReceiveMemoryWarning"]
 - !private ["PSo21UIAppearanceContainer", "dimsBackgroundDuringPresentation"]
 - !private ["PSo21UIAppearanceContainer", "dismiss"]
 - !private ["PSo21UIAppearanceContainer", "followScrollView"]
@@ -1577,6 +1585,7 @@ depends-member:
 - !private ["PSo21UIAppearanceContainer", "viewDidLoad"]
 - !private ["PSo21UIAppearanceContainer", "viewWillAppear"]
 - ["PSo21UIAppearanceContainer", ""]
+- !private ["PSo16UIBarPositioning", "backgroundColor"]
 - !private ["PSo16UIBarPositioning", "delegate"]
 - !private ["PSo16UIBarPositioning", "searchBarStyle"]
 - !private ["PSo16UIBarPositioning", "text"]
@@ -1638,6 +1647,7 @@ depends-member:
 - ["PSo24UIBarPositioningDelegate", ""]
 - !private ["CSo7UIColor", "black"]
 - !private ["CSo7UIColor", "darkGray"]
+- !private ["CSo7UIColor", "white"]
 - !private ["PSo18UIContentContainer", "BaseNetworkRequest"]
 - !private ["PSo18UIContentContainer", "CGPoint"]
 - !private ["PSo18UIContentContainer", "CharacterSet"]
@@ -1659,7 +1669,6 @@ depends-member:
 - !private ["PSo18UIContentContainer", "ceilf"]
 - !private ["PSo18UIContentContainer", "configureData"]
 - !private ["PSo18UIContentContainer", "definesPresentationContext"]
-- !private ["PSo18UIContentContainer", "didReceiveMemoryWarning"]
 - !private ["PSo18UIContentContainer", "dimsBackgroundDuringPresentation"]
 - !private ["PSo18UIContentContainer", "dismiss"]
 - !private ["PSo18UIContentContainer", "followScrollView"]
@@ -1711,6 +1720,7 @@ depends-member:
 - !private ["VSC15UIControlEvents", "valueChanged"]
 - !private ["PSo17UICoordinateSpace", "addGestureRecognizer"]
 - !private ["PSo17UICoordinateSpace", "addTarget"]
+- !private ["PSo17UICoordinateSpace", "backgroundColor"]
 - !private ["PSo17UICoordinateSpace", "contentOffset"]
 - !private ["PSo17UICoordinateSpace", "delegate"]
 - !private ["PSo17UICoordinateSpace", "indexPath"]
@@ -1725,6 +1735,7 @@ depends-member:
 - !private ["PSo17UICoordinateSpace", "tintColor"]
 - !private ["PSo13UIDynamicItem", "addGestureRecognizer"]
 - !private ["PSo13UIDynamicItem", "addTarget"]
+- !private ["PSo13UIDynamicItem", "backgroundColor"]
 - !private ["PSo13UIDynamicItem", "contentOffset"]
 - !private ["PSo13UIDynamicItem", "delegate"]
 - !private ["PSo13UIDynamicItem", "indexPath"]
@@ -1757,12 +1768,12 @@ depends-member:
 - !private ["PSo18UIFocusEnvironment", "URLCache"]
 - !private ["PSo18UIFocusEnvironment", "addGestureRecognizer"]
 - !private ["PSo18UIFocusEnvironment", "addTarget"]
+- !private ["PSo18UIFocusEnvironment", "backgroundColor"]
 - !private ["PSo18UIFocusEnvironment", "ceilf"]
 - !private ["PSo18UIFocusEnvironment", "configureData"]
 - !private ["PSo18UIFocusEnvironment", "contentOffset"]
 - !private ["PSo18UIFocusEnvironment", "definesPresentationContext"]
 - !private ["PSo18UIFocusEnvironment", "delegate"]
-- !private ["PSo18UIFocusEnvironment", "didReceiveMemoryWarning"]
 - !private ["PSo18UIFocusEnvironment", "dimsBackgroundDuringPresentation"]
 - !private ["PSo18UIFocusEnvironment", "dismiss"]
 - !private ["PSo18UIFocusEnvironment", "followScrollView"]
@@ -1821,6 +1832,7 @@ depends-member:
 - ["PSo18UIFocusEnvironment", ""]
 - !private ["PSo11UIFocusItem", "addGestureRecognizer"]
 - !private ["PSo11UIFocusItem", "addTarget"]
+- !private ["PSo11UIFocusItem", "backgroundColor"]
 - !private ["PSo11UIFocusItem", "contentOffset"]
 - !private ["PSo11UIFocusItem", "delegate"]
 - !private ["PSo11UIFocusItem", "indexPath"]
@@ -1883,12 +1895,12 @@ depends-member:
 - !private ["CSo11UIResponder", "addTarget"]
 - ["CSo11UIResponder", "back"]
 - ["CSo11UIResponder", "backBtn"]
+- !private ["CSo11UIResponder", "backgroundColor"]
 - !private ["CSo11UIResponder", "ceilf"]
 - !private ["CSo11UIResponder", "configureData"]
 - !private ["CSo11UIResponder", "contentOffset"]
 - !private ["CSo11UIResponder", "definesPresentationContext"]
 - !private ["CSo11UIResponder", "delegate"]
-- ["CSo11UIResponder", "didReceiveMemoryWarning"]
 - !private ["CSo11UIResponder", "dimsBackgroundDuringPresentation"]
 - !private ["CSo11UIResponder", "dismiss"]
 - !private ["CSo11UIResponder", "followScrollView"]
@@ -1969,12 +1981,12 @@ depends-member:
 - !private ["PSo30UIResponderStandardEditActions", "URLCache"]
 - !private ["PSo30UIResponderStandardEditActions", "addGestureRecognizer"]
 - !private ["PSo30UIResponderStandardEditActions", "addTarget"]
+- !private ["PSo30UIResponderStandardEditActions", "backgroundColor"]
 - !private ["PSo30UIResponderStandardEditActions", "ceilf"]
 - !private ["PSo30UIResponderStandardEditActions", "configureData"]
 - !private ["PSo30UIResponderStandardEditActions", "contentOffset"]
 - !private ["PSo30UIResponderStandardEditActions", "definesPresentationContext"]
 - !private ["PSo30UIResponderStandardEditActions", "delegate"]
-- !private ["PSo30UIResponderStandardEditActions", "didReceiveMemoryWarning"]
 - !private ["PSo30UIResponderStandardEditActions", "dimsBackgroundDuringPresentation"]
 - !private ["PSo30UIResponderStandardEditActions", "dismiss"]
 - !private ["PSo30UIResponderStandardEditActions", "followScrollView"]
@@ -2060,7 +2072,6 @@ depends-member:
 - !private ["PSo20UIScrollViewDelegate", "URLCache"]
 - !private ["PSo20UIScrollViewDelegate", "ceilf"]
 - !private ["PSo20UIScrollViewDelegate", "definesPresentationContext"]
-- !private ["PSo20UIScrollViewDelegate", "didReceiveMemoryWarning"]
 - !private ["PSo20UIScrollViewDelegate", "footer"]
 - !private ["PSo20UIScrollViewDelegate", "getSearchResults"]
 - !private ["PSo20UIScrollViewDelegate", "init"]
@@ -2100,6 +2111,7 @@ depends-member:
 - !private ["PSo20UIScrollViewDelegate", "viewDidLoad"]
 - !private ["PSo20UIScrollViewDelegate", "viewWillAppear"]
 - ["PSo20UIScrollViewDelegate", ""]
+- !private ["CSo11UISearchBar", "backgroundColor"]
 - !private ["CSo11UISearchBar", "delegate"]
 - !private ["CSo11UISearchBar", "searchBarStyle"]
 - !private ["CSo11UISearchBar", "text"]
@@ -2243,7 +2255,6 @@ depends-member:
 - !private ["PSo16UIStateRestoring", "ceilf"]
 - !private ["PSo16UIStateRestoring", "configureData"]
 - !private ["PSo16UIStateRestoring", "definesPresentationContext"]
-- !private ["PSo16UIStateRestoring", "didReceiveMemoryWarning"]
 - !private ["PSo16UIStateRestoring", "dimsBackgroundDuringPresentation"]
 - !private ["PSo16UIStateRestoring", "dismiss"]
 - !private ["PSo16UIStateRestoring", "followScrollView"]
@@ -2333,7 +2344,6 @@ depends-member:
 - ["CSo21UITableViewController", "backBtn"]
 - !private ["CSo21UITableViewController", "ceilf"]
 - !private ["CSo21UITableViewController", "definesPresentationContext"]
-- ["CSo21UITableViewController", "didReceiveMemoryWarning"]
 - !private ["CSo21UITableViewController", "footer"]
 - ["CSo21UITableViewController", "getSearchResults"]
 - ["CSo21UITableViewController", "image"]
@@ -2397,7 +2407,6 @@ depends-member:
 - !private ["PSo21UITableViewDataSource", "URLCache"]
 - !private ["PSo21UITableViewDataSource", "ceilf"]
 - !private ["PSo21UITableViewDataSource", "definesPresentationContext"]
-- !private ["PSo21UITableViewDataSource", "didReceiveMemoryWarning"]
 - !private ["PSo21UITableViewDataSource", "footer"]
 - !private ["PSo21UITableViewDataSource", "getSearchResults"]
 - !private ["PSo21UITableViewDataSource", "init"]
@@ -2457,7 +2466,6 @@ depends-member:
 - !private ["PSo19UITableViewDelegate", "URLCache"]
 - !private ["PSo19UITableViewDelegate", "ceilf"]
 - !private ["PSo19UITableViewDelegate", "definesPresentationContext"]
-- !private ["PSo19UITableViewDelegate", "didReceiveMemoryWarning"]
 - !private ["PSo19UITableViewDelegate", "footer"]
 - !private ["PSo19UITableViewDelegate", "getSearchResults"]
 - !private ["PSo19UITableViewDelegate", "init"]
@@ -2497,6 +2505,7 @@ depends-member:
 - !private ["PSo19UITableViewDelegate", "viewDidLoad"]
 - !private ["PSo19UITableViewDelegate", "viewWillAppear"]
 - ["PSo19UITableViewDelegate", ""]
+- !private ["PSo17UITextInputTraits", "backgroundColor"]
 - !private ["PSo17UITextInputTraits", "delegate"]
 - !private ["PSo17UITextInputTraits", "searchBarStyle"]
 - !private ["PSo17UITextInputTraits", "text"]
@@ -2521,12 +2530,12 @@ depends-member:
 - !private ["PSo18UITraitEnvironment", "URLCache"]
 - !private ["PSo18UITraitEnvironment", "addGestureRecognizer"]
 - !private ["PSo18UITraitEnvironment", "addTarget"]
+- !private ["PSo18UITraitEnvironment", "backgroundColor"]
 - !private ["PSo18UITraitEnvironment", "ceilf"]
 - !private ["PSo18UITraitEnvironment", "configureData"]
 - !private ["PSo18UITraitEnvironment", "contentOffset"]
 - !private ["PSo18UITraitEnvironment", "definesPresentationContext"]
 - !private ["PSo18UITraitEnvironment", "delegate"]
-- !private ["PSo18UITraitEnvironment", "didReceiveMemoryWarning"]
 - !private ["PSo18UITraitEnvironment", "dimsBackgroundDuringPresentation"]
 - !private ["PSo18UITraitEnvironment", "dismiss"]
 - !private ["PSo18UITraitEnvironment", "followScrollView"]
@@ -2585,6 +2594,7 @@ depends-member:
 - ["PSo18UITraitEnvironment", ""]
 - !private ["CSo6UIView", "addGestureRecognizer"]
 - !private ["CSo6UIView", "addTarget"]
+- !private ["CSo6UIView", "backgroundColor"]
 - !private ["CSo6UIView", "contentOffset"]
 - !private ["CSo6UIView", "delegate"]
 - !private ["CSo6UIView", "indexPath"]
@@ -2632,7 +2642,6 @@ depends-member:
 - !private ["CSo16UIViewController", "ceilf"]
 - !private ["CSo16UIViewController", "configureData"]
 - !private ["CSo16UIViewController", "definesPresentationContext"]
-- ["CSo16UIViewController", "didReceiveMemoryWarning"]
 - !private ["CSo16UIViewController", "dimsBackgroundDuringPresentation"]
 - !private ["CSo16UIViewController", "dismiss"]
 - !private ["CSo16UIViewController", "followScrollView"]
@@ -2711,6 +2720,7 @@ depends-member:
 - !private ["Ps22_CVarArgPassedAsDouble", "init"]
 - !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "addGestureRecognizer"]
 - !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "addTarget"]
+- !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "backgroundColor"]
 - !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "contentOffset"]
 - !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "delegate"]
 - !private ["Ps37_DefaultCustomPlaygroundQuickLookable", "indexPath"]
@@ -2745,6 +2755,7 @@ depends-member:
 - !private ["Ps41_ExpressibleByBuiltinUnicodeScalarLiteral", "trimmingCharacters"]
 - !private ["Ps26_ExpressibleByColorLiteral", "black"]
 - !private ["Ps26_ExpressibleByColorLiteral", "darkGray"]
+- !private ["Ps26_ExpressibleByColorLiteral", "white"]
 - !private ["Ps26_ExpressibleByImageLiteral", "init"]
 - ["Ps33_ExpressibleByStringInterpolation", "init"]
 - !private ["Ps33_ExpressibleByStringInterpolation", "isEmpty"]
@@ -2775,6 +2786,7 @@ depends-member:
 - !private ["Ps9_Hashable", "_getBuiltinLogicValue"]
 - !private ["Ps9_Hashable", "addGestureRecognizer"]
 - !private ["Ps9_Hashable", "addTarget"]
+- !private ["Ps9_Hashable", "backgroundColor"]
 - !private ["Ps9_Hashable", "black"]
 - !private ["Ps9_Hashable", "boldSystemFont"]
 - !private ["Ps9_Hashable", "ceilf"]
@@ -2784,7 +2796,6 @@ depends-member:
 - !private ["Ps9_Hashable", "definesPresentationContext"]
 - !private ["Ps9_Hashable", "delegate"]
 - !private ["Ps9_Hashable", "destination"]
-- !private ["Ps9_Hashable", "didReceiveMemoryWarning"]
 - !private ["Ps9_Hashable", "dimsBackgroundDuringPresentation"]
 - !private ["Ps9_Hashable", "dismiss"]
 - !private ["Ps9_Hashable", "edges"]
@@ -2852,6 +2863,7 @@ depends-member:
 - !private ["Ps9_Hashable", "viewDidAppear"]
 - !private ["Ps9_Hashable", "viewDidLoad"]
 - !private ["Ps9_Hashable", "viewWillAppear"]
+- !private ["Ps9_Hashable", "white"]
 - !private ["Ps9_Hashable", "whitespacesAndNewlines"]
 - ["Ps9_Hashable", ""]
 - !private ["Ps14_Incrementable", "init"]
@@ -3071,58 +3083,58 @@ depends-external:
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/MKAnnotationView+WebCache.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIImageView+HighlightedWebCache.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDImageCache.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/JDStatusBarNotification/JDStatusBarStyle.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/JDStatusBarNotification/JDStatusBarStyle.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/NSData+ImageContentType.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDImageCacheConfig.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/NSBundle+MJRefresh.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/UIScrollView+MJRefresh.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/MJRefresh.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/RWDropdownMenu/RWDropdownMenuCell.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/UIView+MJExtension.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/UIScrollView+MJExtension.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/JDStatusBarNotification/JDStatusBarNotification.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/NSBundle+MJRefresh.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/UIScrollView+MJRefresh.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/MJRefresh.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/RWDropdownMenu/RWDropdownMenuCell.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/UIView+MJExtension.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/UIScrollView+MJExtension.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/JDStatusBarNotification/JDStatusBarNotification.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageOperation.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIView+WebCacheOperation.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageDownloaderOperation.h"
 - "/Users/yuying/Desktop/demo/Spatter/Spatter/Spatter-Bridging-Header.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Header/MJRefreshStateHeader.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Header/MJRefreshGifHeader.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Base/MJRefreshHeader.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Header/MJRefreshNormalHeader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Header/MJRefreshStateHeader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Header/MJRefreshGifHeader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshHeader.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Header/MJRefreshNormalHeader.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageDownloader.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageDecoder.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageManager.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImagePrefetcher.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PagingMenuController.framework/Headers/PagingMenuController.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/SubjectiveCPhotoPanner/SCImagePanViewController.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Footer/Back/MJRefreshBackStateFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Footer/Auto/MJRefreshAutoStateFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Footer/Back/MJRefreshBackGifFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Footer/Auto/MJRefreshAutoGifFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Base/MJRefreshFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Base/MJRefreshBackFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Footer/Back/MJRefreshBackNormalFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Custom/Footer/Auto/MJRefreshAutoNormalFooter.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Base/MJRefreshAutoFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/SubjectiveCPhotoPanner/SCImagePanViewController.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Back/MJRefreshBackStateFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Auto/MJRefreshAutoStateFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Back/MJRefreshBackGifFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Auto/MJRefreshAutoGifFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshBackFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Back/MJRefreshBackNormalFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Custom/Footer/Auto/MJRefreshAutoNormalFooter.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshAutoFooter.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/KeychainAccess.framework/Headers/KeychainAccess.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/UIImage+MultiFormat.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/SDWebImageCompat.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/DZNEmptyDataSet/UIScrollView+EmptyDataSet.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/DZNEmptyDataSet/DZNEmptyDataSet.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/DZNEmptyDataSet/UIScrollView+EmptyDataSet.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/DZNEmptyDataSet/DZNEmptyDataSet.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PKHUD.framework/Headers/PKHUD-Swift.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SwiftyJSON.framework/Headers/SwiftyJSON-Swift.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/Alamofire.framework/Headers/Alamofire-Swift.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/AMScrollingNavbar.framework/Headers/AMScrollingNavbar-Swift.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PagingMenuController.framework/Headers/PagingMenuController-Swift.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/KeychainAccess.framework/Headers/KeychainAccess-Swift.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/Base/MJRefreshComponent.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/MJRefresh/MJRefreshConst.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/RWDropdownMenu/RWDropdownMenu.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/Base/MJRefreshComponent.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/MJRefresh/MJRefreshConst.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/RWDropdownMenu/RWDropdownMenu.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Headers/FLAnimatedImageView.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/CMPopTipView/CMPopTipView.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/JDStatusBarNotification/JDStatusBarView.h"
-- "/Users/yuying/Desktop/demo/Spatter/Spatter/TMReachability/TMReachability.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/CMPopTipView/CMPopTipView.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/JDStatusBarNotification/JDStatusBarView.h"
+- "/Users/yuying/Desktop/demo/Spatter/Spatter/3rdLib/TMReachability/TMReachability.h"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PKHUD.framework/Modules/module.modulemap"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SwiftyJSON.framework/Modules/module.modulemap"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/SDWebImage.framework/Modules/module.modulemap"
@@ -3130,4 +3142,4 @@ depends-external:
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/AMScrollingNavbar.framework/Modules/module.modulemap"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PagingMenuController.framework/Modules/module.modulemap"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/KeychainAccess.framework/Modules/module.modulemap"
-interface-hash: "b4f3020e455f80e9c5148273fbb11c3d"
+interface-hash: "d1163e9df14356402316ee228c9c74f7"

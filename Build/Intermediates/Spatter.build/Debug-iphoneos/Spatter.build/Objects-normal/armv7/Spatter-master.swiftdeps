@@ -1,0 +1,14 @@
+version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
+options: "a894806cdf178cab1e247c4ca707cc8b"
+build_time: [553836363, 992710000]
+inputs:
+  "/Users/yuying/Desktop/demo/Spatter/Spatter/Base/BaseTableViewController.swift": [553834140, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Spatter/AppDelegate.swift": [553834484, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Spatter/ViewController/Main/MainViewController.swift": [553835863, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Spatter/Base/BaseNetworkRequest.swift": [553836246, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Spatter/ViewController/Main/AboutViewController.swift": [553677971, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Spatter/ViewController/Profile/PostTableViewController.swift": [553836215, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Spatter/ViewController/Profile/ProfileViewController.swift": [553836215, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Spatter/ViewController/Search/SearchTableViewController.swift": [553834463, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Spatter/ViewController/Detail/DetailViewController.swift": [553834234, 0]
+  "/Users/yuying/Desktop/demo/Spatter/Spatter/ViewController/Profile/LikedTableViewController.swift": [553836215, 0]

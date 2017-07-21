@@ -29,14 +29,16 @@ depends-top-level:
 - !private "<"
 - !private "<="
 - !private "=="
-- !private "Alamofire"
+- "Alamofire"
 - "AssignmentPrecedence"
 - "BaseNetworkRequest"
 - "BaseTableViewController"
+- !private "BooleanLiteralType"
 - "CastingPrecedence"
 - "DetailViewController"
 - !private "Dictionary"
 - !private "DispatchQueue"
+- "Error"
 - "FloatLiteralType"
 - "Int"
 - "IntegerLiteralType"
@@ -54,6 +56,7 @@ depends-top-level:
 - "ProfileViewController"
 - "SearchTableViewController"
 - "String"
+- !private "StringLiteralType"
 - !private "UIAlertAction"
 - !private "UIAlertController"
 - !private "UIImage"
@@ -107,6 +110,7 @@ depends-member:
 - !private ["Ps9AnyObject", "default"]
 - !private ["Ps9AnyObject", "endRefreshing"]
 - !private ["Ps9AnyObject", "endRefreshingWithNoMoreData"]
+- !private ["Ps9AnyObject", "failure"]
 - !private ["Ps9AnyObject", "footer"]
 - !private ["Ps9AnyObject", "getLikedPhoto"]
 - !private ["Ps9AnyObject", "getPhotos"]
@@ -168,12 +172,13 @@ depends-member:
 - !private ["Sa", "contains"]
 - !private ["Sa", "count"]
 - !private ["Sa", "subscript"]
-- !private ["C7Spatter18BaseNetworkRequest", "Alamofire"]
+- ["C7Spatter18BaseNetworkRequest", "Alamofire"]
 - !private ["C7Spatter18BaseNetworkRequest", "BaseNetworkRequest"]
 - ["C7Spatter18BaseNetworkRequest", "BaseTableViewController"]
 - ["C7Spatter18BaseNetworkRequest", "DetailViewController"]
 - !private ["C7Spatter18BaseNetworkRequest", "Dictionary"]
 - !private ["C7Spatter18BaseNetworkRequest", "DispatchQueue"]
+- ["C7Spatter18BaseNetworkRequest", "Error"]
 - ["C7Spatter18BaseNetworkRequest", "Int"]
 - !private ["C7Spatter18BaseNetworkRequest", "JSON"]
 - ["C7Spatter18BaseNetworkRequest", "LikedTableViewController"]
@@ -198,6 +203,7 @@ depends-member:
 - !private ["C7Spatter18BaseNetworkRequest", "clientID"]
 - !private ["C7Spatter18BaseNetworkRequest", "clientSecret"]
 - ["C7Spatter18BaseNetworkRequest", "deinit"]
+- ["C7Spatter18BaseNetworkRequest", "failure"]
 - ["C7Spatter18BaseNetworkRequest", "getCollections"]
 - ["C7Spatter18BaseNetworkRequest", "getLikedPhoto"]
 - ["C7Spatter18BaseNetworkRequest", "getPhotos"]
@@ -288,6 +294,7 @@ depends-member:
 - !private ["Ps7CVarArg", "default"]
 - !private ["Ps7CVarArg", "endRefreshing"]
 - !private ["Ps7CVarArg", "endRefreshingWithNoMoreData"]
+- !private ["Ps7CVarArg", "failure"]
 - !private ["Ps7CVarArg", "footer"]
 - !private ["Ps7CVarArg", "getLikedPhoto"]
 - !private ["Ps7CVarArg", "getPhotos"]
@@ -665,6 +672,7 @@ depends-member:
 - !private ["Ps9Equatable", "delete"]
 - !private ["Ps9Equatable", "endRefreshing"]
 - !private ["Ps9Equatable", "endRefreshingWithNoMoreData"]
+- !private ["Ps9Equatable", "failure"]
 - !private ["Ps9Equatable", "footer"]
 - !private ["Ps9Equatable", "getLikedPhoto"]
 - !private ["Ps9Equatable", "getPhotos"]
@@ -818,6 +826,7 @@ depends-member:
 - !private ["Ps8Hashable", "delete"]
 - !private ["Ps8Hashable", "endRefreshing"]
 - !private ["Ps8Hashable", "endRefreshingWithNoMoreData"]
+- !private ["Ps8Hashable", "failure"]
 - !private ["Ps8Hashable", "footer"]
 - !private ["Ps8Hashable", "getLikedPhoto"]
 - !private ["Ps8Hashable", "getPhotos"]
@@ -1016,12 +1025,13 @@ depends-member:
 - !private ["PSo16NSMutableCopying", "isEmpty"]
 - !private ["PSo16NSMutableCopying", "remove"]
 - !private ["CSo14NSNotification", "Name"]
-- !private ["CSo8NSObject", "Alamofire"]
+- ["CSo8NSObject", "Alamofire"]
 - !private ["CSo8NSObject", "BaseNetworkRequest"]
 - ["CSo8NSObject", "BaseTableViewController"]
 - ["CSo8NSObject", "DetailViewController"]
 - !private ["CSo8NSObject", "Dictionary"]
 - !private ["CSo8NSObject", "DispatchQueue"]
+- ["CSo8NSObject", "Error"]
 - ["CSo8NSObject", "Int"]
 - !private ["CSo8NSObject", "JSON"]
 - ["CSo8NSObject", "LikedTableViewController"]
@@ -1059,6 +1069,7 @@ depends-member:
 - !private ["CSo8NSObject", "default"]
 - !private ["CSo8NSObject", "endRefreshing"]
 - !private ["CSo8NSObject", "endRefreshingWithNoMoreData"]
+- ["CSo8NSObject", "failure"]
 - !private ["CSo8NSObject", "footer"]
 - ["CSo8NSObject", "getCollections"]
 - ["CSo8NSObject", "getLikedPhoto"]
@@ -1153,6 +1164,7 @@ depends-member:
 - !private ["PSo16NSObjectProtocol", "default"]
 - !private ["PSo16NSObjectProtocol", "endRefreshing"]
 - !private ["PSo16NSObjectProtocol", "endRefreshingWithNoMoreData"]
+- !private ["PSo16NSObjectProtocol", "failure"]
 - !private ["PSo16NSObjectProtocol", "footer"]
 - !private ["PSo16NSObjectProtocol", "getLikedPhoto"]
 - !private ["PSo16NSObjectProtocol", "getPhotos"]
@@ -1272,6 +1284,7 @@ depends-member:
 - !private ["PSo30SFSafariViewControllerDelegate", "likeButton"]
 - !private ["PSo30SFSafariViewControllerDelegate", "logout"]
 - !private ["PSo30SFSafariViewControllerDelegate", "somethingWrong"]
+- !private ["P17AMScrollingNavbar37ScrollingNavigationControllerDelegate", "logout"]
 - !private ["C7Spatter25SearchTableViewController", "deinit"]
 - !private ["C7Spatter25SearchTableViewController", "footer"]
 - !private ["C7Spatter25SearchTableViewController", "isSearching"]
@@ -1808,6 +1821,7 @@ depends-member:
 - !private ["Ps9_Hashable", "delete"]
 - !private ["Ps9_Hashable", "endRefreshing"]
 - !private ["Ps9_Hashable", "endRefreshingWithNoMoreData"]
+- !private ["Ps9_Hashable", "failure"]
 - !private ["Ps9_Hashable", "footer"]
 - !private ["Ps9_Hashable", "getLikedPhoto"]
 - !private ["Ps9_Hashable", "getPhotos"]
@@ -1988,6 +2002,7 @@ depends-nominal:
 - !private "P9Alamofire8Response"
 - !private "O9Alamofire6Result"
 - !private "PSo30SFSafariViewControllerDelegate"
+- !private "P17AMScrollingNavbar37ScrollingNavigationControllerDelegate"
 - !private "C7Spatter25SearchTableViewController"
 - !private "Ps8Sequence"
 - !private "Ps13SignedInteger"
@@ -2166,4 +2181,4 @@ depends-external:
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/AMScrollingNavbar.framework/Modules/module.modulemap"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PagingMenuController.framework/Modules/module.modulemap"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/KeychainAccess.framework/Modules/module.modulemap"
-interface-hash: "468d310384256e5d235af346cf3e88ed"
+interface-hash: "e4cd3bd95fa8adbc5f6cb8c0d41b8b38"

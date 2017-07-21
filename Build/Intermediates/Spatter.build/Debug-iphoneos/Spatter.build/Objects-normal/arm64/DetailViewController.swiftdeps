@@ -12,7 +12,6 @@ provides-dynamic-lookup:
 - "cannotAccessInternet"
 - "configureData"
 - "creatorName"
-- "didReceiveMemoryWarning"
 - "download"
 - "exceedLimit"
 - "full"
@@ -183,7 +182,6 @@ depends-member:
 - !private ["Ps9AnyObject", "default"]
 - !private ["Ps9AnyObject", "delegate"]
 - !private ["Ps9AnyObject", "didMove"]
-- !private ["Ps9AnyObject", "didReceiveMemoryWarning"]
 - !private ["Ps9AnyObject", "dismiss"]
 - !private ["Ps9AnyObject", "download"]
 - !private ["Ps9AnyObject", "edges"]
@@ -355,7 +353,6 @@ depends-member:
 - !private ["Ps7CVarArg", "default"]
 - !private ["Ps7CVarArg", "delegate"]
 - !private ["Ps7CVarArg", "didMove"]
-- !private ["Ps7CVarArg", "didReceiveMemoryWarning"]
 - !private ["Ps7CVarArg", "dismiss"]
 - !private ["Ps7CVarArg", "download"]
 - !private ["Ps7CVarArg", "edges"]
@@ -500,7 +497,6 @@ depends-member:
 - !private ["Ps28CustomDebugStringConvertible", "default"]
 - !private ["Ps28CustomDebugStringConvertible", "delegate"]
 - !private ["Ps28CustomDebugStringConvertible", "didMove"]
-- !private ["Ps28CustomDebugStringConvertible", "didReceiveMemoryWarning"]
 - !private ["Ps28CustomDebugStringConvertible", "dismiss"]
 - !private ["Ps28CustomDebugStringConvertible", "download"]
 - !private ["Ps28CustomDebugStringConvertible", "edges"]
@@ -656,7 +652,6 @@ depends-member:
 - !private ["Ps23CustomStringConvertible", "default"]
 - !private ["Ps23CustomStringConvertible", "delegate"]
 - !private ["Ps23CustomStringConvertible", "didMove"]
-- !private ["Ps23CustomStringConvertible", "didReceiveMemoryWarning"]
 - !private ["Ps23CustomStringConvertible", "dismiss"]
 - !private ["Ps23CustomStringConvertible", "download"]
 - !private ["Ps23CustomStringConvertible", "edges"]
@@ -788,7 +783,6 @@ depends-member:
 - ["C7Spatter20DetailViewController", "configureData"]
 - ["C7Spatter20DetailViewController", "creatorName"]
 - ["C7Spatter20DetailViewController", "deinit"]
-- ["C7Spatter20DetailViewController", "didReceiveMemoryWarning"]
 - ["C7Spatter20DetailViewController", "download"]
 - ["C7Spatter20DetailViewController", "exceedLimit"]
 - ["C7Spatter20DetailViewController", "full"]
@@ -905,7 +899,6 @@ depends-member:
 - !private ["Ps9Equatable", "default"]
 - !private ["Ps9Equatable", "delegate"]
 - !private ["Ps9Equatable", "didMove"]
-- !private ["Ps9Equatable", "didReceiveMemoryWarning"]
 - !private ["Ps9Equatable", "dismiss"]
 - !private ["Ps9Equatable", "download"]
 - !private ["Ps9Equatable", "edges"]
@@ -1073,7 +1066,6 @@ depends-member:
 - !private ["Ps8Hashable", "default"]
 - !private ["Ps8Hashable", "delegate"]
 - !private ["Ps8Hashable", "didMove"]
-- !private ["Ps8Hashable", "didReceiveMemoryWarning"]
 - !private ["Ps8Hashable", "dismiss"]
 - !private ["Ps8Hashable", "download"]
 - !private ["Ps8Hashable", "edges"]
@@ -1223,7 +1215,6 @@ depends-member:
 - !private ["PSo8NSCoding", "creatorName"]
 - !private ["PSo8NSCoding", "delegate"]
 - !private ["PSo8NSCoding", "didMove"]
-- !private ["PSo8NSCoding", "didReceiveMemoryWarning"]
 - !private ["PSo8NSCoding", "dismiss"]
 - !private ["PSo8NSCoding", "download"]
 - !private ["PSo8NSCoding", "exceedLimit"]
@@ -1337,7 +1328,6 @@ depends-member:
 - !private ["PSo26NSExtensionRequestHandling", "creatorName"]
 - !private ["PSo26NSExtensionRequestHandling", "delegate"]
 - !private ["PSo26NSExtensionRequestHandling", "didMove"]
-- !private ["PSo26NSExtensionRequestHandling", "didReceiveMemoryWarning"]
 - !private ["PSo26NSExtensionRequestHandling", "dismiss"]
 - !private ["PSo26NSExtensionRequestHandling", "download"]
 - !private ["PSo26NSExtensionRequestHandling", "exceedLimit"]
@@ -1470,7 +1460,6 @@ depends-member:
 - !private ["CSo8NSObject", "default"]
 - !private ["CSo8NSObject", "delegate"]
 - !private ["CSo8NSObject", "didMove"]
-- ["CSo8NSObject", "didReceiveMemoryWarning"]
 - !private ["CSo8NSObject", "dismiss"]
 - ["CSo8NSObject", "download"]
 - !private ["CSo8NSObject", "edges"]
@@ -1610,7 +1599,6 @@ depends-member:
 - !private ["PSo16NSObjectProtocol", "default"]
 - !private ["PSo16NSObjectProtocol", "delegate"]
 - !private ["PSo16NSObjectProtocol", "didMove"]
-- !private ["PSo16NSObjectProtocol", "didReceiveMemoryWarning"]
 - !private ["PSo16NSObjectProtocol", "dismiss"]
 - !private ["PSo16NSObjectProtocol", "download"]
 - !private ["PSo16NSObjectProtocol", "edges"]
@@ -1939,7 +1927,6 @@ depends-member:
 - !private ["PSo21UIAppearanceContainer", "creatorName"]
 - !private ["PSo21UIAppearanceContainer", "delegate"]
 - !private ["PSo21UIAppearanceContainer", "didMove"]
-- !private ["PSo21UIAppearanceContainer", "didReceiveMemoryWarning"]
 - !private ["PSo21UIAppearanceContainer", "dismiss"]
 - !private ["PSo21UIAppearanceContainer", "download"]
 - !private ["PSo21UIAppearanceContainer", "exceedLimit"]
@@ -2063,7 +2050,6 @@ depends-member:
 - !private ["PSo18UIContentContainer", "creatorName"]
 - !private ["PSo18UIContentContainer", "delegate"]
 - !private ["PSo18UIContentContainer", "didMove"]
-- !private ["PSo18UIContentContainer", "didReceiveMemoryWarning"]
 - !private ["PSo18UIContentContainer", "dismiss"]
 - !private ["PSo18UIContentContainer", "download"]
 - !private ["PSo18UIContentContainer", "exceedLimit"]
@@ -2215,7 +2201,6 @@ depends-member:
 - !private ["PSo18UIFocusEnvironment", "creatorName"]
 - !private ["PSo18UIFocusEnvironment", "delegate"]
 - !private ["PSo18UIFocusEnvironment", "didMove"]
-- !private ["PSo18UIFocusEnvironment", "didReceiveMemoryWarning"]
 - !private ["PSo18UIFocusEnvironment", "dismiss"]
 - !private ["PSo18UIFocusEnvironment", "download"]
 - !private ["PSo18UIFocusEnvironment", "exceedLimit"]
@@ -2371,7 +2356,6 @@ depends-member:
 - ["CSo11UIResponder", "creatorName"]
 - !private ["CSo11UIResponder", "delegate"]
 - !private ["CSo11UIResponder", "didMove"]
-- ["CSo11UIResponder", "didReceiveMemoryWarning"]
 - !private ["CSo11UIResponder", "dismiss"]
 - ["CSo11UIResponder", "download"]
 - ["CSo11UIResponder", "exceedLimit"]
@@ -2489,7 +2473,6 @@ depends-member:
 - !private ["PSo30UIResponderStandardEditActions", "creatorName"]
 - !private ["PSo30UIResponderStandardEditActions", "delegate"]
 - !private ["PSo30UIResponderStandardEditActions", "didMove"]
-- !private ["PSo30UIResponderStandardEditActions", "didReceiveMemoryWarning"]
 - !private ["PSo30UIResponderStandardEditActions", "dismiss"]
 - !private ["PSo30UIResponderStandardEditActions", "download"]
 - !private ["PSo30UIResponderStandardEditActions", "exceedLimit"]
@@ -2598,7 +2581,6 @@ depends-member:
 - !private ["PSo16UIStateRestoring", "creatorName"]
 - !private ["PSo16UIStateRestoring", "delegate"]
 - !private ["PSo16UIStateRestoring", "didMove"]
-- !private ["PSo16UIStateRestoring", "didReceiveMemoryWarning"]
 - !private ["PSo16UIStateRestoring", "dismiss"]
 - !private ["PSo16UIStateRestoring", "download"]
 - !private ["PSo16UIStateRestoring", "exceedLimit"]
@@ -2702,7 +2684,6 @@ depends-member:
 - !private ["PSo18UITraitEnvironment", "creatorName"]
 - !private ["PSo18UITraitEnvironment", "delegate"]
 - !private ["PSo18UITraitEnvironment", "didMove"]
-- !private ["PSo18UITraitEnvironment", "didReceiveMemoryWarning"]
 - !private ["PSo18UITraitEnvironment", "dismiss"]
 - !private ["PSo18UITraitEnvironment", "download"]
 - !private ["PSo18UITraitEnvironment", "exceedLimit"]
@@ -2837,7 +2818,6 @@ depends-member:
 - ["CSo16UIViewController", "creatorName"]
 - !private ["CSo16UIViewController", "delegate"]
 - !private ["CSo16UIViewController", "didMove"]
-- ["CSo16UIViewController", "didReceiveMemoryWarning"]
 - !private ["CSo16UIViewController", "dismiss"]
 - ["CSo16UIViewController", "download"]
 - ["CSo16UIViewController", "exceedLimit"]
@@ -3002,7 +2982,6 @@ depends-member:
 - !private ["Ps9_Hashable", "default"]
 - !private ["Ps9_Hashable", "delegate"]
 - !private ["Ps9_Hashable", "didMove"]
-- !private ["Ps9_Hashable", "didReceiveMemoryWarning"]
 - !private ["Ps9_Hashable", "dismiss"]
 - !private ["Ps9_Hashable", "download"]
 - !private ["Ps9_Hashable", "edges"]
@@ -3346,4 +3325,4 @@ depends-external:
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/AMScrollingNavbar.framework/Modules/module.modulemap"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/PagingMenuController.framework/Modules/module.modulemap"
 - "/Users/yuying/Desktop/demo/Spatter/Carthage/Build/iOS/KeychainAccess.framework/Modules/module.modulemap"
-interface-hash: "516d174138217f7edcfc5c6699fff03d"
+interface-hash: "5b130ec688e79e6075fb3191abb0954e"

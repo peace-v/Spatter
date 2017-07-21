@@ -14,114 +14,8 @@ import PKHUD
 
 class BaseNetworkRequest: NSObject {
 	
-	static var likedPerItem = 30
-	static var likedPage = 1
-	
-	// MARK: get collection photos
-	class func getCollections(_ tableViewController: BaseTableViewController) {
-		if (tableViewController.page <= tableViewController.totalPages || tableViewController.page == 1) {
-			Alamofire.request("https://api.unsplash.com/curated_batches", parameters: [
-					"client_id": clientID!,
-					"page": tableViewController.page,
-					"per_page": tableViewController.perItem
-				]).validate().responseJSON(completionHandler: {response in
-					switch response.result {
-					case .success:
-						reachLimit = false
-						tableViewController.somethingWrong = false
-                        isConnectedInternet = true
-						tableViewController.refreshControl?.endRefreshing()
-						if (tableViewController.page == 1) {
-                            if (response.response?.allHeaderFields["X-Total"] != nil){
-							tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-                            }
-							if (tableViewController.totalItems == 0) {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-							}
-						}
-						tableViewController.page += 1
-						if let value = response.result.value {
-							let json = JSON(value)
-							for (_, subJson): (String, JSON) in json {
-                                let collectionID:Int = subJson["id"].intValue
-								if (!tableViewController.collcectionsArray.contains(collectionID)) {
-									tableViewController.collcectionsArray.append(collectionID)
-									BaseNetworkRequest.getPhotos(tableViewController, id: collectionID)
-								}
-							}
-						}
-					case .failure(let error):
-                        tableViewController.refreshControl?.endRefreshing()
-						if let statusCode = response.response?.statusCode {
-							if statusCode == 403 {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
-							} else {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-							}
-						} else {
-							if (error.localizedDescription.contains("-1009") ||
-                                error.localizedDescription.contains("-1001") ||
-                                error.localizedDescription.contains("-1005")) {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
-                            } else {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-							}
-						}
-					}
-				})
-		} else {
-			tableViewController.footer.endRefreshingWithNoMoreData()
-		}
-		if (tableViewController.footer.isRefreshing()) {
-			tableViewController.footer.endRefreshing()
-		}
-	}
-	
-	class func getPhotos(_ tableViewController: BaseTableViewController, id: Int) {
-		Alamofire.request("https://api.unsplash.com/curated_batches/\(id)/photos", parameters: [
-				"client_id": clientID!
-			]).validate().responseJSON(completionHandler: {response in
-				switch response.result {
-				case .success:
-					reachLimit = false
-					tableViewController.somethingWrong = false
-                    isConnectedInternet = true
-					if let value = response.result.value {
-						let json = JSON(value)
-						for (_, subJson): (String, JSON) in json {
-							var photoDic = Dictionary<String, String>()
-							photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-							photoDic["small"] = subJson["urls"] ["small"].stringValue
-                            photoDic["full"] = subJson["urls"] ["full"].stringValue
-                            photoDic["raw"] = subJson["urls"] ["raw"].stringValue
-							photoDic["id"] = subJson["id"].stringValue
-							photoDic["download"] = subJson["links"] ["download"].stringValue
-							photoDic["name"] = subJson["user"] ["name"].stringValue
-                            photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
-							tableViewController.photosArray.append(photoDic)
-						}
-						tableViewController.successfullyGetJsonData = true
-						tableViewController.tableView.reloadData()
-					}
-				case .failure(let error):
-					if let statusCode = response.response?.statusCode {
-						if statusCode == 403 {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
-						} else {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-						}
-					} else {
-						if (error.localizedDescription.contains("-1009") ||
-                            error.localizedDescription.contains("-1001") ||
-                            error.localizedDescription.contains("-1005")) {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
-						} else {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-						}
-					}
-				}
-			})
-	}
+    static let likedPerItem = 30
+    static var likedPage = 1
 	
 	// MARK: oauth callback
     class func oauth(_ notification: Notification, vc:UIViewController) {
@@ -157,22 +51,8 @@ class BaseNetworkRequest: NSObject {
 							BaseNetworkRequest.loadProfile()
 						}
 					case .failure(let error):
-						if let statusCode = response.response?.statusCode {
-							if statusCode == 403 {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
-							}else {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-							}
-						} else {
-							if (error.localizedDescription.contains("-1009") ||
-                                error.localizedDescription.contains("-1001") ||
-                                error.localizedDescription.contains("-1005")) {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
-							} else {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-							}
-						}
-					}
+						BaseNetworkRequest.failure(response: response, error: error)
+                    }
 				})
 		}
 	}
@@ -233,173 +113,169 @@ class BaseNetworkRequest: NSObject {
 				}
 			})
 	}
-	
-	// MARK: get liked photos
-	class func getLikedPhoto(_ tableViewController: LikedTableViewController? = nil) {
-        tableViewController?.noData = false
-		if (likedPhotoIDArray.count < likedTotalItems || likedPhotoIDArray.count == 0) {
-			Alamofire.request("https://api.unsplash.com/users/\(username)/likes", parameters: [
-					"client_id": clientID!,
-					"page": likedPage,
-					"per_page": likedPerItem
-				]).validate().responseJSON(completionHandler: {response in
-					switch response.result {
-					case .success:
-						reachLimit = false
-						tableViewController?.somethingWrong = false
-                        isConnectedInternet = true
-						if (likedPage == 1) {
-							likedTotalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-							if (likedTotalItems == 0) {
-                                tableViewController?.noData = true
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoData"), object: nil)
-								
-								tableViewController?.refreshControl?.endRefreshing()
-								tableViewController?.successfullyGetJsonData = true
-								tableViewController?.tableView.reloadData()
-								return
-							}
-						}
-						likedPage += 1
-						if let value = response.result.value {
-							let json = JSON(value)
-							for (_, subJson): (String, JSON) in json {
-								var photoDic = Dictionary<String, String>()
-								photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-								photoDic["small"] = subJson["urls"] ["small"].stringValue
-                                photoDic["full"] = subJson["urls"] ["full"].stringValue
-                                photoDic["raw"] = subJson["urls"] ["raw"].stringValue
-								photoDic["id"] = subJson["id"].stringValue
-								photoDic["download"] = subJson["links"] ["download"].stringValue
-								photoDic["name"] = subJson["user"] ["name"].stringValue
-                                photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
-								if (!likedPhotoIDArray.contains(subJson["id"].stringValue)) {
-									likedPhotoIDArray.add(subJson["id"].stringValue)
-									likedPhotosArray.append(photoDic)
-								}
-							}
-							BaseNetworkRequest.getLikedPhoto(tableViewController)
-						}
-					case .failure(let error):
-                        tableViewController?.refreshControl?.endRefreshing()
-						if let statusCode = response.response?.statusCode {
-							if statusCode == 403 {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
-                                
-                                if (tableViewController != nil){
-                                    BaseNetworkRequest.reachLimitNotification(tableViewController!)
-                                }
-							} else if (statusCode == 401) {
-								if (tableViewController != nil) {
-									BaseNetworkRequest.refreshAccessToken(tableViewController!)
-								}
-							}  else {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-                                
-                                if (tableViewController != nil){
-                                    BaseNetworkRequest.somethingWrongNotification(tableViewController!)
-                                }
-							}
-						} else {
-							if (error.localizedDescription.contains("-1009") ||
-                                error.localizedDescription.contains("-1001") ||
-                                error.localizedDescription.contains("-1005")) {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
-                                
-                                if (tableViewController != nil){
-                                    BaseNetworkRequest.noNetworkNotification(tableViewController!)
-                                }
-							} else {
 
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-                                
-                                if (tableViewController != nil){
-                                    BaseNetworkRequest.somethingWrongNotification(tableViewController!)
+    // MARK: get collection photos
+    class func getCollections(_ tableViewController: BaseTableViewController) {
+        if (tableViewController.page <= tableViewController.totalPages || tableViewController.page == 1) {
+            Alamofire.request("https://api.unsplash.com/collections/featured", parameters: [
+                "client_id": clientID!,
+                "page": tableViewController.page,
+                "per_page": tableViewController.perItem
+                ]).validate().responseJSON(completionHandler: {response in
+                    switch response.result {
+                    case .success:
+                        reachLimit = false
+                        tableViewController.somethingWrong = false
+                        isConnectedInternet = true
+                        tableViewController.refreshControl?.endRefreshing()
+
+                        if (response.response?.allHeaderFields["x-total"] != nil){
+                            tableViewController.totalItems = Int(response.response?.allHeaderFields["x-total"] as! String)!
+                        }
+                        if (tableViewController.totalItems == 0) {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
+                            return
+                        }
+
+                        tableViewController.page += 1
+                        if let value = response.result.value {
+                            let json = JSON(value)
+                            for (_,subJson):(String, JSON) in json {
+                                let collectionID:Int = subJson["id"].intValue
+                                if (!tableViewController.collcectionsArray.contains(collectionID)) {
+                                    tableViewController.collcectionsArray.append(collectionID)
+                                    BaseNetworkRequest.getPhotos(tableViewController, id: collectionID)
                                 }
-							}
-						}
-					}
-				})
-		} else {
-			tableViewController?.refreshControl?.endRefreshing()
-			tableViewController?.photosArray = likedPhotosArray
-			tableViewController?.successfullyGetJsonData = true
-			tableViewController?.tableView.reloadData()
-			return
-		}
-	}
-	
-	// MARK: get post photos
-	class func getPostPhoto(_ tableViewController: PostTableViewController) {
-        tableViewController.noData = false
-		Alamofire.request("https://api.unsplash.com/users/\(username)/photos", parameters: [
-				"client_id": clientID!
-			]).validate().responseJSON(completionHandler: {response in
-				switch response.result {
-				case .success:
-					reachLimit = false
-					tableViewController.somethingWrong = false
+                            }
+                        }
+                    case .failure(let error):
+                        tableViewController.refreshControl?.endRefreshing()
+                        BaseNetworkRequest.failure(response: response, error: error)
+                    }
+                })
+        } else {
+            tableViewController.footer.endRefreshingWithNoMoreData()
+        }
+        if (tableViewController.footer.isRefreshing()) {
+            tableViewController.footer.endRefreshing()
+        }
+    }
+
+    class func getPhotos(_ tableViewController: BaseTableViewController, id: Int) {
+        Alamofire.request("https://api.unsplash.com/collections/\(id)/photos", parameters: [
+            "client_id": clientID!
+            ]).validate().responseJSON(completionHandler: {response in
+                switch response.result {
+                case .success:
+                    reachLimit = false
+                    tableViewController.somethingWrong = false
                     isConnectedInternet = true
-					tableViewController.refreshControl?.endRefreshing()
-					tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-					if (tableViewController.totalItems == 0) {
-                        tableViewController.noData = true
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoData"), object: nil)
-					}
-					if let value = response.result.value {
-						let json = JSON(value)
-						for (_, subJson): (String, JSON) in json {
-							var photoDic = Dictionary<String, String>()
-							photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-							photoDic["small"] = subJson["urls"] ["small"].stringValue
+                    if let value = response.result.value {
+                        let json = JSON(value)
+                        for (_, subJson): (String, JSON) in json {
+                            var photoDic = Dictionary<String, String>()
+                            photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+                            photoDic["small"] = subJson["urls"] ["small"].stringValue
                             photoDic["full"] = subJson["urls"] ["full"].stringValue
                             photoDic["raw"] = subJson["urls"] ["raw"].stringValue
-							photoDic["id"] = subJson["id"].stringValue
-							photoDic["download"] = subJson["links"] ["download"].stringValue
-							photoDic["name"] = subJson["user"] ["name"].stringValue
+                            photoDic["id"] = subJson["id"].stringValue
+                            photoDic["download"] = subJson["links"] ["download"].stringValue
+                            photoDic["name"] = subJson["user"] ["name"].stringValue
                             photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
-							tableViewController.photosArray.append(photoDic)
-						}
-						tableViewController.successfullyGetJsonData = true
-						tableViewController.tableView.reloadData()
-					}
-				case .failure(let error):
-                    tableViewController.refreshControl?.endRefreshing()
-					if let statusCode = response.response?.statusCode {
-						if statusCode == 403 {
+                            tableViewController.photosArray.append(photoDic)
+                        }
+                        tableViewController.successfullyGetJsonData = true
+                        tableViewController.tableView.reloadData()
+                    }
+                case .failure(let error):
+                    BaseNetworkRequest.failure(response: response, error: error)
+                }
+            })
+    }
 
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
-                            
-                            BaseNetworkRequest.reachLimitNotification(tableViewController)
-						} else if (statusCode == 401) {
-							BaseNetworkRequest.refreshAccessToken(tableViewController)
-						} else {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-                            
-                            BaseNetworkRequest.somethingWrongNotification(tableViewController)
-						}
-					} else {
-						if (error.localizedDescription.contains("-1009") ||
-                            error.localizedDescription.contains("-1001") ||
-                            error.localizedDescription.contains("-1005")) {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
-                            
-                            BaseNetworkRequest.noNetworkNotification(tableViewController)
-						} else {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-                            BaseNetworkRequest.somethingWrongNotification(tableViewController)
-						}
-					}
-				}
-			})
-	}
+    // MARK: get search results
+    class func getSearchResults(_ tableViewController: SearchTableViewController) {
+        tableViewController.isSearching = false
+        tableViewController.noData = false
+        if (tableViewController.page <= tableViewController.searchTotalPages || tableViewController.page == 1) {
+            Alamofire.request("https://api.unsplash.com/search/photos", parameters: [
+                "client_id": clientID!,
+                "query": tableViewController.query,
+                "page": tableViewController.page,
+                "per_page": tableViewController.searchPerItem
+                ]).validate().responseJSON(completionHandler: {response in
+                    switch response.result {
+                    case .success:
+                        reachLimit = false
+                        tableViewController.somethingWrong = false
+                        isConnectedInternet = true
+                        tableViewController.refreshControl?.endRefreshing()
+
+                        tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+                        if (tableViewController.totalItems == 0) {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoData"), object: nil)
+                            tableViewController.successfullyGetJsonData = true
+                            tableViewController.tableView.reloadData()
+                            return
+                        }
+
+                        tableViewController.page += 1
+                        if let value = response.result.value {
+                            let json = JSON(value)
+                            //							if (json.count == 0) {
+                            //								tableViewController.page -= 1
+                            //							}
+                            for (_, subJson): (String, JSON) in json {
+                                var photoDic = Dictionary<String, String>()
+                                photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+                                photoDic["small"] = subJson["urls"] ["small"].stringValue
+                                photoDic["full"] = subJson["urls"] ["full"].stringValue
+                                photoDic["raw"] = subJson["urls"] ["raw"].stringValue
+                                photoDic["id"] = subJson["id"].stringValue
+                                photoDic["download"] = subJson["links"] ["download"].stringValue
+                                photoDic["name"] = subJson["user"] ["name"].stringValue
+                                photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
+                                if (!tableViewController.photoID.contains(subJson["id"].stringValue)) {
+                                    tableViewController.photoID.append(subJson["id"].stringValue)
+                                    tableViewController.photosArray.append(photoDic)
+                                }
+                            }
+                            tableViewController.successfullyGetJsonData = true
+                            tableViewController.tableView.reloadData()
+                        }
+                    case .failure(let error):
+                        tableViewController.refreshControl?.endRefreshing()
+                        BaseNetworkRequest.failure(response: response, error: error)
+                    }
+                })
+        } else {
+            tableViewController.footer.endRefreshingWithNoMoreData()
+        }
+        if (tableViewController.footer.isRefreshing()) {
+            tableViewController.footer.endRefreshing()
+        }
+    }
 	
 	// MARK: like or unlike a photo
+    class func likePhoto(_ viewController: DetailViewController, id: String) {
+        Alamofire.request("https://api.unsplash.com/photos/\(id)/like", method: .post, parameters: ["client_id": clientID!], headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
+                    switch response.result {
+                    case .success:
+                        reachLimit = false
+                        viewController.somethingWrong = false
+                        isConnectedInternet = true
+                        likedPhotoIDArray.add(id)
+                        DispatchQueue.main.async() {
+                            viewController.likeButton.image = UIImage(named: "like-after")
+                        }
+                    case .failure(let error):
+                        BaseNetworkRequest.failure(response: response, error: error)
+                    }
+                })
+    }
+
 	class func unlikePhoto(_ tableViewController: DetailViewController, id: String) {
-        Alamofire.request("https://api.unsplash.com/photos/\(id)/like", method: .delete, parameters: [
-            "client_id": clientID!
-            ], headers: [
-				"Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
+        Alamofire.request("https://api.unsplash.com/photos/\(id)/like", method: .delete, parameters: ["client_id": clientID!], headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .success:
 					reachLimit = false
@@ -410,147 +286,14 @@ class BaseNetworkRequest: NSObject {
 						tableViewController.likeButton.image = UIImage(named: "like-before")
 					}
 				case .failure(let error):
-					if let statusCode = response.response?.statusCode {
-						if statusCode == 403 {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
-						} else if (statusCode == 401) {
-							BaseNetworkRequest.refreshAccessToken(tableViewController)
-						} else {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-						}
-					} else {
-						if (error.localizedDescription.contains("-1009") ||
-                            error.localizedDescription.contains("-1001") ||
-                            error.localizedDescription.contains("-1005")) {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
-						} else {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-						}
-					}
+					BaseNetworkRequest.failure(response: response, error: error)
 				}
 			})
-	}
-	
-	class func likePhoto(_ viewController: DetailViewController, id: String) {
-        Alamofire.request("https://api.unsplash.com/photos/\(id)/like", method: .post, parameters: [
-            "client_id": clientID!
-            ], headers: [
-				"Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
-				switch response.result {
-				case .success:
-					reachLimit = false
-					viewController.somethingWrong = false
-                    isConnectedInternet = true
-					likedPhotoIDArray.add(id)
-					DispatchQueue.main.async() {
-						viewController.likeButton.image = UIImage(named: "like-after")
-					}
-				case .failure(let error):
-					if let statusCode = response.response?.statusCode {
-						if statusCode == 403 {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
-						} else if (statusCode == 401) {
-							BaseNetworkRequest.refreshAccessToken(viewController)
-						} else {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-						}
-					} else {
-						if (error.localizedDescription.contains("-1009") ||
-                            error.localizedDescription.contains("-1001") ||
-                            error.localizedDescription.contains("-1005")) {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
-						} else {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-						}
-					}
-				}
-			})
-	}
-	
-	// MARK: get search results
-	class func getSearchResults(_ tableViewController: SearchTableViewController) {
-        tableViewController.isSearching = false
-        tableViewController.noData = false
-		if (tableViewController.page <= tableViewController.searchTotalPages || tableViewController.page == 1) {
-			Alamofire.request("https://api.unsplash.com/photos/search/", parameters: [
-					"client_id": clientID!,
-					"query": tableViewController.query,
-					"category": "",
-					"page": tableViewController.page,
-					"per_page": tableViewController.searchPerItem
-				]).validate().responseJSON(completionHandler: {response in
-					switch response.result {
-					case .success:
-						reachLimit = false
-						tableViewController.somethingWrong = false
-                        isConnectedInternet = true
-						tableViewController.refreshControl?.endRefreshing()
-						if (tableViewController.page == 1) {
-							tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
-							if (tableViewController.totalItems == 0) {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoData"), object: nil)
-								tableViewController.successfullyGetJsonData = true
-								tableViewController.tableView.reloadData()
-								return
-							}
-						}
-						tableViewController.page += 1
-						if let value = response.result.value {
-							let json = JSON(value)
-//							if (json.count == 0) {
-//								tableViewController.page -= 1
-//							}
-							for (_, subJson): (String, JSON) in json {
-								var photoDic = Dictionary<String, String>()
-								photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-								photoDic["small"] = subJson["urls"] ["small"].stringValue
-                                photoDic["full"] = subJson["urls"] ["full"].stringValue
-                                photoDic["raw"] = subJson["urls"] ["raw"].stringValue
-								photoDic["id"] = subJson["id"].stringValue
-								photoDic["download"] = subJson["links"] ["download"].stringValue
-								photoDic["name"] = subJson["user"] ["name"].stringValue
-                                photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
-								if (!tableViewController.photoID.contains(subJson["id"].stringValue)) {
-									tableViewController.photoID.append(subJson["id"].stringValue)
-									tableViewController.photosArray.append(photoDic)
-								}
-							}
-							tableViewController.successfullyGetJsonData = true
-							tableViewController.tableView.reloadData()
-						}
-					case .failure(let error):
-                        tableViewController.refreshControl?.endRefreshing()
-						if let statusCode = response.response?.statusCode {
-							if statusCode == 403 {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
-							} else {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-							}
-						} else {
-							if (error.localizedDescription.contains("-1009") ||
-                                error.localizedDescription.contains("-1001") ||
-                                error.localizedDescription.contains("-1005")) {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
-							} else {
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-							}
-						}
-					}
-				})
-		} else {
-			tableViewController.footer.endRefreshingWithNoMoreData()
-		}
-		if (tableViewController.footer.isRefreshing()) {
-			tableViewController.footer.endRefreshing()
-		}
 	}
 	
 	// MARK: load user profile
 	class func loadProfile(_ viewController: ProfileViewController? = nil) {
-        Alamofire.request("https://api.unsplash.com/me", parameters: [
-            "client_id": clientID!
-            ], headers: [
-				"Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
+        Alamofire.request("https://api.unsplash.com/me", parameters: ["client_id": clientID!], headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .success:
 					reachLimit = false
@@ -558,7 +301,8 @@ class BaseNetworkRequest: NSObject {
 					if let value = response.result.value {
 						let json = JSON(value)
 						username = json["username"].stringValue
-						avatarURL = json["profile_image"] ["medium"].stringValue
+//						avatarURL = json["profile_image"] ["medium"].stringValue
+                        avatarURL = json["portfolio_url"].stringValue
 						if (viewController != nil) {
 							DispatchQueue.main.async() {
 								viewController!.avatar.sd_setImage(with: URL.init(string: avatarURL))
@@ -573,30 +317,185 @@ class BaseNetworkRequest: NSObject {
 						}
 					}
 				case .failure(let error):
-					if let statusCode = response.response?.statusCode {
-						if statusCode == 403 {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
-						} else if (statusCode == 401) {
-							if (viewController != nil) {
-								BaseNetworkRequest.refreshAccessToken(viewController!)
-							}
-						} else {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-						}
-					} else {
-						if (error.localizedDescription.contains("-1009") ||
-                            error.localizedDescription.contains("-1001") ||
-                            error.localizedDescription.contains("-1005")) {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
-						} else {
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-						}
-					}
+					BaseNetworkRequest.failure(response: response, error: error)
 				}
 			})
     }
+
+    // MARK: get liked photos
+    class func getLikedPhoto(_ tableViewController: LikedTableViewController? = nil) {
+        tableViewController?.noData = false
+        if (likedPhotoIDArray.count < likedTotalItems || likedPhotoIDArray.count == 0) {
+            Alamofire.request("https://api.unsplash.com/users/\(username)/likes", parameters: [
+                "client_id": clientID!,
+                "page": likedPage,
+                "per_page": likedPerItem
+                ]).validate().responseJSON(completionHandler: {response in
+                    switch response.result {
+                    case .success:
+                        reachLimit = false
+                        tableViewController?.somethingWrong = false
+                        isConnectedInternet = true
+
+                        likedTotalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+                        if (likedTotalItems == 0) {
+                            tableViewController?.noData = true
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoData"), object: nil)
+
+                            tableViewController?.refreshControl?.endRefreshing()
+                            tableViewController?.successfullyGetJsonData = true
+                            tableViewController?.tableView.reloadData()
+                            return
+                        }
+
+                        likedPage += 1
+                        if let value = response.result.value {
+                            let json = JSON(value)
+                            for (_,subJson):(String, JSON) in json {
+                                var photoDic = Dictionary<String, String>()
+                                photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+                                photoDic["small"] = subJson["urls"] ["small"].stringValue
+                                photoDic["full"] = subJson["urls"] ["full"].stringValue
+                                photoDic["raw"] = subJson["urls"] ["raw"].stringValue
+                                photoDic["id"] = subJson["id"].stringValue
+                                photoDic["download"] = subJson["links"] ["download"].stringValue
+                                photoDic["name"] = subJson["user"] ["name"].stringValue
+                                photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
+                                if (!likedPhotoIDArray.contains(subJson["id"].stringValue)) {
+                                    likedPhotoIDArray.add(subJson["id"].stringValue)
+                                    likedPhotosArray.append(photoDic)
+                                }
+                            }
+                            BaseNetworkRequest.getLikedPhoto(tableViewController)
+                        }
+                    case .failure(let error):
+                        tableViewController?.refreshControl?.endRefreshing()
+                        if let statusCode = response.response?.statusCode {
+                            if statusCode == 403 {
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
+
+                                if (tableViewController != nil){
+                                    BaseNetworkRequest.reachLimitNotification(tableViewController!)
+                                }
+                            } else if (statusCode == 401) {
+                                if (tableViewController != nil) {
+                                    BaseNetworkRequest.refreshAccessToken(tableViewController!)
+                                }
+                            }  else {
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
+
+                                if (tableViewController != nil){
+                                    BaseNetworkRequest.somethingWrongNotification(tableViewController!)
+                                }
+                            }
+                        } else {
+                            if (error.localizedDescription.contains("-1009") ||
+                                error.localizedDescription.contains("-1001") ||
+                                error.localizedDescription.contains("-1005")) {
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
+
+                                if (tableViewController != nil){
+                                    BaseNetworkRequest.noNetworkNotification(tableViewController!)
+                                }
+                            } else {
+
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
+
+                                if (tableViewController != nil){
+                                    BaseNetworkRequest.somethingWrongNotification(tableViewController!)
+                                }
+                            }
+                        }
+                    }
+                })
+        } else {
+            tableViewController?.refreshControl?.endRefreshing()
+            tableViewController?.photosArray = likedPhotosArray
+            tableViewController?.successfullyGetJsonData = true
+            tableViewController?.tableView.reloadData()
+            return
+        }
+    }
+
+    // MARK: get post photos
+    class func getPostPhoto(_ tableViewController: PostTableViewController) {
+        tableViewController.noData = false
+        Alamofire.request("https://api.unsplash.com/users/\(username)/photos", parameters: ["client_id": clientID!]).validate().responseJSON(completionHandler: {response in
+                switch response.result {
+                case .success:
+                    reachLimit = false
+                    tableViewController.somethingWrong = false
+                    isConnectedInternet = true
+                    tableViewController.refreshControl?.endRefreshing()
+                    tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+                    if (tableViewController.totalItems == 0) {
+                        tableViewController.noData = true
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoData"), object: nil)
+                        return
+                    }
+                    if let value = response.result.value {
+                        let json = JSON(value)
+                        for (_,subJson):(String, JSON) in json {
+                            var photoDic = Dictionary<String, String>()
+                            photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+                            photoDic["small"] = subJson["urls"] ["small"].stringValue
+                            photoDic["full"] = subJson["urls"] ["full"].stringValue
+                            photoDic["raw"] = subJson["urls"] ["raw"].stringValue
+                            photoDic["id"] = subJson["id"].stringValue
+                            photoDic["download"] = subJson["links"] ["download"].stringValue
+                            photoDic["name"] = subJson["user"] ["name"].stringValue
+                            photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
+                            tableViewController.photosArray.append(photoDic)
+                        }
+                        tableViewController.successfullyGetJsonData = true
+                        tableViewController.tableView.reloadData()
+                    }
+                case .failure(let error):
+                    tableViewController.refreshControl?.endRefreshing()
+                    if let statusCode = response.response?.statusCode {
+                        if statusCode == 403 {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
+                            BaseNetworkRequest.reachLimitNotification(tableViewController)
+                        } else if (statusCode == 401) {
+                            BaseNetworkRequest.refreshAccessToken(tableViewController)
+                        } else {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
+                            BaseNetworkRequest.somethingWrongNotification(tableViewController)
+                        }
+                    } else {
+                        if (error.localizedDescription.contains("-1009") ||
+                            error.localizedDescription.contains("-1001") ||
+                            error.localizedDescription.contains("-1005")) {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
+                            BaseNetworkRequest.noNetworkNotification(tableViewController)
+                        } else {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
+                            BaseNetworkRequest.somethingWrongNotification(tableViewController)
+                        }
+                    }
+                }
+            })
+    }
     
     // MARK: help function
+    class func failure(response:Alamofire.DataResponse<Any>, error:Error) {
+        if let statusCode = response.response?.statusCode {
+            if statusCode == 403 {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
+            } else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
+            }
+        } else {
+            if (error.localizedDescription.contains("-1009") ||
+                error.localizedDescription.contains("-1001") ||
+                error.localizedDescription.contains("-1005")) {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
+            } else {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
+            }
+        }
+    }
+
     class func reachLimitNotification(_ vc:BaseTableViewController) {
         isConnectedInternet = true
         reachLimit = true
