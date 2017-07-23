@@ -45,7 +45,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		searchController.searchBar.searchBarStyle = .minimal
 		searchController.hidesNavigationBarDuringPresentation = false
 		searchController.searchBar.tintColor = UIColor.black
-        searchController.searchBar.backgroundColor = UIColor.white
+        searchController.searchBar.becomeFirstResponder()
 
 		// configure refreshController
 		self.refreshControl!.addTarget(self, action: #selector(SearchTableViewController.refreshSearchData), for: .valueChanged)
@@ -60,12 +60,20 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		view.addGestureRecognizer(edgePan)
 	}
 
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		if let navigationController = self.navigationController as? ScrollingNavigationController {
-			navigationController.followScrollView(self.tableView, delay: 50.0)
-		}
-	}
+//	override func viewWillAppear(_ animated: Bool) {
+//		super.viewWillAppear(animated)
+//		if let navigationController = self.navigationController as? ScrollingNavigationController {
+//			navigationController.followScrollView(self.tableView, delay: 50.0)
+//		}
+//	}
+    
+    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        if let navigationController = self.navigationController as? ScrollingNavigationController {
+//            navigationController.stopFollowingScrollView()
+//        }
+        self.searchController.searchBar.resignFirstResponder()
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -84,6 +92,12 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
             detailViewController.configureData(self.photosArray, withIndex: indexPath!.row)
 		}
 	}
+    
+    // MARK: UIScrollViewDelegate
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.searchController.searchBar.resignFirstResponder()
+        self.searchController.searchBar.endEditing(true)
+    }
 
 	// MARK: swipe back
 
@@ -105,12 +119,12 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 
 	// MARK: scrollingNavBar
 
-	override func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-		if let navigationController = self.navigationController as? ScrollingNavigationController {
-			navigationController.showNavbar(animated: true)
-		}
-		return true
-	}
+//	override func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+//		if let navigationController = self.navigationController as? ScrollingNavigationController {
+//			navigationController.showNavbar(animated: true)
+//		}
+//		return true
+//	}
 
 	// MARK: refresh function
 

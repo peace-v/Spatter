@@ -92,10 +92,13 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var number = 0
 		if self.successfullyGetJsonData {
-			return self.photosArray.count
+            number = self.photosArray.count
+//			return self.photosArray.count
 		}
-		return 0
+        tableView.mj_footer?.isHidden = number == 0 ? true : false
+		return number
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -201,10 +204,10 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		return UIColor.white
 	}
 
-	func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat {
-		let top = scrollView.contentInset.top
-		return top - 66
-	}
+//	func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat {
+//		let top = scrollView.contentInset.top
+//		return top - 66
+//	}
 
 	// MARK: DZEmptyDataSet Delegate
 

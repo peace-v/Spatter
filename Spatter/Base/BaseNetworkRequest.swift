@@ -34,7 +34,7 @@ class BaseNetworkRequest: NSObject {
 					"grant_type": "authorization_code"
 				]).validate().responseJSON(completionHandler: {response in
 					switch response.result {
-					case .success:
+					case .success(let value):
 						reachLimit = false
                         isConnectedInternet = true
                         if((vc as? DetailViewController) != nil){
@@ -42,14 +42,13 @@ class BaseNetworkRequest: NSObject {
                         }else if((vc as? ProfileViewController) != nil){
                             (vc as! ProfileViewController).somethingWrong = false
                         }
-						if let value = response.result.value {
-							let json = JSON(value)
-							keychain["refresh_token"] = nil
-							keychain["access_token"] = nil
-							keychain["refresh_token"] = json["refresh_token"].stringValue
-							keychain["access_token"] = json["access_token"].stringValue
-							BaseNetworkRequest.loadProfile()
-						}
+                        
+                        let json = JSON(value)
+                        keychain["refresh_token"] = nil
+                        keychain["access_token"] = nil
+                        keychain["refresh_token"] = json["refresh_token"].stringValue
+                        keychain["access_token"] = json["access_token"].stringValue
+                        BaseNetworkRequest.loadProfile()
 					case .failure(let error):
 						BaseNetworkRequest.failure(response: response, error: error)
                     }
@@ -66,7 +65,7 @@ class BaseNetworkRequest: NSObject {
 				"grant_type": "refresh_token"
 			]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
-				case .success:
+				case .success(let value):
 					reachLimit = false
                     isConnectedInternet = true
                     if ((viewController as? BaseTableViewController) != nil){
@@ -76,15 +75,14 @@ class BaseNetworkRequest: NSObject {
                     }else if((viewController as? ProfileViewController) != nil){
                         (viewController as! ProfileViewController).somethingWrong = false
                     }
-					if let value = response.result.value {
-						let json = JSON(value)
-						keychain["refresh_token"] = nil
-						keychain["access_token"] = nil
-						keychain["refresh_token"] = json["refresh_token"].stringValue
-						keychain["access_token"] = json["access_token"].stringValue
-						
-						BaseNetworkRequest.loadProfile()
-					}
+                    
+                    let json = JSON(value)
+                    keychain["refresh_token"] = nil
+                    keychain["access_token"] = nil
+                    keychain["refresh_token"] = json["refresh_token"].stringValue
+                    keychain["access_token"] = json["access_token"].stringValue
+                    
+                    BaseNetworkRequest.loadProfile()
 				case .failure(let error):
 					if let statusCode = response.response?.statusCode {
 						if statusCode == 403 {
@@ -117,13 +115,13 @@ class BaseNetworkRequest: NSObject {
     // MARK: get collection photos
     class func getCollections(_ tableViewController: BaseTableViewController) {
         if (tableViewController.page <= tableViewController.totalPages || tableViewController.page == 1) {
-            Alamofire.request("https://api.unsplash.com/collections/featured", parameters: [
+            Alamofire.request("https://api.unsplash.com/collections/curated", parameters: [
                 "client_id": clientID!,
                 "page": tableViewController.page,
                 "per_page": tableViewController.perItem
                 ]).validate().responseJSON(completionHandler: {response in
                     switch response.result {
-                    case .success:
+                    case .success(let value):
                         reachLimit = false
                         tableViewController.somethingWrong = false
                         isConnectedInternet = true
@@ -134,18 +132,18 @@ class BaseNetworkRequest: NSObject {
                         }
                         if (tableViewController.totalItems == 0) {
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
+                            tableViewController.successfullyGetJsonData = true
+                            tableViewController.tableView.reloadData()
                             return
                         }
-
                         tableViewController.page += 1
-                        if let value = response.result.value {
-                            let json = JSON(value)
-                            for (_,subJson):(String, JSON) in json {
-                                let collectionID:Int = subJson["id"].intValue
-                                if (!tableViewController.collcectionsArray.contains(collectionID)) {
-                                    tableViewController.collcectionsArray.append(collectionID)
-                                    BaseNetworkRequest.getPhotos(tableViewController, id: collectionID)
-                                }
+                        
+                        let json = JSON(value)
+                        for (_,subJson):(String, JSON) in json {
+                            let collectionID:Int = subJson["id"].intValue
+                            if (!tableViewController.collcectionsArray.contains(collectionID)) {
+                                tableViewController.collcectionsArray.append(collectionID)
+                                BaseNetworkRequest.getPhotos(tableViewController, id: collectionID)
                             }
                         }
                     case .failure(let error):
@@ -162,31 +160,30 @@ class BaseNetworkRequest: NSObject {
     }
 
     class func getPhotos(_ tableViewController: BaseTableViewController, id: Int) {
-        Alamofire.request("https://api.unsplash.com/collections/\(id)/photos", parameters: [
+        Alamofire.request("https://api.unsplash.com/collections/curated/\(id)/photos", parameters: [
             "client_id": clientID!
             ]).validate().responseJSON(completionHandler: {response in
                 switch response.result {
-                case .success:
+                case .success(let value):
                     reachLimit = false
                     tableViewController.somethingWrong = false
                     isConnectedInternet = true
-                    if let value = response.result.value {
-                        let json = JSON(value)
-                        for (_, subJson): (String, JSON) in json {
-                            var photoDic = Dictionary<String, String>()
-                            photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-                            photoDic["small"] = subJson["urls"] ["small"].stringValue
-                            photoDic["full"] = subJson["urls"] ["full"].stringValue
-                            photoDic["raw"] = subJson["urls"] ["raw"].stringValue
-                            photoDic["id"] = subJson["id"].stringValue
-                            photoDic["download"] = subJson["links"] ["download"].stringValue
-                            photoDic["name"] = subJson["user"] ["name"].stringValue
-                            photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
-                            tableViewController.photosArray.append(photoDic)
-                        }
-                        tableViewController.successfullyGetJsonData = true
-                        tableViewController.tableView.reloadData()
+                    
+                    let json = JSON(value)
+                    for (_, subJson): (String, JSON) in json {
+                        var photoDic = Dictionary<String, String>()
+                        photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+                        photoDic["small"] = subJson["urls"] ["small"].stringValue
+                        photoDic["full"] = subJson["urls"] ["full"].stringValue
+                        photoDic["raw"] = subJson["urls"] ["raw"].stringValue
+                        photoDic["id"] = subJson["id"].stringValue
+                        photoDic["download"] = subJson["links"] ["download"].stringValue
+                        photoDic["name"] = subJson["user"] ["name"].stringValue
+                        photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
+                        tableViewController.photosArray.append(photoDic)
                     }
+                    tableViewController.successfullyGetJsonData = true
+                    tableViewController.tableView.reloadData()
                 case .failure(let error):
                     BaseNetworkRequest.failure(response: response, error: error)
                 }
@@ -205,44 +202,39 @@ class BaseNetworkRequest: NSObject {
                 "per_page": tableViewController.searchPerItem
                 ]).validate().responseJSON(completionHandler: {response in
                     switch response.result {
-                    case .success:
+                    case .success(let value):
                         reachLimit = false
                         tableViewController.somethingWrong = false
                         isConnectedInternet = true
                         tableViewController.refreshControl?.endRefreshing()
-
-                        tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+                        
+                        let json = JSON(value)
+                        tableViewController.totalItems = json["total"].intValue
                         if (tableViewController.totalItems == 0) {
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoData"), object: nil)
                             tableViewController.successfullyGetJsonData = true
                             tableViewController.tableView.reloadData()
                             return
                         }
-
                         tableViewController.page += 1
-                        if let value = response.result.value {
-                            let json = JSON(value)
-                            //							if (json.count == 0) {
-                            //								tableViewController.page -= 1
-                            //							}
-                            for (_, subJson): (String, JSON) in json {
-                                var photoDic = Dictionary<String, String>()
-                                photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-                                photoDic["small"] = subJson["urls"] ["small"].stringValue
-                                photoDic["full"] = subJson["urls"] ["full"].stringValue
-                                photoDic["raw"] = subJson["urls"] ["raw"].stringValue
-                                photoDic["id"] = subJson["id"].stringValue
-                                photoDic["download"] = subJson["links"] ["download"].stringValue
-                                photoDic["name"] = subJson["user"] ["name"].stringValue
-                                photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
-                                if (!tableViewController.photoID.contains(subJson["id"].stringValue)) {
-                                    tableViewController.photoID.append(subJson["id"].stringValue)
-                                    tableViewController.photosArray.append(photoDic)
-                                }
+                        
+                        for (_, subJson): (String, JSON) in json["results"] {
+                            var photoDic = Dictionary<String, String>()
+                            photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+                            photoDic["small"] = subJson["urls"] ["small"].stringValue
+                            photoDic["full"] = subJson["urls"] ["full"].stringValue
+                            photoDic["raw"] = subJson["urls"] ["raw"].stringValue
+                            photoDic["id"] = subJson["id"].stringValue
+                            photoDic["download"] = subJson["links"] ["download"].stringValue
+                            photoDic["name"] = subJson["user"] ["name"].stringValue
+                            photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
+                            if (!tableViewController.photoID.contains(subJson["id"].stringValue)) {
+                                tableViewController.photoID.append(subJson["id"].stringValue)
+                                tableViewController.photosArray.append(photoDic)
                             }
-                            tableViewController.successfullyGetJsonData = true
-                            tableViewController.tableView.reloadData()
                         }
+                        tableViewController.successfullyGetJsonData = true
+                        tableViewController.tableView.reloadData()
                     case .failure(let error):
                         tableViewController.refreshControl?.endRefreshing()
                         BaseNetworkRequest.failure(response: response, error: error)
@@ -295,27 +287,26 @@ class BaseNetworkRequest: NSObject {
 	class func loadProfile(_ viewController: ProfileViewController? = nil) {
         Alamofire.request("https://api.unsplash.com/me", parameters: ["client_id": clientID!], headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
-				case .success:
+				case .success(let value):
 					reachLimit = false
                     isConnectedInternet = true
-					if let value = response.result.value {
-						let json = JSON(value)
-						username = json["username"].stringValue
-//						avatarURL = json["profile_image"] ["medium"].stringValue
-                        avatarURL = json["portfolio_url"].stringValue
-						if (viewController != nil) {
-							DispatchQueue.main.async() {
-								viewController!.avatar.sd_setImage(with: URL.init(string: avatarURL))
-								viewController!.userLabel.text = username
-							}
-							if (!username.isEmpty) {
-								NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LoadLikedPhotos"), object: nil)
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LoadPostPhotos"), object: nil)
-							}
-						} else {
-							BaseNetworkRequest.getLikedPhoto()
-						}
-					}
+                    let json = JSON(value)
+                    username = json["username"].stringValue
+                    avatarURL = json["portfolio_url"].stringValue
+                    if (viewController != nil) {
+                        DispatchQueue.main.async() {
+                            if avatarURL != "" {
+                                viewController!.avatar.sd_setImage(with: URL.init(string: avatarURL))
+                            }
+                            viewController!.userLabel.text = username
+                        }
+                        if (!username.isEmpty) {
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LoadLikedPhotos"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "LoadPostPhotos"), object: nil)
+                        }
+                    } else {
+                        BaseNetworkRequest.getLikedPhoto()
+                    }
 				case .failure(let error):
 					BaseNetworkRequest.failure(response: response, error: error)
 				}
@@ -332,12 +323,12 @@ class BaseNetworkRequest: NSObject {
                 "per_page": likedPerItem
                 ]).validate().responseJSON(completionHandler: {response in
                     switch response.result {
-                    case .success:
+                    case .success(let value):
                         reachLimit = false
                         tableViewController?.somethingWrong = false
                         isConnectedInternet = true
 
-                        likedTotalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+                        likedTotalItems = Int(response.response?.allHeaderFields["x-total"] as! String)!
                         if (likedTotalItems == 0) {
                             tableViewController?.noData = true
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoData"), object: nil)
@@ -347,27 +338,25 @@ class BaseNetworkRequest: NSObject {
                             tableViewController?.tableView.reloadData()
                             return
                         }
-
                         likedPage += 1
-                        if let value = response.result.value {
-                            let json = JSON(value)
-                            for (_,subJson):(String, JSON) in json {
-                                var photoDic = Dictionary<String, String>()
-                                photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-                                photoDic["small"] = subJson["urls"] ["small"].stringValue
-                                photoDic["full"] = subJson["urls"] ["full"].stringValue
-                                photoDic["raw"] = subJson["urls"] ["raw"].stringValue
-                                photoDic["id"] = subJson["id"].stringValue
-                                photoDic["download"] = subJson["links"] ["download"].stringValue
-                                photoDic["name"] = subJson["user"] ["name"].stringValue
-                                photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
-                                if (!likedPhotoIDArray.contains(subJson["id"].stringValue)) {
-                                    likedPhotoIDArray.add(subJson["id"].stringValue)
-                                    likedPhotosArray.append(photoDic)
-                                }
+                        
+                        let json = JSON(value)
+                        for (_,subJson):(String, JSON) in json {
+                            var photoDic = Dictionary<String, String>()
+                            photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+                            photoDic["small"] = subJson["urls"] ["small"].stringValue
+                            photoDic["full"] = subJson["urls"] ["full"].stringValue
+                            photoDic["raw"] = subJson["urls"] ["raw"].stringValue
+                            photoDic["id"] = subJson["id"].stringValue
+                            photoDic["download"] = subJson["links"] ["download"].stringValue
+                            photoDic["name"] = subJson["user"] ["name"].stringValue
+                            photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
+                            if (!likedPhotoIDArray.contains(subJson["id"].stringValue)) {
+                                likedPhotoIDArray.add(subJson["id"].stringValue)
+                                likedPhotosArray.append(photoDic)
                             }
-                            BaseNetworkRequest.getLikedPhoto(tableViewController)
                         }
+                        BaseNetworkRequest.getLikedPhoto(tableViewController)
                     case .failure(let error):
                         tableViewController?.refreshControl?.endRefreshing()
                         if let statusCode = response.response?.statusCode {
@@ -422,34 +411,36 @@ class BaseNetworkRequest: NSObject {
         tableViewController.noData = false
         Alamofire.request("https://api.unsplash.com/users/\(username)/photos", parameters: ["client_id": clientID!]).validate().responseJSON(completionHandler: {response in
                 switch response.result {
-                case .success:
+                case .success(let value):
                     reachLimit = false
                     tableViewController.somethingWrong = false
                     isConnectedInternet = true
                     tableViewController.refreshControl?.endRefreshing()
-                    tableViewController.totalItems = Int(response.response?.allHeaderFields["X-Total"] as! String)!
+                    tableViewController.totalItems = Int(response.response?.allHeaderFields["x-total"] as! String)!
                     if (tableViewController.totalItems == 0) {
                         tableViewController.noData = true
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoData"), object: nil)
-                        return
-                    }
-                    if let value = response.result.value {
-                        let json = JSON(value)
-                        for (_,subJson):(String, JSON) in json {
-                            var photoDic = Dictionary<String, String>()
-                            photoDic["regular"] = subJson["urls"] ["regular"].stringValue
-                            photoDic["small"] = subJson["urls"] ["small"].stringValue
-                            photoDic["full"] = subJson["urls"] ["full"].stringValue
-                            photoDic["raw"] = subJson["urls"] ["raw"].stringValue
-                            photoDic["id"] = subJson["id"].stringValue
-                            photoDic["download"] = subJson["links"] ["download"].stringValue
-                            photoDic["name"] = subJson["user"] ["name"].stringValue
-                            photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
-                            tableViewController.photosArray.append(photoDic)
-                        }
+                        tableViewController.refreshControl?.endRefreshing()
                         tableViewController.successfullyGetJsonData = true
                         tableViewController.tableView.reloadData()
+                        return
                     }
+                    
+                    let json = JSON(value)
+                    for (_,subJson):(String, JSON) in json {
+                        var photoDic = Dictionary<String, String>()
+                        photoDic["regular"] = subJson["urls"] ["regular"].stringValue
+                        photoDic["small"] = subJson["urls"] ["small"].stringValue
+                        photoDic["full"] = subJson["urls"] ["full"].stringValue
+                        photoDic["raw"] = subJson["urls"] ["raw"].stringValue
+                        photoDic["id"] = subJson["id"].stringValue
+                        photoDic["download"] = subJson["links"] ["download"].stringValue
+                        photoDic["name"] = subJson["user"] ["name"].stringValue
+                        photoDic["profileUrl"] = subJson["user"] ["links"]["html"].stringValue
+                        tableViewController.photosArray.append(photoDic)
+                    }
+                    tableViewController.successfullyGetJsonData = true
+                    tableViewController.tableView.reloadData()
                 case .failure(let error):
                     tableViewController.refreshControl?.endRefreshing()
                     if let statusCode = response.response?.statusCode {

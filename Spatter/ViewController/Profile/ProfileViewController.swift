@@ -31,7 +31,7 @@ class ProfileViewController: UIViewController {
         if (keychain["access_token"] != nil) {
 		BaseNetworkRequest.loadProfile(self)
         }
-		
+        
 		avatar.layer.masksToBounds = true
 		let avatarWidth = CGFloat(44.0)
 		avatar.layer.cornerRadius = avatarWidth / 2
@@ -45,15 +45,15 @@ class ProfileViewController: UIViewController {
 
         struct MenuItem1: MenuItemViewCustomizable {
             var displayMode: MenuItemDisplayMode {
-                let title = MenuItemText(text: "Like")
-                let description = MenuItemText(text: String(describing: self))
+                let title = MenuItemText(text: NSLocalizedString("Like", comment: ""))
+                let description = MenuItemText(text: "")
                 return .multilineText(title: title, description: description)
             }
         }
         struct MenuItem2: MenuItemViewCustomizable {
             var displayMode: MenuItemDisplayMode {
-                let title = MenuItemText(text: "Post")
-                let description = MenuItemText(text: String(describing: self))
+                let title = MenuItemText(text: NSLocalizedString("Post", comment: ""))
+                let description = MenuItemText(text: "")
                 return .multilineText(title: title, description: description)
             }
         }

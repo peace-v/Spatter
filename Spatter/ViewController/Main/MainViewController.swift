@@ -17,15 +17,13 @@ import SDWebImage
 let APPVERSION:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 
 class MainViewController: BaseTableViewController, SFSafariViewControllerDelegate, MFMailComposeViewControllerDelegate, ScrollingNavigationControllerDelegate {
-
-    override var prefersStatusBarHidden: Bool {
-        return isNavHidden
-    }
-    var isNavHidden = false {
-        didSet {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }
-    }
+    
+//    var isNavHidden = false {
+//        didSet {
+//            UIApplication.shared.isStatusBarHidden = self.isNavHidden
+//        }
+//    }
+//    var lastOffset:CGFloat = 0
 	
 	var menuItemsAlreadyLogin: [RWDropdownMenuItem] = []
 	var menuItemsWithoutLogin: [RWDropdownMenuItem] = []
@@ -138,15 +136,32 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 			detailViewController.configureData(self.photosArray,withIndex: (indexPath?.row)!)
 		}
 	}
+    
+    // MARK: - UIScrollViewDelegate
+    
+//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let offset = scrollView.contentOffset
+//        if offset.y > 44 && offset.y >= lastOffset {
+//            isNavHidden = true
+//        } else {
+//            isNavHidden = false
+//        }
+//    }
+//    
+//    override func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+//        lastOffset = scrollView.contentOffset.y
+//    }
 
     // MARK: - ScrollingNavigationControllerDelegate
 
     func scrollingNavigationController(_ controller: ScrollingNavigationController, didChangeState state: NavigationBarState) {
         switch state {
         case .collapsed:
-            isNavHidden = true
+//            isNavHidden = true
+            break
         case .expanded:
-            isNavHidden = false
+//            isNavHidden = false
+            break
         case .scrolling:
             break
         }
@@ -222,10 +237,10 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
     
     // MARK: DZEmptyDataSet
 
-    override func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat {
-        let top = scrollView.contentInset.top
-        return top - 44
-    }
+//    override func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat {
+//        let top = scrollView.contentInset.top
+//        return top - 44
+//    }
     
     // MARK: help function
 

@@ -174,6 +174,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+//        UIApplication.shared.isStatusBarHidden = true
 		self.navigationController!.setNavigationBarHidden(true, animated: false)
 		NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.oauthUser(_:)), name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
 		NotificationCenter.default.addObserver(self,
@@ -196,7 +197,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
+//        UIApplication.shared.isStatusBarHidden = false
 		self.navigationController!.setNavigationBarHidden(false, animated: false)
+        
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanAccessInternet"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
