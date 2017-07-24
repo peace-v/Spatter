@@ -18,12 +18,14 @@ let APPVERSION:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortV
 
 class MainViewController: BaseTableViewController, SFSafariViewControllerDelegate, MFMailComposeViewControllerDelegate, ScrollingNavigationControllerDelegate {
     
-//    var isNavHidden = false {
-//        didSet {
-//            UIApplication.shared.isStatusBarHidden = self.isNavHidden
-//        }
-//    }
-//    var lastOffset:CGFloat = 0
+    var isNavHidden = false {
+        didSet {
+            UIApplication.shared.isStatusBarHidden = isNavHidden
+            self.navigationController!.setNavigationBarHidden(isNavHidden, animated: true)
+        }
+    }
+    var lastOffset:CGFloat = 0
+    var isFooterShowed = false
 	
 	var menuItemsAlreadyLogin: [RWDropdownMenuItem] = []
 	var menuItemsWithoutLogin: [RWDropdownMenuItem] = []
@@ -97,11 +99,12 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+        isNavHidden = false
 		
-		if let navigationController = self.navigationController as? ScrollingNavigationController {
-			navigationController.followScrollView(self.tableView, delay: 50.0)
-            navigationController.scrollingNavbarDelegate = self
-		}
+//		if let navigationController = self.navigationController as? ScrollingNavigationController {
+//			navigationController.followScrollView(self.tableView, delay: 50.0)
+//            navigationController.scrollingNavbarDelegate = self
+//		}
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.oauthUser(_:)), name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
         
@@ -112,13 +115,23 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
             return JDStatusBarStyle
         }
 	}
-	
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		if let navigationController = self.navigationController as? ScrollingNavigationController {
-			navigationController.stopFollowingScrollView()
-		}
-	}
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        isNavHidden = false
+    }
+    
+//	override func viewWillDisappear(_ animated: Bool) {
+//		super.viewWillDisappear(animated)
+//		if let navigationController = self.navigationController as? ScrollingNavigationController {
+//			navigationController.stopFollowingScrollView()
+//		}
+//	}
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        isNavHidden = false
+    }
 	
 	deinit {
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
@@ -127,9 +140,9 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 	// MARK: tableView delegate
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		// Get the new view controller using segue.destinationViewController.
-		// Pass the selected object to the new view controller.
 		if (segue.identifier == "showFeaturedPhoto") {
+            isNavHidden = true
+            
 			let detailViewController = segue.destination as! DetailViewController
 			let cell = sender as? UITableViewCell
 			let indexPath = self.tableView.indexPath(for: cell!)
@@ -137,35 +150,43 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		}
 	}
     
-    // MARK: - UIScrollViewDelegate
+    // MARK: UIScrollViewDelegate
     
-//    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offset = scrollView.contentOffset
-//        if offset.y > 44 && offset.y >= lastOffset {
-//            isNavHidden = true
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.frame.size.height <= 0 {
+//            isFooterShowed = true
 //        } else {
-//            isNavHidden = false
+//            isFooterShowed = false
 //        }
-//    }
-//    
-//    override func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-//        lastOffset = scrollView.contentOffset.y
-//    }
+        
+        let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView)
+        if velocity.y > 0 {
+            // 下拉
+            isNavHidden = false
+        } else if velocity.y < 0 {
+            // 上拉
+            isNavHidden = true
+        }
+    }
+    
+    override func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        lastOffset = scrollView.contentOffset.y
+    }
 
     // MARK: - ScrollingNavigationControllerDelegate
 
-    func scrollingNavigationController(_ controller: ScrollingNavigationController, didChangeState state: NavigationBarState) {
-        switch state {
-        case .collapsed:
+//    func scrollingNavigationController(_ controller: ScrollingNavigationController, didChangeState state: NavigationBarState) {
+//        switch state {
+//        case .collapsed:
+////            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
+////            })
 //            isNavHidden = true
-            break
-        case .expanded:
+//        case .expanded:
 //            isNavHidden = false
-            break
-        case .scrolling:
-            break
-        }
-    }
+//        case .scrolling:
+//            break
+//        }
+//    }
 	
     // MARK: safari
 

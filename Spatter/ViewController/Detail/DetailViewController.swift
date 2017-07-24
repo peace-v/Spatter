@@ -159,7 +159,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 		self.addChildViewController(imagePanViewController)
 		self.view.addSubview(imagePanViewController.view)
-
+        
 		imagePanViewController.view.frame = self.view.bounds
 		imagePanViewController.view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
 
@@ -174,8 +174,8 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-//        UIApplication.shared.isStatusBarHidden = true
-		self.navigationController!.setNavigationBarHidden(true, animated: false)
+		self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
 		NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.oauthUser(_:)), name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
 		NotificationCenter.default.addObserver(self,
 			selector: #selector(DetailViewController.accessInternet(_:)),
@@ -194,18 +194,27 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 			name: NSNotification.Name(rawValue: "ErrorOccur"),
 			object: nil)
 	}
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-//        UIApplication.shared.isStatusBarHidden = false
-		self.navigationController!.setNavigationBarHidden(false, animated: false)
+		self.navigationController?.setNavigationBarHidden(false, animated: true)
         
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanAccessInternet"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
 	}
-
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
 	deinit {
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
 	}
