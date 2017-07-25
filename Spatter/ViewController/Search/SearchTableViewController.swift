@@ -11,9 +11,8 @@ import AMScrollingNavbar
 import Alamofire
 import SwiftyJSON
 
-class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, UISearchResultsUpdating {
+class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
 
-	let searchController = UISearchController(searchResultsController: nil)
 	var photoID: [String] = []
 	var query = ""
 	var searchPerItem = 10
@@ -23,28 +22,24 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		}
 	}
 	var isSearching = false
-
-	@IBOutlet weak var backBtn: UIBarButtonItem!
-
-	@IBAction func back(_ sender: AnyObject) {
-		searchController.resignFirstResponder()
-		self.navigationController!.dismiss(animated: true, completion: nil)
-	}
+    let searchBar = UISearchBar()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		searchController.loadViewIfNeeded()
 
-		// configure searchController
-		searchController.searchResultsUpdater = self
-		searchController.dimsBackgroundDuringPresentation = false
-		definesPresentationContext = true
-		tableView.tableHeaderView = searchController.searchBar
-		searchController.searchBar.delegate = self
-		searchController.searchBar.searchBarStyle = .minimal
-		searchController.hidesNavigationBarDuringPresentation = false
-		searchController.searchBar.tintColor = UIColor.black
-        searchController.searchBar.becomeFirstResponder()
+        // configure navBar
+        let cancel = UIButton()
+        cancel.setTitle(NSLocalizedString("Cancel", comment: ""), for: .normal)
+        cancel.setTitleColor(UIColor.black, for: .normal)
+        let size = cancel.sizeThatFits(CGSize(width: UIScreen.main.bounds.width, height: 44))
+        cancel.frame = CGRect(x: UIScreen.main.bounds.size.width - 10 - size.width, y: 0, width: size.width, height: 44)
+        cancel.addTarget(self, action: #selector(back), for: .touchUpInside)
+        self.navigationController?.navigationBar.addSubview(cancel)
+
+        searchBar.frame = CGRect(x: 10, y: 0, width: cancel.frame.minX - 15, height: 44)
+        searchBar.delegate = self
+        self.navigationController?.navigationBar.addSubview(searchBar)
+        searchBar.becomeFirstResponder()
 
 		// configure refreshController
 		self.refreshControl!.addTarget(self, action: #selector(SearchTableViewController.refreshSearchData), for: .valueChanged)
@@ -53,16 +48,10 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		footer.isRefreshingTitleHidden = true
 		self.tableView.mj_footer = footer
 
-		// add screenEdgePanGesture
-		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(SearchTableViewController.screenEdgeSwiped(_:)))
-		edgePan.edges = .left
-		view.addGestureRecognizer(edgePan)
+        // tap gesture
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        self.view.addGestureRecognizer(tap)
 	}
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.searchController.searchBar.resignFirstResponder()
-    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -73,87 +62,26 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if (segue.identifier == "showSearchResults") {
+            searchBar.resignFirstResponder()
 			let detailViewController = segue.destination as! DetailViewController
 			let cell = sender as? UITableViewCell
 			let indexPath = self.tableView.indexPath(for: cell!)
             detailViewController.configureData(self.photosArray, withIndex: indexPath!.row)
 		}
 	}
-    
-    // MARK: UIScrollViewDelegate
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.searchController.searchBar.resignFirstResponder()
-        self.searchController.searchBar.endEditing(true)
+
+    // MARK: - UISearchBarDelegate
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchItem()
     }
 
-	// MARK: swipe back
+    // MARK: - UIScrollViewDelegate
 
-	func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
-		if (recognizer.state == .recognized) {
-			searchController.resignFirstResponder()
-			self.navigationController!.dismiss(animated: true, completion: nil)
-		}
-	}
-
-	// MARK: UISearchController
-
-	func updateSearchResults(for searchController: UISearchController) {
-	}
-
-	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-		self.searchItem()
-	}
-
-	// MARK: refresh function
-
-	func getSearchResults() {
-		BaseNetworkRequest.getSearchResults(self)
-	}
-
-	func refreshSearchData() {
-		self.photosArray = []
-		self.photoID = []
-		self.page = 1
-		let cache = URLCache.shared
-		cache.removeAllCachedResponses()
-		BaseNetworkRequest.getSearchResults(self)
-	}
-
-	// MARK: DZEmptyDataSet
-
-	override func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage {
-		if !isConnectedInternet {
-			return UIImage(named: "wifi")!
-		} else if isSearching {
-			return UIImage(named: "Searching")!
-		} else if noData {
-			return UIImage(named: "character")!
-		} else if reachLimit {
-			return UIImage(named: "coffee")!
-		} else if somethingWrong {
-			return UIImage(named: "error")!
-		} else {
-			return UIImage(named: "blank4")!
-		}
-	}
-
-	override func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString {
-		var text = ""
-		if !isConnectedInternet {
-			text = NSLocalizedString("Cannot connect to Internet", comment: "")
-        } else if isSearching {
-            text = NSLocalizedString("Searching...", comment: "")
-        } else if noData {
-			text = NSLocalizedString("We couldn't find anything that matched the item", comment: "")
-		}  else if reachLimit {
-			text = NSLocalizedString("Server has reached it's limit", comment: "")
-		} else if somethingWrong {
-			text = NSLocalizedString("Oops, something went wrong", comment: "")
-		}
-		let attributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18.0),
-			NSForegroundColorAttributeName: UIColor.darkGray]
-		return NSAttributedString(string: text, attributes: attributes)
-	}
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        searchBar.resignFirstResponder()
+    }
 
 	// MARK: network notificaiton
 
@@ -161,7 +89,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		isConnectedInternet = true
 		if (self.photosArray.count == 0) {
 			let whiteSpace = CharacterSet.whitespacesAndNewlines
-			let searchTerm = searchController.searchBar.text?.trimmingCharacters(in: whiteSpace)
+			let searchTerm = searchBar.text?.trimmingCharacters(in: whiteSpace)
 			if (!searchTerm!.isEmpty) {
 				self.searchItem()
 			} else {
@@ -170,11 +98,26 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		}
 	}
 
-	// MARK: help function
+    // MARK: refresh function
+
+    func getSearchResults() {
+        BaseNetworkRequest.getSearchResults(self)
+    }
+
+    func refreshSearchData() {
+        self.photosArray = []
+        self.photoID = []
+        self.page = 1
+        let cache = URLCache.shared
+        cache.removeAllCachedResponses()
+        BaseNetworkRequest.getSearchResults(self)
+    }
+
+	// MARK: data request
 
 	func searchItem() {
 		let whiteSpace = CharacterSet.whitespacesAndNewlines
-		let searchTerm = searchController.searchBar.text?.trimmingCharacters(in: whiteSpace)
+		let searchTerm = searchBar.text?.trimmingCharacters(in: whiteSpace)
 		if (!searchTerm!.isEmpty) {
 			isSearching = true
 			if (self.photosArray.count != 0) {
@@ -183,11 +126,58 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 				self.page = 1
 			}
             self.tableView.reloadData()
-			self.query = searchController.searchBar.text!.lowercased()
+			self.query = searchBar.text!.lowercased()
 			BaseNetworkRequest.getSearchResults(self)
 		} else {
 			JDStatusBarNotification.show(withStatus: NSLocalizedString("Please enter the search term", comment: ""), dismissAfter: 2.5)
 		}
 	}
+
+    // MARK: - button action
+
+    func back() {
+        searchBar.resignFirstResponder()
+        dismiss(animated: true, completion: nil)
+    }
+
+    func hideKeyboard() {
+        searchBar.resignFirstResponder()
+    }
+
+    // MARK: DZEmptyDataSet
+
+    override func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage {
+        if !isConnectedInternet {
+            return UIImage(named: "wifi")!
+        } else if isSearching {
+            return UIImage(named: "Searching")!
+        } else if noData {
+            return UIImage(named: "character")!
+        } else if reachLimit {
+            return UIImage(named: "coffee")!
+        } else if somethingWrong {
+            return UIImage(named: "error")!
+        } else {
+            return UIImage(named: "blank4")!
+        }
+    }
+
+    override func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString {
+        var text = ""
+        if !isConnectedInternet {
+            text = NSLocalizedString("Cannot connect to Internet", comment: "")
+        } else if isSearching {
+            text = NSLocalizedString("Searching...", comment: "")
+        } else if noData {
+            text = NSLocalizedString("We couldn't find anything that matched the item", comment: "")
+        }  else if reachLimit {
+            text = NSLocalizedString("Server has reached it's limit", comment: "")
+        } else if somethingWrong {
+            text = NSLocalizedString("Oops, something went wrong", comment: "")
+        }
+        let attributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18.0),
+                          NSForegroundColorAttributeName: UIColor.darkGray]
+        return NSAttributedString(string: text, attributes: attributes)
+    }
     
 }

@@ -177,17 +177,7 @@
                             <outlet property="delegate" destination="5DD-Wz-GvX" id="Egi-Mw-pRV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="LvB-Db-Zni">
-                        <barButtonItem key="leftBarButtonItem" image="back" id="uzY-Kf-KDR">
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="back:" destination="5DD-Wz-GvX" id="fLp-WI-cbq"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="backBtn" destination="uzY-Kf-KDR" id="XUd-By-iUQ"/>
-                    </connections>
+                    <navigationItem key="navigationItem" id="LvB-Db-Zni"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HBL-mp-745" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
