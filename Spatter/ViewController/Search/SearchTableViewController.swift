@@ -42,15 +42,12 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
         searchBar.becomeFirstResponder()
 
 		// configure refreshController
-		self.refreshControl!.addTarget(self, action: #selector(SearchTableViewController.refreshSearchData), for: .valueChanged)
+        self.refreshControl = nil
+//		self.refreshControl!.addTarget(self, action: #selector(SearchTableViewController.refreshSearchData), for: .valueChanged)
 
 		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(SearchTableViewController.getSearchResults))
 		footer.isRefreshingTitleHidden = true
 		self.tableView.mj_footer = footer
-
-        // tap gesture
-        let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        self.view.addGestureRecognizer(tap)
 	}
 
     override func viewDidAppear(_ animated: Bool) {
@@ -104,14 +101,14 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
         BaseNetworkRequest.getSearchResults(self)
     }
 
-    func refreshSearchData() {
-        self.photosArray = []
-        self.photoID = []
-        self.page = 1
-        let cache = URLCache.shared
-        cache.removeAllCachedResponses()
-        BaseNetworkRequest.getSearchResults(self)
-    }
+//    func refreshSearchData() {
+//        self.photosArray = []
+//        self.photoID = []
+//        self.page = 1
+//        let cache = URLCache.shared
+//        cache.removeAllCachedResponses()
+//        BaseNetworkRequest.getSearchResults(self)
+//    }
 
 	// MARK: data request
 
@@ -138,10 +135,6 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
     func back() {
         searchBar.resignFirstResponder()
         dismiss(animated: true, completion: nil)
-    }
-
-    func hideKeyboard() {
-        searchBar.resignFirstResponder()
     }
 
     // MARK: DZEmptyDataSet
