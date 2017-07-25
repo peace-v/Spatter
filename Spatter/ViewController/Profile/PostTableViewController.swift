@@ -31,8 +31,6 @@ class PostTableViewController: BaseTableViewController {
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		// Get the new view controller using segue.destinationViewController.
-		// Pass the selected object to the new view controller.
 		if (segue.identifier == "showPostPhoto") {
 			let detailViewController = segue.destination as! DetailViewController
 			let cell = sender as? UITableViewCell

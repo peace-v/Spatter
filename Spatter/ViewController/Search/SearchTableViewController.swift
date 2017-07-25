@@ -33,7 +33,6 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
 		searchController.loadViewIfNeeded()
 
 		// configure searchController
@@ -59,19 +58,9 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 		edgePan.edges = .left
 		view.addGestureRecognizer(edgePan)
 	}
-
-//	override func viewWillAppear(_ animated: Bool) {
-//		super.viewWillAppear(animated)
-//		if let navigationController = self.navigationController as? ScrollingNavigationController {
-//			navigationController.followScrollView(self.tableView, delay: 50.0)
-//		}
-//	}
     
     override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        if let navigationController = self.navigationController as? ScrollingNavigationController {
-//            navigationController.stopFollowingScrollView()
-//        }
+        super.viewWillDisappear(animated)
         self.searchController.searchBar.resignFirstResponder()
     }
 
@@ -83,8 +72,6 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
     }
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		// Get the new view controller using segue.destinationViewController.
-		// Pass the selected object to the new view controller.
 		if (segue.identifier == "showSearchResults") {
 			let detailViewController = segue.destination as! DetailViewController
 			let cell = sender as? UITableViewCell
@@ -116,15 +103,6 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate, U
 	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 		self.searchItem()
 	}
-
-	// MARK: scrollingNavBar
-
-//	override func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-//		if let navigationController = self.navigationController as? ScrollingNavigationController {
-//			navigationController.showNavbar(animated: true)
-//		}
-//		return true
-//	}
 
 	// MARK: refresh function
 

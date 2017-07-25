@@ -15,7 +15,6 @@
 		220F09DB1F1DF4AF0033AD72 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220F09D11F1DF4AF0033AD72 /* ProfileViewController.swift */; };
 		220F09DC1F1DF4AF0033AD72 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220F09D31F1DF4AF0033AD72 /* SearchTableViewController.swift */; };
 		220F0AC21F1F44340033AD72 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220F0ABC1F1F44340033AD72 /* Alamofire.framework */; };
-		220F0AC31F1F44340033AD72 /* AMScrollingNavbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220F0ABD1F1F44340033AD72 /* AMScrollingNavbar.framework */; };
 		220F0AC41F1F44340033AD72 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220F0ABE1F1F44340033AD72 /* KeychainAccess.framework */; };
 		220F0AC51F1F44340033AD72 /* PagingMenuController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220F0ABF1F1F44340033AD72 /* PagingMenuController.framework */; };
 		220F0AC61F1F44340033AD72 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220F0AC01F1F44340033AD72 /* PKHUD.framework */; };
@@ -211,7 +210,6 @@
 			files = (
 				220F0ACA1F1F4BA60033AD72 /* SDWebImage.framework in Frameworks */,
 				220F0AC21F1F44340033AD72 /* Alamofire.framework in Frameworks */,
-				220F0AC31F1F44340033AD72 /* AMScrollingNavbar.framework in Frameworks */,
 				220F0AC41F1F44340033AD72 /* KeychainAccess.framework in Frameworks */,
 				220F0AC51F1F44340033AD72 /* PagingMenuController.framework in Frameworks */,
 				220F0AC61F1F44340033AD72 /* PKHUD.framework in Frameworks */,

@@ -42,6 +42,98 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	@IBOutlet weak var infoButton: UIBarButtonItem!
 	@IBOutlet weak var likeButton: UIBarButtonItem!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.loadImage()
+
+        // transparent toolbar
+        self.toolbar.setBackgroundImage(UIImage(),
+                                        forToolbarPosition: UIBarPosition.any,
+                                        barMetrics: UIBarMetrics.default)
+        self.toolbar.setShadowImage(UIImage(),
+                                    forToolbarPosition: UIBarPosition.any)
+
+        // set likeButton image
+        if (UserDefaults.standard.bool(forKey: "isLogin")) {
+            if (likedPhotoIDArray.contains(photoID)) {
+                likeButton.image = UIImage(named: "like-after")
+            } else {
+                likeButton.image = UIImage(named: "like-before")
+            }
+        } else {
+            likeButton.image = UIImage(named: "like-before")
+        }
+
+        // add motionView
+        let motionManager = CMMotionManager()
+        imagePanViewController = SCImagePanViewController(motionManager: motionManager)
+        imagePanViewController.willMove(toParentViewController: self)
+
+        self.addChildViewController(imagePanViewController)
+        self.view.addSubview(imagePanViewController.view)
+
+        imagePanViewController.view.frame = self.view.bounds
+        imagePanViewController.view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+
+        imagePanViewController.didMove(toParentViewController: self)
+        imagePanViewController.configure(with: image!)
+
+        // add screenEdgePanGesture
+        let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(DetailViewController.screenEdgeSwiped(_:)))
+        edgePan.edges = .left
+        view.addGestureRecognizer(edgePan)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.oauthUser(_:)), name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(DetailViewController.accessInternet(_:)),
+                                               name: NSNotification.Name(rawValue: "CanAccessInternet"),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(DetailViewController.cannotAccessInternet(_:)),
+                                               name: NSNotification.Name(rawValue: "CanNotAccessInternet"),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(DetailViewController.exceedLimit(_:)),
+                                               name: NSNotification.Name(rawValue: "ExceedRateLimit"),
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(DetailViewController.somethingWentWrong(_:)),
+                                               name: NSNotification.Name(rawValue: "ErrorOccur"),
+                                               object: nil)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanAccessInternet"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
+    }
+
+    // MARK: - IBAction
+
 	@IBAction func back(_ sender: AnyObject) {
 		self.navigationController!.popViewController(animated: true)
 	}
@@ -128,95 +220,6 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		creatorName = data[index]["name"]!
 		photoID = data[index]["id"]!
 		profileUrl = data[index]["profileUrl"]!
-	}
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		self.loadImage()
-
-		// transparent toolbar
-		self.toolbar.setBackgroundImage(UIImage(),
-			forToolbarPosition: UIBarPosition.any,
-			barMetrics: UIBarMetrics.default)
-		self.toolbar.setShadowImage(UIImage(),
-			forToolbarPosition: UIBarPosition.any)
-
-		// set likeButton image
-		if (UserDefaults.standard.bool(forKey: "isLogin")) {
-			if (likedPhotoIDArray.contains(photoID)) {
-				likeButton.image = UIImage(named: "like-after")
-			} else {
-				likeButton.image = UIImage(named: "like-before")
-			}
-		} else {
-			likeButton.image = UIImage(named: "like-before")
-		}
-
-		// add motionView
-		let motionManager = CMMotionManager()
-		imagePanViewController = SCImagePanViewController(motionManager: motionManager)
-		imagePanViewController.willMove(toParentViewController: self)
-
-		self.addChildViewController(imagePanViewController)
-		self.view.addSubview(imagePanViewController.view)
-        
-		imagePanViewController.view.frame = self.view.bounds
-		imagePanViewController.view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
-
-		imagePanViewController.didMove(toParentViewController: self)
-		imagePanViewController.configure(with: image!)
-
-		// add screenEdgePanGesture
-		let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(DetailViewController.screenEdgeSwiped(_:)))
-		edgePan.edges = .left
-		view.addGestureRecognizer(edgePan)
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		self.navigationController?.setNavigationBarHidden(true, animated: true)
-        
-		NotificationCenter.default.addObserver(self, selector: #selector(DetailViewController.oauthUser(_:)), name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
-		NotificationCenter.default.addObserver(self,
-			selector: #selector(DetailViewController.accessInternet(_:)),
-			name: NSNotification.Name(rawValue: "CanAccessInternet"),
-			object: nil)
-		NotificationCenter.default.addObserver(self,
-			selector: #selector(DetailViewController.cannotAccessInternet(_:)),
-			name: NSNotification.Name(rawValue: "CanNotAccessInternet"),
-			object: nil)
-		NotificationCenter.default.addObserver(self,
-			selector: #selector(DetailViewController.exceedLimit(_:)),
-			name: NSNotification.Name(rawValue: "ExceedRateLimit"),
-			object: nil)
-		NotificationCenter.default.addObserver(self,
-			selector: #selector(DetailViewController.somethingWentWrong(_:)),
-			name: NSNotification.Name(rawValue: "ErrorOccur"),
-			object: nil)
-	}
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		self.navigationController?.setNavigationBarHidden(false, animated: true)
-        
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanAccessInternet"), object: nil)
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "CanNotAccessInternet"), object: nil)
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ExceedRateLimit"), object: nil)
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "ErrorOccur"), object: nil)
-	}
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-	deinit {
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
 	}
 
 	// MARK: StatusBar Notificaiton

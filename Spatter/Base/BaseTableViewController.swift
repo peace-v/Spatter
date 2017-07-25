@@ -33,12 +33,11 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.tableView.separatorStyle = .none
-
 		self.refreshControl = UIRefreshControl()
 		self.refreshControl!.backgroundColor = UIColor.white
 		self.refreshControl!.tintColor = UIColor.black
 
+        self.tableView.separatorStyle = .none
 		self.tableView.emptyDataSetSource = self;
 		self.tableView.emptyDataSetDelegate = self;
 
@@ -95,7 +94,6 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
         var number = 0
 		if self.successfullyGetJsonData {
             number = self.photosArray.count
-//			return self.photosArray.count
 		}
         tableView.mj_footer?.isHidden = number == 0 ? true : false
 		return number
@@ -203,11 +201,6 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	func backgroundColor(forEmptyDataSet scrollView: UIScrollView) -> UIColor {
 		return UIColor.white
 	}
-
-//	func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat {
-//		let top = scrollView.contentInset.top
-//		return top - 66
-//	}
 
 	// MARK: DZEmptyDataSet Delegate
 
