@@ -1,5 +1,0 @@
-version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
-options: "c8d69ff08a8ff85f1c943644e5cac00d"
-build_time: [553677962, 457904000]
-inputs:
-  "/Users/yuying/Desktop/demo/Spatter/SpatterUITests/SpatterUITests.swift": [553662018, 0]

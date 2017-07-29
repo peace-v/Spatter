@@ -1,5 +1,0 @@
-version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
-options: "0cf0f9fc1b5b7d7033dd5e6e02feeb26"
-build_time: [553761134, 460551000]
-inputs:
-  "/Users/yuying/Desktop/demo/Spatter/Pods/KeychainAccess/Lib/KeychainAccess/Keychain.swift": [553678255, 0]

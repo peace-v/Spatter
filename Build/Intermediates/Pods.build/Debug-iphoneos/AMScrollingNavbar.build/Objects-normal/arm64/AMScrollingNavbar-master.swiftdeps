@@ -1,7 +1,0 @@
-version: "Apple Swift version 3.1 (swiftlang-802.0.53 clang-802.0.42)"
-options: "ee48a37776d627b3c3a4f3f67fdb0dc7"
-build_time: [553761227, 415233000]
-inputs:
-  "/Users/yuying/Desktop/demo/Spatter/Pods/AMScrollingNavbar/Source/ScrollingNavbar+Sizes.swift": [553676927, 0]
-  "/Users/yuying/Desktop/demo/Spatter/Pods/AMScrollingNavbar/Source/ScrollingNavigationController.swift": [553676927, 0]
-  "/Users/yuying/Desktop/demo/Spatter/Pods/AMScrollingNavbar/Source/ScrollingNavigationViewController.swift": [553676927, 0]
