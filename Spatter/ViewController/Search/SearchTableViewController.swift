@@ -39,7 +39,6 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
         searchBar.frame = CGRect(x: 10, y: 0, width: cancel.frame.minX - 15, height: 44)
         searchBar.delegate = self
         self.navigationController?.navigationBar.addSubview(searchBar)
-        searchBar.becomeFirstResponder()
 
 		// configure refreshController
         self.refreshControl = nil
@@ -52,6 +51,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        searchBar.becomeFirstResponder()
         if (self.tableView.contentOffset.y < 0 && self.tableView.isEmptyDataSetVisible) {
             self.tableView.contentOffset = CGPoint(x: 0, y: -64)
         }

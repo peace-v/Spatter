@@ -60,6 +60,10 @@ static CGFloat kRotationMultiplier = 5.f;
     self.panningScrollView.alwaysBounceVertical = NO;
     self.panningScrollView.maximumZoomScale = 2.f;
     [self.panningScrollView.pinchGestureRecognizer addTarget:self action:@selector(pinchGestureRecognized:)];
+    // iOS 11 适配
+    if (@available(iOS 11.0, *)) {
+        self.panningScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     
     [self.view addSubview:self.panningScrollView];
     

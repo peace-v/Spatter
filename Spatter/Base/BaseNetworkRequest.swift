@@ -154,7 +154,7 @@ class BaseNetworkRequest: NSObject {
         } else {
             tableViewController.footer.endRefreshingWithNoMoreData()
         }
-        if (tableViewController.footer.isRefreshing()) {
+        if (tableViewController.footer.isRefreshing) {
             tableViewController.footer.endRefreshing()
         }
     }
@@ -243,7 +243,7 @@ class BaseNetworkRequest: NSObject {
         } else {
             tableViewController.footer.endRefreshingWithNoMoreData()
         }
-        if (tableViewController.footer.isRefreshing()) {
+        if (tableViewController.footer.isRefreshing) {
             tableViewController.footer.endRefreshing()
         }
     }

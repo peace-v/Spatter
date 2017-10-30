@@ -200,7 +200,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		if infoBtnPopTipView.isDescendant(of: self.view) {
 			self.removeInfoBtnPopTipView()
 		} else {
-			let attrs: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle]
+			let attrs: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue]
 			infoBtnPopTipView.setAttributedTitle(NSAttributedString.init(string: "Photo by \(creatorName)", attributes: attrs), for: UIControlState())
 
 			let size = infoBtnPopTipView.titleLabel?.attributedText?.size()
