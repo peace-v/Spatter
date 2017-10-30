@@ -1,5 +1,5 @@
 framework module AMScrollingNavbar {
-  umbrella header "AMScrollingNavbar-umbrella.h"
+  umbrella header "AMScrollingNavbar.h"
 
   export *
   module * { export * }
@@ -7,4 +7,5 @@ framework module AMScrollingNavbar {
 
 module AMScrollingNavbar.Swift {
     header "AMScrollingNavbar-Swift.h"
+    requires objc
 }

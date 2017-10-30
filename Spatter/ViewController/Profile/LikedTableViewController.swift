@@ -46,7 +46,7 @@ class LikedTableViewController: BaseTableViewController {
 		}
 	}
 	
-    func getLikedPhotos(_ notification:Notification) {
+    @objc func getLikedPhotos(_ notification:Notification) {
 		if (likedPhotosArray.count != 0) {
 			self.photosArray = likedPhotosArray
 			self.successfullyGetJsonData = true
@@ -56,11 +56,11 @@ class LikedTableViewController: BaseTableViewController {
 		}
 	}
 	
-	func showNoMoreInfo() {
+	@objc func showNoMoreInfo() {
 		footer.endRefreshingWithNoMoreData()
 	}
 	
-	func refreshLikedData() {
+	@objc func refreshLikedData() {
 		self.photosArray = []
 		likedPhotosArray = []
 		likedPhotosArray = [Dictionary<String, String>]()
@@ -101,8 +101,8 @@ class LikedTableViewController: BaseTableViewController {
         } else {
             text = NSLocalizedString("Loading...", comment: "")
         }
-        let attributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18.0),
-            NSForegroundColorAttributeName: UIColor.darkGray]
+        let attributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 18.0),
+            NSAttributedStringKey.foregroundColor: UIColor.darkGray]
         return NSAttributedString(string: text, attributes: attributes)
     }
 }

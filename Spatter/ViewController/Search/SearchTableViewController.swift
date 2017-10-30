@@ -97,7 +97,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
 
     // MARK: refresh function
 
-    func getSearchResults() {
+    @objc func getSearchResults() {
         BaseNetworkRequest.getSearchResults(self)
     }
 
@@ -132,7 +132,7 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
 
     // MARK: - button action
 
-    func back() {
+    @objc func back() {
         searchBar.resignFirstResponder()
         dismiss(animated: true, completion: nil)
     }
@@ -168,8 +168,8 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
         } else if somethingWrong {
             text = NSLocalizedString("Oops, something went wrong", comment: "")
         }
-        let attributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18.0),
-                          NSForegroundColorAttributeName: UIColor.darkGray]
+        let attributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 18.0),
+                          NSAttributedStringKey.foregroundColor: UIColor.darkGray]
         return NSAttributedString(string: text, attributes: attributes)
     }
     

@@ -200,7 +200,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		if infoBtnPopTipView.isDescendant(of: self.view) {
 			self.removeInfoBtnPopTipView()
 		} else {
-			let attrs: [String: AnyObject] = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 14), NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue as AnyObject]
+			let attrs: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle]
 			infoBtnPopTipView.setAttributedTitle(NSAttributedString.init(string: "Photo by \(creatorName)", attributes: attrs), for: UIControlState())
 
 			let size = infoBtnPopTipView.titleLabel?.attributedText?.size()
@@ -224,7 +224,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 	// MARK: StatusBar Notificaiton
 
-	func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
+	@objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
 		if error == nil {
 			JDStatusBarNotification.show(withStatus: NSLocalizedString("Image saved", comment: ""), dismissAfter: 1.5)
 		} else {
@@ -245,7 +245,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 	// MARK: swipe back
 
-	func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+	@objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .recognized) {
 			self.navigationController!.popViewController(animated: true)
 		}
@@ -253,7 +253,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 	// MARK: oauth
 
-	func openSafari(_ sender: AnyObject?) {
+	@objc func openSafari(_ sender: AnyObject?) {
 		if sender?.tag == 1111 {
 			safariVC = SFSafariViewController(url: URL(string: self.profileUrl)!)
 		} else {
@@ -267,7 +267,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		controller.dismiss(animated: true, completion: nil)
 	}
 
-	func oauthUser(_ notification: Notification) {
+	@objc func oauthUser(_ notification: Notification) {
 		BaseNetworkRequest.oauth(notification, vc: self)
 		if (self.safariVC != nil) {
 			self.safariVC!.dismiss(animated: true, completion: nil)
@@ -276,21 +276,21 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 	// MARK: notification function
 
-	func accessInternet(_ notification: Notification) {
+	@objc func accessInternet(_ notification: Notification) {
 		isConnectedInternet = true
 		if (self.image == UIImage(named: "loading-black") || self.image == UIImage(named: "noNetwork")) {
 			self.loadImage()
 		}
 	}
 
-	func cannotAccessInternet(_ notification: Notification) {
+	@objc func cannotAccessInternet(_ notification: Notification) {
 		isConnectedInternet = false
 		if (self.image == UIImage(named: "loading-black")) {
 			self.noNetwork()
 		}
 	}
 
-	func exceedLimit(_ notification: Notification) {
+	@objc func exceedLimit(_ notification: Notification) {
 		isConnectedInternet = true
 		reachLimit = true
 		somethingWrong = false
@@ -300,7 +300,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 		PKHUD.sharedHUD.hide(afterDelay: 2.5)
 	}
 
-	func somethingWentWrong(_ notification: Notification) {
+	@objc func somethingWentWrong(_ notification: Notification) {
 		isConnectedInternet = true
 		somethingWrong = true
 		reachLimit = false

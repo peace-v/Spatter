@@ -4,28 +4,28 @@
   'roots': [
     {
       'type': 'directory',
-      'name': "/Users/yuying/Desktop/demo/Spatter/Carthage/Checkouts/SwiftyJSON/Build/Products/Release-iphonesimulator/SwiftyJSON.framework/Headers",
+      'name': "/Users/yuying/Desktop/apps/myApp/Spatter/Carthage/Checkouts/SwiftyJSON/Build/Products/Release-iphonesimulator/SwiftyJSON.framework/Headers",
       'contents': [
         {
           'type': 'file',
           'name': "SwiftyJSON-Swift.h",
-          'external-contents': "/Users/yuying/Desktop/demo/Spatter/Carthage/Checkouts/SwiftyJSON/Build/Products/Release-iphonesimulator/SwiftyJSON.framework/Headers/SwiftyJSON-Swift.h"
+          'external-contents': "/Users/yuying/Desktop/apps/myApp/Spatter/Carthage/Checkouts/SwiftyJSON/Build/Products/Release-iphonesimulator/SwiftyJSON.framework/Headers/SwiftyJSON-Swift.h"
         },
         {
           'type': 'file',
           'name': "SwiftyJSON.h",
-          'external-contents': "/Users/yuying/Desktop/demo/Spatter/Carthage/Checkouts/SwiftyJSON/Source/SwiftyJSON.h"
+          'external-contents': "/Users/yuying/Desktop/apps/myApp/Spatter/Carthage/Checkouts/SwiftyJSON/Source/SwiftyJSON.h"
         }
       ]
     },
     {
       'type': 'directory',
-      'name': "/Users/yuying/Desktop/demo/Spatter/Carthage/Checkouts/SwiftyJSON/Build/Products/Release-iphonesimulator/SwiftyJSON.framework/Modules",
+      'name': "/Users/yuying/Desktop/apps/myApp/Spatter/Carthage/Checkouts/SwiftyJSON/Build/Products/Release-iphonesimulator/SwiftyJSON.framework/Modules",
       'contents': [
         {
           'type': 'file',
           'name': "module.modulemap",
-          'external-contents': "/Users/yuying/Desktop/demo/Spatter/Carthage/Checkouts/SwiftyJSON/Build/Intermediates/SwiftyJSON.build/Release-iphonesimulator/SwiftyJSON iOS.build/module.modulemap"
+          'external-contents': "/Users/yuying/Desktop/apps/myApp/Spatter/Carthage/Checkouts/SwiftyJSON/Build/Intermediates/SwiftyJSON.build/Release-iphonesimulator/SwiftyJSON iOS.build/module.modulemap"
         }
       ]
     }

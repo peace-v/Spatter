@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/SwiftyJSON-Swift.h</key>
 		<data>
-		iYAsMjtkTXPqkFZP/+mxnD37qHU=
+		42CfxQiybf9I6MmMIiB0jO8zGkY=
 		</data>
 		<key>Headers/SwiftyJSON.h</key>
 		<data>
@@ -14,27 +14,27 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Yy6SK/cZ3wWE+k+n6hI5qmVwFbc=
+		W7mSNTU8jMHGf0Hdv2GUYupDXUQ=
 		</data>
 		<key>Modules/SwiftyJSON.swiftmodule/i386.swiftdoc</key>
 		<data>
-		XOHQm0FgZJht3G047UnkhoI+MtI=
+		nRMBcqtj8gsFSTi0vj2E/TCx+b4=
 		</data>
 		<key>Modules/SwiftyJSON.swiftmodule/i386.swiftmodule</key>
 		<data>
-		SsryrWWxxJil3rf9Tqtu9HnF9kI=
+		EwgMSF6EKXaO26T8+7qTInKy7So=
 		</data>
 		<key>Modules/SwiftyJSON.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		dw/S7uVyfJCCwGv2lAem+EQPhHY=
+		HpkNI4CJJ6S3SPmYsRk1yGLb7ME=
 		</data>
 		<key>Modules/SwiftyJSON.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		M9ojtM3uw9lnZiMH+cdDwRNcc8Y=
+		BpGREog23PsUODoDHj3xidmrBsg=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
-		1GXV+34Deld62yvTP9esfhoOTpk=
+		x3hM71yXQ22wCneidCfgntiirqs=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -43,11 +43,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			iYAsMjtkTXPqkFZP/+mxnD37qHU=
+			42CfxQiybf9I6MmMIiB0jO8zGkY=
 			</data>
 			<key>hash2</key>
 			<data>
-			zdH9axMqkEomkm72fURnuxV+rQvssoaXxweXCu2EMhw=
+			7V3SzYoCtqspOBuWmdBDCVWnt/CgjvIOAvsMIpmbxoQ=
 			</data>
 		</dict>
 		<key>Headers/SwiftyJSON.h</key>
@@ -65,55 +65,55 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			XOHQm0FgZJht3G047UnkhoI+MtI=
+			nRMBcqtj8gsFSTi0vj2E/TCx+b4=
 			</data>
 			<key>hash2</key>
 			<data>
-			94xAW6MtLFdWuJON02fn+dOQqt39nucbsAb/Dxft9oY=
+			jngBJaNPUIPPuwesj8rLRbELzEkWLjLviCkMvcE6tsI=
 			</data>
 		</dict>
 		<key>Modules/SwiftyJSON.swiftmodule/i386.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			SsryrWWxxJil3rf9Tqtu9HnF9kI=
+			EwgMSF6EKXaO26T8+7qTInKy7So=
 			</data>
 			<key>hash2</key>
 			<data>
-			wBD18+4dAw0iflrc1A/d4vRK8+FvKJpXEsiqIbK2oGo=
+			jK8aisYM/juWn9GsX5jyiyjHvXNVqNTnh6zy5QTELP0=
 			</data>
 		</dict>
 		<key>Modules/SwiftyJSON.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			dw/S7uVyfJCCwGv2lAem+EQPhHY=
+			HpkNI4CJJ6S3SPmYsRk1yGLb7ME=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZE5Dh38o1Q1UJhP/y5dcR6L5zu74/KH5Ytm2vKZPCkU=
+			bIaVSpOFGkw1Fu7Yv3druKdvkJp3yuSfcotCY0NP4zI=
 			</data>
 		</dict>
 		<key>Modules/SwiftyJSON.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			M9ojtM3uw9lnZiMH+cdDwRNcc8Y=
+			BpGREog23PsUODoDHj3xidmrBsg=
 			</data>
 			<key>hash2</key>
 			<data>
-			eF2wRYmnqrxvzKqxB/V5978gOVxv8EpavOn33tNfXiA=
+			rT/S3C0VYg+qoi4cKi6RynTCvk9D6UZz8U6dE0R8UNI=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			1GXV+34Deld62yvTP9esfhoOTpk=
+			x3hM71yXQ22wCneidCfgntiirqs=
 			</data>
 			<key>hash2</key>
 			<data>
-			wIznj7S5lfbm5ddzAZFxqgHEOj7Bouf+2ZacWwcTIkM=
+			hIAVUCVdQm9ByccS5mgx2W2uOZdHsCfMUe9lFqz4BGw=
 			</data>
 		</dict>
 	</dict>

@@ -39,7 +39,7 @@ class PostTableViewController: BaseTableViewController {
 		}
 	}
 	
-	func getPostPhoto(_ notification: Notification) {
+	@objc func getPostPhoto(_ notification: Notification) {
         if (self.photosArray.count != 0) {
             self.successfullyGetJsonData = true
             self.tableView.reloadData()
@@ -48,11 +48,11 @@ class PostTableViewController: BaseTableViewController {
         }
 	}
 	
-	func showNoMoreInfo() {
+	@objc func showNoMoreInfo() {
 		footer.endRefreshingWithNoMoreData()
 	}
 	
-	func refreshPostData() {
+	@objc func refreshPostData() {
 		self.photosArray = []
 		let cache = URLCache.shared
 		cache.removeAllCachedResponses()
@@ -88,8 +88,8 @@ class PostTableViewController: BaseTableViewController {
         }else {
             text = NSLocalizedString("Loading...", comment: "")
         }
-        let attributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18.0),
-            NSForegroundColorAttributeName: UIColor.darkGray]
+        let attributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 18.0),
+            NSAttributedStringKey.foregroundColor: UIColor.darkGray]
         return NSAttributedString(string: text, attributes: attributes)
     }
 }

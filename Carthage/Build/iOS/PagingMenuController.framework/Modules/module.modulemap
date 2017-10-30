@@ -7,4 +7,5 @@ framework module PagingMenuController {
 
 module PagingMenuController.Swift {
     header "PagingMenuController-Swift.h"
+    requires objc
 }

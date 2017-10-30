@@ -169,8 +169,8 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		} else {
 			text = NSLocalizedString("Loading...", comment: "")
 		}
-		let attributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 18.0),
-			NSForegroundColorAttributeName: UIColor.darkGray]
+		let attributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 18.0),
+			NSAttributedStringKey.foregroundColor: UIColor.darkGray]
 		return NSAttributedString(string: text, attributes: attributes)
 	}
 
@@ -186,15 +186,15 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		let paragraph = NSMutableParagraphStyle()
 		paragraph.lineBreakMode = .byWordWrapping
 		paragraph.alignment = .center
-		let attributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14.0),
-			NSForegroundColorAttributeName: UIColor.lightGray,
-			NSParagraphStyleAttributeName: paragraph]
+		let attributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14.0),
+			NSAttributedStringKey.foregroundColor: UIColor.lightGray,
+			NSAttributedStringKey.paragraphStyle: paragraph]
 		return NSAttributedString(string: text, attributes: attributes)
 	}
 
 	func buttonTitle(forEmptyDataSet scrollView: UIScrollView, for state: UIControlState) -> NSAttributedString {
 		let title = ""
-		let attributes = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 17.0)]
+		let attributes = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 17.0)]
 		return NSAttributedString(string: title, attributes: attributes)
 	}
 
@@ -225,12 +225,12 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 
 	// MARK: notification function
     
-	func accessInternet(_ notification: Notification) {
+	@objc func accessInternet(_ notification: Notification) {
 		isConnectedInternet = true
 		self.tableView.reloadData()
 	}
 
-	func cannotAccessInternet(_ notification: Notification) {
+	@objc func cannotAccessInternet(_ notification: Notification) {
 		isConnectedInternet = false
 		if (self.photosArray.count == 0) {
 			self.tableView.reloadData()
@@ -241,7 +241,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		}
 	}
 
-	func exceedLimit(_ notification: Notification) {
+	@objc func exceedLimit(_ notification: Notification) {
 		isConnectedInternet = true
 		reachLimit = true
 		somethingWrong = false
@@ -254,7 +254,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		}
 	}
 
-	func somethingWentWrong(_ notification: Notification) {
+	@objc func somethingWentWrong(_ notification: Notification) {
 		isConnectedInternet = true
 		somethingWrong = true
 		reachLimit = false
@@ -267,7 +267,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		}
 	}
 
-	func noData(_ notification: Notification) {
+	@objc func noData(_ notification: Notification) {
 		isConnectedInternet = true
 		noData = true
 		somethingWrong = false

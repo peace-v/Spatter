@@ -3,11 +3,11 @@
   'case-sensitive': 'false',
   'roots': [{
     'type': 'directory',
-    'name': '/Users/yuying/Desktop/demo/Spatter/Carthage/Checkouts/SwiftyJSON/Build/Products/Release-iphoneos/SwiftyJSON.framework/Modules'
+    'name': '/Users/yuying/Desktop/apps/myApp/Spatter/Carthage/Checkouts/SwiftyJSON/Build/Products/Release-iphoneos/SwiftyJSON.framework/Modules'
     'contents': [{
       'type': 'file',
       'name': 'module.modulemap',
-      'external-contents': '/Users/yuying/Desktop/demo/Spatter/Carthage/Checkouts/SwiftyJSON/Build/Intermediates/SwiftyJSON.build/Release-iphoneos/SwiftyJSON iOS.build/unextended-module.modulemap',
+      'external-contents': '/Users/yuying/Desktop/apps/myApp/Spatter/Carthage/Checkouts/SwiftyJSON/Build/Intermediates/SwiftyJSON.build/Release-iphoneos/SwiftyJSON iOS.build/unextended-module.modulemap',
     }]
   }]
 }

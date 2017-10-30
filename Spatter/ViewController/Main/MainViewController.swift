@@ -166,7 +166,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
 		controller.dismiss(animated: true, completion: nil)
 	}
 	
-	func oauthUser(_ notification: Notification) {
+	@objc func oauthUser(_ notification: Notification) {
 		BaseNetworkRequest.oauth(notification, vc:self)
 		if (self.safariVC != nil) {
 			self.safariVC!.dismiss(animated: true, completion: nil)
@@ -200,11 +200,11 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
     
     // MARK: refresh methods
 
-    func getCollections() {
+    @objc func getCollections() {
         BaseNetworkRequest.getCollections(self)
     }
     
-    func refreshData() {
+    @objc func refreshData() {
         self.collcectionsArray = []
         self.photosArray = []
         self.page = 1

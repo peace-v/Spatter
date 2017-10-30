@@ -134,7 +134,7 @@ class ProfileViewController: UIViewController {
 	
     // MARK: swipe back
 
-	func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
+	@objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
 		if (recognizer.state == .recognized) {
 			self.navigationController!.dismiss(animated: true, completion: nil)
 		}
@@ -142,12 +142,12 @@ class ProfileViewController: UIViewController {
 	
 	// MARK: notification function
     
-	func accessInternet(_ notification: Notification) {
+	@objc func accessInternet(_ notification: Notification) {
 		isConnectedInternet = true
 		BaseNetworkRequest.loadProfile(self)
 	}
 	
-	func cannotAccessInternet(_ notification: Notification) {
+	@objc func cannotAccessInternet(_ notification: Notification) {
 		isConnectedInternet = false
 	}
 }

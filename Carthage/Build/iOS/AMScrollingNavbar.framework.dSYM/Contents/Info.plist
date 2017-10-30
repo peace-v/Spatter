@@ -5,7 +5,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>English</string>
 		<key>CFBundleIdentifier</key>
-		<string>com.apple.xcode.dsym.org.cocoapods.AMScrollingNavbar</string>
+		<string>com.apple.xcode.dsym.it.fancypixel.AMScrollingNavbar</string>
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundlePackageType</key>
@@ -13,7 +13,7 @@
 		<key>CFBundleSignature</key>
 		<string>????</string>
 		<key>CFBundleShortVersionString</key>
-		<string>2.1.2</string>
+		<string>3.3.2</string>
 		<key>CFBundleVersion</key>
 		<string>1</string>
 	</dict>
