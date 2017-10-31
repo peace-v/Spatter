@@ -73,8 +73,13 @@ static CGFloat kRotationMultiplier = 5.f;
     self.panningImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     [self.panningScrollView addSubview:self.panningImageView];
-    
-    self.scrollBarView = [[SCImagePanScrollBarView alloc] initWithFrame:self.view.bounds edgeInsets:UIEdgeInsetsMake(0.f, 10.f, 50.f, 10.f)];
+
+    // iPhone X
+    if (UIScreen.mainScreen.bounds.size.height == 812) {
+        self.scrollBarView = [[SCImagePanScrollBarView alloc] initWithFrame:self.view.bounds edgeInsets:UIEdgeInsetsMake(0.f, 10.f, 84.f, 10.f)];
+    } else {
+        self.scrollBarView = [[SCImagePanScrollBarView alloc] initWithFrame:self.view.bounds edgeInsets:UIEdgeInsetsMake(0.f, 10.f, 50.f, 10.f)];
+    }
     self.scrollBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.scrollBarView.userInteractionEnabled = NO;
     [self.view addSubview:self.scrollBarView];

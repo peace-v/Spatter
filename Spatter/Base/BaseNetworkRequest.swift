@@ -308,7 +308,7 @@ class BaseNetworkRequest: NSObject {
                         BaseNetworkRequest.getLikedPhoto()
                     }
 				case .failure(let error):
-					BaseNetworkRequest.failure(response: response, error: error)
+                    BaseNetworkRequest.failure(response: response, error: error)
 				}
 			})
     }
@@ -319,9 +319,10 @@ class BaseNetworkRequest: NSObject {
         if (likedPhotoIDArray.count < likedTotalItems || likedPhotoIDArray.count == 0) {
             Alamofire.request("https://api.unsplash.com/users/\(username)/likes", parameters: [
                 "client_id": clientID!,
+                "username":username,
                 "page": likedPage,
                 "per_page": likedPerItem
-                ]).validate().responseJSON(completionHandler: {response in
+                ], headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
                     switch response.result {
                     case .success(let value):
                         reachLimit = false
@@ -409,7 +410,10 @@ class BaseNetworkRequest: NSObject {
     // MARK: get post photos
     class func getPostPhoto(_ tableViewController: PostTableViewController) {
         tableViewController.noData = false
-        Alamofire.request("https://api.unsplash.com/users/\(username)/photos", parameters: ["client_id": clientID!]).validate().responseJSON(completionHandler: {response in
+        Alamofire.request("https://api.unsplash.com/users/\(username)/photos", parameters: [
+            "client_id": clientID!,
+            "username": username,
+            ], headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
                 switch response.result {
                 case .success(let value):
                     reachLimit = false
