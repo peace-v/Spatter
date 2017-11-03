@@ -63,7 +63,6 @@ class ProfileViewController: UIViewController {
                 return [MenuItem1(), MenuItem2()]
             }
             var height: CGFloat = 44
-//            var displayMode: MenuDisplayMode = MenuDisplayMode.infinite(widthMode: .fixed(width: UIScreen.main.bounds.size.width/2), scrollingMode: .scrollEnabled)
             var displayMode: MenuDisplayMode = MenuDisplayMode.segmentedControl
             var focusMode: MenuFocusMode = MenuFocusMode.underline(height: 2, color: UIColor.black, horizontalPadding: 0, verticalPadding: 5)
             var menuPosition: MenuPosition = .top

@@ -101,13 +101,6 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
         isNavHidden = false
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.oauthUser(_:)), name: NSNotification.Name(rawValue: "DismissSafariVC"), object: nil)
-        
-        // configure the statusbar notification
-        JDStatusBarNotification.setDefaultStyle { (JDStatusBarStyle) -> JDStatusBarStyle! in
-            JDStatusBarStyle?.barColor = UIColor.white
-            JDStatusBarStyle?.textColor = UIColor.black
-            return JDStatusBarStyle
-        }
 	}
     
     override func viewDidAppear(_ animated: Bool) {
@@ -138,12 +131,6 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
     // MARK: UIScrollViewDelegate
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if scrollView.contentSize.height - scrollView.contentOffset.y - scrollView.frame.size.height <= 0 {
-//            isFooterShowed = true
-//        } else {
-//            isFooterShowed = false
-//        }
-        
         let velocity = scrollView.panGestureRecognizer.velocity(in: scrollView)
         if velocity.y > 0 {
             // 下拉
@@ -223,6 +210,7 @@ class MainViewController: BaseTableViewController, SFSafariViewControllerDelegat
         likedPhotoIDArray = []
         likedPhotosArray = []
         likedTotalItems = 0
+        BaseNetworkRequest.likedPage = 1
         username = ""
         avatarURL = ""
     }

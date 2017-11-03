@@ -226,7 +226,9 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 	@objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
 		if error == nil {
-			JDStatusBarNotification.show(withStatus: NSLocalizedString("Image saved", comment: ""), dismissAfter: 1.5)
+            PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Image saved", comment: "")))
+            PKHUD.sharedHUD.show()
+            PKHUD.sharedHUD.hide(afterDelay: 0.5)
 		} else {
 			let alert = UIAlertController(title: NSLocalizedString("Failed to save image", comment: ""), message: NSLocalizedString("Please allow Spatter to access Photos in Settings app", comment: ""), preferredStyle: .alert)
 			let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil)
@@ -297,7 +299,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 		PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Server has reached it's limit", comment: "") + "\n" + NSLocalizedString("Have a break and come back later", comment: "")))
 		PKHUD.sharedHUD.show()
-		PKHUD.sharedHUD.hide(afterDelay: 2.5)
+		PKHUD.sharedHUD.hide(afterDelay: 2.0)
 	}
 
 	@objc func somethingWentWrong(_ notification: Notification) {
@@ -307,7 +309,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 
 		PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Oops, something went wrong", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
 		PKHUD.sharedHUD.show()
-		PKHUD.sharedHUD.hide(afterDelay: 2.5)
+		PKHUD.sharedHUD.hide(afterDelay: 2.0)
 	}
 
 	// MARK: help function
@@ -324,7 +326,7 @@ class DetailViewController: UIViewController, SFSafariViewControllerDelegate {
 	func noNetwork() {
 		PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Cannot connect to Internet", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
 		PKHUD.sharedHUD.show()
-		PKHUD.sharedHUD.hide(afterDelay: 2.5)
+		PKHUD.sharedHUD.hide(afterDelay: 2.0)
 
 		if (self.image == UIImage(named: "loading-black")) {
 			self.image = UIImage(named: "noNetwork")!

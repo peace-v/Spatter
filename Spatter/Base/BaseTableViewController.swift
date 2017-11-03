@@ -85,11 +85,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 	}
 
 	// MARK: - Table view data source
-
-	override func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
-	}
-
+    
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var number = 0
 		if self.successfullyGetJsonData {
@@ -237,7 +233,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		} else {
 			PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Cannot connect to Internet", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
 			PKHUD.sharedHUD.show()
-			PKHUD.sharedHUD.hide(afterDelay: 2.5)
+			PKHUD.sharedHUD.hide(afterDelay: 2.0)
 		}
 	}
 
@@ -250,7 +246,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		} else {
 			PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Server has reached it's limit", comment: "") + "\n" + NSLocalizedString("Have a break and come back later", comment: "")))
 			PKHUD.sharedHUD.show()
-			PKHUD.sharedHUD.hide(afterDelay: 2.5)
+			PKHUD.sharedHUD.hide(afterDelay: 2.0)
 		}
 	}
 
@@ -263,7 +259,7 @@ class BaseTableViewController: UITableViewController, DZNEmptyDataSetSource, DZN
 		} else {
 			PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Oops, something went wrong", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
 			PKHUD.sharedHUD.show()
-			PKHUD.sharedHUD.hide(afterDelay: 2.5)
+			PKHUD.sharedHUD.hide(afterDelay: 2.0)
 		}
 	}
 

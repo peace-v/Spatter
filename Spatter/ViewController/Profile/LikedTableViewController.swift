@@ -11,7 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class LikedTableViewController: BaseTableViewController {
-	
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -23,6 +23,7 @@ class LikedTableViewController: BaseTableViewController {
 		self.tableView.mj_footer = footer
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(LikedTableViewController.getLikedPhotos(_:)), name: NSNotification.Name(rawValue: "LoadLikedPhotos"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LikedTableViewController.noData(_:)), name: NSNotification.Name(rawValue: "NoLikedPhoto"), object: nil)
 	}
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,8 +34,8 @@ class LikedTableViewController: BaseTableViewController {
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "LoadLikedPhotos"), object: nil)
-        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "LoadLikedPhotos"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "NoLikedPhoto"), object: nil)
 	}
     
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -71,6 +72,15 @@ class LikedTableViewController: BaseTableViewController {
 		cache.removeAllCachedResponses()
 		BaseNetworkRequest.getLikedPhoto(self)
 	}
+
+    @objc override func noData(_ notification: Notification) {
+        isConnectedInternet = true
+        noData = true
+        somethingWrong = false
+        reachLimit = false
+        self.photosArray = []
+        self.tableView.reloadData()
+    }
     
     // MARK: DZEmptyDataSet
     

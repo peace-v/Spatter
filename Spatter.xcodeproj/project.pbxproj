@@ -20,11 +20,7 @@
 		220F0AC61F1F44340033AD72 /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220F0AC01F1F44340033AD72 /* PKHUD.framework */; };
 		220F0AC71F1F44340033AD72 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220F0AC11F1F44340033AD72 /* SwiftyJSON.framework */; };
 		220F0ACA1F1F4BA60033AD72 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220F0AC91F1F4BA60033AD72 /* SDWebImage.framework */; };
-		220F0B481F1F581C0033AD72 /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 220F0AFB1F1F581C0033AD72 /* CMPopTipView.m */; };
 		220F0B491F1F581C0033AD72 /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 220F0AFF1F1F581C0033AD72 /* UIScrollView+EmptyDataSet.m */; };
-		220F0B4A1F1F581C0033AD72 /* JDStatusBarNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 220F0B021F1F581C0033AD72 /* JDStatusBarNotification.m */; };
-		220F0B4B1F1F581C0033AD72 /* JDStatusBarStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 220F0B041F1F581C0033AD72 /* JDStatusBarStyle.m */; };
-		220F0B4C1F1F581C0033AD72 /* JDStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 220F0B061F1F581C0033AD72 /* JDStatusBarView.m */; };
 		220F0B4D1F1F581C0033AD72 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 220F0B0A1F1F581C0033AD72 /* MJRefreshAutoFooter.m */; };
 		220F0B4E1F1F581C0033AD72 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 220F0B0C1F1F581C0033AD72 /* MJRefreshBackFooter.m */; };
 		220F0B4F1F1F581C0033AD72 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 220F0B0E1F1F581C0033AD72 /* MJRefreshComponent.m */; };
@@ -103,17 +99,9 @@
 		220F0AC01F1F44340033AD72 /* PKHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PKHUD.framework; path = Carthage/Build/iOS/PKHUD.framework; sourceTree = "<group>"; };
 		220F0AC11F1F44340033AD72 /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		220F0AC91F1F4BA60033AD72 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/iOS/SDWebImage.framework; sourceTree = "<group>"; };
-		220F0AFA1F1F581C0033AD72 /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
-		220F0AFB1F1F581C0033AD72 /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
 		220F0AFD1F1F581C0033AD72 /* DZNEmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DZNEmptyDataSet.h; sourceTree = "<group>"; };
 		220F0AFE1F1F581C0033AD72 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		220F0AFF1F1F581C0033AD72 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
-		220F0B011F1F581C0033AD72 /* JDStatusBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarNotification.h; sourceTree = "<group>"; };
-		220F0B021F1F581C0033AD72 /* JDStatusBarNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarNotification.m; sourceTree = "<group>"; };
-		220F0B031F1F581C0033AD72 /* JDStatusBarStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarStyle.h; sourceTree = "<group>"; };
-		220F0B041F1F581C0033AD72 /* JDStatusBarStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarStyle.m; sourceTree = "<group>"; };
-		220F0B051F1F581C0033AD72 /* JDStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarView.h; sourceTree = "<group>"; };
-		220F0B061F1F581C0033AD72 /* JDStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarView.m; sourceTree = "<group>"; };
 		220F0B091F1F581C0033AD72 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		220F0B0A1F1F581C0033AD72 /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
 		220F0B0B1F1F581C0033AD72 /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
@@ -284,24 +272,13 @@
 		220F0AF81F1F581C0033AD72 /* 3rdLib */ = {
 			isa = PBXGroup;
 			children = (
-				220F0AF91F1F581C0033AD72 /* CMPopTipView */,
 				220F0AFC1F1F581C0033AD72 /* DZNEmptyDataSet */,
-				220F0B001F1F581C0033AD72 /* JDStatusBarNotification */,
 				220F0B071F1F581C0033AD72 /* MJRefresh */,
 				220F0B361F1F581C0033AD72 /* RWDropdownMenu */,
 				220F0B3D1F1F581C0033AD72 /* SubjectiveCPhotoPanner */,
 				220F0B421F1F581C0033AD72 /* TMReachability */,
 			);
 			path = 3rdLib;
-			sourceTree = "<group>";
-		};
-		220F0AF91F1F581C0033AD72 /* CMPopTipView */ = {
-			isa = PBXGroup;
-			children = (
-				220F0AFA1F1F581C0033AD72 /* CMPopTipView.h */,
-				220F0AFB1F1F581C0033AD72 /* CMPopTipView.m */,
-			);
-			path = CMPopTipView;
 			sourceTree = "<group>";
 		};
 		220F0AFC1F1F581C0033AD72 /* DZNEmptyDataSet */ = {
@@ -312,19 +289,6 @@
 				220F0AFF1F1F581C0033AD72 /* UIScrollView+EmptyDataSet.m */,
 			);
 			path = DZNEmptyDataSet;
-			sourceTree = "<group>";
-		};
-		220F0B001F1F581C0033AD72 /* JDStatusBarNotification */ = {
-			isa = PBXGroup;
-			children = (
-				220F0B011F1F581C0033AD72 /* JDStatusBarNotification.h */,
-				220F0B021F1F581C0033AD72 /* JDStatusBarNotification.m */,
-				220F0B031F1F581C0033AD72 /* JDStatusBarStyle.h */,
-				220F0B041F1F581C0033AD72 /* JDStatusBarStyle.m */,
-				220F0B051F1F581C0033AD72 /* JDStatusBarView.h */,
-				220F0B061F1F581C0033AD72 /* JDStatusBarView.m */,
-			);
-			path = JDStatusBarNotification;
 			sourceTree = "<group>";
 		};
 		220F0B071F1F581C0033AD72 /* MJRefresh */ = {
@@ -479,13 +443,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		59D673EFF03A1A917403E114 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		6042458F1C1D4F2D00E79919 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -531,7 +488,6 @@
 				60C558911C12E16600956D19 /* SpatterUITests */,
 				60C558701C12E16600956D19 /* Products */,
 				30DE99E4DAD50A9853979150 /* Frameworks */,
-				59D673EFF03A1A917403E114 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -746,7 +702,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				220F0B4A1F1F581C0033AD72 /* JDStatusBarNotification.m in Sources */,
 				220F0B531F1F581C0033AD72 /* MJRefreshAutoNormalFooter.m in Sources */,
 				220F0B681F1F581C0033AD72 /* BaseTableViewController.swift in Sources */,
 				220F0B631F1F581C0033AD72 /* RWDropdownMenuTransitionController.m in Sources */,
@@ -763,8 +718,6 @@
 				220F0B641F1F581C0033AD72 /* SCImagePanScrollBarView.m in Sources */,
 				220F0B581F1F581C0033AD72 /* MJRefreshGifHeader.m in Sources */,
 				220F09D71F1DF4AF0033AD72 /* AboutViewController.swift in Sources */,
-				220F0B4C1F1F581C0033AD72 /* JDStatusBarView.m in Sources */,
-				220F0B481F1F581C0033AD72 /* CMPopTipView.m in Sources */,
 				220F0B501F1F581C0033AD72 /* MJRefreshFooter.m in Sources */,
 				220F0B491F1F581C0033AD72 /* UIScrollView+EmptyDataSet.m in Sources */,
 				220F0B4F1F1F581C0033AD72 /* MJRefreshComponent.m in Sources */,
@@ -783,7 +736,6 @@
 				220F0B571F1F581C0033AD72 /* MJRefreshBackStateFooter.m in Sources */,
 				220F0B5C1F1F581C0033AD72 /* MJRefreshConst.m in Sources */,
 				220F0B621F1F581C0033AD72 /* RWDropdownMenuCell.m in Sources */,
-				220F0B4B1F1F581C0033AD72 /* JDStatusBarStyle.m in Sources */,
 				220F09D61F1DF4AF0033AD72 /* DetailViewController.swift in Sources */,
 				220F09D91F1DF4AF0033AD72 /* LikedTableViewController.swift in Sources */,
 			);

@@ -3,9 +3,7 @@
 //  expose to Swift.
 //
 
-#import "CMPopTipView.h"
 #import "DZNEmptyDataSet.h"
-#import "JDStatusBarNotification.h"
 #import "MJRefresh.h"
 #import "RWDropdownMenu.h"
 #import "SCImagePanViewController.h"

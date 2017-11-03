@@ -10,6 +10,7 @@ import UIKit
 import AMScrollingNavbar
 import Alamofire
 import SwiftyJSON
+import PKHUD
 
 class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
 
@@ -42,7 +43,6 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
 
 		// configure refreshController
         self.refreshControl = nil
-//		self.refreshControl!.addTarget(self, action: #selector(SearchTableViewController.refreshSearchData), for: .valueChanged)
 
 		footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(SearchTableViewController.getSearchResults))
 		footer.isRefreshingTitleHidden = true
@@ -51,7 +51,6 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        searchBar.becomeFirstResponder()
         if (self.tableView.contentOffset.y < 0 && self.tableView.isEmptyDataSetVisible) {
             self.tableView.contentOffset = CGPoint(x: 0, y: -64)
         }
@@ -101,15 +100,6 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
         BaseNetworkRequest.getSearchResults(self)
     }
 
-//    func refreshSearchData() {
-//        self.photosArray = []
-//        self.photoID = []
-//        self.page = 1
-//        let cache = URLCache.shared
-//        cache.removeAllCachedResponses()
-//        BaseNetworkRequest.getSearchResults(self)
-//    }
-
 	// MARK: data request
 
 	func searchItem() {
@@ -126,7 +116,9 @@ class SearchTableViewController: BaseTableViewController, UISearchBarDelegate {
 			self.query = searchBar.text!.lowercased()
 			BaseNetworkRequest.getSearchResults(self)
 		} else {
-			JDStatusBarNotification.show(withStatus: NSLocalizedString("Please enter the search term", comment: ""), dismissAfter: 2.5)
+            PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Please enter the search term", comment: "")))
+            PKHUD.sharedHUD.show()
+            PKHUD.sharedHUD.hide(afterDelay: 2.0)
 		}
 	}
 

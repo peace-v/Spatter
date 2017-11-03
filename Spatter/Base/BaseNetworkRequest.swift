@@ -250,7 +250,7 @@ class BaseNetworkRequest: NSObject {
 	
 	// MARK: like or unlike a photo
     class func likePhoto(_ viewController: DetailViewController, id: String) {
-        Alamofire.request("https://api.unsplash.com/photos/\(id)/like", method: .post, parameters: ["client_id": clientID!], headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
+        Alamofire.request("https://api.unsplash.com/photos/\(id)/like", method: .post, headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
                     switch response.result {
                     case .success:
                         reachLimit = false
@@ -267,7 +267,7 @@ class BaseNetworkRequest: NSObject {
     }
 
 	class func unlikePhoto(_ tableViewController: DetailViewController, id: String) {
-        Alamofire.request("https://api.unsplash.com/photos/\(id)/like", method: .delete, parameters: ["client_id": clientID!], headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
+        Alamofire.request("https://api.unsplash.com/photos/\(id)/like", method: .delete, headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .success:
 					reachLimit = false
@@ -285,7 +285,7 @@ class BaseNetworkRequest: NSObject {
 	
 	// MARK: load user profile
 	class func loadProfile(_ viewController: ProfileViewController? = nil) {
-        Alamofire.request("https://api.unsplash.com/me", parameters: ["client_id": clientID!], headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
+        Alamofire.request("https://api.unsplash.com/me", headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
 				switch response.result {
 				case .success(let value):
 					reachLimit = false
@@ -318,7 +318,6 @@ class BaseNetworkRequest: NSObject {
         tableViewController?.noData = false
         if (likedPhotoIDArray.count < likedTotalItems || likedPhotoIDArray.count == 0) {
             Alamofire.request("https://api.unsplash.com/users/\(username)/likes", parameters: [
-                "client_id": clientID!,
                 "username":username,
                 "page": likedPage,
                 "per_page": likedPerItem
@@ -332,7 +331,7 @@ class BaseNetworkRequest: NSObject {
                         likedTotalItems = Int(response.response?.allHeaderFields["x-total"] as! String)!
                         if (likedTotalItems == 0) {
                             tableViewController?.noData = true
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoData"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoLikedPhoto"), object: nil)
 
                             tableViewController?.refreshControl?.endRefreshing()
                             tableViewController?.successfullyGetJsonData = true
@@ -411,7 +410,6 @@ class BaseNetworkRequest: NSObject {
     class func getPostPhoto(_ tableViewController: PostTableViewController) {
         tableViewController.noData = false
         Alamofire.request("https://api.unsplash.com/users/\(username)/photos", parameters: [
-            "client_id": clientID!,
             "username": username,
             ], headers: ["Authorization": "Bearer \(keychain["access_token"]!)"]).validate().responseJSON(completionHandler: {response in
                 switch response.result {
@@ -423,7 +421,7 @@ class BaseNetworkRequest: NSObject {
                     tableViewController.totalItems = Int(response.response?.allHeaderFields["x-total"] as! String)!
                     if (tableViewController.totalItems == 0) {
                         tableViewController.noData = true
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoData"), object: nil)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "NoPostPhoto"), object: nil)
                         tableViewController.refreshControl?.endRefreshing()
                         tableViewController.successfullyGetJsonData = true
                         tableViewController.tableView.reloadData()
@@ -500,7 +498,7 @@ class BaseNetworkRequest: NSObject {
         } else {
             PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Server has reached it's limit", comment: "") + "\n" + NSLocalizedString("Have a break and come back later", comment: "")))
             PKHUD.sharedHUD.show()
-            PKHUD.sharedHUD.hide(afterDelay: 2.5)
+            PKHUD.sharedHUD.hide(afterDelay: 2.0)
         }
     }
     
@@ -511,7 +509,7 @@ class BaseNetworkRequest: NSObject {
         }else {
             PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Cannot connect to Internet", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
             PKHUD.sharedHUD.show()
-            PKHUD.sharedHUD.hide(afterDelay: 2.5)
+            PKHUD.sharedHUD.hide(afterDelay: 2.0)
         }
     }
     
@@ -524,7 +522,7 @@ class BaseNetworkRequest: NSObject {
         } else {
             PKHUD.sharedHUD.contentView = PKHUDTextView(text: (NSLocalizedString("Oops, something went wrong", comment: "") + "\n" + NSLocalizedString("Please try again", comment: "")))
             PKHUD.sharedHUD.show()
-            PKHUD.sharedHUD.hide(afterDelay: 2.5)
+            PKHUD.sharedHUD.hide(afterDelay: 2.0)
         }
     }
 }

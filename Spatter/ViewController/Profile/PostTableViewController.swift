@@ -23,11 +23,13 @@ class PostTableViewController: BaseTableViewController {
 		self.tableView.mj_footer = footer
         
 		NotificationCenter.default.addObserver(self, selector: #selector(PostTableViewController.getPostPhoto(_:)), name: NSNotification.Name(rawValue: "LoadPostPhotos"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(PostTableViewController.noData(_:)), name: NSNotification.Name(rawValue: "NoPostPhoto"), object: nil)
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "LoadPostPhotos"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "NoPostPhoto"), object: nil)
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -58,6 +60,15 @@ class PostTableViewController: BaseTableViewController {
 		cache.removeAllCachedResponses()
 		BaseNetworkRequest.getPostPhoto(self)
 	}
+
+    @objc override func noData(_ notification: Notification) {
+        isConnectedInternet = true
+        noData = true
+        somethingWrong = false
+        reachLimit = false
+        self.photosArray = []
+        self.tableView.reloadData()
+    }
     
     // MARK: DZEmptyDataSet
     
